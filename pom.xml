@@ -118,4 +118,7 @@ It also can deal with SVG layers. Input can be a file or a URL. Output can be a 
 This means that the tool can be part of a tool chain for creating animations. Simply create an SVG image with several layers, one per step of an animation.
 Then use this tool to create an image per layer and use them in the target publication platform</description>
   <inceptionYear>2011</inceptionYear>
+  <scm>
+  	<connection>scm:git:git@github.com:vdmeer/svg2vector.git</connection>
+  </scm>
 </project>
