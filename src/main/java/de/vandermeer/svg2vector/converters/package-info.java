@@ -14,9 +14,9 @@
  */
 
 /**
- * Base for SVG to Vector converter, including CLI parser and resource.
+ * Properties and converters.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.0.1 build 140626 (26-Jun-14) with Java 1.8
  */
-package de.vandermeer.skb.svg2vector.base;
+package de.vandermeer.svg2vector.converters;

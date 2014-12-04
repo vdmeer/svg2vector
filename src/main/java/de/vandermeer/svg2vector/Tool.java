@@ -13,23 +13,23 @@
  * limitations under the License.
  */
 
-package de.vandermeer.skb.svg2vector;
+package de.vandermeer.svg2vector;
 
 import java.util.Iterator;
 import java.util.Set;
 
 import org.freehep.graphicsbase.util.UserProperties;
 
-import de.vandermeer.skb.svg2vector.base.Cli;
-import de.vandermeer.skb.svg2vector.base.Resources;
-import de.vandermeer.skb.svg2vector.base.SVG;
-import de.vandermeer.skb.svg2vector.base.TargetProperties;
-import de.vandermeer.skb.svg2vector.converters.EmfProperties;
-import de.vandermeer.skb.svg2vector.converters.PdfProperties;
-import de.vandermeer.skb.svg2vector.converters.Svg2Emf;
-import de.vandermeer.skb.svg2vector.converters.Svg2Pdf;
-import de.vandermeer.skb.svg2vector.converters.Svg2Svg;
-import de.vandermeer.skb.svg2vector.converters.SvgProperties;
+import de.vandermeer.svg2vector.base.Cli;
+import de.vandermeer.svg2vector.base.Resources;
+import de.vandermeer.svg2vector.base.SVG;
+import de.vandermeer.svg2vector.base.TargetProperties;
+import de.vandermeer.svg2vector.converters.EmfProperties;
+import de.vandermeer.svg2vector.converters.PdfProperties;
+import de.vandermeer.svg2vector.converters.Svg2Emf;
+import de.vandermeer.svg2vector.converters.Svg2Pdf;
+import de.vandermeer.svg2vector.converters.Svg2Svg;
+import de.vandermeer.svg2vector.converters.SvgProperties;
 
 /**
  * SVG to vector converter.

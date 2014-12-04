@@ -13,28 +13,28 @@
  * limitations under the License.
  */
 
-package de.vandermeer.skb.svg2vector.converters;
+package de.vandermeer.svg2vector.converters;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.gvt.GraphicsNode;
-import org.freehep.graphicsio.emf.EMFGraphics2D;
+import org.freehep.graphicsio.pdf.PDFGraphics2D;
 
-import de.vandermeer.skb.svg2vector.base.SVG;
+import de.vandermeer.svg2vector.base.SVG;
 
 /**
- * EMF target converter.
+ * PDF target converter.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.0.1 build 140626 (26-Jun-14) with Java 1.8
  */
-public class Svg2Emf extends SVG {
+public class Svg2Pdf extends SVG {
 
 	/** Constructor */
-	public Svg2Emf() {
+	public Svg2Pdf() {
 		super();
 	}
 
@@ -44,32 +44,34 @@ public class Svg2Emf extends SVG {
 			return false;
 		}
 
-		GVTBuilder gvtBuilder = new GVTBuilder();
+		GVTBuilder gvtBuilder=new GVTBuilder();
 		GraphicsNode rootNode = gvtBuilder.build(this.bridgeContext, this.svgDocument);
 
-		FileOutputStream emfStream;
-		EMFGraphics2D emfGraphics2D;
+		FileOutputStream pdfStream;
+		PDFGraphics2D pdfGraphics2D;
 		try{
 			if(directory==null){
 				directory = System.getProperty("user.dir");
 			}
-			File output = new File(directory+'/'+filename+".emf");
-			emfStream = new FileOutputStream(output);
-			emfGraphics2D = new EMFGraphics2D(output, this.size);
+			File output = new File(directory+'/'+filename+".pdf");
+			pdfStream = new FileOutputStream(output);
+			pdfGraphics2D = new PDFGraphics2D(pdfStream, this.size);
+			this.properties.getProperties().setProperty(PDFGraphics2D.PAGE_SIZE, PDFGraphics2D.CUSTOM_PAGE_SIZE);
+			this.properties.getProperties().setProperty(PDFGraphics2D.CUSTOM_PAGE_SIZE, this.size);//TODO change if other page size required
 		}
-		catch(FileNotFoundException fnfe){
+		catch(IOException fnfe){
 			return false;
 		}
 
-		emfGraphics2D.setProperties(this.properties.getProperties());
-		emfGraphics2D.setDeviceIndependent(true);
-		emfGraphics2D.startExport();
-		rootNode.paint(emfGraphics2D);
-		emfGraphics2D.endExport();
-		emfGraphics2D.dispose();
+		pdfGraphics2D.setProperties(this.properties.getProperties());
+		pdfGraphics2D.setDeviceIndependent(true);
+		pdfGraphics2D.startExport();
+		rootNode.paint(pdfGraphics2D);
+		pdfGraphics2D.endExport();
+		pdfGraphics2D.dispose();
 
 		try{
-			emfStream.close();
+			pdfStream.close();
 		}
 		catch(Exception ignore){}
 

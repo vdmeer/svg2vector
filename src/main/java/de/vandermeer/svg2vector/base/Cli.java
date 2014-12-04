@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.vandermeer.skb.svg2vector.base;
+package de.vandermeer.svg2vector.base;
 
 import java.awt.Color;
 

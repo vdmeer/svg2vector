@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-package de.vandermeer.skb.svg2vector.converters;
+package de.vandermeer.svg2vector.converters;
 
 import java.awt.Color;
 
 import org.freehep.graphicsio.svg.SVGGraphics2D;
 
-import de.vandermeer.skb.svg2vector.base.TargetProperties;
+import de.vandermeer.svg2vector.base.TargetProperties;
 
 /**
  * Properties for the SVG target.

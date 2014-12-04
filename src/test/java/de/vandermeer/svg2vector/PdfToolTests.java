@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 
-package de.vandermeer.skb.svg2vector;
+package de.vandermeer.svg2vector;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.vandermeer.skb.svg2vector.Tool;
+import de.vandermeer.svg2vector.Tool;
 
-public class SvgToolTests {
+public class PdfToolTests {
 	String[] args;
 
 	Tool tool=new Tool();
@@ -48,11 +48,11 @@ public class SvgToolTests {
 	public void testSingleLayer1(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"pdf",
 				"--file",
 				"src/test/resources/files/input/chomsky-hierarchy.svgz",
 				"-d",
-				"src/test/outputs/files/svg",
+				"src/test/outputs/files/pdf",
 		};
 		assertEquals(0, tool.execute(args));
 	}
@@ -61,13 +61,13 @@ public class SvgToolTests {
 	public void testSingleLayer2(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"pdf",
 				"--file",
 				"src/test/resources/files/input/session-cards.svgz",
 				"-d",
-				"src/test/outputs/files/svg",
+				"src/test/outputs/files/pdf",
 				"-o",
-				"sessionCardsSvg"
+				"sessionCardsPdf"
 		};
 		assertEquals(0, tool.execute(args));
 	}
@@ -76,11 +76,11 @@ public class SvgToolTests {
 	public void testMultiLayer1(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"pdf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/svg/layers/index",
+				"src/test/outputs/files/pdf/layers/index",
 				"-v",
 				"-l",
 				"-i"
@@ -92,11 +92,11 @@ public class SvgToolTests {
 	public void testMultiLayer2(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"pdf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/svg/layers/id",
+				"src/test/outputs/files/pdf/layers/id",
 				"-v",
 				"-l",
 				"-I"

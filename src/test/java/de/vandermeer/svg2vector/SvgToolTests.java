@@ -13,14 +13,15 @@
  * limitations under the License.
  */
 
-package de.vandermeer.skb.svg2vector;
+package de.vandermeer.svg2vector;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.vandermeer.svg2vector.Tool;
 
-public class EmfToolTests {
+public class SvgToolTests {
 	String[] args;
 
 	Tool tool=new Tool();
@@ -47,11 +48,11 @@ public class EmfToolTests {
 	public void testSingleLayer1(){
 		args=new String[]{
 				"-t",
-				"emf",
+				"svg",
 				"--file",
 				"src/test/resources/files/input/chomsky-hierarchy.svgz",
 				"-d",
-				"src/test/outputs/files/emf",
+				"src/test/outputs/files/svg",
 		};
 		assertEquals(0, tool.execute(args));
 	}
@@ -60,13 +61,13 @@ public class EmfToolTests {
 	public void testSingleLayer2(){
 		args=new String[]{
 				"-t",
-				"emf",
+				"svg",
 				"--file",
 				"src/test/resources/files/input/session-cards.svgz",
 				"-d",
-				"src/test/outputs/files/emf",
+				"src/test/outputs/files/svg",
 				"-o",
-				"sessionCardsEmf"
+				"sessionCardsSvg"
 		};
 		assertEquals(0, tool.execute(args));
 	}
@@ -75,11 +76,11 @@ public class EmfToolTests {
 	public void testMultiLayer1(){
 		args=new String[]{
 				"-t",
-				"emf",
+				"svg",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/emf/layers/index",
+				"src/test/outputs/files/svg/layers/index",
 				"-v",
 				"-l",
 				"-i"
@@ -91,11 +92,11 @@ public class EmfToolTests {
 	public void testMultiLayer2(){
 		args=new String[]{
 				"-t",
-				"emf",
+				"svg",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/emf/layers/id",
+				"src/test/outputs/files/svg/layers/id",
 				"-v",
 				"-l",
 				"-I"
