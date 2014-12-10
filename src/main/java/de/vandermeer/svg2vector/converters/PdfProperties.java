@@ -25,7 +25,7 @@ import de.vandermeer.svg2vector.base.TargetProperties;
  * Properties for the PDF target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.0.1 build 140626 (26-Jun-14) with Java 1.8
+ * @version    v1.0.2 build 141210 (10-Dec-14) for Java 1.7
  */
 public class PdfProperties extends TargetProperties {
 
