@@ -1,0 +1,15 @@
+v1.0.2 - feature add - 2014-##-##
+---------------------------------
+* updated for FreeHep 2.4 release
+* moved to maven build
+* started separate GIT repo for the tool
+
+
+v1.0.1 - minor changes - 2014-06-25
+-----------------------------------
+* changed PDF margins to proper FreeHep handling +properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");+ in +PdfProperties+
+
+
+v1.0.0 - initial release - 2014-06-10
+-------------------------------------
+* still requires a patch to PDF graphics for custom page size for PDF images: https://github.com/freehep/freehep-vectorgraphics/pull/25/files
