@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import de.vandermeer.svg2vector.Tool;
 
-public class SvgToolTests {
+public class Test_EmfTool {
 	String[] args;
 
 	Tool tool=new Tool();
@@ -48,11 +48,11 @@ public class SvgToolTests {
 	public void testSingleLayer1(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"emf",
 				"--file",
 				"src/test/resources/files/input/chomsky-hierarchy.svgz",
 				"-d",
-				"src/test/outputs/files/svg",
+				"src/test/outputs/files/emf",
 		};
 		assertEquals(0, tool.execute(args));
 	}
@@ -61,13 +61,13 @@ public class SvgToolTests {
 	public void testSingleLayer2(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"emf",
 				"--file",
 				"src/test/resources/files/input/session-cards.svgz",
 				"-d",
-				"src/test/outputs/files/svg",
+				"src/test/outputs/files/emf",
 				"-o",
-				"sessionCardsSvg"
+				"sessionCardsEmf"
 		};
 		assertEquals(0, tool.execute(args));
 	}
@@ -76,11 +76,11 @@ public class SvgToolTests {
 	public void testMultiLayer1(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"emf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/svg/layers/index",
+				"src/test/outputs/files/emf/layers/index",
 				"-v",
 				"-l",
 				"-i"
@@ -92,11 +92,11 @@ public class SvgToolTests {
 	public void testMultiLayer2(){
 		args=new String[]{
 				"-t",
-				"svg",
+				"emf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/svg/layers/id",
+				"src/test/outputs/files/emf/layers/id",
 				"-v",
 				"-l",
 				"-I"

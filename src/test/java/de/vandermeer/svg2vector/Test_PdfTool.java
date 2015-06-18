@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import de.vandermeer.svg2vector.Tool;
 
-public class PdfToolTests {
+public class Test_PdfTool {
 	String[] args;
 
 	Tool tool=new Tool();
