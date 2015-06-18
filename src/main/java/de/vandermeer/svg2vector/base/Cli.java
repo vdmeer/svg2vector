@@ -27,7 +27,7 @@ import org.apache.commons.cli.PosixParser;
  * Command line parser for the converter.
  * 
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.0.2 build 141210 (10-Dec-14) for Java 1.7
+ * @version    v1.0.2 build 150618 (18-Jun-15) for Java 1.7
  */
 public class Cli {
 

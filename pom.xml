@@ -32,6 +32,19 @@
 		<maven>3.0.0</maven>
 	</prerequisites>
 
+	<distributionManagement>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>SKB Repository</name>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>SKB Repository</name>
+			<url>http://oss.sonatype.org/content/repositories/skb-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<scm>
 		<developerConnection>scm:git:git@github.com:vdmeer/svg2vector.git</developerConnection>
 		<connection>scm:git:git://github.com/vdmeer/svg2vector.git</connection>
@@ -45,6 +58,21 @@
 	</issueManagement>
 
 	<dependencies>
+		<dependency>
+			<groupId>de.vandermeer</groupId>
+			<artifactId>execs</artifactId>
+			<version>0.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>de.vandermeer</groupId>
+			<artifactId>asciitable</artifactId>
+			<version>0.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>de.vandermeer</groupId>
+			<artifactId>skb.base</artifactId>
+			<version>0.0.3</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-cli</groupId>
 			<artifactId>commons-cli</artifactId>
@@ -165,7 +193,7 @@
 				<version>1.5.0</version>
 				<executions>
 					<execution>
-						<id>package-asciidoc</id><phase>generate-resources</phase>
+						<id>package-asciidoc</id><phase>package</phase>
 						<configuration>
 							<sourceDirectory>src/package/doc</sourceDirectory>
 							<outputDirectory>./</outputDirectory>
@@ -197,42 +225,49 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<optimize>true</optimize>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<excludes>
+						<exclude>**/doc-files/</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
-<!--
+
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.2</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
 					<optimize>true</optimize>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
--->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.10.1</version>
-				<configuration>
-					<encoding>${project.resources.sourceEncoding}</encoding>
-					<docencoding>${project.resources.sourceEncoding}</docencoding>
-					<charset>${project.resources.sourceEncoding}</charset>
-					<aggregate>true</aggregate>
-					<overview>overview.html</overview>
-					<nohelp>true</nohelp>
-					<header>${project.name}: ${project.version}</header>
-					<footer>${project.name}: ${project.version}</footer>
-					<doctitle>${project.name}: ${project.version}</doctitle>
-				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<encoding>${project.resources.sourceEncoding}</encoding>
+							<docencoding>${project.resources.sourceEncoding}</docencoding>
+							<charset>${project.resources.sourceEncoding}</charset>
+							<aggregate>true</aggregate>
+							<overview>overview.html</overview>
+							<nohelp>true</nohelp>
+							<header>${project.name}: ${project.version}</header>
+							<footer>${project.name}: ${project.version}</footer>
+							<doctitle>${project.name}: ${project.version}</doctitle>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -240,13 +275,28 @@
 					<execution>
 						<phase>install</phase>
 						<goals>
-						  <goal>copy-dependencies</goal>
+							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/lib</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>		</plugins>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
+	<packaging>jar</packaging>
 </project>
