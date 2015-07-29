@@ -62,7 +62,7 @@
 			<id>vdmeer.sven</id>
 			<name>Sven van der Meer</name>
 			<email>vdmeer.sven@mykolab.com</email>
-				<url>http://www.example.com/jdoe</url>
+				<url>http://www.vandermeer.de</url>
 <!--
 				<organization>ACME</organization>
 				<organizationUrl>http://www.example.com</organizationUrl>
@@ -85,25 +85,11 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>de.vandermeer</groupId>
-			<artifactId>execs</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>de.vandermeer</groupId>
-			<artifactId>asciitable</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>de.vandermeer</groupId>
-			<artifactId>skb.base</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-cli</groupId>
 			<artifactId>commons-cli</artifactId>
 			<version>1.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>batik</groupId>
 			<artifactId>batik-bridge</artifactId>
@@ -203,25 +189,28 @@
 			<version>2.4.0</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Copy Changelog/Readme and then include in jar with License -->
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
 				<version>1.5.0</version>
 				<executions>
 					<execution>
-						<id>package-asciidoc</id><phase>package</phase>
+						<id>bundle-asciidoc</id>
+						<phase>process-resources</phase>
 						<configuration>
-							<sourceDirectory>src/package/doc</sourceDirectory>
+							<sourceDirectory>src/main/bundle/doc</sourceDirectory>
 							<outputDirectory>./</outputDirectory>
 							<backend>html</backend>
 						</configuration>
@@ -235,15 +224,33 @@
 				<version>2.4.3</version>
 				<executions>
 					<execution>
-						<id>copy-docs</id>
-						<phase>package</phase>
+						<id>copy-bundle-docs</id>
+						<phase>generate-resources</phase>
 						<goals><goal>copy-resources</goal></goals>
 						<configuration>
 							<outputDirectory>./</outputDirectory>
 							<resources>
 								<resource>
-									<directory>src/package/doc</directory>
+									<directory>src/main/bundle/doc</directory>
 									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-to-jar</id>
+						<phase>prepare-package</phase>
+						<goals><goal>copy-resources</goal></goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}</directory>
+									<includes>
+										<include>LICENSE</include>
+										<include>CHANGELOG*</include>
+										<include>README*</include>
+									</includes>
 								</resource>
 							</resources>
 						</configuration>
@@ -296,20 +303,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>2.4</version>
@@ -325,4 +318,5 @@
 		</plugins>
 	</build>
 	<packaging>jar</packaging>
+
 </project>

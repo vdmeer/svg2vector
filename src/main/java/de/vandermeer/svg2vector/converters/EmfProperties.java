@@ -25,7 +25,7 @@ import de.vandermeer.svg2vector.base.TargetProperties;
  * Properties for the EMF target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.0.2 build 150618 (18-Jun-15) for Java 1.7
+ * @version    v1.0.2 build 150701 (01-Jul-15) for Java 1.7
  */
 public class EmfProperties extends TargetProperties {
 
