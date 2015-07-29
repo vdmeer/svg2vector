@@ -1,0 +1,14 @@
+skb.module.version=1.0.2
+skb.module.name=SVG 2 Vector
+skb.module.url=https://github.com/vdmeer/svg2vector
+skb.module.description=SVG to vector converter. This tool converts an SVG graphic to a vector format. Currently supported targets are EMF, PDF and SVG. The tool does support SVG and SVGZ input formats. It also can deal with SVG layers. Input can be a file or a URL. Output can be a single file or a set of files, i.e. handling SVG layers individually. This means that the tool can be part of a tool chain for creating animations. Simply create an SVG image with several layers, one per step of an animation. Then use this tool to create an image per layer and use them in the target publication platform
+skb.module.inceptionYear=2012
+skb.module.properties.compiler.source=1.7
+skb.module.properties.compiler.target=1.7
+skb.module.properties.encoding=UTF-8
+skb.module.scm.developerConnection=scm:git:git@github.com:vdmeer/svg2vector.git
+skb.module.scm.connection=scm:git:git://github.com/vdmeer/svg2vector.git
+skb.module.scm.url=https://github.com/vdmeer/svg2vector
+skb.module.issueManagement.url=https://github.com/vdmeer/svg2vector/issues
+skb.module.issueManagement.system=github
+skb.module.packaging=
