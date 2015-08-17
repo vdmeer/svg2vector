@@ -29,7 +29,7 @@ import de.vandermeer.svg2vector.base.SVG;
  * EMF target converter.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.0.2 build 150701 (01-Jul-15) for Java 1.7
+ * @version    v1.0.2 build 150812 (12-Aug-15) for Java 1.7
  */
 public class Svg2Emf extends SVG {
 
