@@ -204,7 +204,7 @@
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>1.5.0</version>
+				<version>1.5.3</version>
 				<executions>
 					<execution>
 						<id>bundle-asciidoc</id>
@@ -293,7 +293,7 @@
 							<docencoding>${project.resources.sourceEncoding}</docencoding>
 							<charset>${project.resources.sourceEncoding}</charset>
 							<aggregate>true</aggregate>
-							<overview>overview.html</overview>
+							<overview>${basedir}/src/main/javadoc/overview.html</overview>
 							<nohelp>true</nohelp>
 							<header>${project.name}: ${project.version}</header>
 							<footer>${project.name}: ${project.version}</footer>
@@ -301,6 +301,8 @@
 							<noqualifier>all</noqualifier>
 							<detectLinks>true</detectLinks>
 							<detectJavaApiLink>true</detectJavaApiLink>
+							<javadocDirectory>${basedir}/src/main/javadoc</javadocDirectory>
+							<docfilessubdirs>true</docfilessubdirs>
 						</configuration>
 					</execution>
 				</executions>
@@ -320,6 +322,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 
 </project>

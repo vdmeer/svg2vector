@@ -1,3 +1,5 @@
+* removed old module/ settings, added bundle/pm settings
+
 v1.0.2 - feature add - 2015-06-18
 ---------------------------------
 * updated for FreeHep 2.4 release
