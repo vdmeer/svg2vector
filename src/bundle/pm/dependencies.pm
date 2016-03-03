@@ -1,10 +1,4 @@
 		<dependency>
-			<groupId>commons-cli</groupId>
-			<artifactId>commons-cli</artifactId>
-			<version>1.2</version>
-		</dependency>
-
-		<dependency>
 			<groupId>batik</groupId>
 			<artifactId>batik-bridge</artifactId>
 			<version>1.6</version>
@@ -102,11 +96,4 @@
 			<artifactId>xerces</artifactId>
 			<version>2.4.0</version>
 			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
 		</dependency>

@@ -1,4 +1,8 @@
+v1.0.3 - feature add - 2016-03-03
+---------------------------------
 * removed old module/ settings, added bundle/pm settings
+* fixed old dependency problem
+
 
 v1.0.2 - feature add - 2015-06-18
 ---------------------------------
