@@ -25,7 +25,7 @@ import de.vandermeer.svg2vector.base.TargetProperties;
  * Properties for the SVG target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.0.3 build 160303 (03-Mar-16) for Java 1.7
+ * @version    v1.0.3 build 160304 (04-Mar-16) for Java 1.7
  */
 public class SvgProperties extends TargetProperties {
 
