@@ -1,0 +1,23 @@
+<plugin>
+	<artifactId>maven-assembly-plugin</artifactId>
+	<version>2.6</version>
+	<configuration>
+		<descriptorRefs>
+			<descriptorRef>jar-with-dependencies</descriptorRef>
+		</descriptorRefs>
+		<archive>
+			<manifest>
+				<mainClass>de.vandermeer.svg2vector.Tool</mainClass>
+			</manifest>
+		</archive>
+	</configuration>
+	<executions>
+		<execution>
+			<id>make-assembly</id>
+			<phase>package</phase>
+			<goals>
+				<goal>single</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
