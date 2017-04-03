@@ -29,7 +29,7 @@ import de.vandermeer.svg2vector.base.SVG;
  * PDF target converter.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.0.3 build 160306 (06-Mar-16) for Java 1.7
+ * @version    v1.0.3 build 170331 (31-Mar-17) for Java 1.7
  */
 public class Svg2Pdf extends SVG {
 
