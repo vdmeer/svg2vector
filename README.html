@@ -416,6 +416,97 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
 </head>
 <body class="article">
 <div id="header">
@@ -423,6 +514,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_svg_2_vector">SVG 2 Vector</a></li>
+<li><a href="#_using_the_tool_in_an_application">Using the Tool in an Application</a></li>
+<li><a href="#_build_install_application_use_from_command_line">Build, install application, use from command line</a></li>
+<li><a href="#_build_use_executable_jar_from_command_line">Build, use executable jar from command line</a></li>
+<li><a href="#_download_artifacts_from_bintray">Download artifacts from BinTray</a></li>
 </ul>
 </div>
 </div>
@@ -539,10 +634,114 @@ Margins are set to 0, so there are no extras around the converted image either.<
 </div>
 </div>
 </div>
+<h1 id="_using_the_tool_in_an_application" class="sect0">Using the Tool in an Application</h1>
+<div class="paragraph">
+<p>The tool can be used inside an application.
+Simply create a string array with the options the same as if invoked from the command line.
+Then create the tool class and call the execute application method.
+The following code shows an example taken from one the test cases:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+  <td class="code"><pre><span class="predefined-type">String</span><span class="type">[]</span> args = <span class="keyword">new</span> <span class="predefined-type">String</span><span class="type">[]</span>{
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-t</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">emf</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">--input-file</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">src/test/resources/files/input/session-cards.svgz</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-d</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">target/test-output/files/emf</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-o</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">sessionCardsEmf</span><span class="delimiter">&quot;</span></span>
+};
+Svg2Vector_FH app = <span class="keyword">new</span> Svg2Vector_FH();
+app.executeApplication(args);</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<h1 id="_build_install_application_use_from_command_line" class="sect0">Build, install application, use from command line</h1>
+<div class="paragraph">
+<p>One can also clone the repository, build it, and then use the created application artifacts.
+Clone and build the repo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git clone https://github.com/vdmeer/svg2vector.git
+cd svg2vector
+mvn package</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a folder target with all build artifacts.
+In the target folder, one can find application artifacts to run the tool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cd target/application
+ls -l</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The artifacts there are (substitute X/Y/Z with the version you cloned/built)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>svg2vector-X.Y.Z-application.tar.gz</p>
+</li>
+<li>
+<p>svg2vector-X.Y.Z-application.zip</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The tar and zip balls have the same content.
+To install and run the tool on your system, untar (or unzip) one of the archives in a folder of your choice.
+Then run the <code>init.sh</code> script in the <code>bin</code> directory.
+This will create scripts to run the tool for Unix (<code>bin/sh</code>) and if you run <code>init.sh</code> on a CygWin system also for CygWin (<code>bin/cyg</code>) and DOS/Windows (<code>bin/bat</code>).
+Now simple run the script <code>sh/s2v-hp.sh</code> (assuming you are on a Unix system).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>tar xvfz svg2vector-X.Y.Z-application.tar.gz
+cd bin
+./init.sh
+./sh/s2v-hp.sh</pre>
+</div>
+</div>
+<h1 id="_build_use_executable_jar_from_command_line" class="sect0">Build, use executable jar from command line</h1>
+<div class="paragraph">
+<p>Clone and build the system as described above.
+In the folder <code>target/application</code> you find a JAR called <code>svg2vector-X.Y.Z-jar-with-dependencies.jar</code>.
+This JAR can be used to execute the tool directly as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>java -jar svg2vector-X.Y.Z-jar-with-dependencies.jar</pre>
+</div>
+</div>
+<h1 id="_download_artifacts_from_bintray" class="sect0">Download artifacts from BinTray</h1>
+<div class="paragraph">
+<p>Instead of building, you can also download the application artifacts (zip archiive and single jar) from BinTray.
+See <a href="https://bintray.com/vdmeer/generic/svg2vector" class="bare">https://bintray.com/vdmeer/generic/svg2vector</a></p>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-12-10 05:22:43 GMT
+Last updated 2017-04-05 03:11:06 IST
 </div>
 </div>
 </body>

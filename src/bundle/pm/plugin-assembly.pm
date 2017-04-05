@@ -1,0 +1,18 @@
+<plugin>
+	<artifactId>maven-assembly-plugin</artifactId>
+	<executions>
+		<execution>
+			<id>generate-complete-tar</id>
+			<phase>package</phase>
+			<goals>
+				<goal>single</goal>
+			</goals>
+			<configuration>
+				<descriptors>
+					<descriptor>src/main/application/assembly.xml</descriptor>
+				</descriptors>
+				<finalName>application/${project.artifactId}-${project.version}</finalName>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>

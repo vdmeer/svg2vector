@@ -45,3 +45,86 @@ Layer Options:
 * +-l,--one-per-layer+ = activates special process for layers creating one output file per layer
 * +-i,--use-layer-index+ = use layer index for SVG layer processing, default is layer ID
 * +-I,--use-layer-index-id+ = use layer index and ID for SVG layer processing, default is layer ID
+
+
+Using the Tool in an Application
+================================
+
+The tool can be used inside an application.
+Simply create a string array with the options the same as if invoked from the command line.
+Then create the tool class and call the execute application method.
+The following code shows an example taken from one the test cases:
+
+[source, java, linenums]
+----------------------------------------------------------------------------------------
+String[] args = new String[]{
+	"-t",
+	"emf",
+	"--input-file",
+	"src/test/resources/files/input/session-cards.svgz",
+	"-d",
+	"target/test-output/files/emf",
+	"-o",
+	"sessionCardsEmf"
+};
+Svg2Vector_FH app = new Svg2Vector_FH();
+app.executeApplication(args);
+----------------------------------------------------------------------------------------
+
+
+Build, install application, use from command line
+=================================================
+
+One can also clone the repository, build it, and then use the created application artifacts.
+Clone and build the repo:
+
+----
+git clone https://github.com/vdmeer/svg2vector.git
+cd svg2vector
+mvn package
+----
+
+This will create a folder target with all build artifacts.
+In the target folder, one can find application artifacts to run the tool.
+
+----
+cd target/application
+ls -l
+----
+
+The artifacts there are (substitute X/Y/Z with the version you cloned/built)
+
+* svg2vector-X.Y.Z-application.tar.gz
+* svg2vector-X.Y.Z-application.zip
+
+The tar and zip balls have the same content.
+To install and run the tool on your system, untar (or unzip) one of the archives in a folder of your choice.
+Then run the `init.sh` script in the `bin` directory.
+This will create scripts to run the tool for Unix (`bin/sh`) and if you run `init.sh` on a CygWin system also for CygWin (`bin/cyg`) and DOS/Windows (`bin/bat`).
+Now simple run the script `sh/s2v-hp.sh` (assuming you are on a Unix system).
+
+----
+tar xvfz svg2vector-X.Y.Z-application.tar.gz
+cd bin
+./init.sh
+./sh/s2v-hp.sh
+----
+
+
+Build, use executable jar from command line
+===========================================
+
+Clone and build the system as described above.
+In the folder `target/application` you find a JAR called `svg2vector-X.Y.Z-jar-with-dependencies.jar`.
+This JAR can be used to execute the tool directly as follows:
+
+----
+java -jar svg2vector-X.Y.Z-jar-with-dependencies.jar
+----
+
+
+Download artifacts from BinTray
+===============================
+
+Instead of building, you can also download the application artifacts (zip archiive and single jar) from BinTray.
+See https://bintray.com/vdmeer/generic/svg2vector

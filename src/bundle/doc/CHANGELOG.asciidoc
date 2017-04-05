@@ -1,3 +1,12 @@
+v1.1.0 - feature add - 2017-04-05
+---------------------------------
+* removed old CLI implementation, added ExecS as executor
+* added assembly plugin to create an application archive using ExecS script generation
+* fixed problems in the tests as per issue #3 (output now in target not src)
+* added applications for FreeHep and Inkscape converters
+* changed Tool to directly execute the FreeHep application
+
+
 v1.0.3 - feature add - 2016-03-03
 ---------------------------------
 * removed old module/ settings, added bundle/pm settings
