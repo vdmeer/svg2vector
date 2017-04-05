@@ -17,6 +17,8 @@ package de.vandermeer.svg2vector;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import de.vandermeer.svg2vector.Tool;
@@ -25,6 +27,8 @@ public class Test_PdfTool {
 	String[] args;
 
 	Tool tool=new Tool();
+
+	String outDirPrefix = "target/test-outputs/files/pdf/";
 
 	@Test
 	public void testVH(){
@@ -46,26 +50,34 @@ public class Test_PdfTool {
 
 	@Test
 	public void testSingleLayer1(){
+		String outDir = outDirPrefix;
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"pdf",
 				"--file",
 				"src/test/resources/files/input/chomsky-hierarchy.svgz",
 				"-d",
-				"src/test/outputs/files/pdf",
+				outDir,
 		};
 		assertEquals(0, tool.execute(args));
 	}
 
 	@Test
 	public void testSingleLayer2(){
+		String outDir = outDirPrefix;
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"pdf",
 				"--file",
 				"src/test/resources/files/input/session-cards.svgz",
 				"-d",
-				"src/test/outputs/files/pdf",
+				outDir,
 				"-o",
 				"sessionCardsPdf"
 		};
@@ -74,13 +86,17 @@ public class Test_PdfTool {
 
 	@Test
 	public void testMultiLayer1(){
+		String outDir = outDirPrefix + "layers/index";
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"pdf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/pdf/layers/index",
+				outDir,
 				"-v",
 				"-l",
 				"-i"
@@ -90,13 +106,17 @@ public class Test_PdfTool {
 
 	@Test
 	public void testMultiLayer2(){
+		String outDir = outDirPrefix + "layers/id";
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"pdf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/pdf/layers/id",
+				outDir,
 				"-v",
 				"-l",
 				"-I"

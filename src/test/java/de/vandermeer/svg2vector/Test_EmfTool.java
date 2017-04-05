@@ -15,16 +15,18 @@
 
 package de.vandermeer.svg2vector;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
 
 import org.junit.Test;
-
-import de.vandermeer.svg2vector.Tool;
 
 public class Test_EmfTool {
 	String[] args;
 
 	Tool tool=new Tool();
+
+	String outDirPrefix = "target/test-outputs/files/emf/";
 
 	@Test
 	public void testVH(){
@@ -46,26 +48,34 @@ public class Test_EmfTool {
 
 	@Test
 	public void testSingleLayer1(){
+		String outDir = outDirPrefix;
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"emf",
 				"--file",
 				"src/test/resources/files/input/chomsky-hierarchy.svgz",
 				"-d",
-				"src/test/outputs/files/emf",
+				outDir,
 		};
 		assertEquals(0, tool.execute(args));
 	}
 
 	@Test
 	public void testSingleLayer2(){
+		String outDir = outDirPrefix;
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"emf",
 				"--file",
 				"src/test/resources/files/input/session-cards.svgz",
 				"-d",
-				"src/test/outputs/files/emf",
+				outDir,
 				"-o",
 				"sessionCardsEmf"
 		};
@@ -74,13 +84,17 @@ public class Test_EmfTool {
 
 	@Test
 	public void testMultiLayer1(){
+		String outDir = outDirPrefix + "layers/index";
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"emf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/emf/layers/index",
+				outDir,
 				"-v",
 				"-l",
 				"-i"
@@ -90,13 +104,17 @@ public class Test_EmfTool {
 
 	@Test
 	public void testMultiLayer2(){
+		String outDir = outDirPrefix + "layers/id";
+		File file = new File(outDir);
+		file.mkdirs();
+
 		args=new String[]{
 				"-t",
 				"emf",
 				"--file",
 				"src/test/resources/files/input/time-interval-based.svgz",
 				"-d",
-				"src/test/outputs/files/emf/layers/id",
+				outDir,
 				"-v",
 				"-l",
 				"-I"
