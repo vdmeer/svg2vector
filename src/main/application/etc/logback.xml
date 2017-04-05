@@ -1,0 +1,57 @@
+<!DOCTYPE configuration>
+<configuration debug="false">
+	<consolePlugin />
+
+	<!--  General Properties -->
+		<property name="LOG_DIR" value="skb-base" />
+		<property name="BASE_PACKAGE" value="de.vandermeer.skb" />
+	<!-- END -->
+
+	<!--  Patterns: standard (WS) and ws-appender (WS) -->
+		<property name="ES_PATTERN" value="%date{ISO8601} %-4relative %-5level [%thread] %class{2} - %msg%n" />
+		<!-- %date %-5level %thread %logger{48} - %message -->
+		<property name="ES_WS_PATTERN" value="%-5level --> %msg%n" />
+	<!-- END -->
+
+	<!-- Application Master appender -->
+		<appender name="App_Master" class="ch.qos.logback.core.FileAppender">
+			<file>/logs/${LOG_DIR}/master.log</file>
+			<encoder>
+				<pattern>${ES_PATTERN}</pattern>
+			</encoder>
+		</appender>
+	<!-- END -->
+
+	<!-- Appenders to direct to Standard OUT and Standard ERR-->
+		<appender name="SKB_APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>%msg\n</pattern>
+			</encoder>
+		</appender>
+
+		<appender name="SKB_APPENDER_STDERR" class="ch.qos.logback.core.ConsoleAppender">
+			<target>System.err</target>
+			<encoder>
+				<pattern>%msg\n</pattern>
+			</encoder>
+		</appender>
+	<!-- END -->
+
+
+	<logger name="${BASE_PACKAGE}" level="ALL">
+		<appender-ref ref="App_Master" />
+	</logger>
+
+	<logger name="SKB_CONSOLE_OUT" level="INFO">
+		<appender-ref ref="SKB_APPENDER_STDOUT" />
+	</logger>
+
+	<logger name="SKB_CONSOLE_WARN" level="INFO">
+		<appender-ref ref="SKB_APPENDER_STDOUT" />
+	</logger>
+
+	<logger name="SKB_CONSOLE_ERR" level="ERROR">
+		<appender-ref ref="SKB_APPENDER_STDERR" />
+	</logger>
+
+</configuration>

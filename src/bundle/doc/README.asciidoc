@@ -45,3 +45,35 @@ Layer Options:
 * +-l,--one-per-layer+ = activates special process for layers creating one output file per layer
 * +-i,--use-layer-index+ = use layer index for SVG layer processing, default is layer ID
 * +-I,--use-layer-index-id+ = use layer index and ID for SVG layer processing, default is layer ID
+
+
+Using the Tool in an Application
+================================
+
+The tool can be used inside an application.
+Simply create a string array with the options the same as if invoked from the command line.
+Then create the tool class and call the execute application method.
+The following code shows an example taken from one the test cases:
+
+[source, java, linenums]
+----------------------------------------------------------------------------------------
+String[] args = new String[]{
+	"-t",
+	"emf",
+	"--input-file",
+	"src/test/resources/files/input/session-cards.svgz",
+	"-d",
+	"target/test-output/files/emf",
+	"-o",
+	"sessionCardsEmf"
+};
+Svg2Vector_FH app = new Svg2Vector_FH();
+app.executeApplication(args);
+----------------------------------------------------------------------------------------
+
+
+Build and use from command line
+===============================
+
+One can also clone the repository, build it, and then use the created application artifacts.
+

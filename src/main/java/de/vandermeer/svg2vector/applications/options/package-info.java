@@ -1,4 +1,4 @@
-/* Copyright 2014 Sven van der Meer <vdmeer.sven@mykolab.com>
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  */
 
 /**
- * Properties and converters.
+ * Application options for the SVG converters.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0-SNAPSHOT build 170405 (05-Apr-17) for Java 1.8
- * @since      v1.0.0
+ * @since      v1.1.0
  */
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.options;
