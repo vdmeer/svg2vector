@@ -25,7 +25,7 @@ import org.junit.Test;
  * Tests for Svg2Vector_FH with EMF conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v0.0.8 build 170404 (04-Apr-17) for Java 1.8
+ * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_FH_EMF {
