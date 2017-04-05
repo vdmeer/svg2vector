@@ -72,8 +72,8 @@ app.executeApplication(args);
 ----------------------------------------------------------------------------------------
 
 
-Build and use from command line
-===============================
+Build, install application, use from command line
+=================================================
 
 One can also clone the repository, build it, and then use the created application artifacts.
 Clone and build the repo:
@@ -92,13 +92,39 @@ cd target/application
 ls -l
 ----
 
-The artifacts there are
+The artifacts there are (substitute X/Y/Z with the version you cloned/built)
 
-* svg2vector-1.1.0-SNAPSHOT-application.tar.gz
-* svg2vector-1.1.0-SNAPSHOT-application.zip
-* svg2vector-1.1.0-SNAPSHOT-jar-with-dependencies.jar
+* svg2vector-X.Y.Z-application.tar.gz
+* svg2vector-X.Y.Z-application.zip
 
 The tar and zip balls have the same content.
 To install and run the tool on your system, untar (or unzip) one of the archives in a folder of your choice.
 Then run the `init.sh` script in the `bin` directory.
 This will create scripts to run the tool for Unix (`bin/sh`) and if you run `init.sh` on a CygWin system also for CygWin (`bin/cyg`) and DOS/Windows (`bin/bat`).
+Now simple run the script `sh/s2v-hp.sh` (assuming you are on a Unix system).
+
+----
+tar xvfz svg2vector-X.Y.Z-application.tar.gz
+cd bin
+./init.sh
+./sh/s2v-hp.sh
+----
+
+
+Build, use executable jar from command line
+===========================================
+
+Clone and build the system as described above.
+In the folder `target/application` you find a JAR called `svg2vector-X.Y.Z-jar-with-dependencies.jar`.
+This JAR can be used to execute the tool directly as follows:
+
+----
+java -jar svg2vector-X.Y.Z-jar-with-dependencies.jar
+----
+
+
+Download artifacts from BinTray
+===============================
+
+Instead of building, you can also download the application artifacts (zip archiive and single jar) from BinTray.
+See https://bintray.com/vdmeer/generic/svg2vector
