@@ -76,4 +76,29 @@ Build and use from command line
 ===============================
 
 One can also clone the repository, build it, and then use the created application artifacts.
+Clone and build the repo:
 
+----
+git clone https://github.com/vdmeer/svg2vector.git
+cd svg2vector
+mvn package
+----
+
+This will create a folder target with all build artifacts.
+In the target folder, one can find application artifacts to run the tool.
+
+----
+cd target/application
+ls -l
+----
+
+The artifacts there are
+
+* svg2vector-1.1.0-SNAPSHOT-application.tar.gz
+* svg2vector-1.1.0-SNAPSHOT-application.zip
+* svg2vector-1.1.0-SNAPSHOT-jar-with-dependencies.jar
+
+The tar and zip balls have the same content.
+To install and run the tool on your system, untar (or unzip) one of the archives in a folder of your choice.
+Then run the `init.sh` script in the `bin` directory.
+This will create scripts to run the tool for Unix (`bin/sh`) and if you run `init.sh` on a CygWin system also for CygWin (`bin/cyg`) and DOS/Windows (`bin/bat`).
