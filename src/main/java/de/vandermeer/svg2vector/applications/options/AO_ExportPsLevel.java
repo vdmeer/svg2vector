@@ -15,49 +15,45 @@
 
 package de.vandermeer.svg2vector.applications.options;
 
-import java.net.URI;
-
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "uri".
+ * Application option "export-ps-level".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_UriIn extends AbstractApplicationOption<String> {
-
-	/** The input URI, set when parsing command line. */
-	protected URI uri;
+public class AO_ExportPsLevel extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
-	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_UriIn(boolean required, String longDescription){
-		this(required, null, longDescription);
+	public AO_ExportPsLevel(boolean required){
+		this(required, null);
 	}
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
 	 * @param shortOption character for sort version of the option
-	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_UriIn(boolean required, Character shortOption, String longDescription){
-		super("input URI", longDescription);
+	public AO_ExportPsLevel(boolean required, Character shortOption){
+		super(
+				"sets the PS level for export (2 or 3)",
+				"The default PS level used for export in Inkscape is 2."
+		);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("uri");
-		builder.hasArg().argName("URI");
+		builder.longOpt("export-ps-level");
+		builder.hasArg().argName("LEVEL");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}
@@ -68,23 +64,5 @@ public class AO_UriIn extends AbstractApplicationOption<String> {
 			return null;
 		}
 		return value.toString();
-	}
-
-	/**
-	 * Sets the URI.
-	 * @param uri new URI, ignored if null
-	 */
-	public void setURI(URI uri){
-		if(uri!=null){
-			this.uri = uri;
-		}
-	}
-
-	/**
-	 * Returns the URI.
-	 * @return URI, null if not set
-	 */
-	public URI getURI(){
-		return this.uri;
 	}
 }

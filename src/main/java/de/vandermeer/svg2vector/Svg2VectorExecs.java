@@ -27,6 +27,9 @@ import de.vandermeer.svg2vector.applications.Svg2Vector_FH;
  */
 public class Svg2VectorExecs extends ExecS {
 
+	/**
+	 * Crreates a new ExecS object.
+	 */
 	public Svg2VectorExecs(){
 		super("s2v");
 

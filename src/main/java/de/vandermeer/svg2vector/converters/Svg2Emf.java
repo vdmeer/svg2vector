@@ -23,15 +23,14 @@ import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.gvt.GraphicsNode;
 import org.freehep.graphicsio.emf.EMFGraphics2D;
 
-import de.vandermeer.svg2vector.base.SVG;
-
 /**
  * EMF target converter.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @since      v1.0.0
  */
-public class Svg2Emf extends SVG {
+public class Svg2Emf extends Svg {
 
 	/** Constructor */
 	public Svg2Emf() {
@@ -53,7 +52,7 @@ public class Svg2Emf extends SVG {
 			if(directory==null){
 				directory = System.getProperty("user.dir");
 			}
-			File output = new File(directory+'/'+filename+".emf");
+			File output = new File(directory + '/' + filename + ".emf");
 			emfStream = new FileOutputStream(output);
 			emfGraphics2D = new EMFGraphics2D(output, this.size);
 		}

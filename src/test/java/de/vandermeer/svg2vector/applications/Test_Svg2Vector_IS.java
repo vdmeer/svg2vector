@@ -20,20 +20,20 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Simple tests for Svg2Vector_FH.
+ * Simple tests for Svg2Vector_IS.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
- * @since      v1.1.0
+ * @since      v1.2.0
  */
-public class Test_Svg2Vector_FH {
+public class Test_Svg2Vector_IS {
 
 	/** Prefix for tests that create output. */
-	static String outDirPrefix = "target/tests-with-output/s2v-fh/files/";
+	static String outDirPrefix = "target/tests-with-output/s2v-is/files/";
 
 	@Test
 	public void testVH(){
-		Svg2Vector_FH app = new Svg2Vector_FH();
+		Svg2Vector_IS app = new Svg2Vector_IS();
 
 		String[] args = new String[]{
 				""

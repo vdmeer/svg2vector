@@ -23,15 +23,14 @@ import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.gvt.GraphicsNode;
 import org.freehep.graphicsio.pdf.PDFGraphics2D;
 
-import de.vandermeer.svg2vector.base.SVG;
-
 /**
  * PDF target converter.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @since      v1.0.0
  */
-public class Svg2Pdf extends SVG {
+public class Svg2Pdf extends Svg {
 
 	/** Constructor */
 	public Svg2Pdf() {
@@ -53,7 +52,7 @@ public class Svg2Pdf extends SVG {
 			if(directory==null){
 				directory = System.getProperty("user.dir");
 			}
-			File output = new File(directory+'/'+filename+".pdf");
+			File output = new File(directory + '/' + filename + ".pdf");
 			pdfStream = new FileOutputStream(output);
 			pdfGraphics2D = new PDFGraphics2D(pdfStream, this.size);
 			this.properties.getProperties().setProperty(PDFGraphics2D.PAGE_SIZE, PDFGraphics2D.CUSTOM_PAGE_SIZE);

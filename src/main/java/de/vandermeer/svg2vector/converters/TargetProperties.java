@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.base;
+package de.vandermeer.svg2vector.converters;
 
 import java.awt.Color;
 
@@ -25,19 +25,20 @@ import org.freehep.graphicsio.AbstractVectorGraphicsIO;
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @since      v1.0.0
  */
 public abstract class TargetProperties {
 
-	/** Properties that can be set for conversion */
+	/** Properties that can be set for conversion. */
 	protected UserProperties properties;
 
-	/** Flag for using Inkscape layer names */
+	/** Flag for using Inkscape layer names. */
 	boolean useInkscapeLayerName = true;
 
-	/** Flag for using Inkscape layer indices */
+	/** Flag for using Inkscape layer indices. */
 	boolean useInkscapeLayerIndex = false;
 
-	/** Flag for using Inkscape layers */
+	/** Flag for using Inkscape layers. */
 	boolean useOnePerInkscapeLayer = false;
 
 	/**

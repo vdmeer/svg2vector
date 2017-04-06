@@ -21,32 +21,16 @@ import java.util.Set;
 
 import org.freehep.graphicsbase.util.UserProperties;
 
-import de.vandermeer.execs.ExecS_Application;
-import de.vandermeer.execs.options.AO_DirectoryOut;
-import de.vandermeer.execs.options.AO_FileIn;
-import de.vandermeer.execs.options.AO_FileOut;
-import de.vandermeer.execs.options.AO_Target;
-import de.vandermeer.execs.options.AO_Verbose;
-import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.execs.options.ExecS_CliParser;
 import de.vandermeer.svg2vector.applications.options.AO_BackgroundColor;
 import de.vandermeer.svg2vector.applications.options.AO_Clip;
 import de.vandermeer.svg2vector.applications.options.AO_NoBackground;
 import de.vandermeer.svg2vector.applications.options.AO_NotTextAsShape;
 import de.vandermeer.svg2vector.applications.options.AO_NotTransparent;
-import de.vandermeer.svg2vector.applications.options.AO_OnePerLayer;
-import de.vandermeer.svg2vector.applications.options.AO_UriIn;
 import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndex;
 import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndexId;
-import de.vandermeer.svg2vector.base.Resources;
-import de.vandermeer.svg2vector.base.SVG;
-import de.vandermeer.svg2vector.base.TargetProperties;
-import de.vandermeer.svg2vector.converters.EmfProperties;
-import de.vandermeer.svg2vector.converters.PdfProperties;
-import de.vandermeer.svg2vector.converters.Svg2Emf;
-import de.vandermeer.svg2vector.converters.Svg2Pdf;
-import de.vandermeer.svg2vector.converters.Svg2Svg;
-import de.vandermeer.svg2vector.converters.SvgProperties;
+import de.vandermeer.svg2vector.converters.Svg;
+import de.vandermeer.svg2vector.converters.SvgTargets;
+import de.vandermeer.svg2vector.converters.TargetProperties;
 
 /**
  * The Svg2Vector application using the FreeHep library.
@@ -60,7 +44,7 @@ import de.vandermeer.svg2vector.converters.SvgProperties;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class Svg2Vector_FH implements ExecS_Application {
+public class Svg2Vector_FH extends AppBase {
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-hp";
@@ -70,30 +54,6 @@ public class Svg2Vector_FH implements ExecS_Application {
 
 	/** Application version, should be same as the version in the class JavaDoc. */
 	public final static String APP_VERSION = "v1.1.0 build 170405 (05-Apr-17) for Java 1.8";
-
-	/** CLI parser. */
-	ExecS_CliParser cli;
-
-	/** Application option for verbose mode. */
-	AO_Verbose optionVerbose = new AO_Verbose('v');
-
-	/** Application option for target. */
-	AO_Target optionTarget = new AO_Target(true, 't', "target format <target>, supported targets are: pdf, emf, svg");
-
-	/** Application option for input file. */
-	AO_FileIn optionFileIn = new AO_FileIn(true, 'f', "input file <file>, must be a valid SVG file, can be compressed SVG (svgz)");
-
-	/** Application option for output file. */
-	AO_FileOut optionFileOut = new AO_FileOut(false, 'o', "output file name, default is the basename of the input file plus '.pdf'");
-
-	/** Application option for output directory. */
-	AO_DirectoryOut optionDirOut = new AO_DirectoryOut(false, 'd', "output directory, default value is the current directory");
-
-	/** Application option for input URI. */
-	AO_UriIn optionUriIn = new AO_UriIn(false, 'u', "input URI <uri>, must point to a valid SVG file, can be compressed SVG (svgz)");
-
-	/** Application option for one-per-layer mode. */
-	AO_OnePerLayer optionOnePerLayer = new AO_OnePerLayer(false, 'l', "create one output file (for given target) file per SVG layer");
 
 	/** Application option for use-layer-index mode. */
 	AO_UseLayerIndex optionUseLayerIndex = new AO_UseLayerIndex(false, 'i', "use layer index for inkscape layer processing, default is layer ID");
@@ -116,62 +76,45 @@ public class Svg2Vector_FH implements ExecS_Application {
 	/** Application option for no-background mode. */
 	AO_NoBackground optionNoBackground = new AO_NoBackground(false, 'b', "switch off background property");
 
-	/** Resource for conversion */
-	protected final Resources resources = new Resources();
-
 	/**
-	 * Returns a new language application.
+	 * Returns a new application.
 	 */
 	public Svg2Vector_FH(){
-		this.cli = new ExecS_CliParser();
-		this.cli.addOption(this.optionVerbose);
-		this.cli.addOption(this.optionTarget);
-		this.cli.addOption(this.optionFileIn);
-		this.cli.addOption(this.optionFileOut);
-		this.cli.addOption(this.optionDirOut);
-		this.cli.addOption(this.optionUriIn);
+		super(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg});
 
-		this.cli.addOption(this.optionOnePerLayer);
-		this.cli.addOption(this.optionUseLayerIndex);
-		this.cli.addOption(this.optionUseLayerIndexId);
-		this.cli.addOption(this.optionNotTransparent);
-		this.cli.addOption(this.optionNotTextAsShape);
-		this.cli.addOption(this.optionClip);
-		this.cli.addOption(this.optionBackgroundColor);
-		this.cli.addOption(this.optionNoBackground);
+		this.addOption(this.optionUseLayerIndex);
+		this.addOption(this.optionUseLayerIndexId);
+		this.addOption(this.optionNotTransparent);
+		this.addOption(this.optionNotTextAsShape);
+		this.addOption(this.optionClip);
+		this.addOption(this.optionBackgroundColor);
+		this.addOption(this.optionNoBackground);
 	}
 
 	@Override
 	public int executeApplication(String[] args) {
 		// parse command line, exit with help screen if error
-		int ret = ExecS_Application.super.executeApplication(args);
+		int ret = super.executeApplication(args);
 		if(ret!=0){
 			return ret;
 		}
 
-		SVG converter = null;
-		TargetProperties properties = null;
-		switch(this.optionTarget.getValue()){
-			case "pdf":
-				converter = new Svg2Pdf();
-				properties = new PdfProperties();
-				break;
-			case "emf":
-				converter = new Svg2Emf();
-				properties = new EmfProperties();
-				break;
-			case "svg":
-				converter = new Svg2Svg();
-				properties = new SvgProperties();
-				break;
-			default:
-				System.err.println(this.getAppName() + ": " + "target required, see --help for details\n");
-				return -1;
+		SvgTargets target = this.optionTarget.getTarget();
+		Svg converter = target.getConverter();
+		if(converter==null){
+			this.printError("no converter found for target <" + this.optionTarget.getValue() + ">");
+			return -11;
 		}
+
+		TargetProperties properties = target.getTargetProperties();
+		if(properties==null){
+			this.printError("no target properties found for target <" + this.optionTarget.getValue() + ">");
+			return -12;
+		}
+
 		this.setCliProperties(properties);
 		converter.setProperties(properties);
 		return this.convert(properties, converter);
-//		return 0;
 	}
 
 	/**
@@ -180,34 +123,12 @@ public class Svg2Vector_FH implements ExecS_Application {
 	 * @param converter target converter
 	 * @return -1 in case of error (messages printed on STDERR), 0 if successful
 	 */
-	public int convert(TargetProperties properties, SVG converter){
-		String res = this.resources.generateURI(this.optionFileIn.getValue(), this.optionUriIn.getValue());
-		if(!"".equals(res)){
-			this.printError(res);
-			return -1;
-		}
-		if(this.resources.getBasename()==null || this.resources.getUri()==null){
-			return -1;
-		}
+	public int convert(TargetProperties properties, Svg converter){
+		this.printProgress("input URI:        " + this.optionUriIn.getURI());
+		this.printProgress("output directory: " + this.optionDirOut.getValue());
+		this.printProgress("output file:      " + this.optionFileOut.getValue());
 
-		res = this.resources.testOutputDir(this.optionDirOut.getValue());
-		if(!"".equals(res)){
-			this.printError(res);
-			return -1;
-		}
-
-		res = this.resources.testOutput(this.optionFileOut.getValue());
-		if(!"".equals(res)){
-			this.printError(res);
-			return -1;
-		}
-
-		this.printProgress("input URI=" + this.resources.getUri());
-		this.printProgress("input file basename=" + this.resources.getBasename());
-		this.printProgress("output directory=" + this.resources.getDirectory());
-		this.printProgress("output file=" + this.resources.getOutput());
-
-		converter.load(this.resources.getUri());
+		converter.load(this.optionUriIn.getURI());
 
 		if(this.optionVerbose.inCli()==true){
 			UserProperties up = properties.getProperties();
@@ -221,26 +142,8 @@ public class Svg2Vector_FH implements ExecS_Application {
 			}
 		}
 
-		converter.convert(this.resources.getDirectory(), this.resources.getOutput());
+		converter.convert(this.optionDirOut.getValue(), this.optionFileOut.getValue());
 		return 0;
-	}
-
-	/**
-	 * Prints an error message with the application name.
-	 * @param err error message
-	 */
-	public void printError(String err){
-		System.err.println(this.getAppName() + ": " + err + "\n");
-	}
-
-	/**
-	 * Prints progress of the conversion if tool is set to verbose.
-	 * @param msg progress message
-	 */
-	public void printProgress(String msg){
-		if(this.optionVerbose.inCli()==true && msg!=null){
-			System.out.println(this.getAppName() + ": " + msg);
-		}
 	}
 
 	/**
@@ -279,11 +182,6 @@ public class Svg2Vector_FH implements ExecS_Application {
 	}
 
 	@Override
-	public ExecS_CliParser getCli() {
-		return this.cli;
-	}
-
-	@Override
 	public String getAppName() {
 		return APP_NAME;
 	}
@@ -296,27 +194,6 @@ public class Svg2Vector_FH implements ExecS_Application {
 	@Override
 	public String getAppDescription() {
 		return "Converts SVG graphics into other vector formats using FreeHep libraries, with options for handling layers";
-	}
-
-	@Override
-	public ApplicationOption<?>[] getAppOptions() {
-		return new ApplicationOption<?>[]{
-				this.optionVerbose,
-				this.optionTarget,
-				this.optionFileIn,
-				this.optionFileOut,
-				this.optionDirOut,
-				this.optionUriIn,
-
-				this.optionOnePerLayer,
-				this.optionUseLayerIndex,
-				this.optionUseLayerIndexId,
-				this.optionNotTransparent,
-				this.optionNotTextAsShape,
-				this.optionClip,
-				this.optionBackgroundColor,
-				this.optionNoBackground,
-			};
 	}
 
 	@Override

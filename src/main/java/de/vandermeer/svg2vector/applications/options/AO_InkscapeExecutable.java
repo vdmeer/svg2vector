@@ -15,23 +15,18 @@
 
 package de.vandermeer.svg2vector.applications.options;
 
-import java.net.URI;
-
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "uri".
+ * Application option "inkscape-executable".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_UriIn extends AbstractApplicationOption<String> {
-
-	/** The input URI, set when parsing command line. */
-	protected URI uri;
+public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
@@ -40,7 +35,7 @@ public class AO_UriIn extends AbstractApplicationOption<String> {
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_UriIn(boolean required, String longDescription){
+	public AO_InkscapeExecutable(boolean required, String longDescription){
 		this(required, null, longDescription);
 	}
 
@@ -52,12 +47,12 @@ public class AO_UriIn extends AbstractApplicationOption<String> {
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_UriIn(boolean required, Character shortOption, String longDescription){
-		super("input URI", longDescription);
+	public AO_InkscapeExecutable(boolean required, Character shortOption, String longDescription){
+		super("path to Inkscape executable", longDescription);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("uri");
-		builder.hasArg().argName("URI");
+		builder.longOpt("is-exec");
+		builder.hasArg().argName("PATH");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}
@@ -68,23 +63,5 @@ public class AO_UriIn extends AbstractApplicationOption<String> {
 			return null;
 		}
 		return value.toString();
-	}
-
-	/**
-	 * Sets the URI.
-	 * @param uri new URI, ignored if null
-	 */
-	public void setURI(URI uri){
-		if(uri!=null){
-			this.uri = uri;
-		}
-	}
-
-	/**
-	 * Returns the URI.
-	 * @return URI, null if not set
-	 */
-	public URI getURI(){
-		return this.uri;
 	}
 }

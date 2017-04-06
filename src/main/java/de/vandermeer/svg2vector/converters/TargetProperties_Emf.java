@@ -19,21 +19,20 @@ import java.awt.Color;
 
 import org.freehep.graphicsio.emf.EMFGraphics2D;
 
-import de.vandermeer.svg2vector.base.TargetProperties;
-
 /**
  * Properties for the EMF target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @since      v1.0.0
  */
-public class EmfProperties extends TargetProperties {
+public class TargetProperties_Emf extends TargetProperties {
 
 	/**
 	 * Constructor.
 	 * Sets transparency to true, background to false and background color to white.
 	 */
-	public EmfProperties(){
+	public TargetProperties_Emf(){
 		super();
 		this.setPropertyTransparent(true);
 		this.setPropertyBackground(false);
