@@ -20,40 +20,38 @@ import org.apache.commons.cli.Option;
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "export-dpi".
+ * Application option "manual-layers".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_ExportDpi extends AbstractApplicationOption<String> {
+public class AO_ManualLayers extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
+	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ExportDpi(boolean required){
-		this(required, null);
+	public AO_ManualLayers(boolean required, String longDescription){
+		this(required, null, longDescription);
 	}
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
 	 * @param shortOption character for sort version of the option
+	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ExportDpi(boolean required, Character shortOption){
-		super(
-				"set DPI for export",
-				"Resolution for exporting to bitmap and for rasterization of filters in PS/EPS/PDF (default 90)."
-		);
+	public AO_ManualLayers(boolean required, Character shortOption, String longDescription){
+		super("manage layers manually when creating tmp directory", longDescription);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("export-dpi");
-		builder.hasArg().argName("DPI");
+		builder.longOpt("manual-layers");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}
@@ -65,4 +63,5 @@ public class AO_ExportDpi extends AbstractApplicationOption<String> {
 		}
 		return value.toString();
 	}
+
 }

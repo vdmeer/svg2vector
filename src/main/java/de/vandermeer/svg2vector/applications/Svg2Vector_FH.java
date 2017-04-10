@@ -41,7 +41,7 @@ import de.vandermeer.svg2vector.converters.TargetProperties;
  * All options can be set via command line.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Svg2Vector_FH extends AppBase {
@@ -53,7 +53,7 @@ public class Svg2Vector_FH extends AppBase {
 	public final static String APP_DISPLAY_NAME = "Svg2Vector FreeHep";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v1.1.0 build 170405 (05-Apr-17) for Java 1.8";
+	public final static String APP_VERSION = "v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8";
 
 	/** Application option for use-layer-index mode. */
 	AO_UseLayerIndex optionUseLayerIndex = new AO_UseLayerIndex(false, 'i', "use layer index for inkscape layer processing, default is layer ID");

@@ -19,21 +19,27 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.w3c.dom.Node;
 
 import de.vandermeer.svg2vector.applications.options.AO_ExportDpi;
 import de.vandermeer.svg2vector.applications.options.AO_ExportPdfVersion;
 import de.vandermeer.svg2vector.applications.options.AO_ExportPsLevel;
 import de.vandermeer.svg2vector.applications.options.AO_InkscapeExecutable;
+import de.vandermeer.svg2vector.applications.options.AO_ManualLayers;
 import de.vandermeer.svg2vector.applications.options.AO_NotTextAsShape;
+import de.vandermeer.svg2vector.applications.options.AO_SvgFirst;
 import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndex;
 import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndexId;
 import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.BatikLoader;
+import de.vandermeer.svg2vector.loaders.IsFile;
 import de.vandermeer.svg2vector.loaders.SvgDocumentLoader;
 
 /**
@@ -43,13 +49,10 @@ import de.vandermeer.svg2vector.loaders.SvgDocumentLoader;
  * The application calls its FreeHep counterpart to create plain SVG, and then Inkscape to create the target format.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
  * @since      v1.2.0
  */
 public class Svg2Vector_IS extends AppBase {
-
-	/** Standard Inkscape arguments. */
-	String stdIsArgs = "--without-gui --export-area-page";
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-is";
@@ -58,7 +61,7 @@ public class Svg2Vector_IS extends AppBase {
 	public final static String APP_DISPLAY_NAME = "Svg2Vector Inkscape";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v1.1.0 build 170405 (05-Apr-17) for Java 1.8";
+	public final static String APP_VERSION = "v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8";
 
 	/** Application option for use-layer-index mode. */
 	AO_UseLayerIndex optionUseLayerIndex = new AO_UseLayerIndex(false, 'i', "use layer index for inkscape layer processing, default is layer ID");
@@ -81,20 +84,35 @@ public class Svg2Vector_IS extends AppBase {
 	/** Application option to set PDF version for PDF export. */
 	AO_ExportPdfVersion optionExpPdfver = new AO_ExportPdfVersion(false);
 
+	/** Application option to require SVG transformation first, then do the actual target transformation. */
+	AO_SvgFirst optionSvgFirst = new AO_SvgFirst(false, 'g', "requires the tool to generate temporary SVG files first and then us those files to generate the actual target");
+
+	/** Application option to manage layers manually when creating a temporary directory. */
+	AO_ManualLayers optionManualLayers = new AO_ManualLayers(false, 'm', "layers are switched off/on on a raw text file, i.e. not using any SVG or XML library");
+
 	/** Path object for the temporary directory. */
 	Path tmpDir;
+
+	/** File for a temporary created SVG file. */
+	Path tmpFile;
+
+	/** List of Inkscpe layers in an SVG document. */
+	List<Node> layers;
 
 	/**
 	 * Returns a new application.
 	 */
 	public Svg2Vector_IS(){
 		super(SvgTargets.values());
+
 		this.addOption(this.optionUseLayerIndex);
 		this.addOption(this.optionUseLayerIndexId);
 		this.addOption(this.optionNotTextAsShape);
 		this.addOption(this.optionExpDpi);
 		this.addOption(this.optionExpPdfver);
 		this.addOption(this.optionExpPslevel);
+		this.addOption(this.optionSvgFirst);
+		this.addOption(this.optionManualLayers);
 
 		this.addOption(this.optionInkscapeExec);
 	}
@@ -106,7 +124,13 @@ public class Svg2Vector_IS extends AppBase {
 			return ret;
 		}
 
+		SvgTargets target = this.optionTarget.getTarget();
+
 		String fn = this.optionInkscapeExec.getValue();
+		if(StringUtils.isBlank(fn)){
+			this.printError("expected Inkscape executable, found <" + fn + ">");
+			return -2;
+		}
 		File testFD = new File(fn);
 		if(!testFD.exists()){
 			this.printError("Inkscape executable <" + fn + "> does not exist, please check path and filename");
@@ -121,74 +145,207 @@ public class Svg2Vector_IS extends AppBase {
 			return -5;
 		}
 
-		//TODO print other options here
+		StrBuilder isCmd = new StrBuilder();
+		if(fn.contains("\"")){
+			isCmd.clear().append('"');
+		}
+		isCmd.append(fn);
+		if(fn.contains("\"")){
+			isCmd.clear().append('"');
+		}
+		isCmd.append(' ').append("--without-gui --export-area-page");
+		if(!this.optionNotTextAsShape.inCli()){
+			isCmd.append(" --export-text-to-path");
+		}
+		isCmd.append(" --file=${fin}");
 
+		StrBuilder isTmpCmd = new StrBuilder();
+		isTmpCmd.append(isCmd.toCharArray());
+		isTmpCmd.append(" --").append(SvgTargets.svg.getIsCliLong()).append("=${fout}");
+
+		isCmd.append(" --").append(target.getIsCliLong()).append("=${fout}");
+		switch(target){
+			case emf:
+				break;
+			case eps:
+				break;
+			case pdf:
+				if(this.optionExpPdfver.inCli()){
+					isCmd.append(" --export-pdf-version").append(this.optionExpPdfver.getValue());
+				}
+				break;
+			case png:
+				if(this.optionExpDpi.inCli()){
+					isCmd.append(" --export-dpi").append(this.optionExpDpi.getValue());
+				}
+				break;
+			case ps:
+				if(this.optionExpPslevel.inCli()){
+					isCmd.append(" --export-ps-level").append(this.optionExpPslevel.getValue());
+				}
+				break;
+			case svg:
+				break;
+			case wmf:
+				break;
+			default:
+				break;
+		}
+
+		// check for layers if one-per-layer is activated
 		if(this.optionOnePerLayer.inCli()){
-			if((ret = this.createTmpSvgs())!=0){
+			ret = this.getLayers();
+			if(ret<0){
 				return ret;
 			}
 		}
 
-		SvgTargets target = this.optionTarget.getTarget();
-		if(this.tmpDir==null){
-			String fin = this.optionUriIn.getURI().getPath();
-			if(fin.startsWith("/")){
-				fin = StringUtils.substringAfter(fin, "/");
-			}
-			String fout = this.optionDirOut.getValue() + this.optionFileOut.getValue() + "." + target.name();
-			this.printProgress(" -- converting single SVG");
-			this.ExecuteInkscape(fin, fout);
-			this.printProgress("      - done");
+		String fin = this.optionUriIn.getURI().getPath();
+		if(fin.startsWith("/")){
+			fin = StringUtils.substringAfter(fin, "/");
 		}
-		else{
-			for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
-				if(fileEntry.isFile()){
-					String fin = this.tmpDir + "/" + fileEntry.getName();
-					String fout = this.optionDirOut.getValue() + StringUtils.substringBefore(fileEntry.getName(), ".svg") + "." + target.name();
-					this.printProgress(" -- converting temporary layer SVG");
-					this.ExecuteInkscape(fin, fout);
-//					fileEntry.delete();
-					this.printProgress("      - done, tmp file deleted");
+
+		if(this.optionSvgFirst.inCli()){
+			if(this.optionOnePerLayer.inCli()){
+				try{
+					this.tmpDir = Files.createTempDirectory("s2v");
+				}
+				catch (IOException e) {
+					this.printError("problem creating temporary directory with error: " + e.getMessage());
+					return -60;
+				}
+//				this.printProgress("temp directory:   " + this.tmpDir);
+
+				if(this.optionManualLayers.inCli()){
+					IsFile isFile = new IsFile();
+					String err = isFile.read(fin);
+					if(err!=null){
+						this.printError(err);
+						return -99;
+					}
+					for(Node node : this.layers){
+						isFile.switchOffAllLayers();
+						isFile.switchOnLayer(SvgDocumentLoader.getID(node));
+						err = isFile.write(this.tmpDir.toString() + "/" + this.genOutFilename(node, this.layers.indexOf(node)) + ".svg");
+						if(err!=null){
+							this.printError(err);
+							return -99;
+						}
+					}
+				}
+				else{
+					for(Node node : this.layers){
+						String fout = this.tmpDir.toString() + "/" + this.genOutFilename(node, this.layers.indexOf(node)) + ".svg";
+						String nodeId = SvgDocumentLoader.getID(node);
+						StrBuilder nodeCmd = new StrBuilder();
+						nodeCmd.append(isTmpCmd.toCharArray())
+							.append(" -j -i=").append(nodeId)
+							.append(" --select=").append(nodeId);
+						;
+						this.ExecInkscape(nodeCmd, fin, fout);
+						if(ret<0){
+							return ret;
+						}
+					}
 				}
 			}
-//			this.tmpDir.toFile().delete();
+			else{
+				try{
+					this.tmpFile = Files.createTempFile("s2v", null);
+				}
+				catch (IOException e) {
+					this.printError("problem creating temporary file with error: " + e.getMessage());
+					return -60;
+				}
+//				this.printProgress("temp file:   " + this.tmpFile);
+//				this.printProgress(" -- generating temporary SVG");
+				this.ExecInkscape(isTmpCmd, fin, this.tmpFile.toString());
+				if(ret<0){
+					return ret;
+				}
+			}
+		}
+
+		if(this.tmpDir!=null){
+			for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
+				if(fileEntry.isFile()){
+					String finTmp = this.tmpDir + "/" + fileEntry.getName();
+					String fout = this.optionDirOut.getValue() + StringUtils.substringBefore(fileEntry.getName(), ".svg") + "." + target.name();
+//					this.printProgress(" -- converting temporary layer SVG");
+					this.ExecInkscape(isCmd, finTmp, fout);
+				}
+			}
+		}
+		else if(this.tmpFile!=null){
+			this.ExecInkscape(isCmd, this.tmpFile.toString(), this.optionDirOut.getValue() + this.optionFileOut.getValue() + "." + target.name());
+		}
+		else{
+			if(this.optionOnePerLayer.inCli()){
+				for(Node node : this.layers){
+					String fout = this.optionDirOut.getValue() + this.genOutFilename(node, this.layers.indexOf(node)) + "." + target.name();
+					String nodeId = SvgDocumentLoader.getID(node);
+					StrBuilder nodeCmd = new StrBuilder();
+					nodeCmd.append(isCmd.toCharArray())
+						.append(" -j -i=").append(nodeId)
+						.append(" --select=").append(nodeId);
+					;
+					this.ExecInkscape(nodeCmd, fin, fout);
+					if(ret<0){
+						return ret;
+					}
+				}
+			}
+			else{
+				this.ExecInkscape(isCmd, fin, this.optionDirOut.getValue() + this.optionFileOut.getValue() + "." + target.name());
+			}
+		}
+
+		if(this.tmpDir!=null){
+			for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
+				fileEntry.delete();
+			}
+			this.tmpDir.toFile().delete();
+		}
+		if(this.tmpFile!=null){
+			this.tmpFile.toFile().delete();
 		}
 
 		return 0;
 	}
 
-	public int ExecuteInkscape(String fin, String fout){
-		StrBuilder cmd = new StrBuilder();
-		cmd.append("\"" + this.optionInkscapeExec.getCliValue() + "\"")
-			.append(' ')
-			.append(this.stdIsArgs)
-		;
-		if(!this.optionNotTextAsShape.inCli()){
-			cmd.append(" --export-text-to-path");
-		}
-		if(this.optionExpDpi.inCli()){
-			cmd.append(" --export-dpi").append(this.optionExpDpi.getValue());
-		}
-		if(this.optionExpPdfver.inCli()){
-			cmd.append(" --export-pdf-version").append(this.optionExpPdfver.getValue());
-		}
-		if(this.optionExpPslevel.inCli()){
-			cmd.append(" --export-ps-level").append(this.optionExpPslevel.getValue());
+	/**
+	 * Gets the layers from an SVG document and stores them in the layers member.
+	 * @return 0 on success, negative integer on error (with error message printed)
+	 */
+	public int getLayers(){
+		SvgDocumentLoader loader = new BatikLoader();
+
+		boolean loaded = loader.load(this.optionUriIn.getURI());
+		if(loaded==false || loader.documentLoaded()==false){
+			this.printError("problems loading the SVG input file with Batik");
+			return -50;
 		}
 
-		cmd
-			.append(" --file=")
-			.append(fin)
-			.append(" --")
-			.append(this.optionTarget.getTarget().getIsCliLong())
-			.append('=')
-			.append(fout)
-		;
+		this.layers = loader.getInkscapeLayers();
+		if(this.layers.size()==0){
+			this.printError("option one-per-layer selected but input SVG does not have layers");
+			return -51;
+		}
+		return 0;
+	}
+
+	public int ExecInkscape(StrBuilder cmd, String fin, String fout){
+		Map<String, String> valuesMap = new HashMap<>();
+		valuesMap.put("fin", fin);
+		valuesMap.put("fout", fout);
+		StrSubstitutor sub = new StrSubstitutor(valuesMap);
+		String cli = sub.replace(cmd.toString());
+
 		try {
 			this.printProgress("      - from: " + fin);
 			this.printProgress("      - to:   " + fout);
-			this.printProgress("      - cli:  " + cmd);
-			Process p = Runtime.getRuntime().exec(cmd.toString());
+			this.printProgress("      - cli:  " + cli);
+			Process p = Runtime.getRuntime().exec(cli);
 			p.waitFor();
 		}
 		catch (IOException e) {
@@ -199,79 +356,6 @@ public class Svg2Vector_IS extends AppBase {
 			this.printError("InterruptedException exception while executing Inkscape with error: " + e.getMessage());
 			return -111;
 		}
-		return 0;
-	}
-
-	/**
-	 * If the SVG input has layers: creates a temporary directory and safes each layer into a single plain SVG file.
-	 * @return 0 on success, negative integer otherwise
-	 */
-	public int createTmpSvgs(){
-		SvgDocumentLoader loader = new BatikLoader();
-
-		boolean loaded = loader.load(this.optionUriIn.getURI());
-		if(loaded==false || loader.documentLoaded()==false){
-			this.printError("problems loading the SVG input file with Batik");
-			return -50;
-		}
-
-		List<Node> layers = loader.getInkscapeLayers();
-		if(layers.size()==0){
-			this.printError("option one-per-layer selected but input SVG does not have layers");
-			return -51;
-		}
-
-		try {
-			this.tmpDir = Files.createTempDirectory("s2v");
-		}
-		catch (IOException e) {
-			this.printError("problem creating temporary directory with error: " + e.getMessage());
-			return -60;
-		}
-		this.printProgress("temp directory:   " + this.tmpDir);
-
-		String fin = this.optionUriIn.getURI().getPath();
-		if(fin.startsWith("/")){
-			fin = StringUtils.substringAfter(fin, "/");
-		}
-
-		for(Node node : layers){
-			String fout = this.tmpDir.toString() + "/" + this.genOutFilename(node, layers.indexOf(node)) + ".svg";
-			String nodeId = SvgDocumentLoader.getID(node);
-
-			StrBuilder cmd = new StrBuilder();
-			cmd.append("\"" + this.optionInkscapeExec.getCliValue() + "\"")
-				.append(' ')
-				.append(this.stdIsArgs)
-				.append(" --file=")
-				.append(fin)
-				.append(" --")
-				.append(SvgTargets.svg.getIsCliLong())
-				.append('=')
-				.append(fout)
-				.append(" --export-area-page")
-				.append(" -j -i=").append(nodeId)
-				.append(" --select=").append(nodeId);
-			;
-			this.printProgress(" -- generating temporary SVG");
-			this.printProgress("      - from: " + fin);
-			this.printProgress("      - to:   " + fout);
-			this.printProgress("      - cli:  " + cmd);
-
-			try{
-				Process p = Runtime.getRuntime().exec(cmd.toString());
-				p.waitFor();
-			}
-			catch (IOException e) {
-				this.printError("(tmp svg) IO exception while executing Inkscape with error: " + e.getMessage());
-				return -101;
-			}
-			catch (InterruptedException e) {
-				this.printError("(tmp svg) InterruptedException exception while executing Inkscape with error: " + e.getMessage());
-				return -102;
-			}
-		}
-
 		return 0;
 	}
 

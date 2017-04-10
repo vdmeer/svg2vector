@@ -24,7 +24,7 @@ import org.freehep.graphicsio.AbstractVectorGraphicsIO;
  * Target properties for a conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
  * @since      v1.0.0
  */
 public abstract class TargetProperties {

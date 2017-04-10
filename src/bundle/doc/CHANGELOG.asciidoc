@@ -1,3 +1,9 @@
+v1.#.# - feature add - 2017-##-##
+---------------------------------
+- switched to Batik v1.8
+- extended s2v-is functionality
+
+
 v1.1.0 - feature add - 2017-04-05
 ---------------------------------
 * removed old CLI implementation, added ExecS as executor

@@ -25,7 +25,7 @@ import org.junit.Test;
  * Tests for Svg2Vector_IS with EMF conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_IS_EMF {
@@ -47,14 +47,18 @@ public class Test_Svg2Vector_IS_EMF {
 				"-x",
 				"C:/Program Files/Inkscape/inkscape.exe",
 				"--input-file",
-//				"src/test/resources/files/input/time-interval-based.svgz",
-//				"src/test/resources/files/input/session-cards.svgz",
-//				"src/test/resources/files/input/chomsky-hierarchy.svgz",
-				"src/test/resources/files/input/rina-ipc-api.svgz",
+//				"src/test/resources/svg-files/time-interval-based.svgz",
+//				"src/test/resources/svg-files/session-cards.svgz",
+//				"src/test/resources/svg-files/chomsky-hierarchy.svgz",
+
+				"src/test/resources/svg-files/rina-ipc.svgz",
+//				"src/test/resources/svg-files/test.svg",
 				"-d",
 				outDir,
 				"-v",
 				"-l",
+				"-g",
+				"-m"
 		};
 		assertEquals(0, app.executeApplication(args));
 	}
@@ -71,7 +75,7 @@ public class Test_Svg2Vector_IS_EMF {
 //				"-t",
 //				"emf",
 //				"--input-file",
-//				"src/test/resources/files/input/session-cards.svgz",
+//				"src/test/resources/svg-files/session-cards.svgz",
 //				"-d",
 //				outDir,
 //				"-o",
@@ -92,7 +96,7 @@ public class Test_Svg2Vector_IS_EMF {
 //				"-t",
 //				"emf",
 //				"--input-file",
-//				"src/test/resources/files/input/time-interval-based.svgz",
+//				"src/test/resources/svg-files/time-interval-based.svgz",
 //				"-d",
 //				outDir,
 //				"-v",
@@ -114,7 +118,7 @@ public class Test_Svg2Vector_IS_EMF {
 //				"-t",
 //				"emf",
 //				"--input-file",
-//				"src/test/resources/files/input/time-interval-based.svgz",
+//				"src/test/resources/svg-files/time-interval-based.svgz",
 //				"-d",
 //				outDir,
 //				"-v",

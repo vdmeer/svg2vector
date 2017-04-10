@@ -23,13 +23,13 @@ import org.junit.Test;
  * Simple tests for Svg2Vector_FH.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_FH {
 
 	/** Prefix for tests that create output. */
-	static String outDirPrefix = "target/tests-with-output/s2v-fh/files/";
+	static String outDirPrefix = "target/testoutput/s2v-fh/";
 
 	@Test
 	public void testVH(){
