@@ -108,7 +108,7 @@ public class Test_Svg2Vector_FH_EMF {
 				"emf",
 				"--input-file",
 //				"src/test/resources/svg-files/time-interval-based.svgz",
-				"src/test/resources/svg-files/rina-ipc-is.svgz",
+				"src/test/resources/svg-files/rina-ipc.svgz",
 				"-d",
 				outDir,
 				"-v",
