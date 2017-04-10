@@ -1,7 +1,9 @@
-v1.#.# - feature add - 2017-##-##
+v1.2.0 - feature add - 2017-##-##
 ---------------------------------
-- switched to Batik v1.8
+- switched to Batik v1.6-1 (and cleaned dependencies)
 - extended s2v-is functionality
+- changed main class in jar-with-dependencies to Svg2VectorExecs
+  -- also removed the Tool class, no longer needed
 
 
 v1.1.0 - feature add - 2017-04-05

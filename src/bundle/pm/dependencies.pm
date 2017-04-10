@@ -1,84 +1,8 @@
 
 <dependency>
-	<groupId>org.axsl.org.w3c.dom.svg</groupId>
-	<artifactId>svg-dom-java</artifactId>
-	<version>1.1</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>xerces</groupId>
-	<artifactId>xerces</artifactId>
-	<version>2.4.0</version>
-	<scope>runtime</scope>
-</dependency>
-
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>xmlgraphics-commons</artifactId>
-	<version>2.2</version>
-</dependency>
-
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
+	<groupId>batik</groupId>
 	<artifactId>batik-bridge</artifactId>
-	<version>1.8</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-gvt</artifactId>
-	<version>1.8</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-util</artifactId>
-	<version>1.8</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-dom</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-svg-dom</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-css</artifactId>
-	<version>1.8</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-script</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-ext</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-awt-util</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-parser</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
-</dependency>
-<dependency>
-	<groupId>org.apache.xmlgraphics</groupId>
-	<artifactId>batik-xml</artifactId>
-	<version>1.8</version>
-	<scope>runtime</scope>
+	<version>1.6-1</version>
 </dependency>
 
 <dependency>
