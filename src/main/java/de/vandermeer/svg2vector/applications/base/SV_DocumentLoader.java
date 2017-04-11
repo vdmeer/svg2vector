@@ -15,6 +15,8 @@
 
 package de.vandermeer.svg2vector.applications.base;
 
+import java.util.HashMap;
+
 /**
  * Base class for an SVG document loader.
  *
@@ -27,15 +29,15 @@ public abstract class SV_DocumentLoader {
 	/** Flag indicating if a document is loaded or not. */
 	protected boolean isLoaded;
 
-	/** Flag indicating if a loaded document has layers (2 or more) or not (0 or 1). */
-	protected boolean hasLayers = false;
+	/** List of layers with identifier and index. */
+	protected final HashMap<String, Integer> layers = new HashMap<>();
 
 	/**
 	 * Loads the SVG file.
 	 * @param fn the file name for the SVG document
 	 * @return null on success, error message on error
-	 * @throws NullPointerException if fn was null
-	 * @throws IllegalArgumentException if fn was blank
+	 * @throws NullPointerException if argument was null
+	 * @throws IllegalArgumentException if argument was blank
 	 */
 	public abstract String load(String fn); 
 
@@ -52,11 +54,30 @@ public abstract class SV_DocumentLoader {
 	 * @return true if the document has Inkscape layers (2 or more layers), false otherwise (0 or 1 layer)
 	 */
 	public boolean hasInkscapeLayers(){
-		return isLoaded && hasLayers;
+		return isLoaded && this.layers.size()>1;
 	}
 
 	/**
-	 * Switch on all layers.
+	 * Switch all layers off.
 	 */
 	public abstract void switchOnAllLayers();
+
+	/**
+	 * Switch all layers off.
+	 */
+	public abstract void switchOffAllLayers();
+
+	/**
+	 * Switches on the given layer, nothing happens if the layer was blank or not in the layer list.
+	 * @param layer the layer to be switched on
+	 */
+	public abstract void switchOnLayer(String layer);
+
+	/**
+	 * Returns the map of layers (layer name to index), empty if no layers found.
+	 * @return map of layers
+	 */
+	public HashMap<String, Integer> getLayers(){
+		return this.layers;
+	}
 }

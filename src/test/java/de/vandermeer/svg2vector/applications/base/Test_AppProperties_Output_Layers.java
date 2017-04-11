@@ -49,7 +49,8 @@ public class Test_AppProperties_Output_Layers {
 				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
 				"-d", "target",
 				"-l",
-				"--all-layers"
+				"--all-layers",
+				"--fout-layer-index"
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -71,7 +72,8 @@ public class Test_AppProperties_Output_Layers {
 				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
 				"-d", "target",
 				"-l",
-				"-o", "foo"
+				"-o", "foo",
+				"--fout-layer-index"
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -148,7 +150,6 @@ public class Test_AppProperties_Output_Layers {
 				"-l",
 				"-d", "target/output-tests/app-props/",
 				"--create-directories",
-				"--fout-no-basename"
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -157,7 +158,7 @@ public class Test_AppProperties_Output_Layers {
 		assertNull(props.setInput());
 		String err = props.setOutput();
 		assertNotNull(err);
-		assertEquals("CLI option <fout-no-basename> used but neither <fout-layer-id> nor <fout-layer-index> options requestes, amigious output file names", err);
+		assertEquals("processing layers but neither <fout-layer-id> nor <fout-layer-index> options requestes, amigious output file names", err);
 	}
 
 	@Test
@@ -171,7 +172,6 @@ public class Test_AppProperties_Output_Layers {
 				"-l",
 				"-d", "target/output-tests/app-props/",
 				"--create-directories",
-				"--fout-no-basename"
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -180,29 +180,29 @@ public class Test_AppProperties_Output_Layers {
 		assertNull(props.setInput());
 		String err = props.setOutput();
 		assertNotNull(err);
-		assertEquals("CLI option <fout-no-basename> used but neither <fout-layer-id> nor <fout-layer-index> options requestes, amigious output file names", err);
+		assertEquals("processing layers but neither <fout-layer-id> nor <fout-layer-index> options requestes, amigious output file names", err);
 	}
 
-	@Test
-	public void test_PatternBn(){
-		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
-		cli.addAllOptions(props.getAppOptions());
-		String[] args = new String[]{
-				"-t", "pdf",
-				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
-				"-l", "-d", "target/output-tests/app-props/",
-				"--create-directories",
-				"--use-basename", "base"
-		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
-
-		assertNull(props.setInput());
-		assertNull(props.setOutput());
-		assertEquals("target/output-tests/app-props/base", props.getFoutPattern());
-	}
+//	@Test
+//	public void test_PatternBn(){
+//		ExecS_CliParser cli = new ExecS_CliParser();
+//		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+//		cli.addAllOptions(props.getAppOptions());
+//		String[] args = new String[]{
+//				"-t", "pdf",
+//				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
+//				"-l", "-d", "target/output-tests/app-props/",
+//				"--create-directories",
+//				"--use-basename", "base"
+//		};
+//
+//		assertEquals(null, cli.parse(args));
+//		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
+//
+//		assertNull(props.setInput());
+//		assertNull(props.setOutput());
+//		assertEquals("target/output-tests/app-props/base", props.getFoutPattern());
+//	}
 
 	@Test
 	public void test_PatternBnId(){
@@ -267,25 +267,25 @@ public class Test_AppProperties_Output_Layers {
 		assertEquals("target/output-tests/app-props/base-${index}-${id}", props.getFoutPattern());
 	}
 
-	@Test
-	public void test_PatternBnFin(){
-		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
-		cli.addAllOptions(props.getAppOptions());
-		String[] args = new String[]{
-				"-t", "pdf",
-				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
-				"-l", "-d", "target/output-tests/app-props/",
-				"--create-directories",
-		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
-
-		assertNull(props.setInput());
-		assertNull(props.setOutput());
-		assertEquals("target/output-tests/app-props/rina-ipc", props.getFoutPattern());
-	}
+//	@Test
+//	public void test_PatternBnFin(){
+//		ExecS_CliParser cli = new ExecS_CliParser();
+//		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+//		cli.addAllOptions(props.getAppOptions());
+//		String[] args = new String[]{
+//				"-t", "pdf",
+//				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
+//				"-l", "-d", "target/output-tests/app-props/",
+//				"--create-directories",
+//		};
+//
+//		assertEquals(null, cli.parse(args));
+//		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
+//
+//		assertNull(props.setInput());
+//		assertNull(props.setOutput());
+//		assertEquals("target/output-tests/app-props/rina-ipc", props.getFoutPattern());
+//	}
 
 	@Test
 	public void test_PatternBnFinId(){
@@ -420,6 +420,7 @@ public class Test_AppProperties_Output_Layers {
 				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
 				"-l", "-d", "target/output-tests/app-props/",
 				"--create-directories",
+				"--fout-layer-index"
 		};
 
 		assertEquals(null, cli.parse(args));

@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipException;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
 
 /**
@@ -83,32 +85,91 @@ public class StandardLoader extends SV_DocumentLoader {
 			}
 		}
 
-		int l = 0;
+		boolean inLayer = false;
+		String id = null;
+		String index = null;
 		for(int i=0; i<this.lines.size(); i++){
 			if(this.lines.get(i).contains("inkscape:groupmode=\"layer\"")){
-				l++;
+				inLayer = true;
 			}
-			if(l>1){
-				this.hasLayers = true;
-				break;
+			if(inLayer==true && this.lines.get(i).contains("id=\"layer")){
+				index = StringUtils.substringBetween(this.lines.get(i), "\"");
+				index = StringUtils.substringAfter(index, "layer");
+			}
+			if(inLayer==true && this.lines.get(i).contains("inkscape:label=\"")){
+				id = StringUtils.substringBetween(this.lines.get(i), "\"");
+			}
+			if(id!=null && index!=null){
+				this.layers.put(id, new Integer(index));
+				inLayer = false;
+				id = null;
+				index = null;
 			}
 		}
-
 		return null;
 	}
 
 	@Override
 	public void switchOnAllLayers() {
-		boolean inLine = false;
+		boolean inLayer = false;
 		for(int i=0; i<this.lines.size(); i++){
 			if(this.lines.get(i).contains("inkscape:groupmode=\"layer\"")){
-				inLine = true;
+				inLayer = true;
 			}
-			if(inLine==true && this.lines.get(i).contains("style=\"display:")){
+			if(inLayer==true && this.lines.get(i).contains("style=\"display:")){
 				this.lines.set(i, this.lines.get(i).replace("display:none", "display:inline"));
-				inLine = false;
+				inLayer = false;
 			}
 		}
 	}
 
+	@Override
+	public void switchOffAllLayers() {
+		boolean inLayer = false;
+		for(int i=0; i<this.lines.size(); i++){
+			if(this.lines.get(i).contains("inkscape:groupmode=\"layer\"")){
+				inLayer = true;
+			}
+			if(inLayer==true && this.lines.get(i).contains("style=\"display:")){
+				this.lines.set(i, this.lines.get(i).replace("display:inline", "display:none"));
+				inLayer = false;
+			}
+		}
+	}
+
+	@Override
+	public void switchOnLayer(String layer) {
+		if(StringUtils.isBlank(layer)){
+			return;
+		}
+		if(!this.getLayers().keySet().contains(layer)){
+			return;
+		}
+
+		boolean inLayer = false;
+		boolean foundLayer = false;
+		for(int i=0; i<this.lines.size(); i++){
+			if(this.lines.get(i).contains("inkscape:groupmode=\"layer\"")){
+				inLayer = true;
+			}
+			if(inLayer==true && this.lines.get(i).contains("inkscape:label=\"")){
+				if(layer.equals(StringUtils.substringBetween(this.lines.get(i), "\""))){
+					foundLayer = true;
+				}
+			}
+			if(inLayer==true && foundLayer==true && this.lines.get(i).contains("style=\"display:")){
+				this.lines.set(i, this.lines.get(i).replace("display:none", "display:inline"));
+				inLayer = false;
+				foundLayer = false;
+			}
+		}
+	}
+
+	/**
+	 * Returns the current list of lines.
+	 * @return current list of lines, empty if none added
+	 */
+	public ArrayList<String> getLines(){
+		return this.lines;
+	}
 }

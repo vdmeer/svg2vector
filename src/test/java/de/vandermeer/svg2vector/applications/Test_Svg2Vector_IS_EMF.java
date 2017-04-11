@@ -56,9 +56,10 @@ public class Test_Svg2Vector_IS_EMF {
 				"-d",
 				outDir,
 				"-v",
-				"-l",
+//				"-l",
 				"-g",
-				"-m"
+				"-m",
+				"--fout-layer-id"
 		};
 		assertEquals(0, app.executeApplication(args));
 	}

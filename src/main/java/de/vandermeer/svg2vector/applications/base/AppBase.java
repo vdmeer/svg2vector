@@ -40,14 +40,9 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	final private P props;
 
 	/**
-	 * Returns a new application.
-	 * @throws NullPointerException if
-	 */
-
-	/**
 	 * Creates a new base application.
 	 * @param props the application properties
-	 * @throws NullPointerException if options was null
+	 * @throws NullPointerException if props was null
 	 */
 	public AppBase(P props){
 		Validate.notNull(props);
@@ -55,6 +50,17 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 
 		this.cli = new ExecS_CliParser();
 		this.cli.addAllOptions(this.props.getAppOptions());
+	}
+
+	/**
+	 * Adds a new option to CLI parser and option list.
+	 * @param option new option, ignored if null
+	 */
+	protected void addOption(ApplicationOption<?> option){
+		if(option!=null){
+			this.getCli().addOption(option);
+			this.props.addOption(option);
+		}
 	}
 
 	@Override
@@ -77,12 +83,12 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 
 		if((err = this.props.setInput()) != null){
 			this.printErrorMessage(err);
-			return -20;
+			return -11;
 		}
 
 		if((err = this.props.setOutput()) != null){
 			this.printErrorMessage(err);
-			return -30;
+			return -12;
 		}
 
 		if(this.props.doesNoLayers()){
@@ -98,18 +104,28 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 		}
 		else{
 			this.printErrorMessage("implementation error: something wrong with property settings");
-			return -40;
+			return -13;
 		}
 
 		return 0;
 	}
 
+	@Override
+	public ApplicationOption<?>[] getAppOptions() {
+		return this.props.getAppOptions();
+	}
+
+	@Override
+	public ExecS_CliParser getCli() {
+		return this.cli;
+	}
+
 	/**
-	 * Prints a progress message if activated in mode
-	 * @param msg the message, not printed if blank
+	 * Returns the application properties.
+	 * @return application properties
 	 */
-	public void printProgressMessage(String msg){
-		this.printMessage(msg, MessageTypes.progress);
+	public P getProps(){
+		return this.props;
 	}
 
 	/**
@@ -118,14 +134,6 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	 */
 	public void printDetailMessage(String msg){
 		this.printMessage(msg, MessageTypes.detail);
-	}
-
-	/**
-	 * Prints a warning message if activated in mode
-	 * @param msg the message, not printed if blank
-	 */
-	public void printWarningMessage(String msg){
-		this.printMessage(msg, MessageTypes.warning);
 	}
 
 	/**
@@ -159,23 +167,18 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	}
 
 	/**
-	 * Adds a new option to CLI parser and option list.
-	 * @param option new option, ignored if null
+	 * Prints a progress message if activated in mode
+	 * @param msg the message, not printed if blank
 	 */
-	protected void addOption(ApplicationOption<?> option){
-		if(option!=null){
-			this.getCli().addOption(option);
-			this.props.addOption(option);
-		}
+	public void printProgressMessage(String msg){
+		this.printMessage(msg, MessageTypes.progress);
 	}
 
-	@Override
-	public ExecS_CliParser getCli() {
-		return this.cli;
-	}
-
-	@Override
-	public ApplicationOption<?>[] getAppOptions() {
-		return this.props.getAppOptions();
+	/**
+	 * Prints a warning message if activated in mode
+	 * @param msg the message, not printed if blank
+	 */
+	public void printWarningMessage(String msg){
+		this.printMessage(msg, MessageTypes.warning);
 	}
 }

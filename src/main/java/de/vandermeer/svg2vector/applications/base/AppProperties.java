@@ -17,10 +17,14 @@ package de.vandermeer.svg2vector.applications.base;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.commons.lang3.text.StrSubstitutor;
 
 import de.vandermeer.execs.options.AO_DirectoryOut;
 import de.vandermeer.execs.options.AO_FileIn;
@@ -465,6 +469,10 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		}
 		this.dout = dout;
 
+		if(!this.aoFoutLayerId.inCli() && !this.aoFoutLayerIndex.inCli()){
+			return "processing layers but neither <" + this.aoFoutLayerId.getCliOption().getLongOpt() + "> nor <" + this.aoFoutLayerIndex.getCliOption().getLongOpt() + "> options requestes, amigious output file names";
+		}
+
 		StrBuilder pattern = new StrBuilder();
 		pattern.append(dout);
 		if(!pattern.endsWith("/")){
@@ -481,11 +489,7 @@ public class AppProperties <L extends SV_DocumentLoader> {
 				pattern.append(bn);
 			}
 		}
-		else{
-			if(!this.aoFoutLayerId.inCli() && !this.aoFoutLayerIndex.inCli()){
-				return "CLI option <" + this.aoFoutNoBasename.getCliOption().getLongOpt() + "> used but neither <" + this.aoFoutLayerId.getCliOption().getLongOpt() + "> nor <" + this.aoFoutLayerIndex.getCliOption().getLongOpt() + "> options requestes, amigious output file names";
-			}
-		}
+
 
 		if(this.aoFoutLayerIndex.inCli()){
 			if(!pattern.endsWith("/")){
@@ -503,5 +507,43 @@ public class AppProperties <L extends SV_DocumentLoader> {
 
 		this.foutPattern = pattern.toString();
 		return null;
+	}
+
+	/**
+	 * Returns the text-as-shape flag as set by CLI.
+	 * @return true if text-as-shape is set, false otherwise
+	 */
+	public boolean doesTextAsShape(){
+		return this.aoTextAsShape.inCli();
+	}
+
+	/**
+	 * Returns a file name when dealing with layers.
+	 * @param entry file name, null if entry or any parts was null or if not set to process layers
+	 * @return file name with directory element
+	 */
+	public String getFnOut(Entry<String, Integer> entry){
+		if(!this.doesLayers() || entry==null || entry.getKey()==null || entry.getValue()==null){
+			return null;
+		}
+
+		Map<String, String> valuesMap = new HashMap<>();
+		valuesMap.put("id", entry.getKey());
+		valuesMap.put("index", String.format("%02d", entry.getValue()));
+
+		return new StrSubstitutor(valuesMap).replace(this.foutPattern);
+	}
+
+	/**
+	 * Returns a file name when dealing with layers without any directory element.
+	 * @param entry file name, null if entry or any parts was null or if not set to process layers
+	 * @return file name without directory element
+	 */
+	public String getFnOutNoDir(Entry<String, Integer> entry){
+		String fn = this.getFnOut(entry);
+		if(fn==null){
+			return null;
+		}
+		return StringUtils.substringAfterLast(fn, "/");
 	}
 }
