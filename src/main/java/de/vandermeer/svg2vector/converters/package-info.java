@@ -17,7 +17,7 @@
  * Properties and converters.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.0.0
  */
 package de.vandermeer.svg2vector.converters;

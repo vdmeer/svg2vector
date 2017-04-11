@@ -1,13 +1,13 @@
-v1.2.0 - feature add - 2017-##-##
----------------------------------
-- switched to Batik v1.6-1 (and cleaned dependencies)
-- extended s2v-is functionality
-- changed main class in jar-with-dependencies to Svg2VectorExecs
-  -- also removed the Tool class, no longer needed
+=== v1.2.0 - feature add - 2017-##-##
+* switched to Batik v1.6-1 (and cleaned dependencies)
+* extended s2v-is functionality
+* changed main class in jar-with-dependencies to Svg2VectorExecs
+  ** also removed the Tool class, no longer needed
+  ** added s2v-is to the ExecS class
+* changed all documentation to use asciidoc
 
 
-v1.1.0 - feature add - 2017-04-05
----------------------------------
+=== v1.1.0 - feature add - 2017-04-05
 * removed old CLI implementation, added ExecS as executor
 * added assembly plugin to create an application archive using ExecS script generation
 * fixed problems in the tests as per issue #3 (output now in target not src)
@@ -15,24 +15,20 @@ v1.1.0 - feature add - 2017-04-05
 * changed Tool to directly execute the FreeHep application
 
 
-v1.0.3 - feature add - 2016-03-03
----------------------------------
+=== v1.0.3 - feature add - 2016-03-03
 * removed old module/ settings, added bundle/pm settings
 * fixed old dependency problem
 
 
-v1.0.2 - feature add - 2015-06-18
----------------------------------
+=== v1.0.2 - feature add - 2015-06-18
 * updated for FreeHep 2.4 release
 * moved to maven build
 * started separate GIT repo for the tool
 
 
-v1.0.1 - minor changes - 2014-06-25
------------------------------------
+=== v1.0.1 - minor changes - 2014-06-25
 * changed PDF margins to proper FreeHep handling +properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");+ in +PdfProperties+
 
 
-v1.0.0 - initial release - 2014-06-10
--------------------------------------
+=== v1.0.0 - initial release - 2014-06-10
 * still requires a patch to PDF graphics for custom page size for PDF images: https://github.com/freehep/freehep-vectorgraphics/pull/25/files

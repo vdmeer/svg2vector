@@ -1,0 +1,5 @@
+= SVG2Vector
+v{release-version}
+:page-layout: base
+:toc: preamble
+

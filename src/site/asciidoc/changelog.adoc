@@ -1,0 +1,4 @@
+== Change Log
+
+include::{basedir}/bundle/doc/CHANGELOG.adoc[]
+

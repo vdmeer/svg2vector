@@ -1,0 +1,23 @@
+== Features
+
+Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
+
+=== s2v-fp
+Converts SVG to vector formats using Apache Batik and Freehep libraries:
+
+* target formats: EMF, PDF
+* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
+* options: Inkscape layers
+* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+
+
+=== s2v-is
+Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation:
+
+* target vector formats: EMF, WMF, PDF, EPS, PS
+* target bitmap formats: PNG
+* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
+* options: Inkscape layers, temporary plain SVG files, manual layer management (for optimized EMF generation)
+* target specific options (as upported by Inkscape): DIP for PNG, PDF version for PDF, PS level for EPS/PS
+* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+

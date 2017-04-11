@@ -1,0 +1,3 @@
+== Concepts
+
+The main concepts are: application, input, target, conversion options, and report options.

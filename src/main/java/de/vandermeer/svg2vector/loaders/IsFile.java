@@ -31,16 +31,20 @@ import java.util.zip.ZipException;
  * Loads a file into a list trying GZIP first and  plain text next.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
- * @since      v1.2.0
+ * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
+ * @since      v2.0.0
  */
 public class IsFile {
 
 	/** Lines read from file. */
 	protected ArrayList<String> lines;
 
+	/** Flag indicating if the file has Inkscape layers. */
+	protected boolean hasLayers = false;
+
 	/**
 	 * Reads a file, trying GZIP compression first and plain file next.
+	 * Also tests if the file has Inkscape layers.
 	 * @param fn the file name (including path)
 	 * @return null on success, error string on error
 	 */
@@ -71,7 +75,6 @@ public class IsFile {
 				this.lines.add(str);
 			}
 			in.close();
-			return null;
 		}
 		catch(FileNotFoundException e){
 			this.lines = null;
@@ -81,6 +84,14 @@ public class IsFile {
 			this.lines = null;
 			return "IO error reading plain file <" + fn + ">: " + e.getMessage();
 		}
+
+		for(int i=0; i<this.lines.size(); i++){
+			if(this.lines.get(i).contains("id=\"layer")){
+				this.hasLayers = true;
+				break;
+			}
+		}
+		return null;
 	}
 
 	/**

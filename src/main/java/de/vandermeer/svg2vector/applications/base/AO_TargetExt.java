@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.base;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import de.vandermeer.execs.options.AO_Target;
@@ -25,11 +26,12 @@ import de.vandermeer.svg2vector.converters.SvgTargets;
  * Application option "target" with extended long description.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.1.1
  */
 public class AO_TargetExt extends AO_Target {
 
+	/** The supported targets of the application. */
 	protected SvgTargets[] supportedTargets;
 
 	/**
@@ -52,12 +54,25 @@ public class AO_TargetExt extends AO_Target {
 	 * @param descr original long description
 	 * @param supportedTargets targets
 	 * @return long description with added list of supported targets
+	 * @throws NullPointerException if argument was null
+	 * @throw IllegalArgumentException if target had null elements
 	 */
 	protected static String buildLongDescr(String descr, SvgTargets[] supportedTargets){
+		Validate.notNull(supportedTargets);
+		Validate.noNullElements(supportedTargets);
+
 		StrBuilder ret = new StrBuilder();
 		ret.append(descr);
 		ret.append(" Supported targets are: ").appendWithSeparators(supportedTargets, ", ");
 		return ret.toString();
+	}
+
+	/**
+	 * Returns the supported targets.
+	 * @return supported targets
+	 */
+	public SvgTargets[] getSupportedTargets(){
+		return this.supportedTargets;
 	}
 
 	/**

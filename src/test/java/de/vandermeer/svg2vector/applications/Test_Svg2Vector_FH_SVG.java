@@ -25,7 +25,7 @@ import org.junit.Test;
  * Tests for Svg2Vector_FH with SVG conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_FH_SVG {

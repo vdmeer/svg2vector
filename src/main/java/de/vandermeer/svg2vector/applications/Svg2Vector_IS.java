@@ -28,15 +28,13 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.w3c.dom.Node;
 
+import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.options.AO_ExportDpi;
 import de.vandermeer.svg2vector.applications.options.AO_ExportPdfVersion;
 import de.vandermeer.svg2vector.applications.options.AO_ExportPsLevel;
 import de.vandermeer.svg2vector.applications.options.AO_InkscapeExecutable;
 import de.vandermeer.svg2vector.applications.options.AO_ManualLayers;
-import de.vandermeer.svg2vector.applications.options.AO_NotTextAsShape;
 import de.vandermeer.svg2vector.applications.options.AO_SvgFirst;
-import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndex;
-import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndexId;
 import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.BatikLoader;
 import de.vandermeer.svg2vector.loaders.IsFile;
@@ -46,11 +44,10 @@ import de.vandermeer.svg2vector.loaders.SvgDocumentLoader;
  * The Svg2Vector application using an Inkscape executable.
  * It an SVG graphic to a vector format and to PNG as per Inkscape.
  * The tool does support SVG and SVGZ input formats from file or URI.
- * The application calls its FreeHep counterpart to create plain SVG, and then Inkscape to create the target format.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
- * @since      v1.2.0
+ * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
+ * @since      v2.0.0
  */
 public class Svg2Vector_IS extends AppBase {
 
@@ -61,16 +58,7 @@ public class Svg2Vector_IS extends AppBase {
 	public final static String APP_DISPLAY_NAME = "Svg2Vector Inkscape";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8";
-
-	/** Application option for use-layer-index mode. */
-	AO_UseLayerIndex optionUseLayerIndex = new AO_UseLayerIndex(false, 'i', "use layer index for inkscape layer processing, default is layer ID");
-
-	/** Application option for use-layer-index-id mode. */
-	AO_UseLayerIndexId optionUseLayerIndexId = new AO_UseLayerIndexId(false, 'I', "use layer index and label (if exists) ID otherwise for inkscape layer processing, default is layer ID");
-
-	/** Application option for not-text-as-shape mode. */
-	AO_NotTextAsShape optionNotTextAsShape = new AO_NotTextAsShape(false, 's', "switch of text-as-shape property");
+	public final static String APP_VERSION = "v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8";
 
 	/** Application option for the Inkscape executable. */
 	AO_InkscapeExecutable optionInkscapeExec = new AO_InkscapeExecutable(true, 'x', "full path to the Inkscape executable");
@@ -96,7 +84,7 @@ public class Svg2Vector_IS extends AppBase {
 	/** File for a temporary created SVG file. */
 	Path tmpFile;
 
-	/** List of Inkscpe layers in an SVG document. */
+	/** List of Inkscape layers in an SVG document. */
 	List<Node> layers;
 
 	/**
@@ -105,9 +93,6 @@ public class Svg2Vector_IS extends AppBase {
 	public Svg2Vector_IS(){
 		super(SvgTargets.values());
 
-		this.addOption(this.optionUseLayerIndex);
-		this.addOption(this.optionUseLayerIndexId);
-		this.addOption(this.optionNotTextAsShape);
 		this.addOption(this.optionExpDpi);
 		this.addOption(this.optionExpPdfver);
 		this.addOption(this.optionExpPslevel);

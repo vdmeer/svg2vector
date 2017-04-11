@@ -1,0 +1,11 @@
+=== Application
+
+The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
+The tool uses the SKB ExecS to launch applications.
+All applications are registered with the Java class `Svg2VectorExecs` for easy execution.
+Once an application is selected for execution, the application specific command line options and processing applies.
+
+Currently supported are:
+
+* `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
+* `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable

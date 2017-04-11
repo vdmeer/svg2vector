@@ -21,13 +21,11 @@ import java.util.Set;
 
 import org.freehep.graphicsbase.util.UserProperties;
 
+import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.options.AO_BackgroundColor;
 import de.vandermeer.svg2vector.applications.options.AO_Clip;
 import de.vandermeer.svg2vector.applications.options.AO_NoBackground;
-import de.vandermeer.svg2vector.applications.options.AO_NotTextAsShape;
 import de.vandermeer.svg2vector.applications.options.AO_NotTransparent;
-import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndex;
-import de.vandermeer.svg2vector.applications.options.AO_UseLayerIndexId;
 import de.vandermeer.svg2vector.converters.Svg;
 import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.converters.TargetProperties;
@@ -41,7 +39,7 @@ import de.vandermeer.svg2vector.converters.TargetProperties;
  * All options can be set via command line.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Svg2Vector_FH extends AppBase {
@@ -53,19 +51,10 @@ public class Svg2Vector_FH extends AppBase {
 	public final static String APP_DISPLAY_NAME = "Svg2Vector FreeHep";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v1.2.0-SNAPSHOT build 170410 (10-Apr-17) for Java 1.8";
-
-	/** Application option for use-layer-index mode. */
-	AO_UseLayerIndex optionUseLayerIndex = new AO_UseLayerIndex(false, 'i', "use layer index for inkscape layer processing, default is layer ID");
-
-	/** Application option for use-layer-index-id mode. */
-	AO_UseLayerIndexId optionUseLayerIndexId = new AO_UseLayerIndexId(false, 'I', "use layer index and ID for inkscape layer processing, default is layer ID");
+	public final static String APP_VERSION = "v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8";
 
 	/** Application option for not-transparent mode. */
 	AO_NotTransparent optionNotTransparent = new AO_NotTransparent(false, 'n', "switch off transparency");
-
-	/** Application option for not-text-as-shape mode. */
-	AO_NotTextAsShape optionNotTextAsShape = new AO_NotTextAsShape(false, 's', "switch of text-as-shape property");
 
 	/** Application option for clip mode. */
 	AO_Clip optionClip = new AO_Clip(false, 'c', "activate clip property");
@@ -82,10 +71,7 @@ public class Svg2Vector_FH extends AppBase {
 	public Svg2Vector_FH(){
 		super(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg});
 
-		this.addOption(this.optionUseLayerIndex);
-		this.addOption(this.optionUseLayerIndexId);
 		this.addOption(this.optionNotTransparent);
-		this.addOption(this.optionNotTextAsShape);
 		this.addOption(this.optionClip);
 		this.addOption(this.optionBackgroundColor);
 		this.addOption(this.optionNoBackground);

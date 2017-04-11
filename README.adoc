@@ -1,0 +1,196 @@
+
+:release-version: 1.2.0-SNAPSHOT
+= SVG2Vector
+v{release-version}
+:page-layout: base
+:toc: preamble
+
+
+A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF. 
+== Resources
+
+
+[frame=topbot, grid=rows, cols="d,d"]
+|===
+
+| Home page
+| http://www.vandermeer.de/projects/skb/java/svg2vector[site]
+
+| Binaries current release
+| https://bintray.com/vdmeer/generic/svg2vector/{release-version}[Bintray current release {release-version}]
+
+| Binaries all releases
+| https://bintray.com/vdmeer/generic/svg2vector[Bintray all releases]
+
+
+| Source repository
+| https://github.com/vdmeer/svg2vector/tree/master[Github]
+
+| Maven Central current release
+| https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven current release {release-version}]
+
+| Maven Central all releases
+| https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22[Maven all releases]
+
+|===
+== Installation
+
+=== Maven
+
+For Maven declare a dependency in the `<dependencies>` section of your POM file.
+
+[source,xml,subs=attributes+]
+.Dependency declaration in pom.xml
+----
+<dependency>
+    <groupId>de.vandermeer</groupId>
+    <artifactId>svg2vector</artifactId>
+    <version>{release-version}</version>
+</dependency>
+----
+
+
+=== Gradle / Grails
+
+----
+compile 'de.vandermeer:svg2vector:{release-version}'
+----
+
+
+For other build systems see https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven Central]
+
+== Features
+
+Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
+
+=== s2v-fp
+Converts SVG to vector formats using Apache Batik and Freehep libraries:
+* target formats: EMF, PDF
+* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
+* options: Inkscape layers
+* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+
+
+=== s2v-is
+Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation:
+* target vector formats: EMF, WMF, PDF, EPS, PS
+* target bitmap formats: PNG
+* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
+* options: Inkscape layers, temporary plain SVG files, manual layer management (for optimized EMF generation)
+* target specific options (as upported by Inkscape): DIP for PNG, PDF version for PDF, PS level for EPS/PS
+* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+
+== Concepts
+
+The main concepts are: application, input, target, conversion options, and report options.
+=== Application
+
+The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
+The tool uses the SKB ExecS to launch applications.
+All applications are registered with the Java class `Svg2VectorExecs` for easy execution.
+Once an application is selected for execution, the application specific command line options and processing applies.
+
+Currently supported are:
+* `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
+* `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable
+=== Input
+
+The input for each application needs to be a valid SVG file.
+There are several options for a valid SVG file:
+* Plain SVG as plain text file
+* Plain SVG as GZ compressed file
+* Inkscape SVG as plain text file
+* Inkscape SVG as GZ compressed file
+=== Target
+
+The target of a conversion defines the target format and helps to select a target converter.
+The target implicitely defines the target file extension.
+The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.
+
+=== Summary of configurable characteristics
+
+- text width (length of each text line)
+- text alignment (for the whole paragraph): left, right, centered, justified (with additional options for last line)
+- text format: first line, hanging, dropped capital letter
+- frame: set a frame around the paragraph
+- start / end string: define a start and/or end string for each line
+- top and bottom margins above a frame (empty lines)
+- margins on the left and right of a frame (number with character)
+- margins between the frame and the start string (left) and end string and frame (right), using different length and character
+- margins between start string and text (left), and text and end string (right), using different length and characters
+- top and bottom margins for the text (including and string margin and string)
+- character converters to convert characters before line generation, i.e. to generate text suitable for LaTeX or HTML
+
+=== Conversion Options
+
+Applications can provide a number of target-generic or target-specific conversion options.
+Those options can be:
+* no background
+* clip
+* use layer index
+* use layer index identifier
+* one file per layer
+* not transparent
+* background color
+* text as shapes
+* DPI (dots per inch)
+* PDF version
+* PS level
+* SVG first
+* manual layers
+=== Report Options== Getting Started
+
+The standard usage is:
+
+* create a paragraph
+* add text to the paragraph
+* change the paragraph context (to change its properties)
+* render the paragraph
+* use the created string, e.g. print it to a console or write it to a file
+
+
+First, create a paragraph.
+
+[source, java]
+----------------------------------------------------------------------------------------
+AsciiParagraph ap = new AsciiParagraph();
+----------------------------------------------------------------------------------------
+
+
+Next, add text.
+Any text can be added, the renderer will process the text (for instance remove excessive white spaces).
+
+[source, java]
+----------------------------------------------------------------------------------------
+ap.addText("line	1");
+ap.addText("2  2");
+ap.addText("more text with	tab and \n newline");
+ap.addText("some more text to get it over the 80 character default width");
+----------------------------------------------------------------------------------------
+
+
+Next, render the paragraph.
+This will provide the text output using the default settings from the paragraph's context.
+
+[source, java]
+----------------------------------------------------------------------------------------
+String rend = ap.render();
+----------------------------------------------------------------------------------------
+
+
+Finally, print the paragraph to standard out.
+
+[source, java]
+----------------------------------------------------------------------------------------
+System.out.println(rend);
+----------------------------------------------------------------------------------------
+
+The output will be:
+
+----------------------------------------------------------------------------------------
+line 1 2 2 more text with tab and newline some more text to get it over  the  80
+character default width                                                         
+
+----------------------------------------------------------------------------------------
+
+
