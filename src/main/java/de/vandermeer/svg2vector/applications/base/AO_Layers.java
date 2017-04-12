@@ -20,7 +20,7 @@ import org.apache.commons.cli.Option;
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option `one-per-layer`
+ * Application option `layers`
  * .
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;

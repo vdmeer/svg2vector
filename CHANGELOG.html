@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>v1.2.0 - feature add - 2017--</title>
+<title>v2.0.0 - major rewrite, changed CLI behavior - 2017-04-##</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -513,7 +513,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel2">
-<li><a href="#_v1_2_0_feature_add_2017_mark_mark">v1.2.0 - feature add - 2017-<mark>-</mark></a></li>
+<li><a href="#_v2_0_0_major_rewrite_changed_cli_behavior_2017_04">v2.0.0 - major rewrite, changed CLI behavior - 2017-04-##</a></li>
 <li><a href="#_v1_1_0_feature_add_2017_04_05">v1.1.0 - feature add - 2017-04-05</a></li>
 <li><a href="#_v1_0_3_feature_add_2016_03_03">v1.0.3 - feature add - 2016-03-03</a></li>
 <li><a href="#_v1_0_2_feature_add_2015_06_18">v1.0.2 - feature add - 2015-06-18</a></li>
@@ -524,14 +524,149 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect2">
-<h3 id="_v1_2_0_feature_add_2017_mark_mark">v1.2.0 - feature add - 2017-<mark>-</mark></h3>
+<h3 id="_v2_0_0_major_rewrite_changed_cli_behavior_2017_04">v2.0.0 - major rewrite, changed CLI behavior - 2017-04-##</h3>
 <div class="ulist">
 <ul>
+<li>
+<p>added appliction base and properties</p>
+<div class="ulist">
+<ul>
+<li>
+<p>some 22 CLI options are now supported by all applications, all processed by application base or properties</p>
+</li>
+<li>
+<p>with full test cases for all behaviors</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>added loaders and moved old functions to <code>BatikLoader</code></p>
+</li>
+<li>
+<p>added CLI options for application base</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>use-basename</code> for using a different base name for output files when processing layers</p>
+</li>
+<li>
+<p><code>all-layers</code> to switch on all layers prior to conversion (no layer mode)</p>
+</li>
+<li>
+<p><code>simulate</code> to simulate a conversion without creating any output artifacts</p>
+</li>
+<li>
+<p><code>overwrite-existing</code> to overwrite existing output files</p>
+</li>
+<li>
+<p><code>no-errors</code> to switch off error messages</p>
+</li>
+<li>
+<p><code>print-warnings</code> to switch on warning messages</p>
+</li>
+<li>
+<p><code>print-progress</code> to switch on progress messages</p>
+</li>
+<li>
+<p><code>print-details</code> to switch on detailed messages</p>
+</li>
+<li>
+<p><code>one-per-layer</code> new option to generate one output file per layer (if input file has layers)</p>
+</li>
+<li>
+<p><code>target</code> changed to provide additional functionality</p>
+</li>
+<li>
+<p><code>layers-if-exist</code> to process layers if input file has layers</p>
+</li>
+<li>
+<p><code>keep-tmp-artifacts</code> keep temporarily created artifacts (files and directories)</p>
+</li>
+<li>
+<p><code>fout-no-basename</code> to not use base name for outout file when processing layers</p>
+</li>
+<li>
+<p><code>create-directories</code> to create all required directories for output files</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>application behavior changes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>much more errors being catched before conversion starts</p>
+</li>
+<li>
+<p>warning bein catched before conversion starts</p>
+</li>
+<li>
+<p>application can run in simulation mode w/o generating any output</p>
+</li>
+<li>
+<p>required directories can be created automatically by the application</p>
+</li>
+<li>
+<p>existing output files will not be overwritten unless requested</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>CLI behavior for layers with file name containing index and identifier changed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>simple <code>-I</code> will use ID only</p>
+</li>
+<li>
+<p>simple <code>-i</code> will use index only</p>
+</li>
+<li>
+<p><code>-I</code> and <code>-i</code> will use both</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>changed messaging behavior</p>
+<div class="ulist">
+<ul>
+<li>
+<p>can be set quiet or verbose or switched on seperately (warnings, progress, details)</p>
+</li>
+<li>
+<p>errors are on by default, can be switched off via CLI <code>no-errors</code></p>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>switched to Batik v1.6-1 (and cleaned dependencies)</p>
 </li>
 <li>
-<p>extended s2v-is functionality</p>
+<p>added <code>s2v-is</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>convert SVG files using an existing Inkscape installation</p>
+</li>
+<li>
+<p>supported targets: pdf, png, emf, wmf, svg, eps, ps</p>
+</li>
+<li>
+<p>some targets with specific CLI options</p>
+</li>
+<li>
+<p>can process layers manually, sort of brute force, over lines of an SVG document w/o W3C DOM (required to process EMFs correctly)</p>
+</li>
+<li>
+<p>can create temporary files/directories being removed when finished (unless requested to be kept)</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>changed main class in jar-with-dependencies to Svg2VectorExecs</p>
@@ -547,7 +682,71 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </li>
 <li>
+<p>changed s2v-hp implementation, refactoring all classes and removing uneccessary methods</p>
+</li>
+<li>
 <p>changed all documentation to use asciidoc</p>
+</li>
+<li>
+<p>changed test class behavior</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s2v-fh</code> test classes now create files in <code>target</code> directory</p>
+</li>
+<li>
+<p><code>s2v-is</code> test clases run in simulation mode with a fake Inkscape executable</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>changed SVG test files</p>
+<div class="ulist">
+<ul>
+<li>
+<p>removed old score cards</p>
+</li>
+<li>
+<p>added an Inkscape layer test file <code>rina-ipc</code></p>
+</li>
+<li>
+<p>added a basic simple SVG file <code>simple</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>using new <code>ExecS</code> version (0.4.0) now with application to create start scripts for executable jars</p>
+</li>
+<li>
+<p>added documentation in <code>site</code> content duplicated in API docs and README</p>
+</li>
+<li>
+<p>provided solution for EMF and PDF conversion problems, especially with Inkscape SVGs</p>
+<div class="ulist">
+<ul>
+<li>
+<p>instead of using Batik/Freehep from <code>s2v-fh</code> use <code>s2v-is</code> with existing Inkscape installation</p>
+</li>
+<li>
+<p>other options are not available as of today</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>open issues</p>
+<div class="ulist">
+<ul>
+<li>
+<p>add standard <code>s2v-fh</code> options to <code>s2v-is</code>, e.g. background and transparancy</p>
+</li>
+<li>
+<p>improve documentation, especially site, and create home page as defined in <code>pom.xml</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -626,7 +825,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-10 09:23:29 IST
+Last updated 2017-04-12 12:25:11 IST
 </div>
 </div>
 </body>
