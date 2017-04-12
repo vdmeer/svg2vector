@@ -28,7 +28,7 @@ import org.freehep.graphicsio.emf.EMFGraphics2D;
  * A converter for SVG documents to EMF using the FreeHep library.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Fh_Svg2Emf extends FhConverter {

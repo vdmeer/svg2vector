@@ -21,7 +21,7 @@ import java.util.HashMap;
  * Base class for an SVG document loader.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public abstract class SV_DocumentLoader {

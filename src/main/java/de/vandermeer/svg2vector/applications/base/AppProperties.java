@@ -37,7 +37,7 @@ import de.vandermeer.execs.options.ApplicationOption;
  * Properties and options for SVG2Vector applications.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class AppProperties <L extends SV_DocumentLoader> {
