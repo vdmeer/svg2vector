@@ -22,7 +22,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import de.vandermeer.execs.options.AO_Target;
 
 /**
- * Application option "target" with extended long description.
+ * Application option `target` with extended long description.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8

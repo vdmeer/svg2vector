@@ -18,7 +18,7 @@ package de.vandermeer.svg2vector.applications.is;
 import de.vandermeer.svg2vector.applications.base.SvgTargets;
 
 /**
- * Application option export-ps-level.
+ * Application option `export-ps-level`.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
