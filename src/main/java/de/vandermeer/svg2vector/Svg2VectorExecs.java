@@ -34,8 +34,8 @@ public class Svg2VectorExecs extends ExecS {
 	public Svg2VectorExecs(){
 		super("s2v");
 
-		this.addApplication(Svg2Vector_FH.APP_NAME,		Svg2Vector_FH.class);
-		this.addApplication(Svg2Vector_IS.APP_NAME,		Svg2Vector_IS.class);
+		this.addApplication(Svg2Vector_FH.APP_NAME,			Svg2Vector_FH.class);
+		this.addApplication(Svg2Vector_IS.APP_NAME,			Svg2Vector_IS.class);
 	}
 
 	/**

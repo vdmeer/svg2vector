@@ -92,50 +92,29 @@ public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 		this.addOption(this.optionInkscapeExec);
 	}
 
-	@Override
-	public int executeApplication(String[] args) {
-		int ret = super.executeApplication(args);
-		if(ret!=0){
-			return ret;
+	/**
+	 * Checks the Inkscape executable.
+	 * @param fn the file name of the executable
+	 * @return 0 on success, negative integer on error with error messages printed
+	 */
+	private int checkIsExecutable(String fn){
+		if(StringUtils.isBlank(fn)){
+			this.printErrorMessage("expected Inkscape executable, found <" + fn + ">");
+			return -20;
 		}
-
-		SvgTargets target = this.getProps().getTarget();
-
-		String fn = this.optionInkscapeExec.getValue();
-		if((ret = this.checkIsExecutable(fn))<0){
-			return ret;
+		File testFD = new File(fn);
+		if(!testFD.exists()){
+			this.printErrorMessage("Inkscape executable <" + fn + "> does not exist, please check path and filename");
+			return -21;
 		}
-		this.printDetailMessage("Inkscape exec:    " + fn);
-
-		this.setWarnings(target);
-
-		IsCmd isCmd = new IsCmd(fn, target, this.getProps());
-		isCmd.appendTargetSettings(target,
-				this.optionExpDpi, this.optionExpPdfver, this.optionExpPslevel
-		);
-		IsCmd isTmpCmd = new IsCmd(fn, SvgTargets.svg, this.getProps());
-
-		if(this.optionSvgFirst.inCli()){
-			this.printProgressMessage("converting to temporary SVG first");
-			this.printDetailMessage("Inkscape cmd tmp: " + isTmpCmd);
+		if(!testFD.isFile()){
+			this.printErrorMessage("Inkscape executable <" + fn + "> is not a file, please check path and filename");
+			return -22;
 		}
-		else{
-			this.printProgressMessage("converting directly to target");
-			this.printDetailMessage("Inkscape cmd:     " + isCmd);
+		if(!testFD.canExecute()){
+			this.printErrorMessage("cannot execute input Inkscape executable <" + fn + ">, please file permissions");
+			return -23;
 		}
-
-		ret = this.createTempArtifacts(isTmpCmd);
-		if(ret<0){
-			return ret;
-		}
-
-		ret = this.convertInput(isCmd, target);
-		if(ret<0){
-			return ret;
-		}
-
-		this.removeTempArtifacts();
-		this.printProgressMessage("finished successfully");
 		return 0;
 	}
 
@@ -283,30 +262,114 @@ public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 		return ret;
 	}
 
-	/**
-	 * Checks the Inkscape executable.
-	 * @param fn the file name of the executable
-	 * @return 0 on success, negative integer on error with error messages printed
-	 */
-	private int checkIsExecutable(String fn){
-		if(StringUtils.isBlank(fn)){
-			this.printErrorMessage("expected Inkscape executable, found <" + fn + ">");
-			return -20;
+	public int ExecInkscape(IsCmd cmd, String fin, String fout){
+		String cli = cmd.substitute(fin, fout);
+
+		if(this.getProps().canWriteFiles()){
+			try {
+				Process p = Runtime.getRuntime().exec(cli);
+				p.waitFor();
+			}
+			catch (IOException e) {
+				this.printErrorMessage("IO exception while executing Inkscape with error: " + e.getMessage());
+				return -110;
+			}
+			catch (InterruptedException e) {
+				this.printErrorMessage("InterruptedException exception while executing Inkscape with error: " + e.getMessage());
+				return -111;
+			}
 		}
-		File testFD = new File(fn);
-		if(!testFD.exists()){
-			this.printErrorMessage("Inkscape executable <" + fn + "> does not exist, please check path and filename");
-			return -21;
-		}
-		if(!testFD.isFile()){
-			this.printErrorMessage("Inkscape executable <" + fn + "> is not a file, please check path and filename");
-			return -22;
-		}
-		if(!testFD.canExecute()){
-			this.printErrorMessage("cannot execute input Inkscape executable <" + fn + ">, please file permissions");
-			return -23;
-		}
+
+		this.printDetailMessage("");
+		this.printDetailMessage("running IS for input <" + fin + "> creating output <" + fout + ">");
+		this.printDetailMessage("running IS with cli <" + cli + ">");
+		this.printDetailMessage("");
 		return 0;
+	}
+
+	@Override
+	public int executeApplication(String[] args) {
+		int ret = super.executeApplication(args);
+		if(ret!=0){
+			return ret;
+		}
+
+		SvgTargets target = this.getProps().getTarget();
+
+		String fn = this.optionInkscapeExec.getValue();
+		if((ret = this.checkIsExecutable(fn))<0){
+			return ret;
+		}
+		this.printDetailMessage("Inkscape exec:    " + fn);
+
+		this.setWarnings(target);
+
+		IsCmd isCmd = new IsCmd(fn, target, this.getProps());
+		isCmd.appendTargetSettings(target,
+				this.optionExpDpi, this.optionExpPdfver, this.optionExpPslevel
+		);
+		IsCmd isTmpCmd = new IsCmd(fn, SvgTargets.svg, this.getProps());
+
+		if(this.optionSvgFirst.inCli()){
+			this.printProgressMessage("converting to temporary SVG first");
+			this.printDetailMessage("Inkscape cmd tmp: " + isTmpCmd);
+		}
+		else{
+			this.printProgressMessage("converting directly to target");
+			this.printDetailMessage("Inkscape cmd:     " + isCmd);
+		}
+
+		ret = this.createTempArtifacts(isTmpCmd);
+		if(ret<0){
+			return ret;
+		}
+
+		ret = this.convertInput(isCmd, target);
+		if(ret<0){
+			return ret;
+		}
+
+		this.removeTempArtifacts();
+		this.printProgressMessage("finished successfully");
+		return 0;
+	}
+
+	@Override
+	public String getAppDescription() {
+		return "Converts SVG graphics into other vector formats using Inkscape, with options for handling layers";
+	}
+
+	@Override
+	public String getAppDisplayName(){
+		return APP_DISPLAY_NAME;
+	}
+
+	@Override
+	public String getAppName() {
+		return APP_NAME;
+	}
+
+	@Override
+	public String getAppVersion() {
+		return APP_VERSION;
+	}
+
+	/**
+	 * Removes temporary artifacts (files and directories).
+	 */
+	private void removeTempArtifacts(){
+		if(!this.getProps().doesKeepTempArtifacts()){
+			this.printProgressMessage("removing temporary artifacts");
+			if(this.tmpDir!=null){
+				for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
+					fileEntry.delete();
+				}
+				this.tmpDir.toFile().delete();
+			}
+			if(this.tmpFile!=null){
+				this.tmpFile.toFile().delete();
+			}
+		}
 	}
 
 	/**
@@ -338,24 +401,6 @@ public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 			}
 		}
 		this.printWarnings();
-	}
-
-	/**
-	 * Removes temporary artifacts (files and directories).
-	 */
-	private void removeTempArtifacts(){
-		if(!this.getProps().doesKeepTempArtifacts()){
-			this.printProgressMessage("removing temporary artifacts");
-			if(this.tmpDir!=null){
-				for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
-					fileEntry.delete();
-				}
-				this.tmpDir.toFile().delete();
-			}
-			if(this.tmpFile!=null){
-				this.tmpFile.toFile().delete();
-			}
-		}
 	}
 
 	/**
@@ -397,51 +442,6 @@ public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 
 		this.printDetailMessage("temporary file: " + fn);
 		return null;
-	}
-
-	public int ExecInkscape(IsCmd cmd, String fin, String fout){
-		String cli = cmd.substitute(fin, fout);
-
-		if(this.getProps().canWriteFiles()){
-			try {
-				Process p = Runtime.getRuntime().exec(cli);
-				p.waitFor();
-			}
-			catch (IOException e) {
-				this.printErrorMessage("IO exception while executing Inkscape with error: " + e.getMessage());
-				return -110;
-			}
-			catch (InterruptedException e) {
-				this.printErrorMessage("InterruptedException exception while executing Inkscape with error: " + e.getMessage());
-				return -111;
-			}
-		}
-
-		this.printDetailMessage("");
-		this.printDetailMessage("running IS for input <" + fin + "> creating output <" + fout + ">");
-		this.printDetailMessage("running IS with cli <" + cli + ">");
-		this.printDetailMessage("");
-		return 0;
-	}
-
-	@Override
-	public String getAppName() {
-		return APP_NAME;
-	}
-
-	@Override
-	public String getAppDisplayName(){
-		return APP_DISPLAY_NAME;
-	}
-
-	@Override
-	public String getAppDescription() {
-		return "Converts SVG graphics into other vector formats using Inkscape, with options for handling layers";
-	}
-
-	@Override
-	public String getAppVersion() {
-		return APP_VERSION;
 	}
 
 }

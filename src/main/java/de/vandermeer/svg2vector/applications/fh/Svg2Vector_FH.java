@@ -47,7 +47,7 @@ import de.vandermeer.svg2vector.applications.fh.converters.Fh_Svg2Svg;
 public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoader>> {
 
 	/** Application name. */
-	public final static String APP_NAME = "s2v-hp";
+	public final static String APP_NAME = "s2v-fh";
 
 	/** Application display name. */
 	public final static String APP_DISPLAY_NAME = "Svg2Vector FreeHep";

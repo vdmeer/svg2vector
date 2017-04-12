@@ -147,6 +147,15 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	}
 
 	/**
+	 * Tests if the type is activate in the given mode.
+	 * @param mask the mask to test against
+	 * @return true if the message type (mask) is activated in the message mode, false otherwise
+	 */
+	private boolean isSet(int mask){
+		return ((this.props.getMsgMode() & mask) == mask);
+	}
+
+	/**
 	 * Prints a detail message if activated in mode
 	 * @param msg the detail message, not printed if null
 	 */
@@ -217,14 +226,5 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 			}
 			this.props.warnings.clear();
 		}
-	}
-
-	/**
-	 * Tests if the type is activate in the given mode.
-	 * @param mask the mask to test against
-	 * @return true if the message type (mask) is activated in the message mode, false otherwise
-	 */
-	private boolean isSet(int mask){
-		return ((this.props.getMsgMode() & mask) == mask);
 	}
 }
