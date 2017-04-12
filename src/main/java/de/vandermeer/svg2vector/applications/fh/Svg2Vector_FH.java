@@ -16,15 +16,13 @@
 package de.vandermeer.svg2vector.applications.fh;
 
 import java.awt.Color;
-import java.util.Iterator;
-import java.util.Set;
-
-import org.freehep.graphicsbase.util.UserProperties;
+import java.io.File;
+import java.util.Map.Entry;
 
 import de.vandermeer.svg2vector.applications.base.AppBase;
+import de.vandermeer.svg2vector.applications.base.AppProperties;
 import de.vandermeer.svg2vector.applications.base.SvgTargets;
-import de.vandermeer.svg2vector.applications.is.converters.Svg;
-import de.vandermeer.svg2vector.applications.is.converters.TargetProperties;
+import de.vandermeer.svg2vector.applications.is.converters.FhConverter;
 
 /**
  * The Svg2Vector application using the FreeHep library.
@@ -38,7 +36,7 @@ import de.vandermeer.svg2vector.applications.is.converters.TargetProperties;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class Svg2Vector_FH extends AppBase {
+public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoader>> {
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-hp";
@@ -65,7 +63,7 @@ public class Svg2Vector_FH extends AppBase {
 	 * Returns a new application.
 	 */
 	public Svg2Vector_FH(){
-		super(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg});
+		super(new AppProperties<BatikLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg}, new BatikLoader()));
 
 		this.addOption(this.optionNotTransparent);
 		this.addOption(this.optionClip);
@@ -81,87 +79,58 @@ public class Svg2Vector_FH extends AppBase {
 			return ret;
 		}
 
-		SvgTargets target = this.optionTarget.getTarget();
-		Svg converter = target.getConverter();
+		SvgTargets target = this.getProps().getTarget();
+
+		FhConverter converter = target.getConverter();
 		if(converter==null){
-			this.printError("no converter found for target <" + this.optionTarget.getValue() + ">");
-			return -11;
+			this.printErrorMessage("no converter found for target <" + target.name() + ">");
+			return -20;
 		}
 
-		TargetProperties properties = target.getTargetProperties();
-		if(properties==null){
-			this.printError("no target properties found for target <" + this.optionTarget.getValue() + ">");
-			return -12;
+		converter.setPropertyTransparent(!this.optionNotTransparent.inCli());
+		converter.setPropertyClip(this.optionClip.inCli());
+		converter.setPropertyBackground(!this.optionNoBackground.inCli());
+		converter.setPropertyTextAsShapes(this.getProps().doesTextAsShape());
+		if(this.optionBackgroundColor.inCli()){
+			Color color = Color.getColor(this.optionBackgroundColor.getValue());
+			converter.setPropertyBackgroundColor(color);
 		}
 
-		this.setCliProperties(properties);
-		converter.setProperties(properties);
-		return this.convert(properties, converter);
-	}
-
-	/**
-	 * Converts an SVG graphic to another vector format.
-	 * @param properties conversion properties
-	 * @param converter target converter
-	 * @return -1 in case of error (messages printed on STDERR), 0 if successful
-	 */
-	public int convert(TargetProperties properties, Svg converter){
-		this.printProgress("input URI:        " + this.optionUriIn.getURI());
-		this.printProgress("output directory: " + this.optionDirOut.getValue());
-		this.printProgress("output file:      " + this.optionFileOut.getValue());
-
-		converter.load(this.optionUriIn.getURI());
-
-		if(this.optionVerbose.inCli()==true){
-			UserProperties up = properties.getProperties();
-			Set<Object> keys = up.keySet();
-			Iterator<Object>it = keys.iterator();
-			while(it.hasNext()){
-				String key = it.next().toString();
-				String val = up.getProperty(key);
-				key=key.substring(key.lastIndexOf('.')+1, key.length());
-				this.printProgress("SVG property <" + key + ">=" + val);
+		String err;
+		BatikLoader loader = this.getProps().getLoader();
+		if(this.getProps().doesLayers()){
+			for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
+				loader.switchOffAllLayers();
+				loader.switchOnLayer(entry.getKey());
+				err = converter.convertDocument(loader, new File(this.getProps().getFnOut(entry) + "." + target.name()));
+				if(err!=null){
+					this.printErrorMessage(err);
+					return -99;//TODO
+				}
+			}
+		}
+		else{
+			err = converter.convertDocument(loader, this.getProps().getFoutFile());
+			if(err!=null){
+				this.printErrorMessage(err);
+				return -99;//TODO
 			}
 		}
 
-		converter.convert(this.optionDirOut.getValue(), this.optionFileOut.getValue());
 		return 0;
 	}
 
-	/**
-	 * Sets all command line arguments in the given property object.
-	 * @param props object with properties to set
-	 */
-	protected void setCliProperties(TargetProperties props){
-		//flags that require SVG to process things
-		if(this.optionUseLayerIndex.inCli()){
-			props.setUseInkscapeLayerName();
-		}
-		if(this.optionUseLayerIndexId.inCli()){
-			props.setUseInkscapeLayerIndex();
-		}
-		if(this.optionOnePerLayer.inCli()){
-			props.setUseOnePerInkscapeLayer();
-		}
-
-		//flags that are simply set in UserProperties
-		if(this.optionNotTransparent.inCli()){
-			props.setPropertyTransparent(false);
-		}
-		if(this.optionNotTextAsShape.inCli()){
-			props.setPropertyTextAsShapes(false);
-		}
-		if(this.optionClip.inCli()){
-			props.setPropertyClip(true);
-		}
-		if(this.optionNoBackground.inCli()){
-			props.setPropertyBackground(false);
-		}
-		if(this.optionBackgroundColor.inCli()){
-			Color color = Color.getColor(this.optionBackgroundColor.getValue());
-			props.setPropertyBackgroundColor(color);
-		}
-	}
+//		if(this.optionVerbose.inCli()==true){
+//			UserProperties up = properties.getProperties();
+//			Set<Object> keys = up.keySet();
+//			Iterator<Object>it = keys.iterator();
+//			while(it.hasNext()){
+//				String key = it.next().toString();
+//				String val = up.getProperty(key);
+//				key=key.substring(key.lastIndexOf('.')+1, key.length());
+//				this.printProgress("SVG property <" + key + ">=" + val);
+//			}
+//		}
 
 	@Override
 	public String getAppName() {

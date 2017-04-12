@@ -17,14 +17,10 @@ package de.vandermeer.svg2vector.applications.base;
 
 import org.apache.commons.lang3.Validate;
 
-import de.vandermeer.svg2vector.applications.is.converters.Svg;
-import de.vandermeer.svg2vector.applications.is.converters.Svg2Emf;
-import de.vandermeer.svg2vector.applications.is.converters.Svg2Pdf;
-import de.vandermeer.svg2vector.applications.is.converters.Svg2Svg;
-import de.vandermeer.svg2vector.applications.is.converters.TargetProperties;
-import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Emf;
-import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Pdf;
-import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Svg;
+import de.vandermeer.svg2vector.applications.is.converters.FhConverter;
+import de.vandermeer.svg2vector.applications.is.converters.Fh_Svg2Emf;
+import de.vandermeer.svg2vector.applications.is.converters.Fh_Svg2Pdf;
+import de.vandermeer.svg2vector.applications.is.converters.Fh_Svg2Svg;
 
 /**
  * Conversion targets with associated Inkscape CLI option.
@@ -36,25 +32,25 @@ import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Svg;
 public enum SvgTargets {
 
 	/** SVG (plain) as target. */
-	svg ('l', "export-plain-svg", new Svg2Svg(), new TargetProperties_Svg()),
+	svg ('l', "export-plain-svg", new Fh_Svg2Svg()),
 
 	/** PDF as target, optionally with PDF version. */
-	pdf ('A', "export-pdf", new Svg2Pdf(), new TargetProperties_Pdf()),
+	pdf ('A', "export-pdf", new Fh_Svg2Pdf()),
 
 	/** EMF as target. */
-	emf ('M', "export-emf", new Svg2Emf(), new TargetProperties_Emf()),
+	emf ('M', "export-emf", new Fh_Svg2Emf()),
 
 	/** WMF as target. */
-	wmf ('m', "export-wmf", null, null),
+	wmf ('m', "export-wmf", null),
 
 	/** PS as target, optionally with PS version. */
-	ps ('P', "export-ps", null, null),
+	ps ('P', "export-ps", null),
 
 	/** EPS as target. */
-	eps ('E', "export-eps", null, null),
+	eps ('E', "export-eps", null),
 
 	/** PNG as target, optionally with DPI. */
-	png ('e', "export-png", null, null),
+	png ('e', "export-png", null),
 
 	;
 
@@ -65,23 +61,20 @@ public enum SvgTargets {
 	String cliLong;
 
 	/** A converter for the target. */
-	Svg converter;
-
-	/** Properties for the target. */
-	TargetProperties props;
+	FhConverter converter;
 
 	/**
 	 * Creates a new target.
 	 * @param shortCli short Inkscape CLI option
 	 * @param longCli long Inkscape CLI option
+	 * @param converter an SVG FH converter for the target
 	 */
-	SvgTargets(char shortCli, String longCli, Svg converter, TargetProperties props){
+	SvgTargets(char shortCli, String longCli, FhConverter converter){
 		Validate.notBlank(longCli);
 		this.cliShort = shortCli;
 		this.cliLong = longCli;
 
 		this.converter = converter;
-		this.props = props;
 	}
 
 	/**
@@ -104,15 +97,7 @@ public enum SvgTargets {
 	 * Returns the target converter.
 	 * @return converter, null if none set
 	 */
-	public Svg getConverter(){
+	public FhConverter getConverter(){
 		return this.converter;
-	}
-
-	/**
-	 * Returns the target properties.
-	 * @return properties, null if none set
-	 */
-	public TargetProperties getTargetProperties(){
-		return this.props;
 	}
 }

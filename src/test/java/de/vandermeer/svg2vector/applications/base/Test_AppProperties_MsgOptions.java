@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.loaders.StandardLoader;
+import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
  * Tests for {@link AppProperties} - message options.
@@ -34,7 +34,7 @@ public class Test_AppProperties_MsgOptions {
 	@Test
 	public void test_DefaultMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -51,7 +51,7 @@ public class Test_AppProperties_MsgOptions {
 	@Test
 	public void test_WarningMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -69,7 +69,7 @@ public class Test_AppProperties_MsgOptions {
 	@Test
 	public void test_ProgressMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -87,7 +87,7 @@ public class Test_AppProperties_MsgOptions {
 	@Test
 	public void test_DetailsMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -105,7 +105,7 @@ public class Test_AppProperties_MsgOptions {
 	@Test
 	public void test_VerboseMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -123,7 +123,7 @@ public class Test_AppProperties_MsgOptions {
 	@Test
 	public void test_QuietMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",

@@ -27,7 +27,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.loaders.StandardLoader;
+import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
  * Tests for {@link AppProperties} - file output options.
@@ -41,7 +41,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Warning_Dout(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -61,7 +61,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Warning_NoBN(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -81,7 +81,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Warning_UseBN(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -101,7 +101,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Warning_Index(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -121,7 +121,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Warning_ID(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -141,7 +141,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_FoutBlank(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -161,7 +161,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_FoutExt(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -181,7 +181,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_SameAsTarget(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.svg}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.svg}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "svg",
@@ -200,7 +200,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_FoutExistsNoOverwrite(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -230,7 +230,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_FoutExistsIsdir(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -255,7 +255,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_FoutExistsCantWrite(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -287,7 +287,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_ParrentNoDir(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -318,7 +318,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_Error_NoParrentNoCreate(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -338,7 +338,7 @@ public class Test_AppProperties_Output_NoLayers {
 	@Test
 	public void test_DoesNoLayers(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",

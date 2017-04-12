@@ -32,7 +32,6 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.base.AppProperties;
 import de.vandermeer.svg2vector.applications.base.SvgTargets;
-import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**
  * The Svg2Vector application using an Inkscape executable.
@@ -43,7 +42,7 @@ import de.vandermeer.svg2vector.loaders.StandardLoader;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<StandardLoader>> {
+public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-is";
@@ -85,7 +84,7 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 	 * Returns a new application.
 	 */
 	public Svg2Vector_IS(){
-		super(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader()));
+		super(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader()));
 
 		this.addOption(this.optionExpDpi);
 		this.addOption(this.optionExpPdfver);
@@ -200,7 +199,7 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 			this.printDetailMessage("Inkscape cmd:     " + isCmd);
 		}
 
-		StandardLoader loader = this.getProps().getLoader();
+		IsLoader loader = this.getProps().getLoader();
 
 		if(this.optionSvgFirst.inCli()){
 			if(this.getProps().doesLayers()){

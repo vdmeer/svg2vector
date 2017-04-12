@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.vandermeer.svg2vector.loaders.StandardLoader;
+import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
  * General tests for {@link AppBase}.
@@ -32,7 +32,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_AddedOptions(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -42,7 +42,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Usage(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -55,7 +55,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Version(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -68,7 +68,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Error_Target(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -82,7 +82,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Error_Input(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -96,7 +96,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Error_Output(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -111,7 +111,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Good(){
-		AppBase<StandardLoader, AppProperties<StandardLoader>> testApp = new AppBase<StandardLoader, AppProperties<StandardLoader>>(new AppProperties<StandardLoader>(SvgTargets.values(), new StandardLoader())) {
+		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}

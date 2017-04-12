@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.loaders;
+package de.vandermeer.svg2vector.applications.fh;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,16 +44,16 @@ import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
 public class BatikLoader extends SV_DocumentLoader {
 
 	/** Local bridge context. */
-	protected BridgeContext bridgeContext;
+	private BridgeContext bridgeContext;
 
 	/** SVG document object. */
-	protected Document svgDocument;
+	private Document svgDocument;
 
 	/** Size value. */
-	protected Dimension size;
+	private Dimension size;
 
 	/** Mapping from node id to actual DOM node. */
-	protected final Map<String, Node> layerNodes = new HashMap<>();
+	private final Map<String, Node> layerNodes = new HashMap<>();
 
 	/**
 	 * Returns the Inkscape label for a given node.
@@ -109,7 +110,7 @@ public class BatikLoader extends SV_DocumentLoader {
 			this.bridgeContext.setDynamic(true);
 
 			try{
-				this.svgDocument = documentLoader.loadDocument(fn);
+				this.svgDocument = documentLoader.loadDocument(new File(fn).toURI().toString());
 			}
 			catch(Exception ex){
 				this.bridgeContext = null;
@@ -195,16 +196,29 @@ public class BatikLoader extends SV_DocumentLoader {
 		}
 	}
 
-//	/**
-//	 * Returns the loader's document.
-//	 * @return loaded document, null if none loaded
-//	 */
-//	public Document getDocument() {
-//		return this.svgDocument;
-//	}
+	/**
+	 * Returns the loader's document.
+	 * @return loaded document, null if none loaded
+	 */
+	public Document getDocument() {
+		return this.svgDocument;
+	}
 
-//	/** List of SVG nodes in document. */
-//	protected NodeList svgNodeList;
-//
+	/**
+	 * Returns the loader's bridge context.
+	 * @return bridge context, null if no document loaded
+	 */
+	public BridgeContext getBridgeContext(){
+		return this.bridgeContext;
+	}
+
+	/**
+	 * Returns the document size.
+	 * @return document size, null if no document loaded
+	 */
+	public Dimension getSize(){
+		return this.size;
+	}
+
 
 }

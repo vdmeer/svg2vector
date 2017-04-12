@@ -148,7 +148,7 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 
 	/**
 	 * Prints a detail message if activated in mode
-	 * @param msg the message, not printed if blank
+	 * @param msg the detail message, not printed if null
 	 */
 	public void printDetailMessage(String msg){
 		this.printMessage(msg, AppProperties.P_OPTION_DEAILS);
@@ -156,10 +156,10 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 
 	/**
 	 * Prints a error message if activated in mode
-	 * @param msg the message, not printed if blank
+	 * @param err the error message, not printed if null
 	 */
-	public void printErrorMessage(String msg){
-		this.printMessage(msg, AppProperties.P_OPTION_ERROR);
+	public void printErrorMessage(String err){
+		this.printMessage(err, AppProperties.P_OPTION_ERROR);
 	}
 
 	/**
@@ -193,7 +193,7 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 
 	/**
 	 * Prints a progress message if activated in mode
-	 * @param msg the message, not printed if blank
+	 * @param msg the progress message, not printed if null
 	 */
 	public void printProgressMessage(String msg){
 		this.printMessage(msg, AppProperties.P_OPTION_PROGRESS);
@@ -201,7 +201,7 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 
 	/**
 	 * Prints a warning message if activated in mode
-	 * @param msg the message, not printed if blank
+	 * @param msg the warning message, not printed if null
 	 */
 	public void printWarningMessage(String msg){
 		this.printMessage(msg, AppProperties.P_OPTION_WARNING);

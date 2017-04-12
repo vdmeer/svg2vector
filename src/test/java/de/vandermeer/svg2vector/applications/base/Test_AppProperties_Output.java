@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.loaders.StandardLoader;
+import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
  * Tests for {@link AppProperties} - file output options.
@@ -36,7 +36,7 @@ public class Test_AppProperties_Output {
 	@Test
 	public void test_NoValidTarget(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "eps",
@@ -54,7 +54,7 @@ public class Test_AppProperties_Output {
 	@Test
 	public void test_NothingSet(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -72,7 +72,7 @@ public class Test_AppProperties_Output {
 	@Test
 	public void test_LayersButNoneInFile(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",

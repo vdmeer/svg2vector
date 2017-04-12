@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.loaders.StandardLoader;
+import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
  * Tests for {@link AppProperties} - target.
@@ -35,22 +35,22 @@ public class Test_AppProperties_Target {
 
 	@Test
 	public void test_SupportedTargets(){
-		AppProperties<StandardLoader> props;
+		AppProperties<IsLoader> props;
 
-		props = new AppProperties<StandardLoader>(new SvgTargets[]{}, new StandardLoader());
+		props = new AppProperties<IsLoader>(new SvgTargets[]{}, new IsLoader());
 		assertEquals(0, props.getSupportedTargetts().length);
 
-		props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
+		props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
 		assertEquals(1, props.getSupportedTargetts().length);
 
-		props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf}, new StandardLoader());
+		props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf}, new IsLoader());
 		assertEquals(2, props.getSupportedTargetts().length);
 	}
 
 	@Test
 	public void test_NoneSet(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{};
 
@@ -64,7 +64,7 @@ public class Test_AppProperties_Target {
 	@Test
 	public void test_NotSupported(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "eps",
@@ -81,7 +81,7 @@ public class Test_AppProperties_Target {
 	@Test
 	public void test_ValidTarget(){
 		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf}, new StandardLoader());
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf}, new IsLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.loaders;
+package de.vandermeer.svg2vector.applications.is;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -38,7 +38,7 @@ import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class StandardLoader extends SV_DocumentLoader {
+public class IsLoader extends SV_DocumentLoader {
 
 	/** Lines read from file. */
 	protected ArrayList<String> lines;
