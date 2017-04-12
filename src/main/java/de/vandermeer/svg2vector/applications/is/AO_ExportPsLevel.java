@@ -15,54 +15,30 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import org.apache.commons.cli.Option;
-
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import de.vandermeer.svg2vector.applications.base.SvgTargets;
 
 /**
- * Application option "export-ps-level".
+ * Application option export-ps-level.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_ExportPsLevel extends AbstractApplicationOption<String> {
+public class AO_ExportPsLevel extends IsTargetOption {
 
 	/**
-	 * Returns the new option.
-	 * @param required true if option is required, false of it is optional
-	 * @throws NullPointerException - if description parameter is null
-	 * @throws IllegalArgumentException - if description parameter is empty
+	 * Returns the new option as not required and without a short option.
+	 * @param target the target to which this option applies, must not be null
+	 * @param isCli the Inkscape command line option to be used including any leading dashs, must not be blank
+	 * @throws NullPointerException - if any required parameter is null
+	 * @throws IllegalArgumentException - if any required parameter is null
 	 */
-	public AO_ExportPsLevel(boolean required){
-		this(required, null);
-	}
-
-	/**
-	 * Returns the new option.
-	 * @param required true if option is required, false of it is optional
-	 * @param shortOption character for sort version of the option
-	 * @throws NullPointerException - if description parameter is null
-	 * @throws IllegalArgumentException - if description parameter is empty
-	 */
-	public AO_ExportPsLevel(boolean required, Character shortOption){
+	public AO_ExportPsLevel(SvgTargets target, String isCli){
 		super(
+				target, isCli,
+				"export-ps-level", "LEVEL",
 				"sets the PS level for export (2 or 3)",
 				"The default PS level used for export in Inkscape is 2."
 		);
-
-		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("export-ps-level");
-		builder.hasArg().argName("LEVEL");
-		builder.required(required);
-		this.setCliOption(builder.build());
-	}
-
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
 	}
 }

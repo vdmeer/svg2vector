@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.fh;
+package de.vandermeer.svg2vector.applications.fh.converters;
 
 import java.awt.Dimension;
 import java.io.File;

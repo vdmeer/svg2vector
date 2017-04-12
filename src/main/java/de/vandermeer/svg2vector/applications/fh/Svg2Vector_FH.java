@@ -22,7 +22,11 @@ import java.util.Map.Entry;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.base.AppProperties;
 import de.vandermeer.svg2vector.applications.base.SvgTargets;
-import de.vandermeer.svg2vector.applications.is.converters.FhConverter;
+import de.vandermeer.svg2vector.applications.fh.converters.BatikLoader;
+import de.vandermeer.svg2vector.applications.fh.converters.FhConverter;
+import de.vandermeer.svg2vector.applications.fh.converters.Fh_Svg2Emf;
+import de.vandermeer.svg2vector.applications.fh.converters.Fh_Svg2Pdf;
+import de.vandermeer.svg2vector.applications.fh.converters.Fh_Svg2Svg;
 
 /**
  * The Svg2Vector application using the FreeHep library.
@@ -81,7 +85,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 
 		SvgTargets target = this.getProps().getTarget();
 
-		FhConverter converter = target.getConverter();
+		FhConverter converter = TARGET_2_CONVERTER(target);
 		if(converter==null){
 			this.printErrorMessage("no converter found for target <" + target.name() + ">");
 			return -20;
@@ -150,5 +154,31 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 	@Override
 	public String getAppVersion() {
 		return APP_VERSION;
+	}
+
+	/**
+	 * Returns a converter for a given target
+	 * @param target the target, can be null
+	 * @return null if target was null or no converter found, a new converter object for the target otherwise
+	 */
+	public static FhConverter TARGET_2_CONVERTER(SvgTargets target){
+		if(target==null){
+			return null;
+		}
+		switch(target){
+			case eps:
+			case png:
+			case ps:
+			case wmf:
+				break;
+
+			case pdf:
+				return new Fh_Svg2Pdf();
+			case svg:
+				return new Fh_Svg2Svg();
+			case emf:
+				return new Fh_Svg2Emf();
+		}
+		return null;
 	}
 }

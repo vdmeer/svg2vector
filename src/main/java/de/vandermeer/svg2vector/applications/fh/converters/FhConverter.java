@@ -13,15 +13,13 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.is.converters;
+package de.vandermeer.svg2vector.applications.fh.converters;
 
 import java.awt.Color;
 import java.io.File;
 
 import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
-
-import de.vandermeer.svg2vector.applications.fh.BatikLoader;
 
 /**
  * A converter for SVG documents using the FreeHep library.

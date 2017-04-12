@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.is.converters;
+package de.vandermeer.svg2vector.applications.fh.converters;
 
 import java.awt.Color;
 import java.io.File;
@@ -23,8 +23,6 @@ import java.io.FileOutputStream;
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.gvt.GraphicsNode;
 import org.freehep.graphicsio.emf.EMFGraphics2D;
-
-import de.vandermeer.svg2vector.applications.fh.BatikLoader;
 
 /**
  * A converter for SVG documents to EMF using the FreeHep library.
