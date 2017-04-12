@@ -80,7 +80,7 @@
 
 
 === v1.0.1 - minor changes - 2014-06-25
-* changed PDF margins to proper FreeHep handling +properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");+ in +PdfProperties+
+* changed PDF margins to proper FreeHep handling `properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");` in `PdfProperties`
 
 
 === v1.0.0 - initial release - 2014-06-10
