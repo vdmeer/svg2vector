@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.is;
 
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "export-dpi".
+ * Application option "export-ps-level".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_ExportDpi extends AbstractApplicationOption<String> {
+public class AO_ExportPsLevel extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
@@ -34,7 +34,7 @@ public class AO_ExportDpi extends AbstractApplicationOption<String> {
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ExportDpi(boolean required){
+	public AO_ExportPsLevel(boolean required){
 		this(required, null);
 	}
 
@@ -45,15 +45,15 @@ public class AO_ExportDpi extends AbstractApplicationOption<String> {
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ExportDpi(boolean required, Character shortOption){
+	public AO_ExportPsLevel(boolean required, Character shortOption){
 		super(
-				"set DPI for export",
-				"Resolution for exporting to bitmap and for rasterization of filters in PS/EPS/PDF (default 90)."
+				"sets the PS level for export (2 or 3)",
+				"The default PS level used for export in Inkscape is 2."
 		);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("export-dpi");
-		builder.hasArg().argName("DPI");
+		builder.longOpt("export-ps-level");
+		builder.hasArg().argName("LEVEL");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}

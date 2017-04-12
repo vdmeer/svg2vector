@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.is.converters;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,11 +31,6 @@ import org.freehep.graphicsio.pdf.PDFGraphics2D;
  * @since      v1.0.0
  */
 public class Svg2Pdf extends Svg {
-
-	/** Constructor */
-	public Svg2Pdf() {
-		super();
-	}
 
 	@Override
 	public boolean convertSingleLayer(String directory, String filename) {

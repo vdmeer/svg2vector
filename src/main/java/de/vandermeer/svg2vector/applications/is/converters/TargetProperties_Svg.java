@@ -1,4 +1,4 @@
-/* Copyright 2014 Sven van der Meer <vdmeer.sven@mykolab.com>
+ /* Copyright 2014 Sven van der Meer <vdmeer.sven@mykolab.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,26 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.is.converters;
 
 import java.awt.Color;
 
-import org.freehep.graphicsio.emf.EMFGraphics2D;
+import org.freehep.graphicsio.svg.SVGGraphics2D;
 
 /**
- * Properties for the EMF target.
+ * Properties for the SVG target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.0.0
  */
-public class TargetProperties_Emf extends TargetProperties {
+public class TargetProperties_Svg extends TargetProperties {
 
 	/**
-	 * Constructor.
+	 * Creates new SVG target properties.
 	 * Sets transparency to true, background to false and background color to white.
 	 */
-	public TargetProperties_Emf(){
+	public TargetProperties_Svg(){
 		super();
 		this.setPropertyTransparent(true);
 		this.setPropertyBackground(false);
@@ -41,16 +41,16 @@ public class TargetProperties_Emf extends TargetProperties {
 
 	@Override
 	public void setPropertyBackground(boolean on) {
-		this.properties.setProperty(EMFGraphics2D.BACKGROUND, on);
+		this.properties.setProperty(SVGGraphics2D.BACKGROUND, on);
 	}
 
 	@Override
 	public void setPropertyBackgroundColor(Color color) {
-		this.properties.setProperty(EMFGraphics2D.BACKGROUND_COLOR, color);
+		this.properties.setProperty(SVGGraphics2D.BACKGROUND_COLOR, color);
 	}
 
 	@Override
 	public void setPropertyTransparent(boolean on) {
-		this.properties.setProperty(EMFGraphics2D.TRANSPARENT, on);
+		this.properties.setProperty(SVGGraphics2D.TRANSPARENT, on);
 	}
 }

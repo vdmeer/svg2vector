@@ -15,54 +15,37 @@
 
 package de.vandermeer.svg2vector.applications.base;
 
+import org.apache.commons.cli.Option;
+
+import de.vandermeer.execs.options.AbstractApplicationOption;
+
 /**
- * Application message types with bit mask.
+ * Application option simulate.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public enum MessageTypes {
-
-	/** An error message. */
-	error (0b0001),
-
-	/** An warning message. */
-	warning (0b0010),
-
-	/** An progress message. */
-	progress (0b0100),
-
-	/** An detailed message. */
-	detail (0b1000)
-
-	;
-
-	/** Bit mask for the message. */
-	private int mask;
+public class AO_Simulate extends AbstractApplicationOption<String> {
 
 	/**
-	 * Creates a new message type with a bit mask.
-	 * @param mask
+	 * Returns the new option.
 	 */
-	MessageTypes(int mask){
-		this.mask = mask;
+	public AO_Simulate(){
+		super("simulate application, no file output", "This option puts the application into simulation mode. All actions will be done as normal, except no directories will be created and no file will be created or written. This includes temporary directories. Use this option with detailed messaging to see what would happen for a given application run.");
+
+		Option.Builder builder = Option.builder("S");
+		builder.longOpt("simulate");
+		builder.required(false);
+		this.setCliOption(builder.build());
 	}
 
-	/**
-	 * Returns the bit mask of the message type.
-	 * @return bit mask
-	 */
-	public int getMask(){
-		return this.mask;
+	@Override
+	public String convertValue(Object value) {
+		if(value==null){
+			return null;
+		}
+		return value.toString();
 	}
 
-	/**
-	 * Tests if the type is activate in the given mode.
-	 * @param mode the message mode
-	 * @return true if the message type is activated in the message mode, false otherwise
-	 */
-	public boolean isSet(int mode){
-		return ((mode & this.mask) == this.mask);
-	}
 }

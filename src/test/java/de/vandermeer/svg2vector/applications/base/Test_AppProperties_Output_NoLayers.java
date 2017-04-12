@@ -27,7 +27,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**
@@ -40,14 +39,14 @@ import de.vandermeer.svg2vector.loaders.StandardLoader;
 public class Test_AppProperties_Output_NoLayers {
 
 	@Test
-	public void test_WarningDout(){
+	public void test_Warning_Dout(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"-d", "foo"
+				"-d", "foo",
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -60,14 +59,14 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_WarningNoBN(){
+	public void test_Warning_NoBN(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"--fout-no-basename"
+				"--fout-no-basename",
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -80,14 +79,14 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_WarningUseBN(){
+	public void test_Warning_UseBN(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"--use-basename", "bn"
+				"--use-basename", "bn",
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -100,14 +99,14 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_WarningIndex(){
+	public void test_Warning_Index(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"-i"
+				"-i",
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -120,14 +119,14 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_WarningID(){
+	public void test_Warning_ID(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"-I"
+				"-I",
 		};
 
 		assertEquals(null, cli.parse(args));
@@ -140,7 +139,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_FoutBlank(){
+	public void test_Error_FoutBlank(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -160,7 +159,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_FoutExt(){
+	public void test_Error_FoutExt(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -180,7 +179,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_SameAsTarget(){
+	public void test_Error_SameAsTarget(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.svg}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -199,7 +198,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_FoutExistsNoOverwrite(){
+	public void test_Error_FoutExistsNoOverwrite(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -229,7 +228,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_FoutExistsIsdir(){
+	public void test_Error_FoutExistsIsdir(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -254,7 +253,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_FoutExistsCantWrite(){
+	public void test_Error_FoutExistsCantWrite(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -286,7 +285,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_ParrentNoDir(){
+	public void test_Error_ParrentNoDir(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -317,7 +316,7 @@ public class Test_AppProperties_Output_NoLayers {
 	}
 
 	@Test
-	public void test_NoParrentNoCreate(){
+	public void test_Error_NoParrentNoCreate(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
 		cli.addAllOptions(props.getAppOptions());
@@ -345,7 +344,7 @@ public class Test_AppProperties_Output_NoLayers {
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
 				"-o", "target/output-tests/app-props/test/file",
-				"--create-directories"
+				"--create-directories",
 		};
 
 		assertEquals(null, cli.parse(args));

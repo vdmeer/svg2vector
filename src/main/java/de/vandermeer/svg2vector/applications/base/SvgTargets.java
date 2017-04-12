@@ -13,9 +13,18 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.base;
 
 import org.apache.commons.lang3.Validate;
+
+import de.vandermeer.svg2vector.applications.is.converters.Svg;
+import de.vandermeer.svg2vector.applications.is.converters.Svg2Emf;
+import de.vandermeer.svg2vector.applications.is.converters.Svg2Pdf;
+import de.vandermeer.svg2vector.applications.is.converters.Svg2Svg;
+import de.vandermeer.svg2vector.applications.is.converters.TargetProperties;
+import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Emf;
+import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Pdf;
+import de.vandermeer.svg2vector.applications.is.converters.TargetProperties_Svg;
 
 /**
  * Conversion targets with associated Inkscape CLI option.

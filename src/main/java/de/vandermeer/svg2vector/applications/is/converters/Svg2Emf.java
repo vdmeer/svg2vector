@@ -13,29 +13,24 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.is.converters;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.gvt.GraphicsNode;
-import org.freehep.graphicsio.svg.SVGGraphics2D;
+import org.freehep.graphicsio.emf.EMFGraphics2D;
 
 /**
- * SVG target converter.
+ * EMF target converter.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.0.0
  */
-public class Svg2Svg extends Svg {
-
-	/** Constructor */
-	public Svg2Svg() {
-		super();
-	}
+public class Svg2Emf extends Svg {
 
 	@Override
 	public boolean convertSingleLayer(String directory, String filename) {
@@ -46,29 +41,29 @@ public class Svg2Svg extends Svg {
 		GVTBuilder gvtBuilder = new GVTBuilder();
 		GraphicsNode rootNode = gvtBuilder.build(this.bridgeContext, this.svgDocument);
 
-		FileOutputStream svgStream;
-		SVGGraphics2D svgGraphics2D;
+		FileOutputStream emfStream;
+		EMFGraphics2D emfGraphics2D;
 		try{
 			if(directory==null){
 				directory = System.getProperty("user.dir");
 			}
-			File output = new File(directory + '/' + filename + ".svg");
-			svgStream = new FileOutputStream(output);
-			svgGraphics2D = new SVGGraphics2D(output, this.size);
+			File output = new File(directory + '/' + filename + ".emf");
+			emfStream = new FileOutputStream(output);
+			emfGraphics2D = new EMFGraphics2D(output, this.size);
 		}
-		catch(IOException fnfe){
+		catch(FileNotFoundException fnfe){
 			return false;
 		}
 
-		svgGraphics2D.setProperties(this.properties.getProperties());
-		svgGraphics2D.setDeviceIndependent(true);
-		svgGraphics2D.startExport();
-		rootNode.paint(svgGraphics2D);
-		svgGraphics2D.endExport();
-		svgGraphics2D.dispose();
+		emfGraphics2D.setProperties(this.properties.getProperties());
+		emfGraphics2D.setDeviceIndependent(true);
+		emfGraphics2D.startExport();
+		rootNode.paint(emfGraphics2D);
+		emfGraphics2D.endExport();
+		emfGraphics2D.dispose();
 
 		try{
-			svgStream.close();
+			emfStream.close();
 		}
 		catch(Exception ignore){}
 

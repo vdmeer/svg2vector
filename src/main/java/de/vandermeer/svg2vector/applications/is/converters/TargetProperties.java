@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.is.converters;
 
 import java.awt.Color;
 
@@ -32,18 +32,9 @@ public abstract class TargetProperties {
 	/** Properties that can be set for conversion. */
 	protected UserProperties properties;
 
-	/** Flag for using Inkscape layer names. */
-	boolean useInkscapeLayerName = true;
-
-	/** Flag for using Inkscape layer indices. */
-	boolean useInkscapeLayerIndex = false;
-
-	/** Flag for using Inkscape layers. */
-	boolean useOnePerInkscapeLayer = false;
-
 	/**
-	 * Constructor.
-	 * Sets transparency to true, background to false, background color to white, clipping to false and text-as-shapes to true
+	 * Creates a new target property object with default configuration.
+	 * Sets transparency to true, background to false, background color to white, clipping to false, text as shapes to false.
 	 */
 	public TargetProperties(){
 		this.properties=new UserProperties();
@@ -52,7 +43,7 @@ public abstract class TargetProperties {
 		this.setPropertyBackground(false);
 		this.setPropertyBackgroundColor(Color.WHITE);
 		this.setPropertyClip(false);
-		this.setPropertyTextAsShapes(true);
+		this.setPropertyTextAsShapes(false);
 	}
 
 	/**
@@ -97,50 +88,4 @@ public abstract class TargetProperties {
 		return this.properties;
 	}
 
-	/**
-	 * Switches use of Inkscape layer names on.
-	 */
-	public void setUseInkscapeLayerName(){
-		this.useInkscapeLayerName = false;
-		this.useInkscapeLayerIndex = true;
-	}
-
-	/**
-	 * Switches use of Inkscape layer indices on.
-	 */
-	public void setUseInkscapeLayerIndex(){
-		this.useInkscapeLayerName = true;
-		this.useInkscapeLayerIndex = true;
-	}
-
-	/**
-	 * Switches use of Inkscape layers on.
-	 */
-	public void setUseOnePerInkscapeLayer(){
-		this.useOnePerInkscapeLayer = true;
-	}
-
-	/**
-	 * Returns the current setting for using Inkscape layer names.
-	 * @return current settings
-	 */
-	public boolean useInkscapeLayerName(){
-		return this.useInkscapeLayerName;
-	}
-
-	/**
-	 * Returns the current setting for using Inkscape indices.
-	 * @return current settings
-	 */
-	public boolean useInkscapeLayerIndex(){
-		return this.useInkscapeLayerIndex;
-	}
-
-	/**
-	 * Returns the current setting for using Inkscape layers.
-	 * @return current settings
-	 */
-	public boolean useOnePerInkscapeLayer(){
-		return this.useOnePerInkscapeLayer;
-	}
 }

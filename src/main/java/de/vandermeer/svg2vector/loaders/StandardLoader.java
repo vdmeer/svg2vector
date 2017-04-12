@@ -27,6 +27,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
 
@@ -44,6 +45,8 @@ public class StandardLoader extends SV_DocumentLoader {
 
 	@Override
 	public String load(String fn) {
+		Validate.notBlank(fn);
+
 		if(!this.isLoaded){
 			try{
 				InputStream decompressed = new GZIPInputStream(new FileInputStream(fn));
@@ -60,7 +63,7 @@ public class StandardLoader extends SV_DocumentLoader {
 			catch(ZipException ignore){}
 			catch(IOException e){
 				this.lines = null;
-				return "IO error reading GZIP file <" + fn + ">: " + e.getMessage();
+				return this.getClass().getSimpleName() + ": IO error reading GZIP file <" + fn + ">: " + e.getMessage();
 			}
 		}
 
@@ -77,11 +80,11 @@ public class StandardLoader extends SV_DocumentLoader {
 			}
 			catch(FileNotFoundException e){
 				this.lines = null;
-				return "FileNotFoundException error reading plain file <" + fn + ">: " + e.getMessage();
+				return this.getClass().getSimpleName() + ": FileNotFoundException error reading plain file <" + fn + ">: " + e.getMessage();
 			}
 			catch(IOException e){
 				this.lines = null;
-				return "IO error reading plain file <" + fn + ">: " + e.getMessage();
+				return this.getClass().getSimpleName() + ": IO error reading plain file <" + fn + ">: " + e.getMessage();
 			}
 		}
 

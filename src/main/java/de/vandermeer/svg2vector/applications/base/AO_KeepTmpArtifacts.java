@@ -13,47 +13,39 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications;
+package de.vandermeer.svg2vector.applications.base;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.commons.cli.Option;
 
-import org.junit.Test;
+import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Simple tests for Svg2Vector_IS.
+ * Application option keep-tmp-artifacts.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class Test_Svg2Vector_IS {
+public class AO_KeepTmpArtifacts extends AbstractApplicationOption<String> {
 
-	/** Prefix for tests that create output. */
-	static String outDirPrefix = "target/testoutput/s2v-is/";
+	/**
+	 * Returns the new option.
+	 */
+	public AO_KeepTmpArtifacts(){
+		super("keep temporary created artifacts (files and directories)", "With this option, any temporary created artifact (files and directories) will not be removed.");
 
-	@Test
-	public void testVH(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
-
-		String[] args = new String[]{
-				""
-		};
-		assertEquals(-1, app.executeApplication(args));
-
-		args=new String[]{
-				"--version"
-		};
-		assertEquals(1, app.executeApplication(args));
-
-		args=new String[]{
-				"--help"
-		};
-		assertEquals(1, app.executeApplication(args));
-
-		args=new String[]{
-				"--help",
-				"target"
-		};
-		assertEquals(1, app.executeApplication(args));
+		Option.Builder builder = Option.builder();
+		builder.longOpt("keep-tmp-artifacts");
+		builder.required(false);
+		this.setCliOption(builder.build());
 	}
+
+	@Override
+	public String convertValue(Object value) {
+		if(value==null){
+			return null;
+		}
+		return value.toString();
+	}
+
 }

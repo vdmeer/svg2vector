@@ -13,45 +13,47 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.is;
 
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "not-transparent".
+ * Application option "export-pdf-version".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
- * @since      v1.1.0
+ * @since      v2.0.0
  */
-public class AO_NotTransparent extends AbstractApplicationOption<String> {
+public class AO_ExportPdfVersion extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
-	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_NotTransparent(boolean required, String longDescription){
-		this(required, null, longDescription);
+	public AO_ExportPdfVersion(boolean required){
+		this(required, null);
 	}
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
 	 * @param shortOption character for sort version of the option
-	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_NotTransparent(boolean required, Character shortOption, String longDescription){
-		super("not transparent", longDescription);
+	public AO_ExportPdfVersion(boolean required, Character shortOption){
+		super(
+				"set PDf version for export",
+				"Make sure to input the exact string found in the PDF export dialog, e.g. \"PDF 1.4\" which is PDF-a conformant."
+		);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("not-transparent");
+		builder.longOpt("export-pdf-version");
+		builder.hasArg().argName("VERSION");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}
@@ -63,5 +65,4 @@ public class AO_NotTransparent extends AbstractApplicationOption<String> {
 		}
 		return value.toString();
 	}
-
 }

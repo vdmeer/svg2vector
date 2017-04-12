@@ -34,6 +34,7 @@ public abstract class SV_DocumentLoader {
 
 	/**
 	 * Loads the SVG file.
+	 * This method will not re-load an SVG file once the loader already has a document loaded.
 	 * @param fn the file name for the SVG document
 	 * @return null on success, error message on error
 	 * @throws NullPointerException if argument was null
@@ -68,7 +69,7 @@ public abstract class SV_DocumentLoader {
 	public abstract void switchOffAllLayers();
 
 	/**
-	 * Switches on the given layer, nothing happens if the layer was blank or not in the layer list.
+	 * Switches the given layer on, nothing happens if the layer was blank or not in the layer list.
 	 * @param layer the layer to be switched on
 	 */
 	public abstract void switchOnLayer(String layer);

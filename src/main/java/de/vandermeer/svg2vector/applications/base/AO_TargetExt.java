@@ -20,7 +20,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import de.vandermeer.execs.options.AO_Target;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 
 /**
  * Application option "target" with extended long description.

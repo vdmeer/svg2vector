@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.is;
 
 import org.apache.commons.cli.Option;
 

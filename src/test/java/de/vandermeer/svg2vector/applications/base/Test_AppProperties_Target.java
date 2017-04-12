@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**
@@ -93,6 +92,6 @@ public class Test_AppProperties_Target {
 		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
 
 		props.setMessageMode();
-		assertEquals(MessageTypes.error.getMask(), props.getMsgMode());
+		assertEquals(AppProperties.P_OPTION_ERROR, props.getMsgMode());
 	}
 }

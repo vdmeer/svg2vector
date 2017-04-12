@@ -1,4 +1,4 @@
- /* Copyright 2014 Sven van der Meer <vdmeer.sven@mykolab.com>
+/* Copyright 2014 Sven van der Meer <vdmeer.sven@mykolab.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,29 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.is.converters;
 
 import java.awt.Color;
 
-import org.freehep.graphicsio.svg.SVGGraphics2D;
+import org.freehep.graphicsio.pdf.PDFGraphics2D;
 
 /**
- * Properties for the SVG target.
+ * Properties for the PDF target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.0.0
  */
-public class TargetProperties_Svg extends TargetProperties {
+public class TargetProperties_Pdf extends TargetProperties {
 
 	/**
-	 * Constructor.
+	 * Creates new PDF target properties.
 	 * Sets transparency to true, background to false and background color to white.
+	 * Also sets page margins to 0.
 	 */
-	public TargetProperties_Svg(){
+	public TargetProperties_Pdf(){
 		super();
+		this.properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");
 		this.setPropertyTransparent(true);
 		this.setPropertyBackground(false);
 		this.setPropertyBackgroundColor(Color.WHITE);
@@ -41,16 +43,16 @@ public class TargetProperties_Svg extends TargetProperties {
 
 	@Override
 	public void setPropertyBackground(boolean on) {
-		this.properties.setProperty(SVGGraphics2D.BACKGROUND, on);
+		this.properties.setProperty(PDFGraphics2D.BACKGROUND, on);
 	}
 
 	@Override
 	public void setPropertyBackgroundColor(Color color) {
-		this.properties.setProperty(SVGGraphics2D.BACKGROUND_COLOR, color);
+		this.properties.setProperty(PDFGraphics2D.BACKGROUND_COLOR, color);
 	}
 
 	@Override
 	public void setPropertyTransparent(boolean on) {
-		this.properties.setProperty(SVGGraphics2D.TRANSPARENT, on);
+		this.properties.setProperty(PDFGraphics2D.TRANSPARENT, on);
 	}
 }

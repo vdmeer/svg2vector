@@ -15,14 +15,12 @@
 
 package de.vandermeer.svg2vector.applications.base;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import de.vandermeer.execs.ExecS_Application;
 import de.vandermeer.execs.options.ApplicationOption;
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 
 /**
  * Abstract base class for Svg2Vector applications.
@@ -44,7 +42,7 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	 * @param props the application properties
 	 * @throws NullPointerException if props was null
 	 */
-	public AppBase(P props){
+	protected AppBase(P props){
 		Validate.notNull(props);
 		this.props = props;
 
@@ -85,26 +83,46 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 			this.printErrorMessage(err);
 			return -11;
 		}
+		this.printWarnings();
 
 		if((err = this.props.setOutput()) != null){
 			this.printErrorMessage(err);
 			return -12;
 		}
+		this.printWarnings();
 
 		if(this.props.doesNoLayers()){
-			this.printProgressMessage("processing SVG file for single file output");
-			this.printDetailMessage("input fn:  " + this.props.getFinFn());
-			this.printDetailMessage("output fn: " + this.props.getFoutFn());
+			this.printProgressMessage("processing single output, no layers");
+			this.printDetailMessage("target:           " + target.name());
+			this.printDetailMessage("input fn:         " + this.props.getFinFn());
+			this.printDetailMessage("output fn:        " + this.props.getFoutFn());
 		}
 		else if(props.doesLayers()){
-			this.printProgressMessage("processing SVG file for file per layer output");
-			this.printDetailMessage("input fn:   " + this.props.getFinFn());
-			this.printDetailMessage("output dir: " + this.props.getDout());
-			this.printDetailMessage("fn pattern: " + this.props.getFoutPattern());
+			this.printProgressMessage("processing multi layer, multi file output");
+			this.printDetailMessage("target:           " + target.name());
+			this.printDetailMessage("input fn:         " + this.props.getFinFn());
+			this.printDetailMessage("output dir:       " + this.props.getDout());
+			this.printDetailMessage("fn pattern:       " + this.props.getFoutPattern());
 		}
 		else{
 			this.printErrorMessage("implementation error: something wrong with property settings");
 			return -13;
+		}
+
+		if(this.props.doesCreateDirectories()){
+			this.printProgressMessage("creating directories for output");
+			if(this.props.getFoutFile()!=null){
+				if(this.props.canWriteFiles()){
+					this.props.getFoutFile().getParentFile().mkdirs();
+				}
+				this.printDetailMessage("create directories (fout): " + this.props.getFoutFile().getParent());
+			}
+			if(this.props.getDoutFile()!=null){
+				if(this.props.canWriteFiles()){
+					this.props.getDoutFile().mkdirs();
+				}
+				this.printDetailMessage("create directories (dout): " + this.props.getDout());
+			}
 		}
 
 		return 0;
@@ -133,7 +151,7 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	 * @param msg the message, not printed if blank
 	 */
 	public void printDetailMessage(String msg){
-		this.printMessage(msg, MessageTypes.detail);
+		this.printMessage(msg, AppProperties.P_OPTION_DEAILS);
 	}
 
 	/**
@@ -141,27 +159,34 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	 * @param msg the message, not printed if blank
 	 */
 	public void printErrorMessage(String msg){
-		this.printMessage(msg, MessageTypes.error);
+		this.printMessage(msg, AppProperties.P_OPTION_ERROR);
 	}
 
 	/**
 	 * Prints a message of give type.
-	 * @param msg the message, not printed if blank
-	 * @param type the message type, nothing printed if null or not set in message mode
+	 * @param msg the message, not printed if null
+	 * @param type the message type, nothing printed if not set in message mode
 	 */
-	public void printMessage(String msg, MessageTypes type){
-		if(StringUtils.isBlank(msg) || type==null){
+	private void printMessage(String msg, int type){
+		if(msg==null){
 			return;
 		}
-		if(type.isSet(this.props.getMsgMode())){
-			if(type==MessageTypes.error){
+
+		if(this.isSet(type)){
+			if(type==AppProperties.P_OPTION_ERROR){
 				System.err.println(this.getAppName() + " error: " + msg);
 			}
-			else if(type==MessageTypes.warning){
+			else if(type==AppProperties.P_OPTION_WARNING){
 				System.out.println(this.getAppName() + " warning: " + msg);
 			}
+			else if(type==AppProperties.P_OPTION_PROGRESS){
+				System.out.println(this.getAppName() + ": --- " + msg);
+			}
+			else if(type==AppProperties.P_OPTION_DEAILS){
+				System.out.println(this.getAppName() + ": === " + msg);
+			}
 			else{
-				System.out.println(this.getAppName() + ": " + msg);
+				throw new IllegalArgumentException("messaging: unknown type: " + type);
 			}
 		}
 	}
@@ -171,7 +196,7 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	 * @param msg the message, not printed if blank
 	 */
 	public void printProgressMessage(String msg){
-		this.printMessage(msg, MessageTypes.progress);
+		this.printMessage(msg, AppProperties.P_OPTION_PROGRESS);
 	}
 
 	/**
@@ -179,6 +204,27 @@ public abstract class AppBase <L extends SV_DocumentLoader, P extends AppPropert
 	 * @param msg the message, not printed if blank
 	 */
 	public void printWarningMessage(String msg){
-		this.printMessage(msg, MessageTypes.warning);
+		this.printMessage(msg, AppProperties.P_OPTION_WARNING);
+	}
+
+	/**
+	 * Prints all warnings collected in properties and empties the warning list.
+	 */
+	public void printWarnings(){
+		if(this.props.warnings.size()>0){
+			for(String msg : this.props.warnings){
+				this.printWarningMessage(msg);
+			}
+			this.props.warnings.clear();
+		}
+	}
+
+	/**
+	 * Tests if the type is activate in the given mode.
+	 * @param mask the mask to test against
+	 * @return true if the message type (mask) is activated in the message mode, false otherwise
+	 */
+	private boolean isSet(int mask){
+		return ((this.props.getMsgMode() & mask) == mask);
 	}
 }

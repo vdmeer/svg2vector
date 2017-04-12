@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications;
+package de.vandermeer.svg2vector.applications.fh;
 
 import java.awt.Color;
 import java.util.Iterator;
@@ -22,13 +22,9 @@ import java.util.Set;
 import org.freehep.graphicsbase.util.UserProperties;
 
 import de.vandermeer.svg2vector.applications.base.AppBase;
-import de.vandermeer.svg2vector.applications.options.AO_BackgroundColor;
-import de.vandermeer.svg2vector.applications.options.AO_Clip;
-import de.vandermeer.svg2vector.applications.options.AO_NoBackground;
-import de.vandermeer.svg2vector.applications.options.AO_NotTransparent;
-import de.vandermeer.svg2vector.converters.Svg;
-import de.vandermeer.svg2vector.converters.SvgTargets;
-import de.vandermeer.svg2vector.converters.TargetProperties;
+import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.is.converters.Svg;
+import de.vandermeer.svg2vector.applications.is.converters.TargetProperties;
 
 /**
  * The Svg2Vector application using the FreeHep library.

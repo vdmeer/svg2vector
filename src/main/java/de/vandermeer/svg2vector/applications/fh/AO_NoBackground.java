@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.fh;
 
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "manual-layers".
+ * Application option "no-background".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
- * @since      v2.0.0
+ * @since      v1.1.0
  */
-public class AO_ManualLayers extends AbstractApplicationOption<String> {
+public class AO_NoBackground extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
@@ -35,7 +35,7 @@ public class AO_ManualLayers extends AbstractApplicationOption<String> {
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ManualLayers(boolean required, String longDescription){
+	public AO_NoBackground(boolean required, String longDescription){
 		this(required, null, longDescription);
 	}
 
@@ -47,11 +47,11 @@ public class AO_ManualLayers extends AbstractApplicationOption<String> {
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ManualLayers(boolean required, Character shortOption, String longDescription){
-		super("manage layers manually when creating tmp directory", longDescription);
+	public AO_NoBackground(boolean required, Character shortOption, String longDescription){
+		super("no background", longDescription);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("manual-layers");
+		builder.longOpt("no-background");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}

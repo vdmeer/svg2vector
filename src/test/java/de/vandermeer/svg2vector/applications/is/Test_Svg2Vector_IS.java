@@ -13,46 +13,51 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications;
+package de.vandermeer.svg2vector.applications.is;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
+import de.vandermeer.svg2vector.applications.is.Svg2Vector_IS;
 
 /**
- * Simple tests for Svg2Vector_FH.
+ * Simple tests for Svg2Vector_IS.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
- * @since      v1.1.0
+ * @since      v2.0.0
  */
-public class Test_Svg2Vector_FH {
+public class Test_Svg2Vector_IS {
 
 	/** Prefix for tests that create output. */
-	static String outDirPrefix = "target/testoutput/s2v-fh/";
+	static String outDirPrefix = "target/output-tests/s2v-is/";
 
 	@Test
-	public void testVH(){
-		Svg2Vector_FH app = new Svg2Vector_FH();
+	public void test_Error_AllMissingOptions(){
+		Svg2Vector_IS app = new Svg2Vector_IS();
 
 		String[] args = new String[]{
 				""
 		};
 		assertEquals(-1, app.executeApplication(args));
+	}
 
-		args=new String[]{
+	@Test
+	public void testVH(){
+		Svg2Vector_IS app = new Svg2Vector_IS();
+
+		String[] args = new String[]{
 				"--version"
 		};
 		assertEquals(1, app.executeApplication(args));
 
-		args=new String[]{
+		args = new String[]{
 				"--help"
 		};
 		assertEquals(1, app.executeApplication(args));
 
-		args=new String[]{
+		args = new String[]{
 				"--help",
 				"target"
 		};

@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**
@@ -46,7 +45,7 @@ public class Test_AppProperties_MsgOptions {
 		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
 
 		props.setMessageMode();
-		assertEquals(MessageTypes.error.getMask(), props.getMsgMode());
+		assertEquals(AppProperties.P_OPTION_ERROR, props.getMsgMode());
 	}
 
 	@Test
@@ -64,7 +63,7 @@ public class Test_AppProperties_MsgOptions {
 		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
 
 		props.setMessageMode();
-		assertEquals(MessageTypes.error.getMask() | MessageTypes.warning.getMask(), props.getMsgMode());
+		assertEquals(AppProperties.P_OPTION_ERROR | AppProperties.P_OPTION_WARNING, props.getMsgMode());
 	}
 
 	@Test
@@ -82,7 +81,7 @@ public class Test_AppProperties_MsgOptions {
 		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
 
 		props.setMessageMode();
-		assertEquals(MessageTypes.error.getMask() | MessageTypes.progress.getMask(), props.getMsgMode());
+		assertEquals(AppProperties.P_OPTION_ERROR | AppProperties.P_OPTION_PROGRESS, props.getMsgMode());
 	}
 
 	@Test
@@ -100,7 +99,7 @@ public class Test_AppProperties_MsgOptions {
 		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
 
 		props.setMessageMode();
-		assertEquals(MessageTypes.error.getMask() | MessageTypes.detail.getMask(), props.getMsgMode());
+		assertEquals(AppProperties.P_OPTION_ERROR | AppProperties.P_OPTION_DEAILS, props.getMsgMode());
 	}
 
 	@Test
@@ -118,7 +117,7 @@ public class Test_AppProperties_MsgOptions {
 		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
 
 		props.setMessageMode();
-		assertEquals(MessageTypes.error.getMask() | MessageTypes.warning.getMask() | MessageTypes.progress.getMask() | MessageTypes.detail.getMask(), props.getMsgMode());
+		assertEquals(AppProperties.P_OPTION_VERBOSE, props.getMsgMode());
 	}
 
 	@Test

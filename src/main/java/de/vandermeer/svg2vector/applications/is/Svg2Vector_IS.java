@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications;
+package de.vandermeer.svg2vector.applications.is;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,13 +31,7 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.base.AppProperties;
-import de.vandermeer.svg2vector.applications.options.AO_ExportDpi;
-import de.vandermeer.svg2vector.applications.options.AO_ExportPdfVersion;
-import de.vandermeer.svg2vector.applications.options.AO_ExportPsLevel;
-import de.vandermeer.svg2vector.applications.options.AO_InkscapeExecutable;
-import de.vandermeer.svg2vector.applications.options.AO_ManualLayers;
-import de.vandermeer.svg2vector.applications.options.AO_SvgFirst;
-import de.vandermeer.svg2vector.converters.SvgTargets;
+import de.vandermeer.svg2vector.applications.base.SvgTargets;
 import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**
@@ -59,6 +53,9 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 
 	/** Application version, should be same as the version in the class JavaDoc. */
 	public final static String APP_VERSION = "v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8";
+
+	/** Prefix used when creating temporary files or directories. */
+	public static final String TMP_FN_PREFIX = "s2vis-";
 
 	/** Application option for the Inkscape executable. */
 	AO_InkscapeExecutable optionInkscapeExec = new AO_InkscapeExecutable(true, 'x', "full path to the Inkscape executable");
@@ -126,6 +123,30 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 			this.printErrorMessage("cannot execute input Inkscape executable <" + fn + ">, please file permissions");
 			return -23;
 		}
+		this.printDetailMessage("Inkscape exec:    " + fn);
+
+		//warnings for options not used
+		if(target!=SvgTargets.pdf && this.optionExpPdfver.inCli()){
+			this.getProps().getWarnings().add("target is not <pdf> but CLI option <" + this.optionExpPdfver.getCliOption().getLongOpt() + "> used, will be ignored");
+		}
+		if(target!=SvgTargets.png && this.optionExpDpi.inCli()){
+			this.getProps().getWarnings().add("target is not <png> but CLI option <" + this.optionExpDpi.getCliOption().getLongOpt() + "> used, will be ignored");
+		}
+		if(target!=SvgTargets.ps && this.optionExpPslevel.inCli()){
+			this.getProps().getWarnings().add("target is not <ps> but CLI option <" + this.optionExpPslevel.getCliOption().getLongOpt() + "> used, will be ignored");
+		}
+		if(!this.optionSvgFirst.inCli() && this.optionManualLayers.inCli()){
+			this.getProps().getWarnings().add("found CLI option <" + this.optionManualLayers.getCliOption().getLongOpt() + "> but not <" + this.optionSvgFirst.getCliOption().getLongOpt() + ">, option will be ignored");
+		}
+		if(this.getProps().doesLayers()){
+			
+		}
+		if(this.getProps().doesNoLayers()){
+			if(this.optionManualLayers.inCli()){
+				this.getProps().getWarnings().add("no layers processed but CLI option <" + this.optionManualLayers.getCliOption().getLongOpt() + "> used, will be ignored");
+			}
+		}
+		this.printWarnings();
 
 		StrBuilder isCmd = new StrBuilder();
 		if(fn.contains("\"")){
@@ -171,29 +192,48 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 		}
 
 		if(this.optionSvgFirst.inCli()){
-			if(this.getProps().doesLayers()){
-				try{
-					this.tmpDir = Files.createTempDirectory("s2v-");
-				}
-				catch (IOException e) {
-					this.printErrorMessage("problem creating temporary directory with error: " + e.getMessage());
-					return -60;
-				}
-				this.printProgressMessage("temp directory:   " + this.tmpDir);
+			this.printProgressMessage("converting to temporary SVG first");
+			this.printDetailMessage("Inkscape cmd tmp: " + isTmpCmd);
+		}
+		else{
+			this.printProgressMessage("converting directly to target");
+			this.printDetailMessage("Inkscape cmd:     " + isCmd);
+		}
 
-				StandardLoader loader = this.getProps().getLoader();
+		StandardLoader loader = this.getProps().getLoader();
+
+		if(this.optionSvgFirst.inCli()){
+			if(this.getProps().doesLayers()){
+				this.printProgressMessage("creating temporary directory");
+				if(this.getProps().canWriteFiles()){
+					try{
+						this.tmpDir = Files.createTempDirectory(TMP_FN_PREFIX);
+					}
+					catch (IOException e) {
+						this.printErrorMessage("problem creating temporary directory with error: " + e.getMessage());
+						return -90;
+					}
+					this.printDetailMessage("temp directory:   " + this.tmpDir);
+				}
+				else{
+					this.printDetailMessage("temp dir prefix:  " + TMP_FN_PREFIX);
+				}
+
+				this.printProgressMessage("creating temporary SVG files");
 				if(this.optionManualLayers.inCli()){
+					this.printDetailMessage("using manual layer handling");
 					for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 						loader.switchOffAllLayers();
 						loader.switchOnLayer(entry.getKey());
-						String err = this.write(this.tmpDir.toString() + "/" + this.getProps().getFnOutNoDir(entry) + ".svg", loader.getLines());
+						String err = this.write(((this.getProps().canWriteFiles())?this.tmpDir.toString():TMP_FN_PREFIX) + "/" + this.getProps().getFnOutNoDir(entry) + ".svg", loader.getLines());
 						if(err!=null){
 							this.printErrorMessage(err);
-							return -99;//TODO
+							return -92;
 						}
 					}
 				}
 				else{
+					this.printDetailMessage("using Inkscape for layer handling");
 					for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 						String fout = this.tmpDir.toString() + "/" + this.getProps().getFnOutNoDir(entry) + ".svg";
 						String nodeId = "layer" + entry.getValue().toString();
@@ -202,7 +242,7 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 							.append(" -j -i=").append(nodeId)
 							.append(" --select=").append(nodeId);
 						;
-						this.ExecInkscape(nodeCmd, this.getProps().getFinFn(), fout);
+						ret = this.ExecInkscape(nodeCmd, this.getProps().getFinFn(), fout);
 						if(ret<0){
 							return ret;
 						}
@@ -210,67 +250,98 @@ public class Svg2Vector_IS extends AppBase<StandardLoader, AppProperties<Standar
 				}
 			}
 			else{
-				try{
-					this.tmpFile = Files.createTempFile("s2v", null);
+				this.printProgressMessage("creating temporary file");
+				if(this.getProps().canWriteFiles()){
+					try{
+						this.tmpFile = Files.createTempFile(TMP_FN_PREFIX, null);
+					}
+					catch (IOException e) {
+						this.printErrorMessage("problem creating temporary file with error: " + e.getMessage());
+						return -91;
+					}
+					this.printDetailMessage("temp file:        " + tmpFile);
 				}
-				catch (IOException e) {
-					this.printErrorMessage("problem creating temporary file with error: " + e.getMessage());
-					return -60;
+				else{
+					this.printDetailMessage("temp file prefix: " + TMP_FN_PREFIX);
 				}
-//				this.printProgress("temp file:   " + this.tmpFile);
-//				this.printProgress(" -- generating temporary SVG");
-				this.ExecInkscape(isTmpCmd, this.getProps().getFinFn(), this.tmpFile.toString());
+
+				ret = this.ExecInkscape(isTmpCmd, this.getProps().getFinFn(), (this.getProps().canWriteFiles())?this.tmpFile.toString():TMP_FN_PREFIX);
 				if(ret<0){
 					return ret;
 				}
 			}
 		}
 
-		if(this.tmpDir!=null){
-			for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
-				if(fileEntry.isFile()){
-					String finTmp = this.tmpDir + "/" + fileEntry.getName();
-					String fout = this.getProps().getDout() + "/" + StringUtils.substringBefore(fileEntry.getName(), ".svg") + "." + target.name();
-					//this.printProgress(" -- converting temporary layer SVG");
-					this.ExecInkscape(isCmd, finTmp, fout);
+		if(this.optionSvgFirst.inCli() && this.getProps().doesLayers()){
+			this.printProgressMessage("converting multiple temporary SVG files");
+
+			if(this.getProps().canWriteFiles()){
+				//the real deal, process files
+				//there should be tmpDir, if not it's an error
+				if(this.tmpDir==null && this.getProps().canWriteFiles()){
+					this.printErrorMessage("implementation error: expected tmp dir to exist, but was null");
+					return -92;
+				}
+				for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
+					if(fileEntry.isFile()){
+						String finTmp = this.tmpDir + "/" + fileEntry.getName();
+						String fout = this.getProps().getDout() + "/" + StringUtils.substringBefore(fileEntry.getName(), ".svg") + "." + target.name();
+						this.ExecInkscape(isCmd, finTmp, fout);
+					}
 				}
 			}
+			else{
+				//simulation, only some messages
+				this.printDetailMessage("would create target files, 1 per layer now, from temporary files");
+			}
 		}
-		else if(this.tmpFile!=null){
-System.err.println(this.getProps().getFoutFn());
-//			this.ExecInkscape(isCmd, this.tmpFile.toString(), this.optionDirOut.getValue() + this.optionFileOut.getValue() + "." + target.name());
+		else if(this.optionSvgFirst.inCli()){
+			this.printProgressMessage("converting single temporary SVG file");
+
+			//there should be a tmp file, if not it's an error if we can write files
+			if(this.tmpFile==null && this.getProps().canWriteFiles()){
+				this.printErrorMessage("implementation error: expected tmp file to exist, but was null");
+				return -93;
+			}
+			this.ExecInkscape(isCmd, (this.getProps().canWriteFiles())?this.tmpFile.toString():TMP_FN_PREFIX, this.getProps().getFoutFn());
 		}
-//		else{
-//			if(this.optionOnePerLayer.inCli()){
-//				for(Node node : this.layers){
-//					String fout = this.optionDirOut.getValue() + this.genOutFilename(node, this.layers.indexOf(node)) + "." + target.name();
-//					String nodeId = SvgDocumentLoader.getID(node);
-//					StrBuilder nodeCmd = new StrBuilder();
-//					nodeCmd.append(isCmd.toCharArray())
-//						.append(" -j -i=").append(nodeId)
-//						.append(" --select=").append(nodeId);
-//					;
-//					this.ExecInkscape(nodeCmd, fin, fout);
-//					if(ret<0){
-//						return ret;
-//					}
-//				}
-//			}
-//			else{
-//				this.ExecInkscape(isCmd, fin, this.optionDirOut.getValue() + this.optionFileOut.getValue() + "." + target.name());
-//			}
-//		}
+		else{
+			//no tmp dir/file created, to a conversion from source to target
+			if(this.getProps().doesLayers()){
+				//for multi layers
+				for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
+					String fout = this.getProps().getFnOut(entry) + "." + target.name();
+					String nodeId = "layer" + entry.getValue().toString();
+					StrBuilder nodeCmd = new StrBuilder();
+					nodeCmd.append(isCmd.toCharArray())
+						.append(" -j -i=").append(nodeId)
+						.append(" --select=").append(nodeId);
+					;
+					this.ExecInkscape(nodeCmd, this.getProps().getFinFn(), fout);
+					if(ret<0){
+						return ret;
+					}
+				}
+			}
+			else{
+				//for single file, no layer processing
+				this.ExecInkscape(isCmd, this.getProps().getFinFn(), this.getProps().getFoutFn());
+			}
+		}
 
-//		if(this.tmpDir!=null){
-//			for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
-//				fileEntry.delete();
-//			}
-//			this.tmpDir.toFile().delete();
-//		}
-//		if(this.tmpFile!=null){
-//			this.tmpFile.toFile().delete();
-//		}
+		if(!this.getProps().doesKeepTempArtifacts()){
+			if(this.tmpDir!=null){
+				for (final File fileEntry : this.tmpDir.toFile().listFiles()) {
+					fileEntry.delete();
+				}
+				this.tmpDir.toFile().delete();
+			}
+			if(this.tmpFile!=null){
+				this.tmpFile.toFile().delete();
+			}
+		}
 
+		this.printProgressMessage("finished successfully");
 		return 0;
 	}
 
@@ -291,23 +362,27 @@ System.err.println(this.getProps().getFoutFn());
 			return "write: size of lines was 0";
 		}
 
-		FileWriter writer;
-		try {
-			writer = new FileWriter(fn);
-		}
-		catch (IOException e) {
-			return "IO error creating file writer: " + e.getMessage();
-		} 
-
-		try {
-			for(String str: lines) {
-				writer.write(str);
+		if(this.getProps().canWriteFiles()){
+			FileWriter writer;
+			try {
+				writer = new FileWriter(fn);
 			}
-			writer.close();
+			catch (IOException e) {
+				return "IO error creating file writer: " + e.getMessage();
+			} 
+
+			try {
+				for(String str: lines) {
+					writer.write(str);
+				}
+				writer.close();
+			}
+			catch (IOException e) {
+				return "IO error writing to file <" + fn + "> or closing writer: " + e.getMessage();
+			}
 		}
-		catch (IOException e) {
-			return "IO error writing to file <" + fn + "> or closing writer: " + e.getMessage();
-		}
+
+		this.printDetailMessage("temporary file: " + fn);
 		return null;
 	}
 
@@ -318,21 +393,25 @@ System.err.println(this.getProps().getFoutFn());
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
 		String cli = sub.replace(cmd.toString());
 
-		try {
-			this.printProgressMessage("      - from: " + fin);
-			this.printProgressMessage("      - to:   " + fout);
-			this.printProgressMessage("      - cli:  " + cli);
-			Process p = Runtime.getRuntime().exec(cli);
-			p.waitFor();
+		if(this.getProps().canWriteFiles()){
+			try {
+				Process p = Runtime.getRuntime().exec(cli);
+				p.waitFor();
+			}
+			catch (IOException e) {
+				this.printErrorMessage("IO exception while executing Inkscape with error: " + e.getMessage());
+				return -110;
+			}
+			catch (InterruptedException e) {
+				this.printErrorMessage("InterruptedException exception while executing Inkscape with error: " + e.getMessage());
+				return -111;
+			}
 		}
-		catch (IOException e) {
-			this.printErrorMessage("IO exception while executing Inkscape with error: " + e.getMessage());
-			return -110;
-		}
-		catch (InterruptedException e) {
-			this.printErrorMessage("InterruptedException exception while executing Inkscape with error: " + e.getMessage());
-			return -111;
-		}
+
+		this.printDetailMessage("");
+		this.printDetailMessage("running IS for input <" + fin + "> creating output <" + fout + ">");
+		this.printDetailMessage("running IS with cli <" + cli + ">");
+		this.printDetailMessage("");
 		return 0;
 	}
 

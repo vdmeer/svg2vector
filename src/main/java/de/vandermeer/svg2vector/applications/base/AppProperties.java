@@ -32,7 +32,6 @@ import de.vandermeer.execs.options.AO_FileOut;
 import de.vandermeer.execs.options.AO_Quiet;
 import de.vandermeer.execs.options.AO_Verbose;
 import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 
 /**
  * Properties and options for SVG2Vector applications.
@@ -42,6 +41,24 @@ import de.vandermeer.svg2vector.converters.SvgTargets;
  * @since      v2.0.0
  */
 public class AppProperties <L extends SV_DocumentLoader> {
+
+	/** Print option quiet. */
+	public static int P_OPTION_QUIET = 0b000;
+
+	/** Print option error. */
+	public static int P_OPTION_ERROR = 0b0001;
+
+	/** Print option warning. */
+	public static int P_OPTION_WARNING = 0b0010;
+
+	/** Print option progress. */
+	public static int P_OPTION_PROGRESS = 0b0100;
+
+	/** Print option details. */
+	public static int P_OPTION_DEAILS = 0b1000;
+
+	/** Print option verbose. */
+	public static int P_OPTION_VERBOSE = P_OPTION_ERROR | P_OPTION_WARNING | P_OPTION_PROGRESS | P_OPTION_DEAILS;
 
 	/** Substitution pattern for layers using layer index in output file names. */
 	public static String SUBST_PATTERN_INDEX = "${index}";
@@ -91,6 +108,12 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	/** Application option to automatically overwrite existing files on output. */
 	final private AO_OverwriteExisting aoOverwriteExisting = new AO_OverwriteExisting();
 
+	/** Application option to keep (not remove) temporary created artifacts (files and directories). */
+	final private AO_KeepTmpArtifacts aoKeepTmpArtifacts = new AO_KeepTmpArtifacts();
+
+	/** Application option activating simulation mode. */
+	final private AO_Simulate aoSimulate = new AO_Simulate();
+
 	/** Application option to automatically switch on all layers when no layers are processed. */
 	final private AO_SwitchOnLayers aoSwitchOnLayers = new AO_SwitchOnLayers();
 
@@ -118,8 +141,14 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	/** The file name of the input file. */
 	private String fin;
 
-	/** The output directory. */
+	/** The file object for an output file (no layer mode only). */
+	private File fout;
+
+	/** The output directory name (layer mode only). */
 	private String dout;
+
+	/** The output directory file (layer mode only). */
+	private File doutFile;
 
 	/** A pattern for generating fout when processing layers, in StrSubstitutor format. */
 	private String foutPattern;
@@ -128,10 +157,10 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	private L loader;
 
 	/** List of warning messages collected during process. */
-	private ArrayList<String> warnings = new ArrayList<>();
+	protected ArrayList<String> warnings = new ArrayList<>();
 
 	/** Message mode for the application, 0 is quiet, all other values are generated using message type bit masks. */
-	private int msgMode = MessageTypes.error.getMask();
+	private int msgMode = P_OPTION_ERROR;
 
 	public AppProperties(SvgTargets[] targets, L loader){
 		Validate.noNullElements(targets);
@@ -148,6 +177,8 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		this.addOption(this.aoMsgWarning);
 
 		this.addOption(this.aoTarget);
+		this.addOption(this.aoSimulate);
+		this.addOption(this.aoKeepTmpArtifacts);
 
 		this.addOption(this.aoFileIn);
 		this.addOption(this.aoFileOut);
@@ -205,6 +236,38 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	}
 
 	/**
+	 * Returns the simulation flag.
+	 * @return true if application is in simulation mode, false otherwise
+	 */
+	public boolean doesSimulate(){
+		return this.aoSimulate.inCli();
+	}
+
+	/**
+	 * Tests if the application is allowed to write output files and directories.
+	 * @return true if allowed, false otherwise
+	 */
+	public boolean canWriteFiles(){
+		return !this.aoSimulate.inCli();
+	}
+
+	/**
+	 * Returns the create-directories flag.
+	 * @return true if application automatically creates directories, false otherwise
+	 */
+	public boolean doesCreateDirectories(){
+		return this.aoCreateDirs.inCli();
+	}
+
+	/**
+	 * Returns the text-as-shape flag as set by CLI.
+	 * @return true if text-as-shape is set, false otherwise
+	 */
+	public boolean doesTextAsShape(){
+		return this.aoTextAsShape.inCli();
+	}
+
+	/**
 	 * Returns the list of added application options.
 	 * @return application option list, empty if none added
 	 */
@@ -213,11 +276,19 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	}
 
 	/**
-	 * Returns the output directory for processing layers.
+	 * Returns the output directory name for processing layers.
 	 * @return directory name, null if not set or errors on setting
 	 */
 	public String getDout(){
 		return this.dout;
+	}
+
+	/**
+	 * Returns the output directory file for processing layers.
+	 * @return directory file, null if not set or errors on setting
+	 */
+	public File getDoutFile(){
+		return this.doutFile;
 	}
 
 	/**
@@ -229,11 +300,49 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	}
 
 	/**
+	 * Returns a file name when dealing with layers.
+	 * @param entry file name, null if entry or any parts was null or if not set to process layers
+	 * @return file name with directory element
+	 */
+	public String getFnOut(Entry<String, Integer> entry){
+		if(!this.doesLayers() || entry==null || entry.getKey()==null || entry.getValue()==null){
+			return null;
+		}
+
+		Map<String, String> valuesMap = new HashMap<>();
+		valuesMap.put("id", entry.getKey());
+		valuesMap.put("index", String.format("%02d", entry.getValue()));
+
+		return new StrSubstitutor(valuesMap).replace(this.foutPattern);
+	}
+
+	/**
+	 * Returns a file name when dealing with layers without any directory element.
+	 * @param entry file name, null if entry or any parts was null or if not set to process layers
+	 * @return file name without directory element
+	 */
+	public String getFnOutNoDir(Entry<String, Integer> entry){
+		String fn = this.getFnOut(entry);
+		if(fn==null){
+			return null;
+		}
+		return StringUtils.substringAfterLast(fn, "/");
+	}
+
+	/**
 	 * Returns the file name for a single output file when not processing layers.
 	 * @return file name, null if not set or if errors on setting
 	 */
 	public String getFoutFn(){
 		return this.aoFileOut.getDefaultValue();
+	}
+
+	/**
+	 * Returns the file for a single output file when not processing layers.
+	 * @return file, null if not set or if errors on setting
+	 */
+	public File getFoutFile(){
+		return this.fout;
 	}
 
 	/**
@@ -330,25 +439,21 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	 */
 	public void setMessageMode(){
 		if(this.aoQuiet.inCli()){
-			this.msgMode = 0;
+			this.msgMode = P_OPTION_QUIET;
 			return;
 		}
 		if(this.aoVerbose.inCli()){
-			this.msgMode = MessageTypes.error.getMask()
-					| MessageTypes.warning.getMask()
-					| MessageTypes.progress.getMask()
-					| MessageTypes.detail.getMask()
-			;
+			this.msgMode = P_OPTION_VERBOSE;
 		}
 
 		if(this.aoMsgProgress.inCli()){
-			this.msgMode = this.msgMode | MessageTypes.progress.getMask();
+			this.msgMode = this.msgMode | P_OPTION_PROGRESS;
 		}
 		if(this.aoMsgWarning.inCli()){
-			this.msgMode = this.msgMode | MessageTypes.warning.getMask();
+			this.msgMode = this.msgMode | P_OPTION_WARNING;
 		}
 		if(this.aoMsgDetail.inCli()){
-			this.msgMode = this.msgMode | MessageTypes.detail.getMask();
+			this.msgMode = this.msgMode | P_OPTION_DEAILS;
 		}
 	}
 
@@ -440,6 +545,7 @@ public class AppProperties <L extends SV_DocumentLoader> {
 
 		//all tests ok, out fn into Fout
 		this.aoFileOut.setDefaultValue(fn);
+		this.fout = fnF;
 		return null;
 	}
 
@@ -467,7 +573,6 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		if(!testDir.exists() && !this.aoCreateDirs.inCli()){
 			return "output directory <" + dout + "> does not exist and CLI option <" + this.aoCreateDirs.getCliOption().getLongOpt() + "> not used";
 		}
-		this.dout = dout;
 
 		if(!this.aoFoutLayerId.inCli() && !this.aoFoutLayerIndex.inCli()){
 			return "processing layers but neither <" + this.aoFoutLayerId.getCliOption().getLongOpt() + "> nor <" + this.aoFoutLayerIndex.getCliOption().getLongOpt() + "> options requestes, amigious output file names";
@@ -505,45 +610,17 @@ public class AppProperties <L extends SV_DocumentLoader> {
 			pattern.append(SUBST_PATTERN_ID);
 		}
 
+		this.dout = dout;
+		this.doutFile = testDir;
 		this.foutPattern = pattern.toString();
 		return null;
 	}
 
 	/**
-	 * Returns the text-as-shape flag as set by CLI.
-	 * @return true if text-as-shape is set, false otherwise
+	 * Tests if the application should keep (not remove) temporary artifacts (files and directories).
+	 * @return true if artifacts should be kept, false otherwise
 	 */
-	public boolean doesTextAsShape(){
-		return this.aoTextAsShape.inCli();
-	}
-
-	/**
-	 * Returns a file name when dealing with layers.
-	 * @param entry file name, null if entry or any parts was null or if not set to process layers
-	 * @return file name with directory element
-	 */
-	public String getFnOut(Entry<String, Integer> entry){
-		if(!this.doesLayers() || entry==null || entry.getKey()==null || entry.getValue()==null){
-			return null;
-		}
-
-		Map<String, String> valuesMap = new HashMap<>();
-		valuesMap.put("id", entry.getKey());
-		valuesMap.put("index", String.format("%02d", entry.getValue()));
-
-		return new StrSubstitutor(valuesMap).replace(this.foutPattern);
-	}
-
-	/**
-	 * Returns a file name when dealing with layers without any directory element.
-	 * @param entry file name, null if entry or any parts was null or if not set to process layers
-	 * @return file name without directory element
-	 */
-	public String getFnOutNoDir(Entry<String, Integer> entry){
-		String fn = this.getFnOut(entry);
-		if(fn==null){
-			return null;
-		}
-		return StringUtils.substringAfterLast(fn, "/");
+	public boolean doesKeepTempArtifacts(){
+		return this.aoKeepTmpArtifacts.inCli();
 	}
 }

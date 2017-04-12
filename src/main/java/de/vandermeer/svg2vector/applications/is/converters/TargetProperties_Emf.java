@@ -13,29 +13,27 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.converters;
+package de.vandermeer.svg2vector.applications.is.converters;
 
 import java.awt.Color;
 
-import org.freehep.graphicsio.pdf.PDFGraphics2D;
+import org.freehep.graphicsio.emf.EMFGraphics2D;
 
 /**
- * Properties for the PDF target.
+ * Properties for the EMF target.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v1.0.0
  */
-public class TargetProperties_Pdf extends TargetProperties {
+public class TargetProperties_Emf extends TargetProperties {
 
 	/**
-	 * Constructor.
+	 * Creates new EMF target properties.
 	 * Sets transparency to true, background to false and background color to white.
-	 * Also sets page margins to 0.
 	 */
-	public TargetProperties_Pdf(){
+	public TargetProperties_Emf(){
 		super();
-		this.properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");
 		this.setPropertyTransparent(true);
 		this.setPropertyBackground(false);
 		this.setPropertyBackgroundColor(Color.WHITE);
@@ -43,16 +41,16 @@ public class TargetProperties_Pdf extends TargetProperties {
 
 	@Override
 	public void setPropertyBackground(boolean on) {
-		this.properties.setProperty(PDFGraphics2D.BACKGROUND, on);
+		this.properties.setProperty(EMFGraphics2D.BACKGROUND, on);
 	}
 
 	@Override
 	public void setPropertyBackgroundColor(Color color) {
-		this.properties.setProperty(PDFGraphics2D.BACKGROUND_COLOR, color);
+		this.properties.setProperty(EMFGraphics2D.BACKGROUND_COLOR, color);
 	}
 
 	@Override
 	public void setPropertyTransparent(boolean on) {
-		this.properties.setProperty(PDFGraphics2D.TRANSPARENT, on);
+		this.properties.setProperty(EMFGraphics2D.TRANSPARENT, on);
 	}
 }

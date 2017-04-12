@@ -22,7 +22,6 @@ import org.junit.Test;
 
 import de.vandermeer.execs.options.ApplicationOption;
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**
@@ -37,7 +36,7 @@ public class Test_AppProperties {
 	@Test
 	public void test_AddedOptions(){
 		AppProperties<StandardLoader> props = new AppProperties<StandardLoader>(new SvgTargets[]{SvgTargets.pdf}, new StandardLoader());
-		assertEquals(19, props.getAppOptions().length);
+		assertEquals(21, props.getAppOptions().length);
 	}
 
 	@Test

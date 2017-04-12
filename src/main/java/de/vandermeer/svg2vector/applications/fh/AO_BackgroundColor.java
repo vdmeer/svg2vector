@@ -13,47 +13,46 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.fh;
 
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "export-ps-level".
+ * Application option "bgrnd-color".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
- * @since      v2.0.0
+ * @since      v1.1.0
  */
-public class AO_ExportPsLevel extends AbstractApplicationOption<String> {
+public class AO_BackgroundColor extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
+	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ExportPsLevel(boolean required){
-		this(required, null);
+	public AO_BackgroundColor(boolean required, String longDescription){
+		this(required, null, longDescription);
 	}
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
 	 * @param shortOption character for sort version of the option
+	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_ExportPsLevel(boolean required, Character shortOption){
-		super(
-				"sets the PS level for export (2 or 3)",
-				"The default PS level used for export in Inkscape is 2."
-		);
+	public AO_BackgroundColor(boolean required, Character shortOption, String longDescription){
+		super("background color", longDescription);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("export-ps-level");
-		builder.hasArg().argName("LEVEL");
+		builder.longOpt("bgrnd-color");
+		builder.hasArg().argName("COLOR");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}

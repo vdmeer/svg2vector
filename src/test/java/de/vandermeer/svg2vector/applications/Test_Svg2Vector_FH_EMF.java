@@ -21,6 +21,8 @@ import java.io.File;
 
 import org.junit.Test;
 
+import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
+
 /**
  * Tests for Svg2Vector_FH with EMF conversion.
  *

@@ -13,46 +13,47 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.options;
+package de.vandermeer.svg2vector.applications.is;
 
 import org.apache.commons.cli.Option;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
- * Application option "inkscape-executable".
+ * Application option "export-dpi".
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
- * @since      v1.1.0
+ * @since      v2.0.0
  */
-public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
+public class AO_ExportDpi extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
-	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_InkscapeExecutable(boolean required, String longDescription){
-		this(required, null, longDescription);
+	public AO_ExportDpi(boolean required){
+		this(required, null);
 	}
 
 	/**
 	 * Returns the new option.
 	 * @param required true if option is required, false of it is optional
 	 * @param shortOption character for sort version of the option
-	 * @param longDescription option long description
 	 * @throws NullPointerException - if description parameter is null
 	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_InkscapeExecutable(boolean required, Character shortOption, String longDescription){
-		super("path to Inkscape executable", longDescription);
+	public AO_ExportDpi(boolean required, Character shortOption){
+		super(
+				"set DPI for export",
+				"Resolution for exporting to bitmap and for rasterization of filters in PS/EPS/PDF (default 90)."
+		);
 
 		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("is-exec");
-		builder.hasArg().argName("PATH");
+		builder.longOpt("export-dpi");
+		builder.hasArg().argName("DPI");
 		builder.required(required);
 		this.setCliOption(builder.build());
 	}

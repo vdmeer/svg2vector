@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.converters.SvgTargets;
 import de.vandermeer.svg2vector.loaders.StandardLoader;
 
 /**

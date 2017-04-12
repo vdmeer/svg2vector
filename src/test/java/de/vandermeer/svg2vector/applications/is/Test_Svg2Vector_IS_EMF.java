@@ -13,11 +13,9 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications;
+package de.vandermeer.svg2vector.applications.is;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.File;
 
 import org.junit.Test;
 
@@ -38,8 +36,6 @@ public class Test_Svg2Vector_IS_EMF {
 		Svg2Vector_IS app = new Svg2Vector_IS();
 
 		String outDir = outDirPrefix;
-		File file = new File(outDir);
-		file.mkdirs();
 
 		String[] args = new String[]{
 				"-t",
@@ -59,73 +55,10 @@ public class Test_Svg2Vector_IS_EMF {
 //				"-l",
 				"-g",
 				"-m",
-				"--fout-layer-id"
+				"--create-directories",
+				"--fout-layer-id",
+//				"--simulate"
 		};
 		assertEquals(0, app.executeApplication(args));
 	}
-
-//	@Test
-//	public void testSingleLayer2(){
-//		Svg2Vector_FH app = new Svg2Vector_FH();
-//
-//		String outDir = outDirPrefix;
-//		File file = new File(outDir);
-//		file.mkdirs();
-//
-//		String[] args = new String[]{
-//				"-t",
-//				"emf",
-//				"--input-file",
-//				"src/test/resources/svg-files/session-cards.svgz",
-//				"-d",
-//				outDir,
-//				"-o",
-//				"sessionCardsEmf"
-//		};
-//		assertEquals(0, app.executeApplication(args));
-//	}
-//
-//	@Test
-//	public void testMultiLayer1(){
-//		Svg2Vector_FH app = new Svg2Vector_FH();
-//
-//		String outDir = outDirPrefix + "layers/index";
-//		File file = new File(outDir);
-//		file.mkdirs();
-//
-//		String[] args = new String[]{
-//				"-t",
-//				"emf",
-//				"--input-file",
-//				"src/test/resources/svg-files/time-interval-based.svgz",
-//				"-d",
-//				outDir,
-//				"-v",
-//				"-l",
-//				"-i"
-//		};
-//		assertEquals(0, app.executeApplication(args));
-//	}
-//
-//	@Test
-//	public void testMultiLayer2(){
-//		Svg2Vector_FH app = new Svg2Vector_FH();
-//
-//		String outDir = outDirPrefix + "layers/id";
-//		File file = new File(outDir);
-//		file.mkdirs();
-//
-//		String[] args = new String[]{
-//				"-t",
-//				"emf",
-//				"--input-file",
-//				"src/test/resources/svg-files/time-interval-based.svgz",
-//				"-d",
-//				outDir,
-//				"-v",
-//				"-l",
-//				"-I"
-//		};
-//		assertEquals(0, app.executeApplication(args));
-//	}
 }
