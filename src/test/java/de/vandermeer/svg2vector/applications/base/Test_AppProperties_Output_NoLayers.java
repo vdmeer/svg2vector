@@ -39,26 +39,6 @@ import de.vandermeer.svg2vector.applications.is.IsLoader;
 public class Test_AppProperties_Output_NoLayers {
 
 	@Test
-	public void test_Warning_Dout(){
-		ExecS_CliParser cli = new ExecS_CliParser();
-		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
-		cli.addAllOptions(props.getAppOptions());
-		String[] args = new String[]{
-				"-t", "pdf",
-				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"-d", "foo",
-		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
-
-		assertNull(props.setInput());
-		assertNull(props.setOutput());
-		assertEquals(1, props.getWarnings().size());
-		assertEquals("no layers processed but CLI option <output-directory> used, will be ignored", props.getWarnings().get(0));
-	}
-
-	@Test
 	public void test_Warning_NoBN(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());

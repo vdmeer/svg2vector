@@ -89,4 +89,11 @@ public abstract class FhConverter {
 	 */
 	public abstract String convertDocument(BatikLoader loader, File fout);
 
+	/**
+	 * Returns the user properties of the converter.
+	 * @return user properties
+	 */
+	public UserProperties getProperties(){
+		return this.properties;
+	}
 }

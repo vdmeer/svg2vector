@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications.is;
+package de.vandermeer.svg2vector.applications.fh;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,27 +21,25 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 /**
- * Tests for Svg2Vector_IS with EMF conversion.
+ * Tests for Svg2Vector_FH with EMF conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
- * @since      v2.0.0
+ * @since      v1.1.0
  */
-public class Test_Svg2Vector_IS_EMF {
+public class Test_Svg2Vector_FH_EMF {
 
 	/** Prefix for tests that create output. */
-	static String OUT_DIR_PREFIX = Test_Svg2Vector_IS.OUT_DIR_PREFIX + "emf/";
+	static String OUT_DIR_PREFIX = Test_Svg2Vector_FH.OUT_DIR_PREFIX + "emf/";
 
 	/** Standard CLI options for tests. */
-	static String[] STD_OPTIONS = ArrayUtils.addAll(Test_Svg2Vector_IS.STD_OPTIONS,
-			"-t", "emf",
-			"-g",
-			"-m"
+	static String[] STD_OPTIONS = ArrayUtils.addAll(Test_Svg2Vector_FH.STD_OPTIONS,
+			"-t", "emf", "-q"
 	);
 
 	@Test
 	public void test_SingleDir(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = ArrayUtils.addAll(STD_OPTIONS,
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
 				"-d", OUT_DIR_PREFIX
@@ -51,7 +49,7 @@ public class Test_Svg2Vector_IS_EMF {
 
 	@Test
 	public void test_SingleDirFile(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = ArrayUtils.addAll(STD_OPTIONS,
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
 				"-d", OUT_DIR_PREFIX,
@@ -62,7 +60,7 @@ public class Test_Svg2Vector_IS_EMF {
 
 	@Test
 	public void test_SingleFile(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = ArrayUtils.addAll(STD_OPTIONS,
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
 				"-o", OUT_DIR_PREFIX + "chomsky2"
@@ -72,7 +70,7 @@ public class Test_Svg2Vector_IS_EMF {
 
 	@Test
 	public void testMultiLayerIndex(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = ArrayUtils.addAll(STD_OPTIONS,
 				"-f", "src/test/resources/svg-files/time-interval-based.svgz",
 				"-d", OUT_DIR_PREFIX + "layers-index",
@@ -83,7 +81,7 @@ public class Test_Svg2Vector_IS_EMF {
 
 	@Test
 	public void testMultiLayerId(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = ArrayUtils.addAll(STD_OPTIONS,
 				"-f", "src/test/resources/svg-files/time-interval-based.svgz",
 				"-d", OUT_DIR_PREFIX + "layers-id",
@@ -94,7 +92,7 @@ public class Test_Svg2Vector_IS_EMF {
 
 	@Test
 	public void testMultiLayerIdInex(){
-		Svg2Vector_IS app = new Svg2Vector_IS();
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = ArrayUtils.addAll(STD_OPTIONS,
 				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
 				"-d", OUT_DIR_PREFIX + "layers-id-index",
@@ -102,5 +100,4 @@ public class Test_Svg2Vector_IS_EMF {
 		);
 		assertEquals(0, app.executeApplication(args));
 	}
-
 }

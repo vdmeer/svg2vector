@@ -37,7 +37,7 @@ public class Test_AppBase {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
-		assertEquals(21, testApp.getAppOptions().length);
+		assertEquals(22, testApp.getAppOptions().length);
 	}
 
 	@Test
@@ -75,7 +75,8 @@ public class Test_AppBase {
 		};
 		String[] args = new String[]{
 				"-t", "eps",
-				"-f", "testfile"
+				"-f", "testfile",
+				"-q"
 		};
 		assertEquals(-10, testApp.executeApplication(args));
 	}
@@ -89,7 +90,8 @@ public class Test_AppBase {
 		};
 		String[] args = new String[]{
 				"-t", "pdf",
-				"-f", "testfile"
+				"-f", "testfile",
+				"-q"
 		};
 		assertEquals(-11, testApp.executeApplication(args));
 	}
@@ -104,7 +106,8 @@ public class Test_AppBase {
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
-				"-o", "target/output-tests/app-props/test/file"
+				"-o", "target/output-tests/app-props/test/file",
+				"-q"
 		};
 		assertEquals(-12, testApp.executeApplication(args));
 	}
@@ -122,7 +125,7 @@ public class Test_AppBase {
 				"-o", "target/output-tests/app-props/test/file",
 				"--create-directories",
 				"--simulate",
-				"--verbose"
+//				"--verbose"
 		};
 		assertEquals(0, testApp.executeApplication(args));
 	}

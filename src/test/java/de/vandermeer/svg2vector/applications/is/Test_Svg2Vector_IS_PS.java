@@ -21,20 +21,20 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 /**
- * Tests for Svg2Vector_IS with EMF conversion.
+ * Tests for Svg2Vector_IS with PS conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.0.0-SNAPSHOT build 170411 (11-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class Test_Svg2Vector_IS_EMF {
+public class Test_Svg2Vector_IS_PS {
 
 	/** Prefix for tests that create output. */
-	static String OUT_DIR_PREFIX = Test_Svg2Vector_IS.OUT_DIR_PREFIX + "emf/";
+	static String OUT_DIR_PREFIX = Test_Svg2Vector_IS.OUT_DIR_PREFIX + "ps/";
 
 	/** Standard CLI options for tests. */
 	static String[] STD_OPTIONS = ArrayUtils.addAll(Test_Svg2Vector_IS.STD_OPTIONS,
-			"-t", "emf",
+			"-t", "ps",
 			"-g",
 			"-m"
 	);

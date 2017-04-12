@@ -103,6 +103,24 @@ public class Test_AppProperties_MsgOptions {
 	}
 
 	@Test
+	public void test_NoErrors(){
+		ExecS_CliParser cli = new ExecS_CliParser();
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
+		cli.addAllOptions(props.getAppOptions());
+		String[] args = new String[]{
+				"-t", "pdf",
+				"-f", "foo",
+				"--no-errors"
+		};
+
+		assertEquals(null, cli.parse(args));
+		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
+
+		props.setMessageMode();
+		assertEquals(0, props.getMsgMode());
+	}
+
+	@Test
 	public void test_VerboseMsgOptions(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());

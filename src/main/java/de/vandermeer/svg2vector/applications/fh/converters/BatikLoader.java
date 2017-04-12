@@ -139,7 +139,8 @@ public class BatikLoader extends SV_DocumentLoader {
 						for(int node=0; node<nnm.getLength(); node++){
 							if("inkscape:groupmode".equals(nnm.item(node).getNodeName())){
 								String id = BatikLoader.getLabel(nodes.item(i));
-								this.layers.put(id, BatikLoader.getIndex(nodes.item(i)));
+								int index = BatikLoader.getIndex(nodes.item(i));
+								this.layers.put(id, index);
 								this.layerNodes.put(id, nodes.item(i));
 							}
 						}
@@ -147,6 +148,8 @@ public class BatikLoader extends SV_DocumentLoader {
 				}
 			}
 		}
+
+		this.isLoaded = true;
 		return null;
 	}
 

@@ -90,6 +90,9 @@ public class AppProperties <L extends SV_DocumentLoader> {
 	/** Application option for printing detailed messages. */
 	final private AO_MsgDetail aoMsgDetail = new AO_MsgDetail();
 
+	/** Application option to switch off error messages. */
+	final private AO_NoErrors aoNoErrors = new AO_NoErrors();
+
 	/** Application option for target. */
 	final private AO_TargetExt aoTarget;
 
@@ -175,6 +178,7 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		this.addOption(this.aoMsgProgress);
 		this.addOption(this.aoMsgDetail);
 		this.addOption(this.aoMsgWarning);
+		this.addOption(this.aoNoErrors);
 
 		this.addOption(this.aoTarget);
 		this.addOption(this.aoSimulate);
@@ -198,7 +202,6 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		this.addOption(this.aoTextAsShape);
 
 		this.noLayersWarnings = new ArrayList<>();
-		this.noLayersWarnings.add(this.aoDirOut);
 		this.noLayersWarnings.add(this.aoFoutLayerIndex);
 		this.noLayersWarnings.add(this.aoFoutLayerId);
 		this.noLayersWarnings.add(this.aoFoutNoBasename);
@@ -444,6 +447,7 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		}
 		if(this.aoVerbose.inCli()){
 			this.msgMode = P_OPTION_VERBOSE;
+			return;
 		}
 
 		if(this.aoMsgProgress.inCli()){
@@ -454,6 +458,9 @@ public class AppProperties <L extends SV_DocumentLoader> {
 		}
 		if(this.aoMsgDetail.inCli()){
 			this.msgMode = this.msgMode | P_OPTION_DEAILS;
+		}
+		if(this.aoNoErrors.inCli()){
+			this.msgMode = this.msgMode &= ~P_OPTION_ERROR;
 		}
 	}
 
@@ -519,6 +526,22 @@ public class AppProperties <L extends SV_DocumentLoader> {
 				fn = fn.substring(0, fn.lastIndexOf('.'));
 			}
 		}
+
+		//in any case add Dout if it exists
+		if(this.aoDirOut.inCli()){
+			//an output dir is set, so change the directory part of fn to the output directory
+			if(fn.contains("/")){
+				//fn has path, substitute with our directory
+				fn = this.aoDirOut.getValue() + "/" + StringUtils.substringAfterLast(fn, "/");
+			}
+			else{
+				//fn has no path, simply use directory then
+				fn = this.aoDirOut.getValue() + "/" + fn;
+			}
+			//if we have double //, remove them
+			fn = StringUtils.replace(fn, "//", "/");
+		}
+
 		fn += "." + target.name();
 		File fnF = new File(fn);
 		if(fnF.exists() && fnF.isDirectory()){
@@ -531,11 +554,13 @@ public class AppProperties <L extends SV_DocumentLoader> {
 			return "output file <" + fn + "> exists but cannot write to it";
 		}
 		File fnFParent = fnF.getParentFile();
-		if(fnFParent.exists() && !fnFParent.isDirectory()){
-			return "output directory <" + fnFParent.toString().replace('\\', '/') + "> exists but is not a directory";
-		}
-		if(!fnFParent.exists() && !this.aoCreateDirs.inCli()){
-			return "output directory <" + fnFParent.toString().replace('\\', '/') + "> does not exist and CLI option <" + this.aoCreateDirs.getCliOption().getLongOpt() + "> not used";
+		if(fnFParent!=null){
+			if(fnFParent.exists() && !fnFParent.isDirectory()){
+				return "output directory <" + fnFParent.toString().replace('\\', '/') + "> exists but is not a directory";
+			}
+			if(!fnFParent.exists() && !this.aoCreateDirs.inCli()){
+				return "output directory <" + fnFParent.toString().replace('\\', '/') + "> does not exist and CLI option <" + this.aoCreateDirs.getCliOption().getLongOpt() + "> not used";
+			}
 		}
 
 		//switch on all layers if requested

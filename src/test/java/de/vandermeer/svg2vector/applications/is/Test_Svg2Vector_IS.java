@@ -17,9 +17,11 @@ package de.vandermeer.svg2vector.applications.is;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import java.io.File;
+import java.io.IOException;
 
-import de.vandermeer.svg2vector.applications.is.Svg2Vector_IS;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * Simple tests for Svg2Vector_IS.
@@ -31,12 +33,39 @@ import de.vandermeer.svg2vector.applications.is.Svg2Vector_IS;
 public class Test_Svg2Vector_IS {
 
 	/** Prefix for tests that create output. */
-	static String outDirPrefix = "target/output-tests/s2v-is/";
+	static String OUT_DIR_PREFIX = "target/output-tests/s2v-is/";
+
+	/** Prefix for tests that create output. */
+	static String FAKE_EXEC = OUT_DIR_PREFIX + "fake-is-exec";
+
+	/** Standard CLI options for tests. */
+	static String[] STD_OPTIONS = new String[]{
+			"--create-directories", "--overwrite-existing", "--all-layers", "-q",
+//			"-x", FAKE_EXEC,
+			"-x", "C:/Program Files/Inkscape/inkscape.exe",
+//			"--simulate"
+	};
+
+	@BeforeClass
+	public static void createFakeIsExec(){
+		File fake = new File(FAKE_EXEC);
+		fake.getParentFile().mkdirs();
+		try {
+			fake.createNewFile();
+		}
+		catch (IOException ignore) {}
+		fake.setExecutable(true);
+	}
+
+	@Test
+	public void test_AddedOptions(){
+		Svg2Vector_IS app = new Svg2Vector_IS();
+		assertEquals(28, app.getAppOptions().length);
+	}
 
 	@Test
 	public void test_Error_AllMissingOptions(){
 		Svg2Vector_IS app = new Svg2Vector_IS();
-
 		String[] args = new String[]{
 				""
 		};
@@ -44,20 +73,27 @@ public class Test_Svg2Vector_IS {
 	}
 
 	@Test
-	public void testVH(){
+	public void test_Usage(){
 		Svg2Vector_IS app = new Svg2Vector_IS();
+		String[] args = new String[]{
+				"--help"
+		};
+		assertEquals(1, app.executeApplication(args));
+	}
 
+	@Test
+	public void test_Version(){
+		Svg2Vector_IS app = new Svg2Vector_IS();
 		String[] args = new String[]{
 				"--version"
 		};
 		assertEquals(1, app.executeApplication(args));
+	}
 
-		args = new String[]{
-				"--help"
-		};
-		assertEquals(1, app.executeApplication(args));
-
-		args = new String[]{
+	@Test
+	public void test_TargetHelp(){
+		Svg2Vector_IS app = new Svg2Vector_IS();
+		String[] args = new String[]{
 				"--help",
 				"target"
 		};

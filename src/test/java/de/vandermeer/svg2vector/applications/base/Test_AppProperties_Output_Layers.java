@@ -183,6 +183,69 @@ public class Test_AppProperties_Output_Layers {
 	}
 
 	@Test
+	public void test_PatternId(){
+		ExecS_CliParser cli = new ExecS_CliParser();
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
+		cli.addAllOptions(props.getAppOptions());
+		String[] args = new String[]{
+				"-t", "pdf",
+				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
+				"-l", "-d", "target/output-tests/app-props/",
+				"--create-directories",
+				"--fout-layer-id",
+		};
+
+		assertEquals(null, cli.parse(args));
+		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
+
+		assertNull(props.setInput());
+		assertNull(props.setOutput());
+		assertEquals("target/output-tests/app-props/rina-ipc-${id}", props.getFoutPattern());
+	}
+
+	@Test
+	public void test_PatternIndex(){
+		ExecS_CliParser cli = new ExecS_CliParser();
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
+		cli.addAllOptions(props.getAppOptions());
+		String[] args = new String[]{
+				"-t", "pdf",
+				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
+				"-l", "-d", "target/output-tests/app-props/",
+				"--create-directories",
+				"--fout-layer-index",
+		};
+
+		assertEquals(null, cli.parse(args));
+		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
+
+		assertNull(props.setInput());
+		assertNull(props.setOutput());
+		assertEquals("target/output-tests/app-props/rina-ipc-${index}", props.getFoutPattern());
+	}
+
+	@Test
+	public void test_PatternIdIndex(){
+		ExecS_CliParser cli = new ExecS_CliParser();
+		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
+		cli.addAllOptions(props.getAppOptions());
+		String[] args = new String[]{
+				"-t", "pdf",
+				"-f", "src/test/resources/svg-files/rina-ipc.svgz",
+				"-l", "-d", "target/output-tests/app-props/",
+				"--create-directories",
+				"--fout-layer-index", "--fout-layer-id",
+		};
+
+		assertEquals(null, cli.parse(args));
+		assertEquals(0, Test_AppProperties.setCli4Options(cli.getCommandLine(), props.getAppOptions()));
+
+		assertNull(props.setInput());
+		assertNull(props.setOutput());
+		assertEquals("target/output-tests/app-props/rina-ipc-${index}-${id}", props.getFoutPattern());
+	}
+
+	@Test
 	public void test_PatternBnId(){
 		ExecS_CliParser cli = new ExecS_CliParser();
 		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());

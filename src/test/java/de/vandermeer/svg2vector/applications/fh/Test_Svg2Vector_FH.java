@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package de.vandermeer.svg2vector.applications;
+package de.vandermeer.svg2vector.applications.fh;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,28 +31,50 @@ import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
 public class Test_Svg2Vector_FH {
 
 	/** Prefix for tests that create output. */
-	static String outDirPrefix = "target/testoutput/s2v-fh/";
+	static String OUT_DIR_PREFIX = "target/output-tests/s2v-fh/";
+
+	/** Standard CLI options for tests. */
+	static String[] STD_OPTIONS = new String[]{
+			"--create-directories", "--overwrite-existing", "--all-layers", "-v"
+	};
 
 	@Test
-	public void testVH(){
+	public void test_AddedOptions(){
 		Svg2Vector_FH app = new Svg2Vector_FH();
+		assertEquals(26, app.getAppOptions().length);
+	}
 
+	@Test
+	public void test_Error_AllMissingOptions(){
+		Svg2Vector_FH app = new Svg2Vector_FH();
 		String[] args = new String[]{
 				""
 		};
 		assertEquals(-1, app.executeApplication(args));
+	}
 
-		args=new String[]{
-				"--version"
-		};
-		assertEquals(1, app.executeApplication(args));
-
-		args=new String[]{
+	@Test
+	public void test_Usage(){
+		Svg2Vector_FH app = new Svg2Vector_FH();
+		String[] args = new String[]{
 				"--help"
 		};
 		assertEquals(1, app.executeApplication(args));
+	}
 
-		args=new String[]{
+	@Test
+	public void test_Version(){
+		Svg2Vector_FH app = new Svg2Vector_FH();
+		String[] args = new String[]{
+				"--version"
+		};
+		assertEquals(1, app.executeApplication(args));
+	}
+
+	@Test
+	public void test_TargetHelp(){
+		Svg2Vector_FH app = new Svg2Vector_FH();
+		String[] args = new String[]{
 				"--help",
 				"target"
 		};

@@ -36,7 +36,7 @@ public class Test_AppProperties {
 	@Test
 	public void test_AddedOptions(){
 		AppProperties<IsLoader> props = new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader());
-		assertEquals(21, props.getAppOptions().length);
+		assertEquals(22, props.getAppOptions().length);
 	}
 
 	@Test

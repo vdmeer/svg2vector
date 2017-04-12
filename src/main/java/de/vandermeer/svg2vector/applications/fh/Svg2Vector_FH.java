@@ -17,7 +17,11 @@ package de.vandermeer.svg2vector.applications.fh;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import org.freehep.graphicsbase.util.UserProperties;
 
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.base.AppProperties;
@@ -100,41 +104,48 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 			converter.setPropertyBackgroundColor(color);
 		}
 
+		UserProperties up = converter.getProperties();
+		Set<Object> keys = up.keySet();
+		Iterator<Object>it = keys.iterator();
+		while(it.hasNext()){
+			String key = it.next().toString();
+			String val = up.getProperty(key);
+			key=key.substring(key.lastIndexOf('.')+1, key.length());
+			this.printDetailMessage("using SVG property " + key + "=" + val);
+		}
+
 		String err;
 		BatikLoader loader = this.getProps().getLoader();
 		if(this.getProps().doesLayers()){
 			for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 				loader.switchOffAllLayers();
 				loader.switchOnLayer(entry.getKey());
-				err = converter.convertDocument(loader, new File(this.getProps().getFnOut(entry) + "." + target.name()));
+				this.printProgressMessage("processing layer " + entry.getKey());
+				this.printDetailMessage("writing to file " + this.getProps().getFnOut(entry) + "." + target.name());
+				if(this.getProps().canWriteFiles()){
+					err = converter.convertDocument(loader, new File(this.getProps().getFnOut(entry) + "." + target.name()));
+					if(err!=null){
+						this.printErrorMessage(err);
+						return -99;//TODO
+					}
+				}
+			}
+		}
+		else{
+			this.printProgressMessage("converting input");
+			this.printDetailMessage("writing to file " + this.getProps().getFoutFile());
+			if(this.getProps().canWriteFiles()){
+				err = converter.convertDocument(loader, this.getProps().getFoutFile());
 				if(err!=null){
 					this.printErrorMessage(err);
 					return -99;//TODO
 				}
 			}
 		}
-		else{
-			err = converter.convertDocument(loader, this.getProps().getFoutFile());
-			if(err!=null){
-				this.printErrorMessage(err);
-				return -99;//TODO
-			}
-		}
 
+		this.printProgressMessage("finished successfully");
 		return 0;
 	}
-
-//		if(this.optionVerbose.inCli()==true){
-//			UserProperties up = properties.getProperties();
-//			Set<Object> keys = up.keySet();
-//			Iterator<Object>it = keys.iterator();
-//			while(it.hasNext()){
-//				String key = it.next().toString();
-//				String val = up.getProperty(key);
-//				key=key.substring(key.lastIndexOf('.')+1, key.length());
-//				this.printProgress("SVG property <" + key + ">=" + val);
-//			}
-//		}
 
 	@Override
 	public String getAppName() {
