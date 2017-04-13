@@ -16,21 +16,26 @@
 package de.vandermeer.svg2vector;
 
 import de.vandermeer.execs.ExecS;
-import de.vandermeer.svg2vector.applications.Svg2Vector_FH;
+import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
+import de.vandermeer.svg2vector.applications.is.Svg2Vector_IS;
 
 /**
  * An ExecS class for the tool.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v1.1.0 build 170405 (05-Apr-17) for Java 1.8
+ * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Svg2VectorExecs extends ExecS {
 
+	/**
+	 * Creates a new ExecS object.
+	 */
 	public Svg2VectorExecs(){
 		super("s2v");
 
-		this.addApplication(Svg2Vector_FH.APP_NAME,		Svg2Vector_FH.class);
+		this.addApplication(Svg2Vector_FH.APP_NAME,			Svg2Vector_FH.class);
+		this.addApplication(Svg2Vector_IS.APP_NAME,			Svg2Vector_IS.class);
 	}
 
 	/**

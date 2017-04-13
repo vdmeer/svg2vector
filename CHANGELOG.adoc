@@ -1,0 +1,86 @@
+=== v2.0.0 - major rewrite, changed CLI behavior - 2017-04-13
+* added appliction base and properties
+  ** some 22 CLI options are now supported by all applications, all processed by application base or properties
+  ** with full test cases for all behaviors
+* added loaders and moved old functions to `BatikLoader`
+* added CLI options for application base
+  ** `use-basename` for using a different base name for output files when processing layers
+  ** `all-layers` to switch on all layers prior to conversion (no layer mode)
+  ** `simulate` to simulate a conversion without creating any output artifacts
+  ** `overwrite-existing` to overwrite existing output files
+  ** `no-errors` to switch off error messages
+  ** `print-warnings` to switch on warning messages
+  ** `print-progress` to switch on progress messages
+  ** `print-details` to switch on detailed messages
+  ** `one-per-layer` new option to generate one output file per layer (if input file has layers)
+  ** `target` changed to provide additional functionality
+  ** `layers-if-exist` to process layers if input file has layers
+  ** `keep-tmp-artifacts` keep temporarily created artifacts (files and directories)
+  ** `fout-no-basename` to not use base name for outout file when processing layers
+  ** `create-directories` to create all required directories for output files
+* application behavior changes
+  ** much more errors being catched before conversion starts
+  ** warning bein catched before conversion starts
+  ** application can run in simulation mode w/o generating any output
+  ** required directories can be created automatically by the application
+  ** existing output files will not be overwritten unless requested
+* CLI behavior for layers with file name containing index and identifier changed
+  ** simple `-I` will use ID only
+  ** simple `-i` will use index only
+  ** `-I` and `-i` will use both
+* changed messaging behavior
+  ** can be set quiet or verbose or switched on seperately (warnings, progress, details)
+  ** errors are on by default, can be switched off via CLI `no-errors`
+* switched to Batik v1.6-1 (and cleaned dependencies)
+* added `s2v-is`
+  ** convert SVG files using an existing Inkscape installation
+  ** supported targets: pdf, png, emf, wmf, svg, eps, ps
+  ** some targets with specific CLI options
+  ** can process layers manually, sort of brute force, over lines of an SVG document w/o W3C DOM (required to process EMFs correctly)
+  ** can create temporary files/directories being removed when finished (unless requested to be kept)
+* changed main class in jar-with-dependencies to Svg2VectorExecs
+  ** also removed the Tool class, no longer needed
+  ** added s2v-is to the ExecS class
+* changed s2v-hp implementation, refactoring all classes and removing uneccessary methods
+* changed all documentation to use asciidoc
+* changed test class behavior
+  ** `s2v-fh` test classes now create files in `target` directory
+  ** `s2v-is` test clases run in simulation mode with a fake Inkscape executable
+* changed SVG test files
+  ** removed old score cards
+  ** added an Inkscape layer test file `rina-ipc`
+  ** added a basic simple SVG file `simple`
+* using new `ExecS` version (0.4.0) now with application to create start scripts for executable jars
+* added documentation in `site` content duplicated in API docs and README
+* provided solution for EMF and PDF conversion problems, especially with Inkscape SVGs
+  ** instead of using Batik/Freehep from `s2v-fh` use `s2v-is` with existing Inkscape installation
+  ** other options are not available as of today
+* open issues
+  ** add standard `s2v-fh` options to `s2v-is`, e.g. background and transparancy
+
+
+=== v1.1.0 - feature add - 2017-04-05
+* removed old CLI implementation, added ExecS as executor
+* added assembly plugin to create an application archive using ExecS script generation
+* fixed problems in the tests as per issue #3 (output now in target not src)
+* added applications for FreeHep and Inkscape converters
+* changed Tool to directly execute the FreeHep application
+
+
+=== v1.0.3 - feature add - 2016-03-03
+* removed old module/ settings, added bundle/pm settings
+* fixed old dependency problem
+
+
+=== v1.0.2 - feature add - 2015-06-18
+* updated for FreeHep 2.4 release
+* moved to maven build
+* started separate GIT repo for the tool
+
+
+=== v1.0.1 - minor changes - 2014-06-25
+* changed PDF margins to proper FreeHep handling `properties.setProperty(PDFGraphics2D.PAGE_MARGINS, "0, 0, 0, 0");` in `PdfProperties`
+
+
+=== v1.0.0 - initial release - 2014-06-10
+* still requires a patch to PDF graphics for custom page size for PDF images: https://github.com/freehep/freehep-vectorgraphics/pull/25/files

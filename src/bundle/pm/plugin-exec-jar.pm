@@ -7,7 +7,7 @@
 		</descriptorRefs>
 		<archive>
 			<manifest>
-				<mainClass>de.vandermeer.svg2vector.Tool</mainClass>
+				<mainClass>de.vandermeer.svg2vector.Svg2VectorExecs</mainClass>
 			</manifest>
 		</archive>
 	</configuration>

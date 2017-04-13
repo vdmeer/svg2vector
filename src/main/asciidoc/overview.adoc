@@ -1,0 +1,14 @@
+include::main/asciidoc/overview-start.adoc[]
+
+include::site/asciidoc/features.adoc[]
+
+include::site/asciidoc/concepts.adoc[]
+
+include::site/asciidoc/short-user-guide.adoc[]
+
+== User Guide and Examples
+
+A user guide and examples can be found at the project's home page: http://www.vandermeer.de/projects/skb/java/svg2vector
+
+include::site/asciidoc/resources.adoc[]
+

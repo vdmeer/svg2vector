@@ -1,0 +1,116 @@
+== Installation
+Requirements:
+
+* Java 8 runtime to run the applications
+* Maven or other build system if build from source
+* CygWin or UNIX to install application from ZIP
+
+
+=== In your build system
+
+==== Maven
+
+For Maven declare a dependency in the `<dependencies>` section of your POM file.
+
+[source,xml,subs=attributes+]
+.Dependency declaration in pom.xml
+----
+<dependency>
+    <groupId>de.vandermeer</groupId>
+    <artifactId>svg2vector</artifactId>
+    <version>{release-version}</version>
+</dependency>
+----
+
+
+==== Gradle / Grails
+
+[source,sh,subs=attributes+]
+----
+compile 'de.vandermeer:svg2vector:{release-version}'
+----
+
+
+==== Other build systems
+
+For other build systems see https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven Central]
+
+
+=== As a stand-alone application
+The stand-alone application can be installed in UNIX and CygWin systems.
+The installation will create all required scripts to run the applications
+On CygWin, the installation will also create DOS/Windows batch files to start the applications.
+
+* download the ZIP archive from BinTray: https://bintray.com/vdmeer/generic/svg2vector/{release-version}[{release-version}].
+* unzip in a directory of your choice
+
+Now you can run the script generation:
+----
+cd bin
+./init.sh
+----
+
+The script `init.sh` will create scripts to run the tool for Unix (`bin/sh`) and if you run `init.sh` on a CygWin system also for CygWin (`bin/cyg`) and DOS/Windows (`bin/bat`).
+Now simple run the script `sh/s2v-hp.sh` (assuming you are on a Unix system).
+
+
+=== Using the executable JAR
+
+* download the executable JAR file from BinTray: https://bintray.com/vdmeer/generic/svg2vector/{release-version}[{release-version}].
+* move the JAR to a directory on your system
+
+Now you can run the following command to create scripts executing the applications:
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar gen-exec-jar-scripts
+----
+
+This will create scripts, which you can then move into a binary directory of your system.
+
+You can manually run the executable JAR file as well.
+The main class of the JAR is set to an ExecS execution service.
+Simply running the jar will produce a help screen from ExecS.
+Using `-l` shows all registered applications, including `s2v-fh` and `s2v-is`.
+Direcly running the conversion applications as follows
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-fh
+----
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-is
+----
+
+
+=== Build and install from source
+One can also clone the repository, build it, and then use the created application artifacts.
+Clone and build the repo:
+
+[source,sh,subs=attributes+]
+----
+git clone https://github.com/vdmeer/svg2vector.git
+cd svg2vector
+mvn package
+----
+
+This will create a folder target with all build artifacts.
+In the target folder, one can find application artifacts to run the tool.
+
+[source,sh,subs=attributes+]
+----
+cd target/application
+ls -l
+----
+
+The artifacts there are (substitute X/Y/Z with the version you cloned/built)
+
+* svg2vector-{release-version}-application.tar.gz
+* svg2vector-{release-version}-application.zip
+* svg2vector-{release-version}-jar-with-dependencies.jar
+
+Now use either of the two archives and install the stand-alone application or the executable JAR.
+
+

@@ -1,0 +1,27 @@
+== Resources
+
+
+[frame=topbot, grid=rows, cols="d,d"]
+|===
+
+| Home page
+| http://www.vandermeer.de/projects/skb/java/svg2vector[site]
+
+| Binaries current release
+| https://bintray.com/vdmeer/generic/svg2vector/{release-version}[Bintray current release {release-version}]
+
+| Binaries all releases
+| https://bintray.com/vdmeer/generic/svg2vector[Bintray all releases]
+
+| Source repository
+| https://github.com/vdmeer/svg2vector/tree/master[Github]
+
+| Maven Central current release
+| https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven current release {release-version}]
+
+| Maven Central all releases
+| https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22[Maven all releases]
+
+|===
+
+

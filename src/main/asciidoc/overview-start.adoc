@@ -1,0 +1,3 @@
+A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF. 
+
+
