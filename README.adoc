@@ -1,5 +1,5 @@
 
-:release-version: 2.0.0-SNAPSHOT
+:release-version: 2.0.0
 = SVG2Vector
 v{release-version}
 :page-layout: base
@@ -179,6 +179,22 @@ java -jar svg2vector-{release-version}-jar-with-dependencies.jar gen-exec-jar-sc
 
 This will create scripts, which you can then move into a binary directory of your system.
 
+You can manually run the executable JAR file as well.
+The main class of the JAR is set to an ExecS execution service.
+Simply running the jar will produce a help screen from ExecS.
+Using `-l` shows all registered applications, including `s2v-fh` and `s2v-is`.
+Direcly running the conversion applications as follows
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-fh
+----
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-is
+----
+
 
 === Build and install from source
 One can also clone the repository, build it, and then use the created application artifacts.
@@ -212,7 +228,7 @@ Now use either of the two archives and install the stand-alone application or th
 == Short User Guide
 
 
-==== Using applications from command line
+=== Using applications from command line
 
 After installation, simply run an application with command line (CLI) options.
 Input file and target are always required.
@@ -228,14 +244,6 @@ s2v-fh: error parsing command line -> Missing required options: t, f
 
 ----------------------------------------------------------------------------------------
 
-For instance, running `s2v-is` without any options:
-
-[source, bash]
-----------------------------------------------------------------------------------------
-#s2v-is
-s2v-is: error parsing command line -> Missing required options: t, f, x
-
-----------------------------------------------------------------------------------------
 
 Use `--help` for general usage information and `--help [option]` for detailed help information on a particular option.
 For instance, running `s2v-is` with `--help target` will provide detailed information on the CLI option target:
@@ -271,7 +279,7 @@ s2v-fh: --- finished successfully
 
 
 
-==== Using applications in Java
+=== Using applications in Java
 
 The applications can be used in Java by simply creating a `String[]` with the commands (same as command line) and then calling the execution method `executeApplication(...)`directly.
 The following code shows an example creating and object for the `s2v-fh` application, with a set of command line options, and then executing it.

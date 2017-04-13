@@ -1,4 +1,4 @@
-=== v2.0.0 - major rewrite, changed CLI behavior - 2017-04-##
+=== v2.0.0 - major rewrite, changed CLI behavior - 2017-04-13
 * added appliction base and properties
   ** some 22 CLI options are now supported by all applications, all processed by application base or properties
   ** with full test cases for all behaviors

@@ -1,4 +1,4 @@
-=== v2.0.0 - major rewrite, changed CLI behavior - 2017-04-##
+=== v2.0.0 - major rewrite, changed CLI behavior - 2017-04-13
 * added appliction base and properties
   ** some 22 CLI options are now supported by all applications, all processed by application base or properties
   ** with full test cases for all behaviors
@@ -57,7 +57,6 @@
   ** other options are not available as of today
 * open issues
   ** add standard `s2v-fh` options to `s2v-is`, e.g. background and transparancy
-  ** improve documentation, especially site, and create home page as defined in `pom.xml`
 
 
 === v1.1.0 - feature add - 2017-04-05

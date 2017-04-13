@@ -68,6 +68,22 @@ java -jar svg2vector-{release-version}-jar-with-dependencies.jar gen-exec-jar-sc
 
 This will create scripts, which you can then move into a binary directory of your system.
 
+You can manually run the executable JAR file as well.
+The main class of the JAR is set to an ExecS execution service.
+Simply running the jar will produce a help screen from ExecS.
+Using `-l` shows all registered applications, including `s2v-fh` and `s2v-is`.
+Direcly running the conversion applications as follows
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-fh
+----
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-is
+----
+
 
 === Build and install from source
 One can also clone the repository, build it, and then use the created application artifacts.
