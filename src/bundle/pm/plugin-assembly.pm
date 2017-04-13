@@ -1,5 +1,6 @@
 <plugin>
 	<artifactId>maven-assembly-plugin</artifactId>
+	<version>${pm.version.maven-assembly-plugin}</version>
 	<executions>
 		<execution>
 			<id>generate-complete-tar</id>

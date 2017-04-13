@@ -1,9 +1,36 @@
 
 :release-version: 2.0.0
+:java: 8
 = SVG2Vector
 v{release-version}
 :page-layout: base
 :toc: preamble
+
+
+
+[%autowidth, frame=none, grid=none, cols="a,a,a,a,a"]
+|===
+
+|[link=https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22]
+image::https://img.shields.io/maven-central/v/de.vandermeer/svg2vector.svg[Maven Central]
+|[link=https://github.com/vdmeer/svg2vector]
+image::https://img.shields.io/github/tag/vdmeer/svg2vector.svg[GitHub Tags]
+|image::https://img.shields.io/badge/license-Apache_2.0-blue.svg[License]
+|image::https://img.shields.io/badge/java-Java_{java}+-blue.svg[License]
+|image::https://img.shields.io/github/issues/vdmeer/svg2vector.svg[test]
+
+|===
+
+
+//|[link=http://www.vandermeer.de/projects/skb/java/svg2vector/]
+//image::https://img.shields.io/website/http/www.vandermeer.de/projects/skb/java/svg2vector/index.html.svg[Website]
+
+
+//[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-lang3/)
+
+
+//[![License](https://img.shields.io/badge/license-Apache2-blue.svg)]
+
 
 
 A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF. 
