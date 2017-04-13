@@ -18,8 +18,11 @@
 
 <project>
 
+	<publishDate position="left"/>
+	<version position="left"/>
     <body>
         <menu name="SVG2Vector">
+        	<item href="index.html" name="Introduction" />
             <item href="features.html" name="Features" />
             <item href="concepts.html" name="Concepts">
 <!--
@@ -39,8 +42,8 @@
             <item href="apidocs/index.html" name="JAVA API Doc" />
             <item href="changelog.html" name="Change Log" />
         </menu>
-        <menu ref="reports" inherit="top"/>
-        <menu ref="modules"/> 
+        <menu ref="reports" />
+        <menu ref="modules" /> 
     </body>
 
     <skin>
@@ -49,4 +52,12 @@
         <version>1.5</version>
     </skin>
 
+	<custom>
+		<fluidoSkin>
+			<sideBarEnabled>true</sideBarEnabled>
+			<navBarStyle>navbar-inverse</navBarStyle>
+			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+			<skipGenerationDate>true</skipGenerationDate>
+		</fluidoSkin>
+	</custom>
 </project>
