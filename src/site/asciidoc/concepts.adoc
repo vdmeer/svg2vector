@@ -1,3 +1,54 @@
 == Concepts
 
-The main concepts are: application, input, target, conversion options, and report options.
+The main concepts are: application, input, and target.
+
+
+=== Application
+
+The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
+The tool uses the SKB ExecS to launch applications.
+All applications are registered with the Java class `Svg2VectorExecs` for easy execution.
+Once an application is selected for execution, the application specific command line options and processing applies.
+
+Currently supported are:
+
+* `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
+* `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable
+
+Some standard applications from the ExecS package are also available when using the standard executor:
+
+* gen-configure - used to configure generated runtime scripts for the application
+* gen-exec-jar-scripts - creates operating system specific start scripts when using the all-in-one executable jar artifact
+* gen-run-scripts - creates run scripts for application installation
+
+
+=== Input
+
+The input for each application needs to be a valid SVG file.
+There are several options for a valid SVG file:
+
+* Plain SVG as plain text file
+* Plain SVG as GZ compressed file
+* Inkscape SVG as plain text file
+* Inkscape SVG as GZ compressed file
+
+Other SVG variations might work as well, but have not been tested.
+
+
+=== Target
+
+The target of a conversion defines the target format and helps to select a target converter.
+The target implicitely defines the target file extension.
+The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.
+
+The application `s2v-fh` is using Apache Batik for SVG document handling and FreeHep libraries for conversion.
+This means that specific name spaces from an Inkscape SVG are not processed (largely ignored).
+The Inkscape Wiki has a page explaining the specific name spaces `inkscape` and `sodipodi`: http://wiki.inkscape.org/wiki/index.php/Inkscape_SVG_vs._plain_SVG .
+
+In case the input is generated from Inkscape and `s2v-fh` has to be used for the conversion, the best practice is to safe the file as `Plain SVG` with Inkscape.
+Otherwise, several formatting descriptions (e.g. centered text) will not be converted correctly.
+
+If an Inkscape installation is available, then `s2v-is` can be used. This will convert all standard targets (such as PDF and PNG) correctly using Inkscape.
+For EMF conversion, manual layer handling and temporary file creation should be used.
+
+

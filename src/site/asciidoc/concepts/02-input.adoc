@@ -1,9 +1,0 @@
-=== Input
-
-The input for each application needs to be a valid SVG file.
-There are several options for a valid SVG file:
-
-* Plain SVG as plain text file
-* Plain SVG as GZ compressed file
-* Inkscape SVG as plain text file
-* Inkscape SVG as GZ compressed file

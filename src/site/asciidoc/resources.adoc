@@ -23,3 +23,5 @@
 | https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22[Maven all releases]
 
 |===
+
+

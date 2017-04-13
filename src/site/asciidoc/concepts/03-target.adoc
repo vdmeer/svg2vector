@@ -1,6 +1,0 @@
-=== Target
-
-The target of a conversion defines the target format and helps to select a target converter.
-The target implicitely defines the target file extension.
-The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.
-

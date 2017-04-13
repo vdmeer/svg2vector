@@ -2,22 +2,72 @@
 
 Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
 
-=== s2v-fp
-Converts SVG to vector formats using Apache Batik and Freehep libraries:
+=== Standard options
+Standard options are available in all applications.
+They cover configuration for conversion targets, message handling, input file, names for outoput file(s) and directories, Inkscape layer handline, and other general options.
+In addition, the applications are using the ExecS package and thus providing help and version information via command line as well.
 
-* target formats: EMF, PDF
-* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
-* options: Inkscape layers
-* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+==== Help and version
+* general help (usage)
+* detailed help for each command line options
+* version information
+
+==== Input options
+* read file either as plain text file or as GZIP (`.gz`) file
+* can process plain SVG or Inkscape SVg files (latter required for layers)
+
+==== Target
+* set conversion target
+* set text-as-shape conversion option
+
+==== Message handling
+* set application to quiet mode
+* set application to verbose mode
+* activate warnings, process information, and detailed messages
+* deactivate error messages
+
+==== Output handling
+* automatically create directories
+* overwrite existing output files
+* keep temporarily created artifacts (files and directories)
+
+==== Output name handling
+* set output file and/or directory
+* set basename for output files
+* deactivate use of basename for output files
+
+==== Layer handling
+* process Inkscape layers found in input files
+* process layers if they exist
+* several options for the output file names when using layers
+* switch all layers on for single conversion
+
+==== Other options
+* simulate conversion, i.e. run but only print messages, do not create any output
 
 
-=== s2v-is
-Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation:
+==== s2v-fp options
+Converts SVG to vector formats using Apache Batik to load an SVG document and the Freehep libraries for the conversion.
+Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
+Each target allows to configure:
 
-* target vector formats: EMF, WMF, PDF, EPS, PS
-* target bitmap formats: PNG
-* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
-* options: Inkscape layers, temporary plain SVG files, manual layer management (for optimized EMF generation)
-* target specific options (as upported by Inkscape): DIP for PNG, PDF version for PDF, PS level for EPS/PS
-* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+* switch on background
+* background color
+* switch off transparancy
+* use cliping
+
+
+==== s2v-is options
+Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation.
+Supported target formats are: EMF, PDF, EPS, PS, WMF, plain SVG (no Inkscape name space), and PNG.
+Other supported options are:
+
+* set Inkscape executable
+* create temporary SVG files first (as plain SVG or as Inkscape SVG)
+* manual (for optimized EMF generation) or Inkscape object selection handling of layers
+* target specific options as upported by Inkscape:
+  ** for PDF: set PDF version
+  ** for PS: set PS level
+  ** for PNG: set output DPI
+
 

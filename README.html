@@ -5,7 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>SVG 2 Vector</title>
+<meta name="author" content="v2.0.0-SNAPSHOT">
+<title>SVG2Vector</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -510,136 +511,506 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article">
 <div id="header">
+<h1>SVG2Vector</h1>
+<div class="details">
+<span id="author" class="author">v2.0.0-SNAPSHOT</span><br>
+</div>
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_svg_2_vector">SVG 2 Vector</a></li>
-<li><a href="#_using_the_tool_in_an_application">Using the Tool in an Application</a></li>
-<li><a href="#_build_install_application_use_from_command_line">Build, install application, use from command line</a></li>
-<li><a href="#_build_use_executable_jar_from_command_line">Build, use executable jar from command line</a></li>
-<li><a href="#_download_artifacts_from_bintray">Download artifacts from BinTray</a></li>
+<li><a href="#_resources">Resources</a></li>
+<li><a href="#_features">Features</a>
+<ul class="sectlevel2">
+<li><a href="#_standard_options">Standard options</a></li>
+</ul>
+</li>
+<li><a href="#_installation">Installation</a>
+<ul class="sectlevel2">
+<li><a href="#_in_your_build_system">In your build system</a></li>
+<li><a href="#_as_a_stand_alone_application">As a stand-alone application</a></li>
+<li><a href="#_using_the_executable_jar">Using the executable JAR</a></li>
+<li><a href="#_build_and_install_from_source">Build and install from source</a></li>
+</ul>
+</li>
+<li><a href="#_short_user_guide">Short User Guide</a>
+<ul class="sectlevel3">
+<li><a href="#_using_applications_from_command_line">Using applications from command line</a></li>
+<li><a href="#_using_applications_in_java">Using applications in Java</a></li>
+</ul>
+</li>
+<li><a href="#_concepts">Concepts</a>
+<ul class="sectlevel2">
+<li><a href="#_application">Application</a></li>
+<li><a href="#_input">Input</a></li>
+<li><a href="#_target_2">Target</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_svg_2_vector">SVG 2 Vector</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>SVG to vector converter.</p>
+<p>A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources">Resources</h2>
+<div class="sectionbody">
+<table class="tableblock frame-topbot grid-rows spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Home page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.vandermeer.de/projects/skb/java/svg2vector">site</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries current release</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bintray.com/vdmeer/generic/svg2vector/2.0.0-SNAPSHOT">Bintray current release 2.0.0-SNAPSHOT</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries all releases</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bintray.com/vdmeer/generic/svg2vector">Bintray all releases</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/vdmeer/svg2vector/tree/master">Github</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven Central current release</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://search.maven.org/#artifactdetails|de.vandermeer|svg2vector|2.0.0-SNAPSHOT|jar">Maven current release 2.0.0-SNAPSHOT</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven Central all releases</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://search.maven.org/#search|gav|1|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22">Maven all releases</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_features">Features</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>This tool converts an SVG graphic to a vector format. Currently supported targets are EMF, PDF and SVG. The tool does support SVG and SVGZ input formats.
-It also can deal with SVG layers. Input can be a file or a URL. Output can be a single file or a set of files, i.e. handling SVG layers individually.
-This means that the tool can be part of a tool chain for creating animations. Simply create an SVG image with several layers, one per step of an animation.
-Then use this tool to create an image per layer and use them in the target publication platform:</p>
+<p>Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.</p>
 </div>
+<div class="sect2">
+<h3 id="_standard_options">Standard options</h3>
+<div class="paragraph">
+<p>Standard options are available in all applications.
+They cover configuration for conversion targets, message handling, input file, names for outoput file(s) and directories, Inkscape layer handline, and other general options.
+In addition, the applications are using the ExecS package and thus providing help and version information via command line as well.</p>
+</div>
+<div class="sect3">
+<h4 id="_help_and_version">Help and version</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>EMF - for animations in any Microsoft Office product, e.g. PowerPoint</p>
+<p>general help (usage)</p>
 </li>
 <li>
-<p>PDF - for animations in the LaTeX package beamer</p>
+<p>detailed help for each command line options</p>
 </li>
 <li>
-<p>SVG - for animations using HTML pages and SVG images</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>All images are created using a custom page size (PDF, SVG) or a custome image size (EMF).
-This means that the created image has the size of the original image, even for PDFs.
-Margins are set to 0, so there are no extras around the converted image either.</p>
-</div>
-<div class="paragraph">
-<p>Input options (one is required):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>-f,--file arg = input file, SVG or SVGZ coded, Inkscape formats are supported</p>
-</li>
-<li>
-<p>-u,--uri arg = input URL, points to a file, SVG or SVGZ coded, Inkscape formats are supported</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Output options:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>-t,--target arg = target vector format, supported are: emf, pdf, svg</p>
-</li>
-<li>
-<p>-o,--output arg = output file if no special layer processing is activated, default is the base name of the input file</p>
-</li>
-<li>
-<p>-d,--directory arg = output directory, default is the current directory</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Process Options:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>-v,--verbose = verbose mode, prints process of the conversion</p>
-</li>
-<li>
-<p>-h,--help = prints a help screen with all command line options</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Render Options:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>-b,--no-background = switch off background</p>
-</li>
-<li>
-<p>-c,--clip = activate clipping</p>
-</li>
-<li>
-<p>-n,--not-transparent = switch of transpararency</p>
-</li>
-<li>
-<p>-r,--bgrnd-color arg = sets the background color</p>
-</li>
-<li>
-<p>-s,--not-text-as-shape = switch of text-as-shape property</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Layer Options:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>-l,--one-per-layer = activates special process for layers creating one output file per layer</p>
-</li>
-<li>
-<p>-i,--use-layer-index = use layer index for SVG layer processing, default is layer ID</p>
-</li>
-<li>
-<p>-I,--use-layer-index-id = use layer index and ID for SVG layer processing, default is layer ID</p>
+<p>version information</p>
 </li>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_input_options">Input options</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>read file either as plain text file or as GZIP (<code>.gz</code>) file</p>
+</li>
+<li>
+<p>can process plain SVG or Inkscape SVg files (latter required for layers)</p>
+</li>
+</ul>
 </div>
-<h1 id="_using_the_tool_in_an_application" class="sect0">Using the Tool in an Application</h1>
+</div>
+<div class="sect3">
+<h4 id="_target">Target</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>set conversion target</p>
+</li>
+<li>
+<p>set text-as-shape conversion option</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_message_handling">Message handling</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>set application to quiet mode</p>
+</li>
+<li>
+<p>set application to verbose mode</p>
+</li>
+<li>
+<p>activate warnings, process information, and detailed messages</p>
+</li>
+<li>
+<p>deactivate error messages</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_output_handling">Output handling</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>automatically create directories</p>
+</li>
+<li>
+<p>overwrite existing output files</p>
+</li>
+<li>
+<p>keep temporarily created artifacts (files and directories)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_output_name_handling">Output name handling</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>set output file and/or directory</p>
+</li>
+<li>
+<p>set basename for output files</p>
+</li>
+<li>
+<p>deactivate use of basename for output files</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_layer_handling">Layer handling</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>process Inkscape layers found in input files</p>
+</li>
+<li>
+<p>process layers if they exist</p>
+</li>
+<li>
+<p>several options for the output file names when using layers</p>
+</li>
+<li>
+<p>switch all layers on for single conversion</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_other_options">Other options</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>simulate conversion, i.e. run but only print messages, do not create any output</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_s2v_fp_options">s2v-fp options</h4>
 <div class="paragraph">
-<p>The tool can be used inside an application.
-Simply create a string array with the options the same as if invoked from the command line.
-Then create the tool class and call the execute application method.
-The following code shows an example taken from one the test cases:</p>
+<p>Converts SVG to vector formats using Apache Batik to load an SVG document and the Freehep libraries for the conversion.
+Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
+Each target allows to configure:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>switch on background</p>
+</li>
+<li>
+<p>background color</p>
+</li>
+<li>
+<p>switch off transparancy</p>
+</li>
+<li>
+<p>use cliping</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_s2v_is_options">s2v-is options</h4>
+<div class="paragraph">
+<p>Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation.
+Supported target formats are: EMF, PDF, EPS, PS, WMF, plain SVG (no Inkscape name space), and PNG.
+Other supported options are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>set Inkscape executable</p>
+</li>
+<li>
+<p>create temporary SVG files first (as plain SVG or as Inkscape SVG)</p>
+</li>
+<li>
+<p>manual (for optimized EMF generation) or Inkscape object selection handling of layers</p>
+</li>
+<li>
+<p>target specific options as upported by Inkscape:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>for PDF: set PDF version</p>
+</li>
+<li>
+<p>for PS: set PS level</p>
+</li>
+<li>
+<p>for PNG: set output DPI</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation">Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Requirements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 8 runtime to run the applications</p>
+</li>
+<li>
+<p>Maven or other build system if build from source</p>
+</li>
+<li>
+<p>CygWin or UNIX to install application from ZIP</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_in_your_build_system">In your build system</h3>
+<div class="sect3">
+<h4 id="_maven">Maven</h4>
+<div class="paragraph">
+<p>For Maven declare a dependency in the <code>&lt;dependencies&gt;</code> section of your POM file.</p>
+</div>
+<div class="listingblock">
+<div class="title">Dependency declaration in pom.xml</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>de.vandermeer<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>svg2vector<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>2.0.0-SNAPSHOT<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gradle_grails">Gradle / Grails</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">compile 'de.vandermeer:svg2vector:2.0.0-SNAPSHOT'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_other_build_systems">Other build systems</h4>
+<div class="paragraph">
+<p>For other build systems see <a href="https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|2.0.0-SNAPSHOT\|jar">Maven Central</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_as_a_stand_alone_application">As a stand-alone application</h3>
+<div class="paragraph">
+<p>The stand-alone application can be installed in UNIX and CygWin systems.
+The installation will create all required scripts to run the applications
+On CygWin, the installation will also create DOS/Windows batch files to start the applications.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>download the ZIP archive from BinTray: <a href="https://bintray.com/vdmeer/generic/svg2vector/2.0.0-SNAPSHOT">2.0.0-SNAPSHOT</a>.</p>
+</li>
+<li>
+<p>unzip in a directory of your choice</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now you can run the script generation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cd bin
+./init.sh</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The script <code>init.sh</code> will create scripts to run the tool for Unix (<code>bin/sh</code>) and if you run <code>init.sh</code> on a CygWin system also for CygWin (<code>bin/cyg</code>) and DOS/Windows (<code>bin/bat</code>).
+Now simple run the script <code>sh/s2v-hp.sh</code> (assuming you are on a Unix system).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_the_executable_jar">Using the executable JAR</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>download the executable JAR file from BinTray: <a href="https://bintray.com/vdmeer/generic/svg2vector/2.0.0-SNAPSHOT">2.0.0-SNAPSHOT</a>.</p>
+</li>
+<li>
+<p>move the JAR to a directory on your system</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now you can run the following command to create scripts executing the applications:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">java -jar svg2vector-2.0.0-SNAPSHOT-jar-with-dependencies.jar gen-exec-jar-scripts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create scripts, which you can then move into a binary directory of your system.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_and_install_from_source">Build and install from source</h3>
+<div class="paragraph">
+<p>One can also clone the repository, build it, and then use the created application artifacts.
+Clone and build the repo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">git clone https://github.com/vdmeer/svg2vector.git
+cd svg2vector
+mvn package</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a folder target with all build artifacts.
+In the target folder, one can find application artifacts to run the tool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">cd target/application
+ls -l</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The artifacts there are (substitute X/Y/Z with the version you cloned/built)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>svg2vector-2.0.0-SNAPSHOT-application.tar.gz</p>
+</li>
+<li>
+<p>svg2vector-2.0.0-SNAPSHOT-application.zip</p>
+</li>
+<li>
+<p>svg2vector-2.0.0-SNAPSHOT-jar-with-dependencies.jar</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now use either of the two archives and install the stand-alone application or the executable JAR.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_short_user_guide">Short User Guide</h2>
+<div class="sectionbody">
+<div class="sect3">
+<h4 id="_using_applications_from_command_line">Using applications from command line</h4>
+<div class="paragraph">
+<p>After installation, simply run an application with command line (CLI) options.
+Input file and target are always required.
+Some applications have other required CLI options.</p>
+</div>
+<div class="paragraph">
+<p>Running an application without any option will produce either an error stating which options are required or do nothing.
+For instance, running <code>s2v-fh</code> without any options:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">#s2v-fh
+s2v-fh: error parsing command line -&gt; Missing required options: t, f</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For instance, running <code>s2v-is</code> without any options:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">#s2v-is
+s2v-is: error parsing command line -&gt; Missing required options: t, f, x</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use <code>--help</code> for general usage information and <code>--help [option]</code> for detailed help information on a particular option.
+For instance, running <code>s2v-is</code> with <code>--help target</code> will provide detailed information on the CLI option target:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>#s2v-is --help target
+CLI option:  -t, --target &lt;TARGET&gt; (required)  -  specifies a conversion target
+Description:
+target for the conversion Supported targets are: svg, pdf, emf, wmf, ps, eps, png</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Assuming there is an input file <code>time-interval-based.svgz</code> in the directory <code>src/test/resources/svg-files</code>, a conversion with layer handling into the output folder <code>target/output-tests/s2v-fh/pdf/layers-index</code> with simple progress information can be realised as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash"># s2v-fh --create-directories --overwrite-existing -l -i -t pdf -f src/test/resources/svg-files/time-interval-based.svgz -d target/output-tests/s2v-fh/pdf/layers-index -p
+s2v-fh: --- processing multi layer, multi file output
+s2v-fh: --- creating directories for output
+s2v-fh: --- processing layer 00-frame
+s2v-fh: --- processing layer 06-xEy
+s2v-fh: --- processing layer 01-table
+s2v-fh: --- processing layer 10-xSy
+s2v-fh: --- processing layer 11-xFy
+s2v-fh: --- processing layer 08-xOy
+s2v-fh: --- processing layer 07-xMy
+s2v-fh: --- processing layer 09-xDy
+s2v-fh: --- processing layer 05-xBy
+s2v-fh: --- finished successfully</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_applications_in_java">Using applications in Java</h4>
+<div class="paragraph">
+<p>The applications can be used in Java by simply creating a <code>String[]</code> with the commands (same as command line) and then calling the execution method <code>executeApplication(&#8230;&#8203;)`directly.
+The following code shows an example creating and object for the `s2v-fh</code> application, with a set of command line options, and then executing it.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -654,94 +1025,136 @@ The following code shows an example taken from one the test cases:</p>
 8
 9
 10
-11
-12
 </pre></td>
   <td class="code"><pre><span class="predefined-type">String</span><span class="type">[]</span> args = <span class="keyword">new</span> <span class="predefined-type">String</span><span class="type">[]</span>{
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">-t</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">emf</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">--input-file</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">src/test/resources/files/input/session-cards.svgz</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">-d</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">target/test-output/files/emf</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">-o</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">sessionCardsEmf</span><span class="delimiter">&quot;</span></span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">--create-directories</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">--overwrite-existing</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">--all-layers</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">-l</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">-i</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-t</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">pdf</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-f</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">src/test/resources/svg-files/time-interval-based.svgz</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-d</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">target/output-tests/s2v-fh/pdf/layers-index</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">-q</span><span class="delimiter">&quot;</span></span>
 };
 Svg2Vector_FH app = <span class="keyword">new</span> Svg2Vector_FH();
 app.executeApplication(args);</pre></td>
 </tr></table></code></pre>
 </div>
 </div>
-<h1 id="_build_install_application_use_from_command_line" class="sect0">Build, install application, use from command line</h1>
 <div class="paragraph">
-<p>One can also clone the repository, build it, and then use the created application artifacts.
-Clone and build the repo:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>git clone https://github.com/vdmeer/svg2vector.git
-cd svg2vector
-mvn package</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will create a folder target with all build artifacts.
-In the target folder, one can find application artifacts to run the tool.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>cd target/application
-ls -l</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The artifacts there are (substitute X/Y/Z with the version you cloned/built)</p>
+<p>The applications use return codes to provide information about the execution status:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>svg2vector-X.Y.Z-application.tar.gz</p>
+<p><code>0</code> means successfull execution</p>
 </li>
 <li>
-<p>svg2vector-X.Y.Z-application.zip</p>
+<p><code>&gt;0</code> means an early exit option (such as <code>--help</code> or <code>--version</code>) was used</p>
+</li>
+<li>
+<p><code>&lt;0</code> means an error did occur</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concepts">Concepts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The main concepts are: application, input, and target.</p>
+</div>
+<div class="sect2">
+<h3 id="_application">Application</h3>
+<div class="paragraph">
+<p>The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
+The tool uses the SKB ExecS to launch applications.
+All applications are registered with the Java class <code>Svg2VectorExecs</code> for easy execution.
+Once an application is selected for execution, the application specific command line options and processing applies.</p>
+</div>
+<div class="paragraph">
+<p>Currently supported are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s2v-hp</code> - converting SVG graphics to vector formats using Apache Batik and Freehep libraries</p>
+</li>
+<li>
+<p><code>s2v-is</code> - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The tar and zip balls have the same content.
-To install and run the tool on your system, untar (or unzip) one of the archives in a folder of your choice.
-Then run the <code>init.sh</code> script in the <code>bin</code> directory.
-This will create scripts to run the tool for Unix (<code>bin/sh</code>) and if you run <code>init.sh</code> on a CygWin system also for CygWin (<code>bin/cyg</code>) and DOS/Windows (<code>bin/bat</code>).
-Now simple run the script <code>sh/s2v-hp.sh</code> (assuming you are on a Unix system).</p>
+<p>Some standard applications from the ExecS package are also available when using the standard executor:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>tar xvfz svg2vector-X.Y.Z-application.tar.gz
-cd bin
-./init.sh
-./sh/s2v-hp.sh</pre>
+<div class="ulist">
+<ul>
+<li>
+<p>gen-configure - used to configure generated runtime scripts for the application</p>
+</li>
+<li>
+<p>gen-exec-jar-scripts - creates operating system specific start scripts when using the all-in-one executable jar artifact</p>
+</li>
+<li>
+<p>gen-run-scripts - creates run scripts for application installation</p>
+</li>
+</ul>
 </div>
 </div>
-<h1 id="_build_use_executable_jar_from_command_line" class="sect0">Build, use executable jar from command line</h1>
+<div class="sect2">
+<h3 id="_input">Input</h3>
 <div class="paragraph">
-<p>Clone and build the system as described above.
-In the folder <code>target/application</code> you find a JAR called <code>svg2vector-X.Y.Z-jar-with-dependencies.jar</code>.
-This JAR can be used to execute the tool directly as follows:</p>
+<p>The input for each application needs to be a valid SVG file.
+There are several options for a valid SVG file:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>java -jar svg2vector-X.Y.Z-jar-with-dependencies.jar</pre>
+<div class="ulist">
+<ul>
+<li>
+<p>Plain SVG as plain text file</p>
+</li>
+<li>
+<p>Plain SVG as GZ compressed file</p>
+</li>
+<li>
+<p>Inkscape SVG as plain text file</p>
+</li>
+<li>
+<p>Inkscape SVG as GZ compressed file</p>
+</li>
+</ul>
 </div>
-</div>
-<h1 id="_download_artifacts_from_bintray" class="sect0">Download artifacts from BinTray</h1>
 <div class="paragraph">
-<p>Instead of building, you can also download the application artifacts (zip archiive and single jar) from BinTray.
-See <a href="https://bintray.com/vdmeer/generic/svg2vector" class="bare">https://bintray.com/vdmeer/generic/svg2vector</a></p>
+<p>Other SVG variations might work as well, but have not been tested.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_target_2">Target</h3>
+<div class="paragraph">
+<p>The target of a conversion defines the target format and helps to select a target converter.
+The target implicitely defines the target file extension.
+The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.</p>
+</div>
+<div class="paragraph">
+<p>The application <code>s2v-fh</code> is using Apache Batik for SVG document handling and FreeHep libraries for conversion.
+This means that specific name spaces from an Inkscape SVG are not processed (largely ignored).
+The Inkscape Wiki has a page explaining the specific name spaces <code>inkscape</code> and <code>sodipodi</code>: <a href="http://wiki.inkscape.org/wiki/index.php/Inkscape_SVG_vs._plain_SVG" class="bare">http://wiki.inkscape.org/wiki/index.php/Inkscape_SVG_vs._plain_SVG</a> .</p>
+</div>
+<div class="paragraph">
+<p>In case the input is generated from Inkscape and <code>s2v-fh</code> has to be used for the conversion, the best practice is to safe the file as <code>Plain SVG</code> with Inkscape.
+Otherwise, several formatting descriptions (e.g. centered text) will not be converted correctly.</p>
+</div>
+<div class="paragraph">
+<p>If an Inkscape installation is available, then <code>s2v-is</code> can be used. This will convert all standard targets (such as PDF and PNG) correctly using Inkscape.
+For EMF conversion, manual layer handling and temporary file creation should be used.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-05 03:11:41 IST
+Last updated 2017-04-12 21:55:16 IST
 </div>
 </div>
 </body>

@@ -22,14 +22,16 @@
         <menu name="SVG2Vector">
             <item href="features.html" name="Features" />
             <item href="concepts.html" name="Concepts">
+<!--
                 <item href="concepts/01-application.html" name="Application" />
                 <item href="concepts/02-input.html" name="Input" />
                 <item href="concepts/03-target.html" name="Target" />
                 <item href="concepts/04-conversion-options.html" name="Conversion Options" />
                 <item href="concepts/05-report-options.html" name="Report Options" />
+-->
             </item>
             <item href="installation.html" name="Installation" />
-            <item href="getting-started.html" name="Getting Started" />
+            <item href="short-user-guide.html" name="Short User Guide" />
 <!--
             <item name="User Guide" />
  -->

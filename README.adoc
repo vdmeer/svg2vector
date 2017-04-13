@@ -1,5 +1,5 @@
 
-:release-version: 1.2.0-SNAPSHOT
+:release-version: 2.0.0-SNAPSHOT
 = SVG2Vector
 v{release-version}
 :page-layout: base
@@ -7,6 +7,8 @@ v{release-version}
 
 
 A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF. 
+
+
 == Resources
 
 
@@ -22,7 +24,6 @@ A simple tool box to convert SVG graphics to other vector formats, such as EMF a
 | Binaries all releases
 | https://bintray.com/vdmeer/generic/svg2vector[Bintray all releases]
 
-
 | Source repository
 | https://github.com/vdmeer/svg2vector/tree/master[Github]
 
@@ -33,9 +34,92 @@ A simple tool box to convert SVG graphics to other vector formats, such as EMF a
 | https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22[Maven all releases]
 
 |===
-== Installation
 
-=== Maven
+
+== Features
+
+Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
+
+=== Standard options
+Standard options are available in all applications.
+They cover configuration for conversion targets, message handling, input file, names for outoput file(s) and directories, Inkscape layer handline, and other general options.
+In addition, the applications are using the ExecS package and thus providing help and version information via command line as well.
+
+==== Help and version
+* general help (usage)
+* detailed help for each command line options
+* version information
+
+==== Input options
+* read file either as plain text file or as GZIP (`.gz`) file
+* can process plain SVG or Inkscape SVg files (latter required for layers)
+
+==== Target
+* set conversion target
+* set text-as-shape conversion option
+
+==== Message handling
+* set application to quiet mode
+* set application to verbose mode
+* activate warnings, process information, and detailed messages
+* deactivate error messages
+
+==== Output handling
+* automatically create directories
+* overwrite existing output files
+* keep temporarily created artifacts (files and directories)
+
+==== Output name handling
+* set output file and/or directory
+* set basename for output files
+* deactivate use of basename for output files
+
+==== Layer handling
+* process Inkscape layers found in input files
+* process layers if they exist
+* several options for the output file names when using layers
+* switch all layers on for single conversion
+
+==== Other options
+* simulate conversion, i.e. run but only print messages, do not create any output
+
+
+==== s2v-fp options
+Converts SVG to vector formats using Apache Batik to load an SVG document and the Freehep libraries for the conversion.
+Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
+Each target allows to configure:
+
+* switch on background
+* background color
+* switch off transparancy
+* use cliping
+
+
+==== s2v-is options
+Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation.
+Supported target formats are: EMF, PDF, EPS, PS, WMF, plain SVG (no Inkscape name space), and PNG.
+Other supported options are:
+
+* set Inkscape executable
+* create temporary SVG files first (as plain SVG or as Inkscape SVG)
+* manual (for optimized EMF generation) or Inkscape object selection handling of layers
+* target specific options as upported by Inkscape:
+  ** for PDF: set PDF version
+  ** for PS: set PS level
+  ** for PNG: set output DPI
+
+
+== Installation
+Requirements:
+
+* Java 8 runtime to run the applications
+* Maven or other build system if build from source
+* CygWin or UNIX to install application from ZIP
+
+
+=== In your build system
+
+==== Maven
 
 For Maven declare a dependency in the `<dependencies>` section of your POM file.
 
@@ -50,39 +134,174 @@ For Maven declare a dependency in the `<dependencies>` section of your POM file.
 ----
 
 
-=== Gradle / Grails
+==== Gradle / Grails
 
+[source,sh,subs=attributes+]
 ----
 compile 'de.vandermeer:svg2vector:{release-version}'
 ----
 
 
+==== Other build systems
+
 For other build systems see https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven Central]
 
-== Features
 
-Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
+=== As a stand-alone application
+The stand-alone application can be installed in UNIX and CygWin systems.
+The installation will create all required scripts to run the applications
+On CygWin, the installation will also create DOS/Windows batch files to start the applications.
 
-=== s2v-fp
-Converts SVG to vector formats using Apache Batik and Freehep libraries:
-* target formats: EMF, PDF
-* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
-* options: Inkscape layers
-* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+* download the ZIP archive from BinTray: https://bintray.com/vdmeer/generic/svg2vector/{release-version}[{release-version}].
+* unzip in a directory of your choice
+
+Now you can run the script generation:
+----
+cd bin
+./init.sh
+----
+
+The script `init.sh` will create scripts to run the tool for Unix (`bin/sh`) and if you run `init.sh` on a CygWin system also for CygWin (`bin/cyg`) and DOS/Windows (`bin/bat`).
+Now simple run the script `sh/s2v-hp.sh` (assuming you are on a Unix system).
 
 
-=== s2v-is
-Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation:
-* target vector formats: EMF, WMF, PDF, EPS, PS
-* target bitmap formats: PNG
-* input file: as file or URI, plain or standard Inkscape, GZIP compressed or plain file
-* options: Inkscape layers, temporary plain SVG files, manual layer management (for optimized EMF generation)
-* target specific options (as upported by Inkscape): DIP for PNG, PDF version for PDF, PS level for EPS/PS
-* output file: for target, using Inkscape layer index, using Inkscape layer index and layer identifier
+=== Using the executable JAR
+
+* download the executable JAR file from BinTray: https://bintray.com/vdmeer/generic/svg2vector/{release-version}[{release-version}].
+* move the JAR to a directory on your system
+
+Now you can run the following command to create scripts executing the applications:
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar gen-exec-jar-scripts
+----
+
+This will create scripts, which you can then move into a binary directory of your system.
+
+
+=== Build and install from source
+One can also clone the repository, build it, and then use the created application artifacts.
+Clone and build the repo:
+
+[source,sh,subs=attributes+]
+----
+git clone https://github.com/vdmeer/svg2vector.git
+cd svg2vector
+mvn package
+----
+
+This will create a folder target with all build artifacts.
+In the target folder, one can find application artifacts to run the tool.
+
+[source,sh,subs=attributes+]
+----
+cd target/application
+ls -l
+----
+
+The artifacts there are (substitute X/Y/Z with the version you cloned/built)
+
+* svg2vector-{release-version}-application.tar.gz
+* svg2vector-{release-version}-application.zip
+* svg2vector-{release-version}-jar-with-dependencies.jar
+
+Now use either of the two archives and install the stand-alone application or the executable JAR.
+
+
+== Short User Guide
+
+
+==== Using applications from command line
+
+After installation, simply run an application with command line (CLI) options.
+Input file and target are always required.
+Some applications have other required CLI options.
+
+Running an application without any option will produce either an error stating which options are required or do nothing.
+For instance, running `s2v-fh` without any options:
+
+[source, bash]
+----------------------------------------------------------------------------------------
+#s2v-fh
+s2v-fh: error parsing command line -> Missing required options: t, f
+
+----------------------------------------------------------------------------------------
+
+For instance, running `s2v-is` without any options:
+
+[source, bash]
+----------------------------------------------------------------------------------------
+#s2v-is
+s2v-is: error parsing command line -> Missing required options: t, f, x
+
+----------------------------------------------------------------------------------------
+
+Use `--help` for general usage information and `--help [option]` for detailed help information on a particular option.
+For instance, running `s2v-is` with `--help target` will provide detailed information on the CLI option target:
+
+----------------------------------------------------------------------------------------
+#s2v-is --help target
+CLI option:  -t, --target <TARGET> (required)  -  specifies a conversion target
+Description:
+target for the conversion Supported targets are: svg, pdf, emf, wmf, ps, eps, png
+
+----------------------------------------------------------------------------------------
+
+Assuming there is an input file `time-interval-based.svgz` in the directory `src/test/resources/svg-files`, a conversion with layer handling into the output folder `target/output-tests/s2v-fh/pdf/layers-index` with simple progress information can be realised as follows:
+
+[source, bash]
+----------------------------------------------------------------------------------------
+# s2v-fh --create-directories --overwrite-existing -l -i -t pdf -f src/test/resources/svg-files/time-interval-based.svgz -d target/output-tests/s2v-fh/pdf/layers-index -p
+s2v-fh: --- processing multi layer, multi file output
+s2v-fh: --- creating directories for output
+s2v-fh: --- processing layer 00-frame
+s2v-fh: --- processing layer 06-xEy
+s2v-fh: --- processing layer 01-table
+s2v-fh: --- processing layer 10-xSy
+s2v-fh: --- processing layer 11-xFy
+s2v-fh: --- processing layer 08-xOy
+s2v-fh: --- processing layer 07-xMy
+s2v-fh: --- processing layer 09-xDy
+s2v-fh: --- processing layer 05-xBy
+s2v-fh: --- finished successfully
+
+----------------------------------------------------------------------------------------
+
+
+
+
+==== Using applications in Java
+
+The applications can be used in Java by simply creating a `String[]` with the commands (same as command line) and then calling the execution method `executeApplication(...)`directly.
+The following code shows an example creating and object for the `s2v-fh` application, with a set of command line options, and then executing it.
+
+[source, java, linenums]
+----------------------------------------------------------------------------------------
+String[] args = new String[]{
+	"--create-directories", "--overwrite-existing",
+	"--all-layers", "-l", "-i",
+	"-t", "pdf",
+	"-f", "src/test/resources/svg-files/time-interval-based.svgz",
+	"-d", "target/output-tests/s2v-fh/pdf/layers-index",
+	"-q"
+};
+Svg2Vector_FH app = new Svg2Vector_FH();
+app.executeApplication(args);
+----------------------------------------------------------------------------------------
+
+The applications use return codes to provide information about the execution status:
+
+* `0` means successfull execution
+* `>0` means an early exit option (such as `--help` or `--version`) was used
+* `<0` means an error did occur
+
 
 == Concepts
 
-The main concepts are: application, input, target, conversion options, and report options.
+The main concepts are: application, input, and target.
+
+
 === Application
 
 The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
@@ -91,106 +310,45 @@ All applications are registered with the Java class `Svg2VectorExecs` for easy e
 Once an application is selected for execution, the application specific command line options and processing applies.
 
 Currently supported are:
+
 * `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
 * `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable
+
+Some standard applications from the ExecS package are also available when using the standard executor:
+
+* gen-configure - used to configure generated runtime scripts for the application
+* gen-exec-jar-scripts - creates operating system specific start scripts when using the all-in-one executable jar artifact
+* gen-run-scripts - creates run scripts for application installation
+
+
 === Input
 
 The input for each application needs to be a valid SVG file.
 There are several options for a valid SVG file:
+
 * Plain SVG as plain text file
 * Plain SVG as GZ compressed file
 * Inkscape SVG as plain text file
 * Inkscape SVG as GZ compressed file
+
+Other SVG variations might work as well, but have not been tested.
+
+
 === Target
 
 The target of a conversion defines the target format and helps to select a target converter.
 The target implicitely defines the target file extension.
 The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.
 
-=== Summary of configurable characteristics
+The application `s2v-fh` is using Apache Batik for SVG document handling and FreeHep libraries for conversion.
+This means that specific name spaces from an Inkscape SVG are not processed (largely ignored).
+The Inkscape Wiki has a page explaining the specific name spaces `inkscape` and `sodipodi`: http://wiki.inkscape.org/wiki/index.php/Inkscape_SVG_vs._plain_SVG .
 
-- text width (length of each text line)
-- text alignment (for the whole paragraph): left, right, centered, justified (with additional options for last line)
-- text format: first line, hanging, dropped capital letter
-- frame: set a frame around the paragraph
-- start / end string: define a start and/or end string for each line
-- top and bottom margins above a frame (empty lines)
-- margins on the left and right of a frame (number with character)
-- margins between the frame and the start string (left) and end string and frame (right), using different length and character
-- margins between start string and text (left), and text and end string (right), using different length and characters
-- top and bottom margins for the text (including and string margin and string)
-- character converters to convert characters before line generation, i.e. to generate text suitable for LaTeX or HTML
+In case the input is generated from Inkscape and `s2v-fh` has to be used for the conversion, the best practice is to safe the file as `Plain SVG` with Inkscape.
+Otherwise, several formatting descriptions (e.g. centered text) will not be converted correctly.
 
-=== Conversion Options
+If an Inkscape installation is available, then `s2v-is` can be used. This will convert all standard targets (such as PDF and PNG) correctly using Inkscape.
+For EMF conversion, manual layer handling and temporary file creation should be used.
 
-Applications can provide a number of target-generic or target-specific conversion options.
-Those options can be:
-* no background
-* clip
-* use layer index
-* use layer index identifier
-* one file per layer
-* not transparent
-* background color
-* text as shapes
-* DPI (dots per inch)
-* PDF version
-* PS level
-* SVG first
-* manual layers
-=== Report Options== Getting Started
-
-The standard usage is:
-
-* create a paragraph
-* add text to the paragraph
-* change the paragraph context (to change its properties)
-* render the paragraph
-* use the created string, e.g. print it to a console or write it to a file
-
-
-First, create a paragraph.
-
-[source, java]
-----------------------------------------------------------------------------------------
-AsciiParagraph ap = new AsciiParagraph();
-----------------------------------------------------------------------------------------
-
-
-Next, add text.
-Any text can be added, the renderer will process the text (for instance remove excessive white spaces).
-
-[source, java]
-----------------------------------------------------------------------------------------
-ap.addText("line	1");
-ap.addText("2  2");
-ap.addText("more text with	tab and \n newline");
-ap.addText("some more text to get it over the 80 character default width");
-----------------------------------------------------------------------------------------
-
-
-Next, render the paragraph.
-This will provide the text output using the default settings from the paragraph's context.
-
-[source, java]
-----------------------------------------------------------------------------------------
-String rend = ap.render();
-----------------------------------------------------------------------------------------
-
-
-Finally, print the paragraph to standard out.
-
-[source, java]
-----------------------------------------------------------------------------------------
-System.out.println(rend);
-----------------------------------------------------------------------------------------
-
-The output will be:
-
-----------------------------------------------------------------------------------------
-line 1 2 2 more text with tab and newline some more text to get it over  the  80
-character default width                                                         
-
-----------------------------------------------------------------------------------------
 
 

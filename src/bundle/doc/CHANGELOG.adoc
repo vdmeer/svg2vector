@@ -57,7 +57,6 @@
   ** other options are not available as of today
 * open issues
   ** add standard `s2v-fh` options to `s2v-is`, e.g. background and transparancy
-  ** improve documentation, especially site, and create home page as defined in `pom.xml`
 
 
 === v1.1.0 - feature add - 2017-04-05
