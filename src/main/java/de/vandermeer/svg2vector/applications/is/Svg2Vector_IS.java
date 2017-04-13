@@ -36,7 +36,7 @@ import de.vandermeer.svg2vector.applications.base.SvgTargets;
  * The tool does support SVG and SVGZ input formats from file or URI.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
@@ -48,7 +48,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 	public final static String APP_DISPLAY_NAME = "Svg2Vector Inkscape";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8";
+	public final static String APP_VERSION = "v2.0.0 build 170413 (13-Apr-17) for Java 1.8";
 
 	/** Prefix used when creating temporary files or directories. */
 	public static final String TMP_FN_PREFIX = "s2vis-";

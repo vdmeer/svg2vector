@@ -25,7 +25,7 @@ import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
  * Simple tests for Svg2Vector_FH.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_FH {

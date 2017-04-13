@@ -33,7 +33,7 @@ import de.vandermeer.svg2vector.applications.is.IsLoader;
  * Tests for {@link AppProperties} - file output options.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Test_AppProperties_Output_Layers {

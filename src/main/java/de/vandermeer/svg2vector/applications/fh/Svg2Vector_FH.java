@@ -41,7 +41,7 @@ import de.vandermeer.svg2vector.applications.fh.converters.Fh_Svg2Svg;
  * All options can be set via command line.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoader>> {
@@ -53,7 +53,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 	public final static String APP_DISPLAY_NAME = "Svg2Vector FreeHep";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8";
+	public final static String APP_VERSION = "v2.0.0 build 170413 (13-Apr-17) for Java 1.8";
 
 	/** Application option for not-transparent mode. */
 	AO_NotTransparent optionNotTransparent = new AO_NotTransparent(false, 'n', "switch off transparency");

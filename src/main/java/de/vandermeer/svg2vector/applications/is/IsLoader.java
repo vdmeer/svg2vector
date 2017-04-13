@@ -35,7 +35,7 @@ import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
  * Standard SVG document loader, tries GZIP first and plain text next.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0-SNAPSHOT build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class IsLoader extends SV_DocumentLoader {
