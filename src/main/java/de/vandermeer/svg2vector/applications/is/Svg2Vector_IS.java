@@ -54,7 +54,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader, AppProperties<IsLoader>> {
 	public static final String TMP_FN_PREFIX = "s2vis-";
 
 	/** Application option for the Inkscape executable. */
-	AO_InkscapeExecutable optionInkscapeExec = new AO_InkscapeExecutable(true, 'x', "full path to the Inkscape executable");
+	AO_InkscapeExecutable optionInkscapeExec = new AO_InkscapeExecutable('x');
 
 	/** Application option to set DPI for bitmap export. */
 	AO_ExportDpi optionExpDpi = new AO_ExportDpi(SvgTargets.png, "--export-dpi");
