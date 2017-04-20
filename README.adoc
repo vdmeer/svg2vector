@@ -7,6 +7,8 @@ v{release-version}
 :toc: preamble
 
 
+include::src/site/asciidoc/cli.adoc[]
+
 
 [%autowidth, frame=none, grid=none, cols="a,a,a,a,a"]
 |===
