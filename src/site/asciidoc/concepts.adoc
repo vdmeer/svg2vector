@@ -14,6 +14,7 @@ Currently supported are:
 
 * `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
 * `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable
+* `s2v-aec` - prints all used error codes with descriptions to standard out
 
 Some standard applications from the ExecS package are also available when using the standard executor:
 
@@ -51,4 +52,18 @@ Otherwise, several formatting descriptions (e.g. centered text) will not be conv
 If an Inkscape installation is available, then `s2v-is` can be used. This will convert all standard targets (such as PDF and PNG) correctly using Inkscape.
 For EMF conversion, manual layer handling and temporary file creation should be used.
 
+
+=== Return codes and errors
+The conversion applications will print error messages (if not switched off) and also return an integer.
+Those codes can be used by a calling application to understand potential errors in the excution of a conversion application.
+
+There are three different types of return codes:
+
+* 0 - the execution was successfull, all steps have been passed, output should have been created as requested
+* 1 (or other positive integer) - the application found an _early_ exit option, such as help, version, or usage.
+* any negative integer: an error has occurred, error message printed to standard error (if not switched off)
+
+The negative return codes are error codes. Each error has a specific code.
+All error codes are handled by an enumerat.
+Use the application `s2v-aec` to print all error codes.
 

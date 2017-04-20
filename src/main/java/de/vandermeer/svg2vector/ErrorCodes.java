@@ -552,19 +552,20 @@ public enum ErrorCodes {
 	 * Creates a new error message with all arguments substituted.
 	 * The length of `arguments` must be equal to the number of expected arguments of this error code.
 	 * If the number of expected arguments is 0, then `args` can be null or of length 0.
-	 * @param args the arguments
+	 * @param args the arguments, must have same length as expected arguments
 	 * @return new error message
 	 */
-	public String getMessageSubstituted(final Object[] args){
+	public String getMessageSubstituted(final Object ... args){
 		if(this.args>0){
 			Validate.noNullElements(args);
 			Validate.validState(args.length==this.args);
 		}
 		else{
 			Validate.validState(args==null || args.length==0);
+			return this.message;
 		}
 
-		StrBuilder ret = new StrBuilder().append(this.message);
+		final StrBuilder ret = new StrBuilder().append(this.message);
 		for(final Object arg : args){
 			ret.replaceFirst("{}", arg.toString());
 		}

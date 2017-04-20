@@ -1,5 +1,5 @@
 
-:release-version: 2.0.0
+:release-version: 2.1.0-SNAPSHOT
 :java: 8
 = SVG2Vector
 v{release-version}
@@ -63,12 +63,81 @@ A simple tool box to convert SVG graphics to other vector formats, such as EMF a
 |===
 
 
+== Concepts
+
+The main concepts are: application, input, and target.
+
+
+=== Application
+
+The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
+The tool uses the SKB ExecS to launch applications.
+All applications are registered with the Java class `Svg2VectorExecs` for easy execution.
+Once an application is selected for execution, the application specific command line options and processing applies.
+
+Currently supported are:
+
+* `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
+* `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable
+* `s2v-aec` - prints all used error codes with descriptions to standard out
+
+Some standard applications from the ExecS package are also available when using the standard executor:
+
+* gen-configure - used to configure generated runtime scripts for the application
+* gen-exec-jar-scripts - creates operating system specific start scripts when using the all-in-one executable jar artifact
+* gen-run-scripts - creates run scripts for application installation
+
+
+=== Input
+
+The input for each application needs to be a valid SVG file.
+There are several options for a valid SVG file:
+
+* Plain SVG as plain text file
+* Plain SVG as GZ compressed file
+* Inkscape SVG as plain text file
+* Inkscape SVG as GZ compressed file
+
+Other SVG variations might work as well, but have not been tested.
+
+
+=== Target
+
+The target of a conversion defines the target format and helps to select a target converter.
+The target implicitely defines the target file extension.
+The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.
+
+The application `s2v-fh` is using Apache Batik for SVG document handling and FreeHep libraries for conversion.
+This means that specific name spaces from an Inkscape SVG are not processed (largely ignored).
+The Inkscape Wiki has a page explaining the specific name spaces `inkscape` and `sodipodi`: http://wiki.inkscape.org/wiki/index.php/Inkscape_SVG_vs._plain_SVG .
+
+In case the input is generated from Inkscape and `s2v-fh` has to be used for the conversion, the best practice is to safe the file as `Plain SVG` with Inkscape.
+Otherwise, several formatting descriptions (e.g. centered text) will not be converted correctly.
+
+If an Inkscape installation is available, then `s2v-is` can be used. This will convert all standard targets (such as PDF and PNG) correctly using Inkscape.
+For EMF conversion, manual layer handling and temporary file creation should be used.
+
+
+=== Return codes and errors
+The conversion applications will print error messages (if not switched off) and also return an integer.
+Those codes can be used by a calling application to understand potential errors in the excution of a conversion application.
+
+There are three different types of return codes:
+
+* 0 - the execution was successfull, all steps have been passed, output should have been created as requested
+* 1 (or other positive integer) - the application found an _early_ exit option, such as help, version, or usage.
+* any negative integer: an error has occurred, error message printed to standard error (if not switched off)
+
+The negative return codes are error codes. Each error has a specific code.
+All error codes are handled by an enumerat.
+Use the application `s2v-aec` to print all error codes.
+
 == Features
 
 Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
 
-=== Standard options
-Standard options are available in all applications.
+=== Standard Features
+Standard features are available in all applications.
 They cover configuration for conversion targets, message handling, input file, names for outoput file(s) and directories, Inkscape layer handline, and other general options.
 In addition, the applications are using the ExecS package and thus providing help and version information via command line as well.
 
@@ -107,11 +176,11 @@ In addition, the applications are using the ExecS package and thus providing hel
 * several options for the output file names when using layers
 * switch all layers on for single conversion
 
-==== Other options
+==== Other features
 * simulate conversion, i.e. run but only print messages, do not create any output
 
 
-==== s2v-fp options
+=== s2v-fp features
 Converts SVG to vector formats using Apache Batik to load an SVG document and the Freehep libraries for the conversion.
 Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
 Each target allows to configure:
@@ -122,7 +191,7 @@ Each target allows to configure:
 * use cliping
 
 
-==== s2v-is options
+=== s2v-is features
 Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation.
 Supported target formats are: EMF, PDF, EPS, PS, WMF, plain SVG (no Inkscape name space), and PNG.
 Other supported options are:
@@ -332,58 +401,490 @@ The applications use return codes to provide information about the execution sta
 * `<0` means an error did occur
 
 
-== Concepts
+== Command Line Interface
 
-The main concepts are: application, input, and target.
+=== Standard CLI options
+
+[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+|===
+
+| Short
+| Long
+| Description
+
+|-?
+|--help <ARG>
+|application and argument help
+
+|
+|--all-layers
+|switch on all layers
+
+|-B
+|--fout-islabel
+|use Inkscape label in output file names
+
+|
+|--create-directories
+|automatically create directories for output
+
+|-d
+|--output-directory <DIR>
+|output directory
+
+|-e
+|--print-details
+|print detailed information to stdout
+
+|-f
+|--input-file <FILE>
+|input filename
+
+|
+|--fout-no-basename
+|when processing layers, do not use a basename for output files
+
+|-I
+|--fout-isindex
+|use the Inkscape layer index in output file name
+
+|-i
+|--fout-index
+|use a continuous index in output file name
+
+|
+|--keep-tmp-artifacts
+|keep temporary created artifacts (files and directories)
+
+|-l
+|--layers
+|process layers, create one file per layer
+
+|-L
+|--layers-if-exist
+|process layers if if input file has layers, create one file per layer
+
+|
+|--no-errors
+|switch off error messages
+
+|-o
+|--output-file <FILE>
+|output filename
+
+|
+|--overwrite-existing
+|overwrite existing files on output
+
+|-p
+|--print-progress
+|print progress information to stdout
+
+|
+|--print-stack-trace
+|sets a flag to print the stack trace of exceptions
+
+|-q
+|--quiet
+|puts the application in quiet mode, no progres or error messages will be printed
+
+|-S
+|--simulate
+|simulate application, no file output
+
+|-s
+|--text-as-shape
+|text as shape
+
+|-t
+|--target <TARGET>
+|specifies a target, for instance for a compilation
+
+|
+|--use-basename <BASENAME>
+|use specified base name for output
+
+|-v
+|--verbose
+|verbose mode for application
+
+|
+|--version
+|application version
+
+|-w
+|--print-warnings
+|print warning messages to stdout
+
+|===
 
 
-=== Application
 
-The SVG2Vector tool provides different applications to convert SVG graphics to target formats.
-The tool uses the SKB ExecS to launch applications.
-All applications are registered with the Java class `Svg2VectorExecs` for easy execution.
-Once an application is selected for execution, the application specific command line options and processing applies.
+=== s2v-fp specific CLI options
 
-Currently supported are:
+[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+|===
 
-* `s2v-hp` - converting SVG graphics to vector formats using Apache Batik and Freehep libraries
-* `s2v-is` - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable
-
-Some standard applications from the ExecS package are also available when using the standard executor:
-
-* gen-configure - used to configure generated runtime scripts for the application
-* gen-exec-jar-scripts - creates operating system specific start scripts when using the all-in-one executable jar artifact
-* gen-run-scripts - creates run scripts for application installation
+| Short
+| Long
+| Description
 
 
-=== Input
+|
+|--export-dpi <DPI>
+|set DPI for export
 
-The input for each application needs to be a valid SVG file.
-There are several options for a valid SVG file:
+|
+|--export-pdf-version <VERSION>
+|set PDf version for export
 
-* Plain SVG as plain text file
-* Plain SVG as GZ compressed file
-* Inkscape SVG as plain text file
-* Inkscape SVG as GZ compressed file
+|
+|--export-ps-level <LEVEL>
+|sets the PS level for export (2 or 3)
 
-Other SVG variations might work as well, but have not been tested.
+|-g
+|--svg-first
+|convert to SVG first, then to actual
+
+|-m
+|--manual-layers
+|manage layers manually when creating
+
+|-x
+|--is-exec <PATH>
+|path to Inkscape executable
 
 
-=== Target
 
-The target of a conversion defines the target format and helps to select a target converter.
-The target implicitely defines the target file extension.
-The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.
+|===
 
-The application `s2v-fh` is using Apache Batik for SVG document handling and FreeHep libraries for conversion.
-This means that specific name spaces from an Inkscape SVG are not processed (largely ignored).
-The Inkscape Wiki has a page explaining the specific name spaces `inkscape` and `sodipodi`: http://wiki.inkscape.org/wiki/index.php/Inkscape_SVG_vs._plain_SVG .
 
-In case the input is generated from Inkscape and `s2v-fh` has to be used for the conversion, the best practice is to safe the file as `Plain SVG` with Inkscape.
-Otherwise, several formatting descriptions (e.g. centered text) will not be converted correctly.
+=== s2v-is specific CLI options
 
-If an Inkscape installation is available, then `s2v-is` can be used. This will convert all standard targets (such as PDF and PNG) correctly using Inkscape.
-For EMF conversion, manual layer handling and temporary file creation should be used.
+[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+|===
+
+| Short
+| Long
+| Description
+
+|-b
+|--no-background
+|no background
+
+|-c
+|--clip
+|clip
+
+|-n
+|--not-transparent
+|not transparent
+
+|-r
+|--bgrnd-color <COLOR>
+|background color
+
+|===
+
+
+=== CLI error codes
+
+
+== Error codes
+
+=== General Errors (-1 to -49)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-2
+|General code for a null pointer exception.
+|"a null pointer exception occurred"
+
+|-3
+|General code for an I/O exception.
+|"an I/O pointer exception occurred"
+
+|-4
+|An internal implementation error, something wrong with property settings.
+|"implementation error: something wrong with property settings"
+
+|===
+
+
+
+=== Input File Errors (-100 to -199)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-100
+|No input file given, was either null or blank.
+|"no input file given"
+
+|-101
+|Input file does not exist (file name).
+|"input file <{}> does not exist, please check path and filename"
+
+|-102
+|Input file does exist but is not a file (file name).
+|"input file <{}> is not a file, please check path and filename"
+
+|-103
+|Input file does exist but is not readable (file name).
+|"cannot read input file <{}>, please file permissions"
+
+|===
+
+
+
+=== Apache Batik Loader Errors (-210 to -219)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-210
+|A loader using Apache Batik could not load an SVG document (loaders class, original exception message).
+|"{}: exception loading svgDocument: {}"
+
+|-211
+|A loader using Apache Batik could set the size for an SVG document, set the dimension (loaders class, original exception message).
+|"{}: exception setting docucment size: {}"
+
+|===
+
+
+
+=== Inkscape Loader Errors (-220 to -229)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-220
+|A loader could not open an SVG file as compressed SVG (loader class, input file, original exception message).
+|"{}: ZIP exception reading file <{}>: {}"
+
+|-221
+|A loader did catch an I/O exception while reading a GZIP stream (loader class, input file, original exception message).
+|"{}: IO error reading GZIP file <{}>: {}"
+
+|-222
+|A loader did catch a file-not-found exception while reading a plain SVG file (loader class, input file, original exception message).
+|"{}: FileNotFoundException exception reading plain file {}: {}"
+
+|-223
+|A loader did catch an I/O exception while reading a plain SVG file (loader class, input file, original exception message).
+|"{}: IO exception reading plain file {}: {}"
+
+|===
+
+
+
+=== Layer Errors (-300 to -319)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-300
+|An application was requested to process layers, but the input SVG file did not had any.
+|"layers requested in command line, but SVG input file has not layers"
+
+|===
+
+
+
+=== General Output Errors (-400 to -419)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-400
+|An implementation error processing output options for a no-layer process: with illegal arguments.
+|"implementation error: output for no-layers with illegal arguments"
+
+|===
+
+
+
+=== Output File Errors (-420 to -439)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-420
+|A required output file name is blank.
+|"output filename is blank"
+
+|-422
+|An output file name is the same as the input file name (output file name, input file name).
+|"output <{}> same as input <{}>"
+
+|-423
+|The output file name points to a directory (file name).
+|"output file <{}> exists but is a directory"
+
+|-424
+|The output file exists but no overwrite option given in CLI (file name, required CLI option).
+|"output file <{}> exists and no option {} used"
+
+|-425
+|Output file exists but no permission (on file system) to write (file name).
+|"output file <{}> exists but cannot write to it, please check permissions"
+
+|===
+
+
+
+=== Output Directoy Errors (-440 to -459)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-440
+|An output directory does not exist and no CLI option given to create directories (directory, requried CLI option).
+|"output directory <{}> does not exist and CLI option {} not used"
+
+|-441
+|An output directory exists but is not a directory (output directory).
+|"output directory <{}> exists but is not a directory"
+
+|-442
+|An output directory exists no permissions (on file system) to write to it (output directory).
+|"output directory <{}> exists but cannot write to it, please check permissions"
+
+|-443
+|An output directory may contain target files and no overwrite option given in CLI
+|"output directory <{}> may contain target files for extension <{}> and no overwrite in CLI"
+
+|===
+
+
+
+=== Output Pattern Errors (-460 to -469)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-460
+|The output pattern configuration resulted in a path only containing a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.
+|"output pattern <{}> only contains file extension, check options for generating fnout"
+
+|-461
+|The output pattern configuration resulted in a path only containing a directory and a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.
+|"output pattern <{}> only contains directory and file extension, check options for generating fnout"
+
+|===
+
+
+
+=== General Errors (-50 to -99)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-50
+|A given target was blank, null or empty (arguments: supported targets).
+|"given target is blank. Use one of the supported targets: {}"
+
+|-51
+|A given target is unknown (arguments: target, supported targets).
+|"given target <{}> is unknown. Use one of the supported targets: {}"
+
+|-52
+|A given target is not supported by an application (arguments: target, supported targets).
+|"given target <{}> not supported. Use one of the supported targets: {}"
+
+|===
+
+
+
+=== Inkscape Executor Errors (file name) (-500 to -509)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-500
+|The given executable for Inkscape was blank (Inkscape executable).
+|"expected Inkscape executable, found <{}>"
+
+|-501
+|The given executable for Inkscape does not exist (Inkscape executable).
+|"Inkscape executable <{}> does not exist, please check path and filename"
+
+|-503
+|The given executable for Inkscape is not a file (Inkscape executable).
+|"Inkscape executable <{}> is not a file, please check path and filename"
+
+|-504
+|The given executable for Inkscape cannot be executed (Inkscape executable).
+|"cannot execute input Inkscape executable <{}>, please file permissions"
+
+|===
+
+
+
+=== Inkscape Executor Errors (execution) (-510 to -519)
+
+[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+| Code
+| Description
+| Error Message
+
+|-510
+|An Inkscape executor did catch an I/O exception during execution (original exception message).
+|"IO exception while executing Inkscape with error: {}"
+
+|-511
+|An Inkscape executor did get interrupted during execution (original exception message).
+|"InterruptedException exception while executing Inkscape with error: {}"
+
+|===
 
 
 

@@ -2,8 +2,8 @@
 
 Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.
 
-=== Standard options
-Standard options are available in all applications.
+=== Standard Features
+Standard features are available in all applications.
 They cover configuration for conversion targets, message handling, input file, names for outoput file(s) and directories, Inkscape layer handline, and other general options.
 In addition, the applications are using the ExecS package and thus providing help and version information via command line as well.
 
@@ -42,11 +42,11 @@ In addition, the applications are using the ExecS package and thus providing hel
 * several options for the output file names when using layers
 * switch all layers on for single conversion
 
-==== Other options
+==== Other features
 * simulate conversion, i.e. run but only print messages, do not create any output
 
 
-==== s2v-fp options
+=== s2v-fp features
 Converts SVG to vector formats using Apache Batik to load an SVG document and the Freehep libraries for the conversion.
 Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
 Each target allows to configure:
@@ -57,7 +57,7 @@ Each target allows to configure:
 * use cliping
 
 
-==== s2v-is options
+=== s2v-is features
 Converts SVG to vector formats and some bitmap formats using an existing Inkscape installation.
 Supported target formats are: EMF, PDF, EPS, PS, WMF, plain SVG (no Inkscape name space), and PNG.
 Other supported options are:

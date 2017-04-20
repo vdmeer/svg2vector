@@ -63,6 +63,7 @@ public class IsLoader extends SV_DocumentLoader {
 				this.isLoaded = true;
 			}
 			catch(ZipException exZip){
+				@SuppressWarnings("unused")
 				S2VExeception ex = new S2VExeception(ErrorCodes.LOADER_ZIP__3, this.getClass().getSimpleName(), fn, exZip.getMessage());
 			}
 			catch(IOException exIO){

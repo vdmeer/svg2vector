@@ -35,6 +35,8 @@
             </item>
             <item href="installation.html" name="Installation" />
             <item href="short-user-guide.html" name="Short User Guide" />
+            <item href="cli.html" name="Command Line Interface" />
+            <item href="error-codes.html" name="Error Codes" />
 <!--
             <item name="User Guide" />
  -->

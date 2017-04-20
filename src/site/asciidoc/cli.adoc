@@ -1,0 +1,189 @@
+== Command Line Interface
+
+=== Standard CLI options
+
+[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+|===
+
+| Short
+| Long
+| Description
+
+|-?
+|--help <ARG>
+|application and argument help
+
+|
+|--all-layers
+|switch on all layers
+
+|-B
+|--fout-islabel
+|use Inkscape label in output file names
+
+|
+|--create-directories
+|automatically create directories for output
+
+|-d
+|--output-directory <DIR>
+|output directory
+
+|-e
+|--print-details
+|print detailed information to stdout
+
+|-f
+|--input-file <FILE>
+|input filename
+
+|
+|--fout-no-basename
+|when processing layers, do not use a basename for output files
+
+|-I
+|--fout-isindex
+|use the Inkscape layer index in output file name
+
+|-i
+|--fout-index
+|use a continuous index in output file name
+
+|
+|--keep-tmp-artifacts
+|keep temporary created artifacts (files and directories)
+
+|-l
+|--layers
+|process layers, create one file per layer
+
+|-L
+|--layers-if-exist
+|process layers if if input file has layers, create one file per layer
+
+|
+|--no-errors
+|switch off error messages
+
+|-o
+|--output-file <FILE>
+|output filename
+
+|
+|--overwrite-existing
+|overwrite existing files on output
+
+|-p
+|--print-progress
+|print progress information to stdout
+
+|
+|--print-stack-trace
+|sets a flag to print the stack trace of exceptions
+
+|-q
+|--quiet
+|puts the application in quiet mode, no progres or error messages will be printed
+
+|-S
+|--simulate
+|simulate application, no file output
+
+|-s
+|--text-as-shape
+|text as shape
+
+|-t
+|--target <TARGET>
+|specifies a target, for instance for a compilation
+
+|
+|--use-basename <BASENAME>
+|use specified base name for output
+
+|-v
+|--verbose
+|verbose mode for application
+
+|
+|--version
+|application version
+
+|-w
+|--print-warnings
+|print warning messages to stdout
+
+|===
+
+
+
+=== s2v-fp specific CLI options
+
+[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+|===
+
+| Short
+| Long
+| Description
+
+
+|
+|--export-dpi <DPI>
+|set DPI for export
+
+|
+|--export-pdf-version <VERSION>
+|set PDf version for export
+
+|
+|--export-ps-level <LEVEL>
+|sets the PS level for export (2 or 3)
+
+|-g
+|--svg-first
+|convert to SVG first, then to actual
+
+|-m
+|--manual-layers
+|manage layers manually when creating
+
+|-x
+|--is-exec <PATH>
+|path to Inkscape executable
+
+
+
+|===
+
+
+=== s2v-is specific CLI options
+
+[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+|===
+
+| Short
+| Long
+| Description
+
+|-b
+|--no-background
+|no background
+
+|-c
+|--clip
+|clip
+
+|-n
+|--not-transparent
+|not transparent
+
+|-r
+|--bgrnd-color <COLOR>
+|background color
+
+|===
+
+
+=== CLI error codes
+
+

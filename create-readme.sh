@@ -7,10 +7,12 @@ files="
 	src/bundle/doc-fragments/badges.adoc
 	src/main/asciidoc/overview-start.adoc
 	src/site/asciidoc/resources.adoc
+	src/site/asciidoc/concepts.adoc
 	src/site/asciidoc/features.adoc
 	src/site/asciidoc/installation.adoc
 	src/site/asciidoc/short-user-guide.adoc
-	src/site/asciidoc/concepts.adoc
+	src/site/asciidoc/cli.adoc
+	src/site/asciidoc/error-codes.adoc
 "
 
 output_file=src/bundle/doc/README.adoc
