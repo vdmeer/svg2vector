@@ -29,13 +29,15 @@ import java.util.zip.ZipException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import de.vandermeer.svg2vector.ErrorCodes;
+import de.vandermeer.svg2vector.S2VExeception;
 import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
 
 /**
  * Standard SVG document loader, tries GZIP first and plain text next.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class IsLoader extends SV_DocumentLoader {
@@ -44,7 +46,7 @@ public class IsLoader extends SV_DocumentLoader {
 	protected ArrayList<String> lines;
 
 	@Override
-	public String load(String fn) {
+	public void load(String fn) throws S2VExeception {
 		Validate.notBlank(fn);
 
 		if(!this.isLoaded){
@@ -60,10 +62,12 @@ public class IsLoader extends SV_DocumentLoader {
 				decompressed.close();
 				this.isLoaded = true;
 			}
-			catch(ZipException ignore){}
-			catch(IOException e){
+			catch(ZipException exZip){
+				S2VExeception ex = new S2VExeception(ErrorCodes.LOADER_ZIP__3, this.getClass().getSimpleName(), fn, exZip.getMessage());
+			}
+			catch(IOException exIO){
 				this.lines = null;
-				return this.getClass().getSimpleName() + ": IO error reading GZIP file <" + fn + ">: " + e.getMessage();
+				throw new S2VExeception(ErrorCodes.LOADER_IO_GZIP__3, this.getClass().getSimpleName(), fn, exIO.getMessage());
 			}
 		}
 
@@ -80,11 +84,11 @@ public class IsLoader extends SV_DocumentLoader {
 			}
 			catch(FileNotFoundException e){
 				this.lines = null;
-				return this.getClass().getSimpleName() + ": FileNotFoundException error reading plain file <" + fn + ">: " + e.getMessage();
+				throw new S2VExeception(ErrorCodes.LOADER_FILE_NOT_FOUND_PLAIN_SVG__3, this.getClass().getSimpleName(), fn, e.getMessage());
 			}
 			catch(IOException e){
 				this.lines = null;
-				return this.getClass().getSimpleName() + ": IO error reading plain file <" + fn + ">: " + e.getMessage();
+				throw new S2VExeception(ErrorCodes.LOADER_IO_PLAIN__3, this.getClass().getSimpleName(), fn, e.getMessage());
 			}
 		}
 
@@ -109,7 +113,6 @@ public class IsLoader extends SV_DocumentLoader {
 				index = null;
 			}
 		}
-		return null;
 	}
 
 	@Override

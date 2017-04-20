@@ -22,10 +22,10 @@ import org.junit.Test;
 import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
 
 /**
- * Simple tests for Svg2Vector_FH.
+ * Simple tests for {@link Svg2Vector_FH}.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_FH {
@@ -35,13 +35,13 @@ public class Test_Svg2Vector_FH {
 
 	/** Standard CLI options for tests. */
 	static String[] STD_OPTIONS = new String[]{
-			"--create-directories", "--overwrite-existing", "--all-layers", "-v"
+			"--create-directories", "--overwrite-existing", "--all-layers", "-q"
 	};
 
 	@Test
 	public void test_AddedOptions(){
 		Svg2Vector_FH app = new Svg2Vector_FH();
-		assertEquals(26, app.getAppOptions().length);
+		assertEquals(28, app.getAppOptions().length);
 	}
 
 	@Test

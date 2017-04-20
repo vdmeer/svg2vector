@@ -28,7 +28,7 @@ import org.freehep.graphicsio.pdf.PDFGraphics2D;
  * A converter for SVG documents to PDF using the FreeHep library.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Fh_Svg2Pdf extends FhConverter {
@@ -56,7 +56,7 @@ public class Fh_Svg2Pdf extends FhConverter {
 	}
 
 	@Override
-	public String convertDocument(BatikLoader loader, File fout) {
+	public void convertDocument(BatikLoader loader, File fout) throws IOException {
 		//TODO error messages and parameter checks
 
 		GVTBuilder gvtBuilder=new GVTBuilder();
@@ -64,14 +64,8 @@ public class Fh_Svg2Pdf extends FhConverter {
 
 		FileOutputStream pdfStream;
 		PDFGraphics2D pdfGraphics2D;
-		try{
-			pdfStream = new FileOutputStream(fout);
-			pdfGraphics2D = new PDFGraphics2D(pdfStream, loader.getSize());
-		}
-		catch(IOException fnfe){
-			//TODO
-			return "###";
-		}
+		pdfStream = new FileOutputStream(fout);
+		pdfGraphics2D = new PDFGraphics2D(pdfStream, loader.getSize());
 
 		this.properties.setProperty(PDFGraphics2D.PAGE_SIZE, PDFGraphics2D.CUSTOM_PAGE_SIZE);
 		this.properties.setProperty(PDFGraphics2D.CUSTOM_PAGE_SIZE, loader.getSize());//TODO change if other page size required
@@ -83,12 +77,7 @@ public class Fh_Svg2Pdf extends FhConverter {
 		pdfGraphics2D.endExport();
 		pdfGraphics2D.dispose();
 
-		try{
-			pdfStream.close();
-		}
-		catch(Exception ignore){}
-
-		return null;
+		pdfStream.close();
 	}
 
 }

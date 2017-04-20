@@ -15,34 +15,60 @@
 
 package de.vandermeer.svg2vector.applications.base;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import de.vandermeer.svg2vector.ErrorCodes;
+import de.vandermeer.svg2vector.S2VExeception;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
  * General tests for {@link AppBase}.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Test_AppBase {
 
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+
+	@Before
+	public void testArtifacts(){
+		assertTrue(Test_Artifacts.newFile==null);
+		assertTrue(Test_Artifacts.newDir==null);
+	}
+
+	@After
+	public void deleteArtifacts(){
+		Test_Artifacts.removeArtifacts();
+	}
+
 	@Test
 	public void test_AddedOptions(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
-		assertEquals(22, testApp.getAppOptions().length);
+		assertEquals(24, testApp.getAppOptions().length);
 	}
 
 	@Test
 	public void test_Usage(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -55,7 +81,7 @@ public class Test_AppBase {
 
 	@Test
 	public void test_Version(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -67,8 +93,8 @@ public class Test_AppBase {
 	}
 
 	@Test
-	public void test_Error_Target(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader())) {
+	public void test_Init_Error_Target() throws S2VExeception{
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -78,12 +104,17 @@ public class Test_AppBase {
 				"-f", "testfile",
 				"-q"
 		};
-		assertEquals(-10, testApp.executeApplication(args));
+
+		assertEquals(0, testApp.executeApplication(args));
+		thrown.expect(S2VExeception.class);
+		thrown.expectMessage("given target <eps> not supported. Use one of the supported targets: pdf");
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.TARGET_NOT_SUPPORTED__2)));
+		testApp.init();
 	}
 
 	@Test
-	public void test_Error_Input(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
+	public void test_Init_Error_Input() throws S2VExeception{
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -93,12 +124,18 @@ public class Test_AppBase {
 				"-f", "testfile",
 				"-q"
 		};
-		assertEquals(-11, testApp.executeApplication(args));
+
+		assertEquals(0, testApp.executeApplication(args));
+
+		thrown.expect(S2VExeception.class);
+		thrown.expectMessage("input file <testfile> does not exist, please check path and filename");
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1)));
+		testApp.init();
 	}
 
 	@Test
-	public void test_Error_Output(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
+	public void test_Init_Error_Output() throws S2VExeception{
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -109,12 +146,17 @@ public class Test_AppBase {
 				"-o", "target/output-tests/app-props/test/file",
 				"-q"
 		};
-		assertEquals(-12, testApp.executeApplication(args));
+		assertEquals(0, testApp.executeApplication(args));
+
+		thrown.expect(S2VExeception.class);
+		thrown.expectMessage("output directory <" + StringUtils.replace("target/output-tests/app-props/test", "/", File.separator) + "> does not exist and CLI option create-directories not used");
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2)));
+		testApp.init();
 	}
 
 	@Test
-	public void test_Good(){
-		AppBase<IsLoader, AppProperties<IsLoader>> testApp = new AppBase<IsLoader, AppProperties<IsLoader>>(new AppProperties<IsLoader>(SvgTargets.values(), new IsLoader())) {
+	public void test_Init_Good() throws S2VExeception{
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppName() {return "test-app";}
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
@@ -125,8 +167,12 @@ public class Test_AppBase {
 				"-o", "target/output-tests/app-props/test/file",
 				"--create-directories",
 				"--simulate",
-//				"--verbose"
+				"--verbose"
 		};
+
+		Test_Artifacts.newDir = new File("target/output-tests/app-props/test");
+
 		assertEquals(0, testApp.executeApplication(args));
+		testApp.init();
 	}
 }

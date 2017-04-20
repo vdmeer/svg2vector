@@ -24,19 +24,19 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * Application option `inkscape-executable`.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
 
 	/** Key for an environment variable pointing to the Inkscape executable. */
-	public static String ENV_KEY = "INKSCAPE";
+	public final static String ENV_KEY = "INKSCAPE";
 
 	/** The default executable on a Windows system. */
-	public static String DEFAULT_WINDOWS = "C:/Program Files/Inkscape/inkscape.exe";
+	public final static String DEFAULT_WINDOWS = "C:/Program Files/Inkscape/inkscape.exe";
 
 	/** The default executable on a UNIX system. */
-	public static String DEFAULT_UNIX = "/usr/bin/inkscape";
+	public final static String DEFAULT_UNIX = "/usr/bin/inkscape";
 
 	/**
 	 * Returns the new option.

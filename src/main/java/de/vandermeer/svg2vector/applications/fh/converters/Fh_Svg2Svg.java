@@ -28,7 +28,7 @@ import org.freehep.graphicsio.svg.SVGGraphics2D;
  * A converter for SVG documents to SVG using the FreeHep library.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Fh_Svg2Svg extends FhConverter {
@@ -49,7 +49,7 @@ public class Fh_Svg2Svg extends FhConverter {
 	}
 
 	@Override
-	public String convertDocument(BatikLoader loader, File fout) {
+	public void convertDocument(BatikLoader loader, File fout) throws IOException {
 		//TODO error messages and parameter checks
 
 		GVTBuilder gvtBuilder = new GVTBuilder();
@@ -57,14 +57,8 @@ public class Fh_Svg2Svg extends FhConverter {
 
 		FileOutputStream svgStream;
 		SVGGraphics2D svgGraphics2D;
-		try{
-			svgStream = new FileOutputStream(fout);
-			svgGraphics2D = new SVGGraphics2D(fout, loader.getSize());
-		}
-		catch(IOException fnfe){
-			//TODO
-			return "###";
-		}
+		svgStream = new FileOutputStream(fout);
+		svgGraphics2D = new SVGGraphics2D(fout, loader.getSize());
 
 		svgGraphics2D.setProperties(this.properties);
 		svgGraphics2D.setDeviceIndependent(true);
@@ -73,12 +67,7 @@ public class Fh_Svg2Svg extends FhConverter {
 		svgGraphics2D.endExport();
 		svgGraphics2D.dispose();
 
-		try{
-			svgStream.close();
-		}
-		catch(Exception ignore){}
-
-		return null;
+		svgStream.close();
 	}
 
 }

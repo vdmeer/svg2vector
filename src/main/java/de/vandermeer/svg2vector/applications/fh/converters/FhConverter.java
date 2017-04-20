@@ -17,6 +17,7 @@ package de.vandermeer.svg2vector.applications.fh.converters;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 
 import org.freehep.graphicsbase.util.UserProperties;
 import org.freehep.graphicsio.AbstractVectorGraphicsIO;
@@ -25,7 +26,7 @@ import org.freehep.graphicsio.AbstractVectorGraphicsIO;
  * A converter for SVG documents using the FreeHep library.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public abstract class FhConverter {
@@ -85,9 +86,9 @@ public abstract class FhConverter {
 	 * Converts the document maintained by the loader to a target format.
 	 * @param loader the document loader, must have a document successfully loaded
 	 * @param fout the file for the output
-	 * @return null on success, error message otherwise
+	 * @throws IOException on errors
 	 */
-	public abstract String convertDocument(BatikLoader loader, File fout);
+	public abstract void convertDocument(BatikLoader loader, File fout) throws IOException;
 
 	/**
 	 * Returns the user properties of the converter.

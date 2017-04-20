@@ -32,13 +32,15 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.vandermeer.svg2vector.ErrorCodes;
+import de.vandermeer.svg2vector.S2VExeception;
 import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
 
 /**
  * Loads an SVG document using Batik and provides some methods to deal with layers.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class BatikLoader extends SV_DocumentLoader {
@@ -60,7 +62,7 @@ public class BatikLoader extends SV_DocumentLoader {
 	 * @param node XML/SVG node
 	 * @return null if node was null or no Inkscape label found, label otherwise
 	 */
-	public static String getLabel(Node node){
+	public static String getLabel(final Node node){
 		if(node==null){
 			return null;
 		}
@@ -79,7 +81,7 @@ public class BatikLoader extends SV_DocumentLoader {
 	 * @param node XML/SVG node
 	 * @return 0 if node was null or no IDs found, index otherwise
 	 */
-	static int getIndex(Node node){
+	public static int getIndex(final Node node){
 		if(node==null){
 			return 0;
 		}
@@ -96,7 +98,7 @@ public class BatikLoader extends SV_DocumentLoader {
 	}
 
 	@Override
-	public String load(String fn) {
+	public void load(String fn) throws S2VExeception {
 		Validate.notBlank(fn);
 
 		if(!this.isLoaded){
@@ -115,7 +117,7 @@ public class BatikLoader extends SV_DocumentLoader {
 			catch(Exception ex){
 				this.bridgeContext = null;
 				this.svgDocument = null;
-				return this.getClass().getSimpleName() + ": exception loading svgDocument - " + ex.getMessage();
+				throw new S2VExeception(ErrorCodes.LOADER_BATIK_CANNOT_LOAD_SVG__2, this.getClass().getSimpleName(), ex.getMessage());
 			}
 			documentLoader.dispose();
 
@@ -128,7 +130,7 @@ public class BatikLoader extends SV_DocumentLoader {
 				this.bridgeContext = null;
 				this.svgDocument = null;
 				this.size = null;
-				return this.getClass().getSimpleName() + ": exception setting docucment size - " + ex.getMessage();
+				throw new S2VExeception(ErrorCodes.LOADER_BATIK_CANNOT_SET_SIZE__2, this.getClass().getSimpleName(), ex.getMessage());
 			}
 
 			NodeList nodes = elem.getChildNodes();
@@ -150,7 +152,6 @@ public class BatikLoader extends SV_DocumentLoader {
 		}
 
 		this.isLoaded = true;
-		return null;
 	}
 
 	@Override
@@ -180,7 +181,7 @@ public class BatikLoader extends SV_DocumentLoader {
 	}
 
 	@Override
-	public void switchOnLayer(String layer) {
+	public void switchOnLayer(final String layer) {
 		if(StringUtils.isBlank(layer)){
 			return;
 		}

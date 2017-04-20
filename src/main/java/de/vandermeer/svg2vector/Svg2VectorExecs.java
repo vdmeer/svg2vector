@@ -23,7 +23,7 @@ import de.vandermeer.svg2vector.applications.is.Svg2Vector_IS;
  * An ExecS class for the tool.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Svg2VectorExecs extends ExecS {
@@ -34,8 +34,9 @@ public class Svg2VectorExecs extends ExecS {
 	public Svg2VectorExecs(){
 		super("s2v");
 
-		this.addApplication(Svg2Vector_FH.APP_NAME,			Svg2Vector_FH.class);
-		this.addApplication(Svg2Vector_IS.APP_NAME,			Svg2Vector_IS.class);
+		this.addApplication(Svg2Vector_FH.APP_NAME,		Svg2Vector_FH.class);
+		this.addApplication(Svg2Vector_IS.APP_NAME,		Svg2Vector_IS.class);
+		this.addApplication(S2VErrorCodes.APP_NAME,		S2VErrorCodes.class);
 	}
 
 	/**

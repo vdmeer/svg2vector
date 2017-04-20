@@ -17,14 +17,16 @@ package de.vandermeer.svg2vector.applications.fh;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.freehep.graphicsbase.util.UserProperties;
 
+import de.vandermeer.svg2vector.ErrorCodes;
+import de.vandermeer.svg2vector.S2VExeception;
 import de.vandermeer.svg2vector.applications.base.AppBase;
-import de.vandermeer.svg2vector.applications.base.AppProperties;
 import de.vandermeer.svg2vector.applications.base.SvgTargets;
 import de.vandermeer.svg2vector.applications.fh.converters.BatikLoader;
 import de.vandermeer.svg2vector.applications.fh.converters.FhConverter;
@@ -41,10 +43,10 @@ import de.vandermeer.svg2vector.applications.fh.converters.Fh_Svg2Svg;
  * All options can be set via command line.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoader>> {
+public class Svg2Vector_FH extends AppBase<BatikLoader> {
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-fh";
@@ -53,7 +55,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 	public final static String APP_DISPLAY_NAME = "Svg2Vector FreeHep";
 
 	/** Application version, should be same as the version in the class JavaDoc. */
-	public final static String APP_VERSION = "v2.0.0 build 170413 (13-Apr-17) for Java 1.8";
+	public final static String APP_VERSION = "v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8";
 
 	/** Application option for not-transparent mode. */
 	AO_NotTransparent optionNotTransparent = new AO_NotTransparent(false, 'n', "switch off transparency");
@@ -71,7 +73,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 	 * Returns a new application.
 	 */
 	public Svg2Vector_FH(){
-		super(new AppProperties<BatikLoader>(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg}, new BatikLoader()));
+		super(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg}, new BatikLoader());
 
 		this.addOption(this.optionNotTransparent);
 		this.addOption(this.optionClip);
@@ -81,69 +83,80 @@ public class Svg2Vector_FH extends AppBase<BatikLoader, AppProperties<BatikLoade
 
 	@Override
 	public int executeApplication(String[] args) {
-		// parse command line, exit with help screen if error
-		int ret = super.executeApplication(args);
+		final int ret = super.executeApplication(args);
 		if(ret!=0){
 			return ret;
 		}
 
-		SvgTargets target = this.getProps().getTarget();
+		try{
+			this.init();
 
-		FhConverter converter = TARGET_2_CONVERTER(target);
-		if(converter==null){
-			this.printErrorMessage("no converter found for target <" + target.name() + ">");
-			return -20;
-		}
+			SvgTargets target = this.getTarget();
 
-		converter.setPropertyTransparent(!this.optionNotTransparent.inCli());
-		converter.setPropertyClip(this.optionClip.inCli());
-		converter.setPropertyBackground(!this.optionNoBackground.inCli());
-		converter.setPropertyTextAsShapes(this.getProps().doesTextAsShape());
-		if(this.optionBackgroundColor.inCli()){
-			Color color = Color.getColor(this.optionBackgroundColor.getValue());
-			converter.setPropertyBackgroundColor(color);
-		}
+			FhConverter converter = TARGET_2_CONVERTER(target);
+			if(converter==null){
+				this.printErrorMessage("no converter found for target <" + target.name() + ">");
+				return -20;
+			}
 
-		UserProperties up = converter.getProperties();
-		Set<Object> keys = up.keySet();
-		Iterator<Object>it = keys.iterator();
-		while(it.hasNext()){
-			String key = it.next().toString();
-			String val = up.getProperty(key);
-			key=key.substring(key.lastIndexOf('.')+1, key.length());
-			this.printDetailMessage("using SVG property " + key + "=" + val);
-		}
+			converter.setPropertyTransparent(!this.optionNotTransparent.inCli());
+			converter.setPropertyClip(this.optionClip.inCli());
+			converter.setPropertyBackground(!this.optionNoBackground.inCli());
+			converter.setPropertyTextAsShapes(this.getConversionOptions().doesTextAsShape());
+			if(this.optionBackgroundColor.inCli()){
+				Color color = Color.getColor(this.optionBackgroundColor.getValue());
+				converter.setPropertyBackgroundColor(color);
+			}
 
-		String err;
-		BatikLoader loader = this.getProps().getLoader();
-		if(this.getProps().doesLayers()){
-			for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
-				loader.switchOffAllLayers();
-				loader.switchOnLayer(entry.getKey());
-				this.printProgressMessage("processing layer " + entry.getKey());
-				this.printDetailMessage("writing to file " + this.getProps().getFnOut(entry) + "." + target.name());
-				if(this.getProps().canWriteFiles()){
-					err = converter.convertDocument(loader, new File(this.getProps().getFnOut(entry) + "." + target.name()));
-					if(err!=null){
-						this.printErrorMessage(err);
-						return -99;//TODO
+			UserProperties up = converter.getProperties();
+			Set<Object> keys = up.keySet();
+			Iterator<Object>it = keys.iterator();
+			while(it.hasNext()){
+				String key = it.next().toString();
+				String val = up.getProperty(key);
+				key=key.substring(key.lastIndexOf('.')+1, key.length());
+				this.printDetailMessage("using SVG property " + key + "=" + val);
+			}
+
+			BatikLoader loader = this.getLoader();
+			if(this.doesLayers()){
+				int index = 1;
+				for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
+					loader.switchOffAllLayers();
+					loader.switchOnLayer(entry.getKey());
+					this.printProgressMessage("processing layer " + entry.getKey());
+					String fout = this.fopOO(index, entry);
+					this.printDetailMessage("writing to file " + fout);
+					if(!this.getMiscOptions().doesSimulate()){
+						converter.convertDocument(loader, new File(fout));
 					}
+					index++;
 				}
 			}
+			else{
+				this.printProgressMessage("converting input");
+				String fout = this.fopOO();
+				this.printDetailMessage("writing to file " + fout);
+				if(!this.getMiscOptions().doesSimulate()){
+					converter.convertDocument(loader, new File(fout));
+				}
+			}
+
+			this.printProgressMessage("finished successfully");
 		}
-		else{
-			this.printProgressMessage("converting input");
-			this.printDetailMessage("writing to file " + this.getProps().getFoutFile());
-			if(this.getProps().canWriteFiles()){
-				err = converter.convertDocument(loader, this.getProps().getFoutFile());
-				if(err!=null){
-					this.printErrorMessage(err);
-					return -99;//TODO
-				}
-			}
+		catch(S2VExeception s2vEx){
+			this.printErrorMessage(s2vEx);
+			return s2vEx.getErrorCode().getCode();
+		}
+		catch(NullPointerException npEx){
+			this.printErrorMessage(npEx);
+			return ErrorCodes.GENERAL_NULL_POINTER__0.getCode();
+		}
+		catch(IOException ioEx){
+			this.printErrorMessage(ioEx);
+			return ErrorCodes.GENERAL_IO__0.getCode();
 		}
 
-		this.printProgressMessage("finished successfully");
 		return 0;
 	}
 

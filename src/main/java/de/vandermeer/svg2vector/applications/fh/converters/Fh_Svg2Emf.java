@@ -17,8 +17,8 @@ package de.vandermeer.svg2vector.applications.fh.converters;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.gvt.GraphicsNode;
@@ -28,7 +28,7 @@ import org.freehep.graphicsio.emf.EMFGraphics2D;
  * A converter for SVG documents to EMF using the FreeHep library.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Fh_Svg2Emf extends FhConverter {
@@ -49,7 +49,7 @@ public class Fh_Svg2Emf extends FhConverter {
 	}
 
 	@Override
-	public String convertDocument(BatikLoader loader, File fout) {
+	public void convertDocument(BatikLoader loader, File fout) throws IOException {
 		//TODO error messages and parameter checks
 
 		GVTBuilder gvtBuilder = new GVTBuilder();
@@ -57,16 +57,8 @@ public class Fh_Svg2Emf extends FhConverter {
 
 		FileOutputStream emfStream;
 		EMFGraphics2D emfGraphics2D;
-
-		try {
-			emfStream = new FileOutputStream(fout);
-			emfGraphics2D = new EMFGraphics2D(fout, loader.getSize());
-		}
-		catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "##";
-		}
+		emfStream = new FileOutputStream(fout);
+		emfGraphics2D = new EMFGraphics2D(fout, loader.getSize());
 
 		emfGraphics2D.setProperties(this.properties);
 		emfGraphics2D.setDeviceIndependent(true);
@@ -75,12 +67,7 @@ public class Fh_Svg2Emf extends FhConverter {
 		emfGraphics2D.endExport();
 		emfGraphics2D.dispose();
 
-		try{
-			emfStream.close();
-		}
-		catch(Exception ignore){}
-
-		return null;
+		emfStream.close();
 	}
 
 }

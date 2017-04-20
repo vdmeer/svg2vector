@@ -1,3 +1,30 @@
+=== v2.1.0 - refactor, change in CLI - 2017-##-##
+* internal refactoring of application base
+  ** grouped options and separated them in packages
+  ** changed option initialization and testing behavior
+  ** simplified standard behavior for input, layer, and output options
+  ** added object to manage temporary artifacts
+     *** a temporary directory will now always be created, and all tmp artifacts written into it
+  ** added test cases
+* added CLI for printing stack trace
+* changed FOUT CLI options for processing layers:
+  ** option `i` changes
+     *** long option now `fout-index` (was `fout-layer-index`)
+     *** effect now: use a continuous index starting with 1 for naming files
+  ** option `I` changes
+     *** long option now `fout-isindex` (was `fout-layer-id`)
+     *** effect now: use an index generated from the Inkscape object id for naming files
+  ** new option `B` with long option `fout-islabel`
+     *** effect: use the Inkscape label string to name files
+     *** was `I` in the old CLI
+* added error codes and error code categories
+* added application `s2v-aec` printing all known error codes to standard out
+* changed the whole option process to use exceptions
+  ** standard runtime exceptions are not mentioned anymore in JavaDoc, arguments are described with "must" and "should" to indicate them (all must/should are runtime tested
+  ** added S2VException for exceptions that use a defined error code and message
+  ** changed the applications to catch exceptions and stop processing (old behavior was to return early)
+
+
 === v2.0.0 - major rewrite, changed CLI behavior - 2017-04-13
 * added appliction base and properties
   ** some 22 CLI options are now supported by all applications, all processed by application base or properties
@@ -55,8 +82,6 @@
 * provided solution for EMF and PDF conversion problems, especially with Inkscape SVGs
   ** instead of using Batik/Freehep from `s2v-fh` use `s2v-is` with existing Inkscape installation
   ** other options are not available as of today
-* open issues
-  ** add standard `s2v-fh` options to `s2v-is`, e.g. background and transparancy
 
 
 === v1.1.0 - feature add - 2017-04-05

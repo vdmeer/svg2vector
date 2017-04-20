@@ -21,10 +21,10 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 /**
- * Tests for Svg2Vector_FH with SVG conversion.
+ * Tests for {@link Svg2Vector_FH} with SVG conversion.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
 public class Test_Svg2Vector_FH_SVG {
@@ -33,8 +33,9 @@ public class Test_Svg2Vector_FH_SVG {
 	static String OUT_DIR_PREFIX = Test_Svg2Vector_FH.OUT_DIR_PREFIX + "svg/";
 
 	/** Standard CLI options for tests. */
-	static String[] STD_OPTIONS = ArrayUtils.addAll(Test_Svg2Vector_FH.STD_OPTIONS,
-			"-t", "svg", "-q"
+	static String[] STD_OPTIONS = ArrayUtils.addAll(
+			Test_Svg2Vector_FH.STD_OPTIONS,
+			"-t", "svg"
 	);
 
 	@Test

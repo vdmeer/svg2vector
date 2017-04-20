@@ -15,13 +15,16 @@
 
 package de.vandermeer.svg2vector.applications.base;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import de.vandermeer.svg2vector.S2VExeception;
 
 /**
  * Base class for an SVG document loader.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public abstract class SV_DocumentLoader {
@@ -29,18 +32,16 @@ public abstract class SV_DocumentLoader {
 	/** Flag indicating if a document is loaded or not. */
 	protected boolean isLoaded;
 
-	/** List of layers with identifier and index. */
-	protected final HashMap<String, Integer> layers = new HashMap<>();
+	/** Map of layers as mapping of Inkscape labels to Inkscape index. */
+	protected final Map<String, Integer> layers = new LinkedHashMap<>();
 
 	/**
 	 * Loads the SVG file.
 	 * This method will not re-load an SVG file once the loader already has a document loaded.
-	 * @param fn the file name for the SVG document
-	 * @return null on success, error message on error
-	 * @throws NullPointerException if argument was null
-	 * @throws IllegalArgumentException if argument was blank
+	 * @param fn the file name for the SVG document, must not be blank
+	 * @throws {@link S2VExeception} if file could not be loaded
 	 */
-	public abstract String load(String fn); 
+	public abstract void load(String fn) throws S2VExeception; 
 
 	/**
 	 * Returns the status of the loader.
@@ -75,10 +76,11 @@ public abstract class SV_DocumentLoader {
 	public abstract void switchOnLayer(String layer);
 
 	/**
-	 * Returns the map of layers (layer name to index), empty if no layers found.
+	 * Returns the map of layers (Inkscape label to Inkscape index), empty if no layers found.
+	 * The position in the map defines a continuous index.
 	 * @return map of layers
 	 */
-	public HashMap<String, Integer> getLayers(){
+	public Map<String, Integer> getLayers(){
 		return this.layers;
 	}
 }

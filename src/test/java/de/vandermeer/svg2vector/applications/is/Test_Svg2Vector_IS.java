@@ -24,10 +24,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Simple tests for Svg2Vector_IS.
+ * Simple tests for {@link Svg2Vector_IS}.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
- * @version    v2.0.0 build 170413 (13-Apr-17) for Java 1.8
+ * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
 public class Test_Svg2Vector_IS {
@@ -60,7 +60,7 @@ public class Test_Svg2Vector_IS {
 	@Test
 	public void test_AddedOptions(){
 		Svg2Vector_IS app = new Svg2Vector_IS();
-		assertEquals(28, app.getAppOptions().length);
+		assertEquals(30, app.getAppOptions().length);
 	}
 
 	@Test
@@ -99,4 +99,5 @@ public class Test_Svg2Vector_IS {
 		};
 		assertEquals(1, app.executeApplication(args));
 	}
+
 }
