@@ -32,21 +32,21 @@ shortDescription() ::= "puts the application in quiet mode, no errors, warnings,
 longDescription() ::= <<
 
 === Description
-If used, the application will be put in quiet mode. This means no  messages
-will be printed.
+     If used, the application will be put in quiet mode. This means no
+     messages will be printed.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-When  used,  all  other  messaging  options  will  be  disabled.  That  is:
-`verbose`,   `print-warnings`,   `print-progress`,   `print-details`,   and
-`print-stack-trace`.
+     When used, all other messaging options will be disabled. That is:
+     `verbose`, `print-warnings`,  `print-progress`,  `print-details`,
+     and `print-stack-trace`.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

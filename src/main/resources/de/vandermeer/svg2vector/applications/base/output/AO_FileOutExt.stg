@@ -32,29 +32,30 @@ shortDescription() ::= "output filename, default is the basename of the input fi
 longDescription() ::= <<
 
 === Description
-This option sets the output filename. The argument may contain a path using
-the system's path separator or '/'. The option is only used when no  layers
-are processed, otherwise it will be ignored.
-
-The filename (i.e. all path elements removed)  may  contain  any  character
-that the underlying operating system supports. It  can  also  contain  dots
-`.`.
+     This option sets the output filename. The argument may contain  a
+     path using the system's path separator or '/'. The option is only
+     used when no layers are processed, otherwise it will be ignored. 
+                                                                      
+     The filename (i.e. all path elements  removed)  may  contain  any
+     character that the underlying operating system supports.  It  can
+     also contain dots `.`.
 
 
 === Dependency on other CLI options
-The default value, when the option is not used in the command line, is  the
-directory and basename of the input file name plus the file  extension  for
-the  required  target.  For  instance,  if   the   input   file   name   is
-`mydir/foo/bla.svg`  the  output  filename  for  a  `pdf`  target  will  be
-`mydir/foo/bla.pdf`.
+     The default value, when the option is not  used  in  the  command
+     line, is the directory and basename of the input file  name  plus
+     the file extension for the required target. For instance, if  the
+     input file name is `mydir/foo/bla.svg` the output filename for  a
+     `pdf` target will be `mydir/foo/bla.pdf`.
 
 
 === Interaction with  other CLI options
-The output directory can be changed using the option `output-directory`.
+     The  output  directory  can   be   changed   using   the   option
+     `output-directory`.
 
 
 === Supported in Layers
-No, the option is not used when layers are processed.  A  warning  will  be
-created instead and the option will be ignored.
+     No, the option is not used when layers are processed.  A  warning
+     will be created instead and the option will be ignored.
 
 >>

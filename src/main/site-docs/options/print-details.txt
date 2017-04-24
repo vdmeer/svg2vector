@@ -12,5 +12,5 @@ This option is automatically activated if `verbose` is used.
 
 === Supported in Layers
 
-###
+Yes
 

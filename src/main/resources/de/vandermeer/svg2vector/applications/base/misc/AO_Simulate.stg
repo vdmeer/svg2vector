@@ -32,22 +32,22 @@ shortDescription() ::= "simulate application, no output directories or files wil
 longDescription() ::= <<
 
 === Description
-This option puts the application into simulation mode. All actions will  be
-done as normal, except no directories will be created and no file  will  be
-created or written. This includes temporary directories.  Use  this  option
-with detailed messaging to see what would happen for  a  given  application
-run.
+     This option  puts  the  application  into  simulation  mode.  All
+     actions will be done as normal, except  no  directories  will  be
+     created and no file will be created  or  written.  This  includes
+     temporary directories. Use this option with detailed messaging to
+     see what would happen for a given application run.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

@@ -32,25 +32,26 @@ shortDescription() ::= "sets a background color"
 longDescription() ::= <<
 
 === Description
-This options sets a background color for the  conversion.  In  layer  mode,
-this color will be used for all layers.
-
-The implementation uses the Java AWT class `Color`. To  set  a  color,  the
-method `Color.getColor(String)` is used. This means that the value of  this
-option is treated as a  system  property,  which  is  then  being  read  to
-retrieve the background color value. This value should be an  integer.  For
-more information see Java AWT documentation.
+     This options sets a background color for the conversion. In layer
+     mode, this color will be used for all layers.                    
+                                                                      
+     The implementation uses the Java AWT  class  `Color`.  To  set  a
+     color, the method `Color.getColor(String)` is  used.  This  means
+     that the value of this option is treated as  a  system  property,
+     which is then being read to retrieve the background color  value.
+     This value should be an integer. For more  information  see  Java
+     AWT documentation.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-This options has not effect if `no-background` is used.
+     This options has not effect if `no-background` is used.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

@@ -32,18 +32,18 @@ shortDescription() ::= "switch off background property"
 longDescription() ::= <<
 
 === Description
-This option will switch off background for conversions.
+     This option will switch off background for conversions.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-If used, `bgrnd-color` will have no effect.
+     If used, `bgrnd-color` will have no effect.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

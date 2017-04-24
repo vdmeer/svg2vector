@@ -60,13 +60,13 @@ public class S2VErrorCodes implements ExecS_Application {
 			return ret;
 		}
 
-		this.printEcList("de/vandermeer/svg2vector/applications/aec/console.stg");
-		this.printEcList("de/vandermeer/svg2vector/applications/aec/adoc.stg");
+//		this.printEcList("de/vandermeer/svg2vector/applications/aec/console.stg");
+//		this.printEcList("de/vandermeer/svg2vector/applications/aec/adoc.stg");
 
 //		this.printCatList("de/vandermeer/svg2vector/applications/aec/console.stg");
 //		this.printCatList("de/vandermeer/svg2vector/applications/aec/adoc.stg");
 
-//		this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
+		this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
 //		this.fullTable("de/vandermeer/svg2vector/applications/aec/adoc.stg");
 
 		return 0;

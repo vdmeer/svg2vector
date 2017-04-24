@@ -32,19 +32,20 @@ shortDescription() ::= "switch on all layers"
 longDescription() ::= <<
 
 === Description
-If no layers are processed and a single output file is created, this option
-can be used to switch on all layers prior to the conversion.
+     If no layers are processed and a single output file  is  created,
+     this option can be used to switch on  all  layers  prior  to  the
+     conversion.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-No, this option is not available in layer mode.
+     No, this option is not available in layer mode.
 
 >>

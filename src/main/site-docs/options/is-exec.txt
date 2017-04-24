@@ -9,7 +9,7 @@ Using the option in the command line will use the given executable and ignore an
 
 When executing Inkscape, some standard Inkscape CLI options will be used.
 To avoid starting the GUI, `--without-gui` is used.
-To export all graphics using the page are as cliping, the option `--export-area-page` is used.
+To export all graphics using the page are as clipping, the option `--export-area-page` is used.
 All other Inkscape CLI options will be generated from the application CLI options.
 
 === Dependency on other CLI options

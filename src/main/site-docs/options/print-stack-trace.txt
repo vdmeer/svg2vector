@@ -1,4 +1,4 @@
-This option activates the printing of stack traces in case an exception is catched during the execution of an application.
+This option activates the printing of stack traces in case an exception is caught during the execution of an application.
 The option has only an effect if error messages are activated.
 
 An application will not print the full stack trace but limit any output to packages containing either `vandermeer` or `apache`.

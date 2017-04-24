@@ -32,19 +32,24 @@ shortDescription() ::= "automatically create directories for output"
 longDescription() ::= <<
 
 === Description
-By default, output directories should exist,  i.e.  no  directory  will  be
-created by an  application.  Using  this  option  will  activate  automated
-directory creation. For any output file, all directories in the  path  will
-be created if they do not exist already. Existing directories will  not  be
-changed. If automated creation fails, an error  will  be  created  and   no
-conversion will take place.
+     By default, output directories should exist,  i.e.  no  directory
+     will be  created  by  an  application.  Using  this  option  will
+     activate automated directory creation. For any output  file,  all
+     directories in the path will be created  if  they  do  not  exist
+     already. Existing directories will not be changed.  If  automated
+     creation fails, an error will be created and not conversion  will
+     take place.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-None
+     None
+
+
+=== Supported in Layers
+     Yes
 
 >>

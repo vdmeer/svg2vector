@@ -32,21 +32,21 @@ shortDescription() ::= "keep temporary created artifacts (files and directories)
 longDescription() ::= <<
 
 === Description
-The application creates temporary artifacts  (directory  and  files).  With
-this option, those artifacts  will  not  be  removed  at  the  end  of  the
-conversion process nor when  exceptions  are  caught.  This  can  allow  to
-inspect those artifacts.
+     The  application  creates  temporary  artifacts  (directory   and
+     files). With this option, those artifacts will not be removed  at
+     the end of the conversion process nor when exceptions are caught.
+     This can allow to inspect those artifacts.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

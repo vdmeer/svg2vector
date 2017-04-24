@@ -32,23 +32,24 @@ shortDescription() ::= "convert to SVG first, then to actual target"
 longDescription() ::= <<
 
 === Description
-Requires the application to convert the input SVG document to an  SVG  file
-first and then to the actually required target. The intermediate  SVG  file
-will be created as a temporary file in a  temporary  directory.  This  file
-will be removed when the application finishes, unless  `keep-tmp-artifacts`
-is used.
+     Requires the application to convert the input SVG document to  an
+     SVG file first and then to  the  actually  required  target.  The
+     intermediate SVG file will be created as a temporary  file  in  a
+     temporary  directory.  This  file  will  be  removed   when   the
+     application finishes, unless `keep-tmp-artifacts` is used.       
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with other CLI options
-If `keep-tmp-artifacts` the created  temporary  file  (and  the  containing
-directory) will not be removed when the application finishes.
+     If `keep-tmp-artifacts`  the  created  temporary  file  (and  the
+     containing directory) will not be removed  when  the  application
+     finishes.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

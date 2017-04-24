@@ -32,28 +32,31 @@ shortDescription() ::= "switch on layer mode, process layers, create one file pe
 longDescription() ::= <<
 
 === Description
-This option switches on layer mode.  In  this  mode,  an  application  will
-attempt to create one output file per layer found in the SVG documents.  By
-layers we mean  Inkscape  layers,  which  are  essentially  special  groups
-(elements with a key `inkscape:groupmode` set to `"layer"`).  Other  layers
-are not supported.
-
-When used, the SVG document will be scanned for layers. If  no  layers  are
-defined, an error will be created and the application  terminates.  If  you
-want to process documents that might (but  not  necessarily  will)  contain
-layers, then use the option `layers-if-exist` instead.
+     This option switches on layer mode. In this mode, an  application
+     will attempt to create one output file per layer found in the SVG
+     documents.  By  layers  we  mean  Inkscape  layers,   which   are
+     essentially    special    groups    (elements    with    a    key
+     `inkscape:groupmode` set to  `"layer"`).  Other  layers  are  not
+     supported.                                                       
+                                                                      
+     When used, the SVG document will be scanned  for  layers.  If  no
+     layers are defined, an error will be created and the  application
+     terminates. If you want to process documents that might (but  not
+     necessarily  will)  contain   layers,   then   use   the   option
+     `layers-if-exist` instead.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-This option switches on the layer mode, so it  effects  all  other  options
-that either require layer mode or have a specific behavior in layer mode.
+     This option switches on the layer mode, so it effects  all  other
+     options that  either  require  layer  mode  or  have  a  specific
+     behavior in layer mode.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

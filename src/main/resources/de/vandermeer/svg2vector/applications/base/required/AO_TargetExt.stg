@@ -32,26 +32,26 @@ shortDescription() ::= "specifies a conversion target"
 longDescription() ::= <<
 
 === Description
-This option specifies the conversion target, i.e. the format  to  which  an
-SVG document should be converted to. Most  of  the  supported  targets  are
-vector formats, such as PDF or  EMF.  Some  S2V  application  also  support
-bitmap formats.
-
-The application base defines all known targets. Each S2V  application  then
-selects the targets it can support.
+     This option specifies the conversion target, i.e. the  format  to
+     which an SVG  document  should  be  converted  to.  Most  of  the
+     supported targets are vector formats, such as PDF  or  EMF.  Some
+     S2V application also support bitmap formats.                     
+                                                                      
+     The  application  base  defines  all  known  targets.  Each   S2V
+     application then selects the targets it can support.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-Some formats might also have format specific options, for  instance  a  PDF
-version or PS level.
+     Some  formats  might  also  have  format  specific  options,  for
+     instance a PDF version or PS level.
 
 
 === Supported in Layers
-Layers are supported  for  all  targets,  but  only  when  converting  into
-individual files per layer.
+     Layers are supported for all targets, but  only  when  converting
+     into individual files per layer.
 
 >>

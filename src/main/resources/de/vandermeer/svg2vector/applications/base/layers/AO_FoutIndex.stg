@@ -32,25 +32,25 @@ shortDescription() ::= "use a continuous index in output file name"
 longDescription() ::= <<
 
 === Description
-Each output file (n layer  mode)  will  have  a  continuous  index  in  the
-filename. This index is generated from the position of  the  definition  of
-the layer in the SVG document. The first layer defined  has  index  1,  the
-second has index2, and so forth.
-
-In the filename, the index will be shown using the string format `%02d`. An
-index `1` will result in `01`, index `2` will result in `02`, and so forth.
-The option supports up to 99 layers.
+     Each output file (n layer mode) will have a continuous  index  in
+     the filename. This index is generated from the  position  of  the
+     definition of the layer in the  SVG  document.  The  first  layer
+     defined has index 1, the second has index2, and so forth.        
+                                                                      
+     In the filename, the index will be shown using the string  format
+     `%02d`. An index `1` will result in `01`, index `2`  will  result
+     in `02`, and so forth. The option supports up to 99 layers.
 
 
 === Dependency on other CLI options
-This option only works in layer mode, so only with `layers`.
+     This option only works in layer mode, so only with `layers`.
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-Yes (in layer mode only)
+     Yes (in layer mode only)
 
 >>

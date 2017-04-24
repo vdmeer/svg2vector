@@ -32,27 +32,28 @@ shortDescription() ::= "do not use a basename for output files (in layer mode)"
 longDescription() ::= <<
 
 === Description
-In layer mode, this option will  prevent  output  filenames  from  using  a
-basename (either a requested one or the basename of  the  input  file).  To
-allow for non-abigious file names, one or more  of  the  following  options
-needs to be used as well: `fout-index`, `fout-isindex`, or `fout-islabel`.
+     In layer mode, this option will  prevent  output  filenames  from
+     using a basename (either a requested one or the basename  of  the
+     input file). To allow for non-abigious file names, one or more of
+     the following options needs to be  used  as  well:  `fout-index`,
+     `fout-isindex`, or `fout-islabel`.
 
 
 === Dependency on other CLI options
-This option only works in layer mode, so only with `layers`.
-
-Without a basename, filenames for output files will  be  ambigious  or  all
-layer files will have the same output filename. Thus one  or  more  of  the
-`fout` options needs to be used as well: `fout-index`, `fout-isindex`,  and
-`fout-islabel`.
+     This option only works in layer mode, so only with `layers`.     
+                                                                      
+     Without a basename, filenames for output files will be  ambigious
+     or all layer files will have the same output filename.  Thus  one
+     or more  of  the  `fout`  options  needs  to  be  used  as  well:
+     `fout-index`, `fout-isindex`, and `fout-islabel`.
 
 
 === Interaction with  other CLI options
-If used, `use-basename` will have no effect.
+     If used, `use-basename` will have no effect.
 
 
 === Supported in Layers
-Yes (in layer mode only)
+     Yes (in layer mode only)
 
 >>
 

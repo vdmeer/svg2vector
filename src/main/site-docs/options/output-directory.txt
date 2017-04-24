@@ -8,6 +8,8 @@ In no layer mode, the option has no default value.
 
 === Dependency on other CLI options
 
+None
+
 === Interaction with other CLI options
 
 If not in layer mode, this option will change the output directory while the filename is generated from either `output-file` or `input-file`.

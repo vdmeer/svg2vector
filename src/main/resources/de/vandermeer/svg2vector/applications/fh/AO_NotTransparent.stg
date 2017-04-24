@@ -32,18 +32,18 @@ shortDescription() ::= "switch off transparency"
 longDescription() ::= <<
 
 === Description
-This option will switch of transparency.
+     This option will switch of transparency.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

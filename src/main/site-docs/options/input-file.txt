@@ -5,7 +5,7 @@ An application will try GZIP first and if that fails read the file as a plain te
 Depending on the application the SVG document can be plain SVG (as in standard W3C SVG) or Inkscape SVG (as in using Inkscape and sodipodi name spaces).
 
 The input file will never be changed by any application.
-Reuqested manipulations, such as swithcing on layers or processing layers individually, are realized in memory.
+Reuqested manipulations, such as switching on layers or processing layers individually, are realized in memory.
 Any action that requires writing an SVG file (other than target `svg`) will write temporary files in a temporary directory.
 
 === Interaction with other CLI options

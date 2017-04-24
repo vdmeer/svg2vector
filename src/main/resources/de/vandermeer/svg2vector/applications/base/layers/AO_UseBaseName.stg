@@ -32,19 +32,19 @@ shortDescription() ::= "use the specified basename for output files"
 longDescription() ::= <<
 
 === Description
-In layer mode, this option will change the basename for output files to the
-given basename.
+     In layer mode, this option will change the  basename  for  output
+     files to the given basename.
 
 
 === Dependency on other CLI options
-This option only works in layer mode, so only with `layers`.
+     This option only works in layer mode, so only with `layers`.
 
 
 === Interaction with  other CLI options
-This option has no effect if `fout-no-basename` is used.
+     This option has no effect if `fout-no-basename` is used.
 
 
 === Supported in Layers
-Yes (layer mode only)
+     Yes (layer mode only)
 
 >>

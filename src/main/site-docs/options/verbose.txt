@@ -11,5 +11,5 @@ The option `no-errors` will have no effect in verbose mode.
 
 === Supported in Layers
 
-###
+Yes
 

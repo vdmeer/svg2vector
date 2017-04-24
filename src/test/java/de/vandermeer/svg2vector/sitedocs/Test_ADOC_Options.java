@@ -93,7 +93,7 @@ public class Test_ADOC_Options {
 	}
 
 	@Test
-	public void test_LayersIsExec(){
+	public void test_IsExec(){
 		this.printDoc("src/main/site-docs/options/is-exec.txt");
 	}
 
@@ -227,8 +227,9 @@ public class Test_ADOC_Options {
 			AsciiParagraph ap = new AsciiParagraph();
 			ap.addText(list);
 			ap.getContext().setAlignment(TextAlignment.JUSTIFIED_LEFT);
+			ap.getContext().setTextLeftMargin(5);
 			if(print){
-				System.out.println(ap.render(75));
+				System.out.println(ap.render(70));
 			}
 		}
 	}

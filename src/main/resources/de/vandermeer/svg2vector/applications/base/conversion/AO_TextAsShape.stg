@@ -32,20 +32,20 @@ shortDescription() ::= "convert text as shapes"
 longDescription() ::= <<
 
 === Description
-This option will switch on the text-as-shape flag. This  means  that  in  a
-conversion, if possible, all texts will be converted as shapes and  not  as
-text.
+     This option will switch on the  text-as-shape  flag.  This  means
+     that in a conversion, if possible, all texts will be converted as
+     shapes and not as text.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

@@ -32,21 +32,21 @@ shortDescription() ::= "print very detailed information to stdout"
 longDescription() ::= <<
 
 === Description
-This option will activate the message mode for print details. If  used,  an
-application will print very detailed information  about  it  process.  This
-information  includes  directory  and  file  names,  more  details  on  the
-conversion progress, and other details.
+     This option will activate the message mode for print details.  If
+     used, an application will print very detailed  information  about
+     it process. This information includes directory and  file  names,
+     more details on the conversion progress, and other details.
 
 
 === Dependency on other CLI options
-This option has no effect if `quiet` is used. 
+     This option has no effect if `quiet` is used.
 
 
 === Interaction with  other CLI options
-This option is automatically activated if `verbose` is used.
+     This option is automatically activated if `verbose` is used.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

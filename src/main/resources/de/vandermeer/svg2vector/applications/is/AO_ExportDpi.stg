@@ -32,24 +32,24 @@ shortDescription() ::= "set DPI for bitmap conversion or for rasterization of fi
 longDescription() ::= <<
 
 === Description
-This option sets the resolution for a bitmap export, here  for  the  target
-`png`. It can also be used for fallback rasterization of  filtered  objects
-when exporting to `ps`, `eps`, or `pdf`. There is no default value  of  the
-CLI  option.  However,  Inkscape  uses  a  DPI  of  96  as  default,  which
-corresponds to 1 SVG user unit (px, also called "user unit") exporting to 1
-bitmap pixel.
+     This option sets the resolution for a bitmap export, here for the
+     target `png`. It can also be used for fallback  rasterization  of
+     filtered objects when exporting to `ps`, `eps`, or  `pdf`.  There
+     is no default value of the CLI option. However, Inkscape  uses  a
+     DPI of 96 as default, which corresponds to 1 SVG user  unit  (px,
+     also called "user unit") exporting to 1 bitmap pixel.
 
 
 === Dependency on other CLI options
-This option only has an effect when the  target  is  set  to  `png`,  `ps`,
-`eps`, or `pdf`.
+     This option only has an effect when the target is set  to  `png`,
+     `ps`, `eps`, or `pdf`.
 
 
 === Interaction with  other CLI options
-None
+     None
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>

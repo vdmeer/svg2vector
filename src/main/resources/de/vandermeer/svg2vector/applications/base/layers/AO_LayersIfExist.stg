@@ -32,22 +32,22 @@ shortDescription() ::= "switch on layer mode, if input SVG document has layers, 
 longDescription() ::= <<
 
 === Description
-This option will switch layer mode on if the input SVG document has layers,
-otherwise layer mode will be off. The application  will  proceed  normally,
-with or without processing layers.
+     This option will switch layer mode on if the input  SVG  document
+     has layers, otherwise layer mode will  be  off.  The  application
+     will proceed normally, with or without processing layers.
 
 
 === Dependency on other CLI options
-None
+     None
 
 
 === Interaction with  other CLI options
-This option can result in layer mode being activated  (process  layers)  or
-not (do not process layers). Thus it effects almost all options for  output
-and layers.
+     This option can result in layer  mode  being  activated  (process
+     layers) or not (do not process layers). Thus  it  effects  almost
+     all options for output and layers.
 
 
 === Supported in Layers
-Yes
+     Yes
 
 >>
