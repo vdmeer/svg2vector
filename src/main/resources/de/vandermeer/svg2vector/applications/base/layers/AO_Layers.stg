@@ -1,0 +1,59 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Description and other functions for AO_MsgDetails.
+ *
+ * @package    de.vandermeer.svg2vector.applications.base.messages
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+shortOption() ::= "l"
+longOption() ::= "layers"
+argument() ::= ""
+argumentHelp() ::= ""
+shortDescription() ::= "switch on layer mode, process layers, create one file per layer"
+
+longDescription() ::= <<
+
+=== Description
+This option switches on layer mode.  In  this  mode,  an  application  will
+attempt to create one output file per layer found in the SVG documents.  By
+layers we mean  Inkscape  layers,  which  are  essentially  special  groups
+(elements with a key `inkscape:groupmode` set to `"layer"`).  Other  layers
+are not supported.
+
+When used, the SVG document will be scanned for layers. If  no  layers  are
+defined, an error will be created and the application  terminates.  If  you
+want to process documents that might (but  not  necessarily  will)  contain
+layers, then use the option `layers-if-exist` instead.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with  other CLI options
+This option switches on the layer mode, so it  effects  all  other  options
+that either require layer mode or have a specific behavior in layer mode.
+
+
+=== Supported in Layers
+Yes
+
+>>

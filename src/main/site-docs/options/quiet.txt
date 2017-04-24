@@ -1,0 +1,16 @@
+If used, the application will be put in quiet mode.
+This means no messages will be printed.
+
+=== Dependency on other CLI options
+
+None
+
+=== Interaction with other CLI options
+
+When used, all other messaging options will be disabled.
+That is: `verbose`, `print-warnings`, `print-progress`, `print-details`, and `print-stack-trace`.
+
+=== Supported in Layers
+
+Yes
+

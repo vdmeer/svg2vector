@@ -1,0 +1,47 @@
+== not-transparent
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|switch off transparency
+
+|supported by
+|`s2v-fh`
+
+|usage
+|`-n` or `--not-transparent`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option will switch of transparency.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+

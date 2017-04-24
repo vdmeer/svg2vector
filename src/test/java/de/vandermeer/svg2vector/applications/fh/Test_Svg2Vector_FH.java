@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
+import de.vandermeer.svg2vector.Svg2Vector_FH;
 
 /**
  * Simple tests for {@link Svg2Vector_FH}.
@@ -31,17 +31,17 @@ import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
 public class Test_Svg2Vector_FH {
 
 	/** Prefix for tests that create output. */
-	static String OUT_DIR_PREFIX = "target/output-tests/s2v-fh/";
+	public static String OUT_DIR_PREFIX = "target/output-tests/s2v-fh/";
 
 	/** Standard CLI options for tests. */
-	static String[] STD_OPTIONS = new String[]{
+	public static String[] STD_OPTIONS = new String[]{
 			"--create-directories", "--overwrite-existing", "--all-layers", "-q"
 	};
 
 	@Test
 	public void test_AddedOptions(){
 		Svg2Vector_FH app = new Svg2Vector_FH();
-		assertEquals(28, app.getAppOptions().length);
+		assertEquals(26, app.getAppOptions().length);
 	}
 
 	@Test

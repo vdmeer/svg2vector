@@ -1,0 +1,14 @@
+This option will switch of transparency.
+
+=== Dependency on other CLI options
+
+None
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+Yes
+

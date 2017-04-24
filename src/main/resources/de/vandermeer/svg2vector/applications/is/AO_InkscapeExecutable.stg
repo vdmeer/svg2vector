@@ -1,0 +1,63 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Description and other functions for AO_MsgDetails.
+ *
+ * @package    de.vandermeer.svg2vector.applications.base.messages
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+shortOption() ::= "x"
+longOption() ::= "is-exec"
+argument() ::= "EXEC"
+argumentHelp() ::= "the Inkscape executable"
+shortDescription() ::= "sets the Inkscape executable (default values from environment or for Windows and Unix)"
+
+longDescription() ::= <<
+
+=== Description
+This option sets the Inkscape executable. The option will  process  default
+values as follows: First, the environment variable `INKSCAPE` is tested. If
+it is not null, its value is set as default. Next, if the operating  system
+is a Windows system (using Apache Commons `SystemUtils`), the default value
+is set to `C:/Program Files/Inkscape/inkscape.exe`. Next, if the  operating
+system is a UNIX system (using Apache Commons `SystemUtils`),  the  default
+value is set to `/usr/bin/inkscape`. In all other cases, no  default  value
+will be set. Using the option in  the  command  line  will  use  the  given
+executable and ignore any default settings.
+
+When executing Inkscape, some standard Inkscape CLI options will  be  used.
+To avoid starting the GUI, `--without-gui` is used. To export all  graphics
+using the page are as cliping, the option `--export-area-page` is used. All
+other Inkscape CLI options will  be  generated  from  the  application  CLI
+options.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with  other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+
+>>

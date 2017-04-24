@@ -1,0 +1,47 @@
+== no-background
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|switch off background property
+
+|supported by
+|`s2v-fh`
+
+|usage
+|`-b` or `--no-background`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|`bgrnd-color`
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option will switch off background for conversions.
+
+
+=== Dependency on other CLI options
+No
+
+
+=== Interaction with other CLI options
+If used, `bgrnd-color` will have no effect.
+
+
+=== Supported in Layers
+Yes
+

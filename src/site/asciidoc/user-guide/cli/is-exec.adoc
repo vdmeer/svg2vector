@@ -1,0 +1,63 @@
+== is-exec
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|sets the Inkscape executable (default values from environment or for Windows and Unix)
+
+|supported by
+|`s2v-is`
+
+|usage
+|`-x EXEC` or `--is-exec EXEC`
+
+|EXEC
+|the Inkscape executable
+
+|required
+|no
+
+|default value
+|depending on operating system
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option sets the Inkscape executable.
+The option will process default values as follows:
+First, the environment variable `INKSCAPE` is tested.
+If it is not null, its value is set as default.
+Next, if the operating system is a Windows system (using Apache Commons `SystemUtils`), the default value is set to `C:/Program Files/Inkscape/inkscape.exe`.
+Next, if the operating system is a UNIX system (using Apache Commons `SystemUtils`), the default value is set to `/usr/bin/inkscape`.
+In all other cases, no default value will be set.
+Using the option in the command line will use the given executable and ignore any default settings.
+
+When executing Inkscape, some standard Inkscape CLI options will be used.
+To avoid starting the GUI, `--without-gui` is used.
+To export all graphics using the page are as cliping, the option `--export-area-page` is used.
+All other Inkscape CLI options will be generated from the application CLI options.
+
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+

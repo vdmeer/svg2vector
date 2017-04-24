@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_MsgDetail extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_MsgDetail(){
-		super("print detailed information to stdout", "print all detailed information to stdout");
-
-		Option.Builder builder = Option.builder("e");
-		builder.longOpt("print-details");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/messages/AO_MsgDetail.stg", false);
 	}
 
 	@Override

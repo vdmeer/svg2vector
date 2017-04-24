@@ -1,0 +1,57 @@
+== bgrnd-color
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|sets a background color
+
+|supported by
+|`s2v-fh`
+
+|usage
+|`r COLOR` or `--bgrnd-color COLOR`
+
+|COLOR
+|name of a system property that has the background color
+
+|required
+|no
+
+|default value
+|none for the CLI option, but `white` as standard background in the application
+
+|dependencies
+|none
+
+|interactions
+|`no-background`
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This options sets a background color for the conversion.
+In layer mode, this color will be used for all layers.
+
+The implementation uses the Java AWT class `Color`.
+To set a color, the method `Color.getColor(String)` is used.
+This means that the value of this option is treated as a system property, which is then being read to retrieve the background color value.
+This value should be an integer.
+For more information see Java AWT documentation.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+This options has not effect if `no-background` is used.
+
+
+=== Supported in Layers
+Yes
+

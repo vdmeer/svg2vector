@@ -1,0 +1,48 @@
+== verbose
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|verbose mode for application
+
+|supported by
+|all applications
+
+|usage
+|`-v` or `--verbose`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|`quiet`
+
+|interactions
+|`no-errors`, `print-details`, `print-progress`, `print-warnings`
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+When used, an application will print all messages: erorrs, warnings, progress information, and detailed information.
+
+
+=== Dependency on other CLI options
+This option has no effect if `quiet` is used.
+
+
+=== Interaction with other CLI options
+This will automatically switch on `print-warnings`, `print-progress`, and `print-details`.
+The option `no-errors` will have no effect in verbose mode.
+
+
+=== Supported in Layers
+Yes
+

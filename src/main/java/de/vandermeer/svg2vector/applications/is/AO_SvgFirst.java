@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -30,31 +28,9 @@ public class AO_SvgFirst extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
-	 * @param required true if option is required, false of it is optional
-	 * @param longDescription option long description
-	 * @throws NullPointerException - if description parameter is null
-	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_SvgFirst(boolean required, String longDescription){
-		this(required, null, longDescription);
-	}
-
-	/**
-	 * Returns the new option.
-	 * @param required true if option is required, false of it is optional
-	 * @param shortOption character for sort version of the option
-	 * @param longDescription option long description
-	 * @throws NullPointerException - if description parameter is null
-	 * @throws IllegalArgumentException - if description parameter is empty
-	 */
-	public AO_SvgFirst(boolean required, Character shortOption, String longDescription){
-		super("convert to SVG first, then to actual target", longDescription);
-
-		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("svg-first");
-		builder.required(required);
-		this.setCliOption(builder.build());
-	}
+	public AO_SvgFirst(){
+		super("de/vandermeer/svg2vector/applications/is/AO_SvgFirst.stg", false);	}
 
 	@Override
 	public String convertValue(Object value) {

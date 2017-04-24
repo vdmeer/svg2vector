@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_MsgProgress extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_MsgProgress(){
-		super("print progress information to stdout", "print all progress information but no extended details to stdout");
-
-		Option.Builder builder = Option.builder("p");
-		builder.longOpt("print-progress");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/messages/AO_MsgProgress.stg", false);
 	}
 
 	@Override

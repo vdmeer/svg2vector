@@ -27,8 +27,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Tests for {@link OutputPattern} - constructors and remove options.

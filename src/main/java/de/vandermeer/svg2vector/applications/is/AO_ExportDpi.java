@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * Application option `export-dpi`.
@@ -28,17 +28,8 @@ public class AO_ExportDpi extends IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.
-	 * @param target the target to which this option applies, must not be null
-	 * @param isCli the Inkscape command line option to be used including any leading dashes, must not be blank
-	 * @throws NullPointerException - if any required parameter is null
-	 * @throws IllegalArgumentException - if any required parameter is null
 	 */
-	public AO_ExportDpi(SvgTargets target, String isCli){
-		super(
-				target, isCli,
-				"export-dpi", "DPI",
-				"set DPI for export",
-				"Resolution for exporting to bitmap and for rasterization of filters in PS/EPS/PDF (default 90)."
-		);
+	public AO_ExportDpi(){
+		super(SvgTargets.png, "--export-dpi", "de/vandermeer/svg2vector/applications/is/AO_ExportDpi.stg");
 	}
 }

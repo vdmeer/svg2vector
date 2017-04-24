@@ -1,0 +1,49 @@
+== layers-if-exist
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|switch on layer mode, if input SVG document has layers, otherwise do not process layers
+
+|supported by
+|all applications
+
+|usage
+|`-L` or `--layers-if-exist`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|many
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option will switch layer mode on if the input SVG document has layers, otherwise layer mode will be off.
+The application will proceed normally, with or without processing layers.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+This option can result in layer mode being activated (process layers) or not (do not process layers).
+Thus it effects almost all options for output and layers.
+
+
+=== Supported in Layers
+Yes
+

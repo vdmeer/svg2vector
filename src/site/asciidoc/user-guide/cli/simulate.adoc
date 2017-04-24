@@ -1,0 +1,55 @@
+== simulate
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|simulate application, no output directories or files will be created
+
+|supported by
+|all applications
+
+|usage
+|`-S` or `--simulate`
+
+|FILE
+|output path and filename
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option puts the application into simulation mode.
+All actions will be done as normal, except no directories will be created and no file will be created or written.
+This includes temporary directories.
+Use this option with detailed messaging to see what would happen for a given application run.
+
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+
+

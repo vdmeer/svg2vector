@@ -1,0 +1,51 @@
+== export-ps-level
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|sets the PS level for export
+
+|supported by
+|`s2v-is`
+
+|usage
+|`--export-ps-level LEVEL`
+
+|LEVEL
+|the PS level to use (2 or 3)
+
+|required
+|no
+
+|default value
+|no default on the CLI option, Inkscape defaults to 2
+
+|dependencies
+|`target`
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+Sets the PS level for target `ps` conversions.
+Possible values are 2 or 3.
+
+
+=== Dependency on other CLI options
+Only has an effect if `target` is set to `ps`.
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+

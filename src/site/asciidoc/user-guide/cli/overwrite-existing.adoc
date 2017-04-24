@@ -1,0 +1,44 @@
+== overwrite-existing
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|overwrite existing files on output
+
+|supported by
+|all applications
+
+|usage
+|`--overwrite-existing`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|None
+
+|===
+
+
+=== Description
+By default, output file should not exist, i.e. no existing file will be overwritten by an application.
+Using this option will activate the overwrite mode.
+For any output file, an existing file will be overwritten.
+If a file exists and cannot be written, an error will be created and no conversion will take place.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+

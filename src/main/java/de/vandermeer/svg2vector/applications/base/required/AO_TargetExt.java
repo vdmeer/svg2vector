@@ -18,52 +18,37 @@ package de.vandermeer.svg2vector.applications.base.required;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
-import de.vandermeer.execs.options.AO_Target;
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.execs.options.AbstractApplicationOption;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
- * Application option `target` with extended long description.
+ * Application option `target`.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.1
  */
-public class AO_TargetExt extends AO_Target {
+public class AO_TargetExt extends AbstractApplicationOption<String> {
 
 	/** The supported targets of the application. */
 	protected SvgTargets[] supportedTargets;
 
 	/**
 	 * Returns the new option.
-	 * @param required true if option is required, false of it is optional
-	 * @param shortOption character for sort version of the option
-	 * @param longDescription option long description
 	 * @param supportedTargets list of supported targets
-	 * @throws NullPointerException - if description parameter is null
-	 * @throws IllegalArgumentException - if description parameter is empty
+	 * @throws NullPointerException - if supportedTargets is null
+	 * @throws IllegalArgumentException - if supportedTargets has null elements
 	 */
-	public AO_TargetExt(boolean required, Character shortOption, String longDescription, SvgTargets[] supportedTargets){
-		super(required, shortOption, AO_TargetExt.buildLongDescr(longDescription, supportedTargets));
-		this.descr = "specifies a conversion target";
-		this.supportedTargets = supportedTargets;
-	}
+	public AO_TargetExt(SvgTargets[] supportedTargets){
+		super("de/vandermeer/svg2vector/applications/base/required/AO_TargetExt.stg", true);
 
-	/**
-	 * Creates a long description with supported targets.
-	 * @param descr original long description
-	 * @param supportedTargets targets
-	 * @return long description with added list of supported targets
-	 * @throws NullPointerException if argument was null
-	 * @throw IllegalArgumentException if target had null elements
-	 */
-	protected static String buildLongDescr(String descr, SvgTargets[] supportedTargets){
 		Validate.notNull(supportedTargets);
 		Validate.noNullElements(supportedTargets);
+		this.supportedTargets = supportedTargets;
 
 		StrBuilder ret = new StrBuilder();
-		ret.append(descr);
-		ret.append(" Supported targets are: ").appendWithSeparators(supportedTargets, ", ");
-		return ret.toString();
+		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
+		this.setCliArgumentDescription(ret.toString());
 	}
 
 	/**
@@ -72,6 +57,14 @@ public class AO_TargetExt extends AO_Target {
 	 */
 	public SvgTargets[] getSupportedTargets(){
 		return this.supportedTargets;
+	}
+
+	@Override
+	public String convertValue(Object value) {
+		if(value==null){
+			return null;
+		}
+		return value.toString();
 	}
 
 }

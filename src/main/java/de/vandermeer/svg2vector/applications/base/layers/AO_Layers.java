@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -33,12 +31,7 @@ public class AO_Layers extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_Layers(){
-		super("process layers, create one file per layer", "Create one output file (for given target) file per Inkscape layer. Input files without layers will not be processed with this option.");
-
-		Option.Builder builder = Option.builder("l");
-		builder.longOpt("layers");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_Layers.stg", false);
 	}
 
 	@Override

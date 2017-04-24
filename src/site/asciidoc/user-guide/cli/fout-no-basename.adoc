@@ -1,0 +1,52 @@
+== fout-no-basename
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|do not use a basename for output files (in layer mode)
+
+|supported by
+|all applications
+
+|usage
+|`--fout-no-basename`
+
+|required
+|false
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|`layers`
+
+|interactions
+|`use-basename`
+
+|in layers
+|yes (in layer mode only)
+
+|===
+
+
+=== Description
+In layer mode, this option will prevent output filenames from using a basename (either a requested one or the basename of the input file).
+To allow for non-abigious file names, one or more of the following options needs to be used as well: `fout-index`, `fout-isindex`, or `fout-islabel`.
+
+
+
+=== Dependency on other CLI options
+This option only works in layer mode, so only with `layers`.
+
+Without a basename, filenames for output files will be ambigious or all layer files will have the same output filename.
+Thus one or more of the `fout` options needs to be used as well: `fout-index`, `fout-isindex`, and `fout-islabel`.
+
+
+=== Interaction with other CLI options
+If used, `use-basename` will have no effect.
+
+
+=== Supported in Layers
+Yes (in layer mode only)
+

@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.output;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_CreateDirectories extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_CreateDirectories(){
-		super("automatically create directories for output", "With this option, any non-existent directory for output file(s) will automatically be created. Use with care!");
-
-		Option.Builder builder = Option.builder();
-		builder.longOpt("create-directories");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/output/AO_CreateDirectories.stg", false);
 	}
 
 	@Override

@@ -1,0 +1,54 @@
+== print-stack-trace
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|sets a flag to print the stack trace of exceptions
+
+|supported by
+|all applications
+
+|usage
+|`--print-stack-trace`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|`quiet`
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option activates the printing of stack traces in case an exception is catched during the execution of an application.
+The option has only an effect if error messages are activated.
+
+An application will not print the full stack trace but limit any output to packages containing either `vandermeer` or `apache`.
+Exceptions caused by Apache classes are usually validation errors.
+Many methods validate input parameters for instance for not being `null` or lists and arrays for not containing null elements.
+Exceptions caused by classes from `vandermeer` packages will be either validation errors, or processing errors.
+
+
+=== Dependency on other CLI options
+Error messages must be activated, i.e. the option `quiet` not being used.
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+
+

@@ -1,0 +1,91 @@
+== target
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|specifies a conversion target
+
+|supported by
+|all applications
+
+|usage
+|`-t TARGET` or `--target TARGET`
+
+|TARGET
+|the actual target, must be  a supported target (depending on the application)
+
+|required
+|yes
+
+|default value
+|none
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option specifies the conversion target, i.e. the format  to  which  an
+SVG document should be converted to. Most  of  the  supported  targets  are
+vector formats, such as PDF or  EMF.  Some  S2V  application  also  support
+bitmap formats.
+
+The application base defines all target. Each S2V application then  selects
+the targets it can support. Some formats might also  have  format  specific
+options, for instance a PDF version or PS level. Layers are  supported  for
+all targets, but only when converting into individual files per layer.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+Some formats might also have format specific options, for instance a PDF version or PS level.
+
+
+=== Supported in Layers
+Layers are supported for all targets, but only when converting into individual files per layer.
+
+
+=== All defined targets
+* emf - Microsoft's Enhanced Metafile Format as it is widely used in office applications (https://en.wikipedia.org/wiki/Windows_Metafile#Variants[Wikipedia])
+* eps - Encapsulated PostScript (https://en.wikipedia.org/wiki/Encapsulated_PostScript[Wikipedia])
+* pdf - Adobe's Portable Document Format (https://en.wikipedia.org/wiki/Portable_Document_Format[Wikipedia])
+* png - W3C's Portable Network Graphics (https://en.wikipedia.org/wiki/Portable_Network_Graphics[Wikipedia])
+* ps - Adobe's PostScript (https://en.wikipedia.org/wiki/PostScript[Wikipedia])
+* svg - W3C's Scalable Vector Graphics (https://www.w3.org/Graphics/SVG/[W3C], https://en.wikipedia.org/wiki/Scalable_Vector_Graphics[Wikipedia])
+* wmf - Microsoft's Windows Metafile Format for simple graphics (https://en.wikipedia.org/wiki/Windows_Metafile[Wikipedia])
+
+
+=== s2v-fh targets
+This application supports `emf`, `pdf`, and `svg`.
+Using Apache Batik ro read and manipulate SVG documents and the FreeHep graphic libraries for conversions results in a few limitations:
+
+* no Inkscape or sodipodi name spaces are supported
+  ** This can lead to conversions not bein correct.
+     For instance, centered text in Inkscape uses a special name space not recognized by this application.
+* layer management is realized by manipulating Inkscape elements with a particular grouping mode
+
+For non-layer conversions, a simple workaround is to use plain SVG format when saving SVG documents.
+For conversions with layers, use `s2v-is` instead, but this application requires an existing Inkscape installation.
+
+
+=== s2v-is targets
+This application supports all targets.
+Layer management is realized by manipulating Inkscape elements with a particular grouping mode.
+Layer manipulation is done _manually_ parsing a document line-by-line, extracting layer information, and then changing effected lines.
+
+SVG documents can be converted to a temporary SVG format first (using manual layer management, not impacting SVG or Inkscape name spaces) and to the target in a second step.
+This process is more time-consuming, requires temporary files being created, and then executes Inkscape once per temporary file (thus being slower and requireing more computing).
+However, it allows to convert Inkscape files using layers into any target.
+

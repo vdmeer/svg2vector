@@ -1,0 +1,16 @@
+This option will activate the message mode for print progress information.
+If used, an application will print information about the conversion progress.
+This information includes the current state of the process as well as some progress details.
+
+=== Dependency on other CLI options
+
+This option has no effect if `quiet` is used.
+
+=== Interaction with other CLI options
+
+This option is automatically activated if `verbose` is used.
+
+=== Supported in Layers
+
+Yes
+

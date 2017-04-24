@@ -1,0 +1,50 @@
+== ###
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|###
+
+|supported by
+|all applications
+
+|usage
+|`###`
+
+|TARGET
+|###
+
+|required
+|###
+
+|default value
+|###
+
+|dependencies
+|###
+
+|interactions
+|###
+
+|in layers
+|###
+
+|===
+
+
+=== Description
+###
+
+
+=== Dependency on other CLI options
+###
+
+
+=== Interaction with other CLI options
+###
+
+
+=== Supported in Layers
+###
+

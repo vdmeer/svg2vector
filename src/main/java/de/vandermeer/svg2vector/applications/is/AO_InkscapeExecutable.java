@@ -15,7 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import org.apache.commons.cli.Option;
 import org.apache.commons.lang3.SystemUtils;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
@@ -40,37 +39,19 @@ public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
 
 	/**
 	 * Returns the new option.
-	 * @param shortOption character for sort version of the option
-	 * @throws NullPointerException - if description parameter is null
-	 * @throws IllegalArgumentException - if description parameter is empty
 	 */
-	public AO_InkscapeExecutable(Character shortOption){
-		super("path to Inkscape executable",
-				"This option, if used, needs to point to the Inkscape executable. " +
-				"Some default values are set in the following way: " +
-				"first, the environment variable <" + ENV_KEY + "> is tested. If it is not null, it's value is set as default for the option. " +
-				"Next, if the underlying operating system is a Windows system (using Apache SystemUtils), the default value is set to <" + DEFAULT_WINDOWS + ">. " +
-				"Next, if the underlying operating system is a UNIX system (using Apache SystemUtils), the default value is set to <" + DEFAULT_UNIX + ">. " +
-				"In all other cases, no default value will be set." +
-				"\n" +
-				"Using the option in the command line will use the given executable and ignore any default settings."
-		);
-
-		Option.Builder builder = (shortOption==null)?Option.builder():Option.builder(shortOption.toString());
-		builder.longOpt("is-exec");
-		builder.hasArg().argName("PATH");
-		builder.required(false);
-		this.setCliOption(builder.build());
+	public AO_InkscapeExecutable(){
+		super("de/vandermeer/svg2vector/applications/is/AO_InkscapeExecutable.stg", true);
 
 		String env = System.getenv(ENV_KEY);
 		if(env!=null){
 			this.setDefaultValue(env);
 		}
 		else if(SystemUtils.IS_OS_WINDOWS){
-			this.setDefaultValue("C:/Program Files/Inkscape/inkscape.exe");
+			this.setDefaultValue(DEFAULT_WINDOWS);
 		}
 		else if(SystemUtils.IS_OS_UNIX){
-			this.setDefaultValue("/usr/bin/inkscape");
+			this.setDefaultValue(DEFAULT_UNIX);
 		}
 	}
 

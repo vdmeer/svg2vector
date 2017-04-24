@@ -1,0 +1,48 @@
+== text-as-shape
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|convert text as shapes
+
+|supported by
+|all applications
+
+|usage
+|`-s` or `--text-as-shape`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option will switch on the text-as-shape flag.
+This means that in a conversion, if possible, all texts will be converted as shapes and not as text.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+

@@ -1,0 +1,47 @@
+== all-layers
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|switch on all layers
+
+|supported by
+|all applications
+
+|usage
+|`--all-layers`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|no
+
+|===
+
+
+=== Description
+If no layers are processed and a single output file is created, this option can be used to switch on all layers prior to the conversion.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+No, this option is not available in layer mode.
+

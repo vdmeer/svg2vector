@@ -1,0 +1,49 @@
+== keep-tmp-artifacts
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|keep temporary created artifacts (files and directories)
+
+|supported by
+|`s2v-is`
+
+|usage
+|`--keep-tmp-artifacts`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+The application creates temporary artifacts (directory and files).
+With this option, those artifacts will not be removed at the end of the conversion process nor when exceptions are caught.
+This can allow to inspect those artifacts.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+

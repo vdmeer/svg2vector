@@ -29,9 +29,9 @@ import java.util.zip.ZipException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
-import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**
  * Standard SVG document loader, tries GZIP first and plain text next.

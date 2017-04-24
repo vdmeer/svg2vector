@@ -15,7 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.misc;
 
-import de.vandermeer.execs.options.AO_PrintStackTrace;
 import de.vandermeer.execs.options.ApplicationOption;
 
 /**
@@ -31,10 +30,7 @@ public class MiscOptions {
 	final private AO_Simulate aoSimulate = new AO_Simulate();
 
 	/** Application option to print a stack trace if exceptions are caught. */
-	final private AO_PrintStackTrace aoPrintStackTrace = new AO_PrintStackTrace("Print a full stack trace (not just a message and an optional probable cause) on errors triggered by exceptions, for instance any file operation.");
-
-	/** Application option to keep (not remove) temporary created artifacts (files and directories). */
-	final private AO_KeepTmpArtifacts aoKeepTmpArtifacts = new AO_KeepTmpArtifacts();
+	final private AO_PrintStackTraceExt aoPrintStackTrace = new AO_PrintStackTraceExt();
 
 	/** List of application options. */
 	private final ApplicationOption<?>[] options;
@@ -46,7 +42,6 @@ public class MiscOptions {
 		this.options = new ApplicationOption<?>[]{
 			this.aoSimulate,
 			this.aoPrintStackTrace,
-			this.aoKeepTmpArtifacts
 		};
 	}
 
@@ -72,14 +67,6 @@ public class MiscOptions {
 	 */
 	public boolean doesSimulate(){
 		return this.aoSimulate.inCli();
-	}
-
-	/**
-	 * Tests if the application should keep (not remove) temporary artifacts (files and directories).
-	 * @return true if artifacts should be kept, false otherwise
-	 */
-	public boolean doesKeepTempArtifacts(){
-		return this.aoKeepTmpArtifacts.inCli();
 	}
 
 }

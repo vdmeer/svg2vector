@@ -1,0 +1,15 @@
+Sets the PS level for target `ps` conversions.
+Possible values are 2 or 3.
+
+=== Dependency on other CLI options
+
+Only has an effect if `target` is set to `ps`.
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+Yes
+

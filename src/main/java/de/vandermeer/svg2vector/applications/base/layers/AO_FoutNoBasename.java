@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_FoutNoBasename extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_FoutNoBasename(){
-		super("when processing layers, do not use a basename for output files", "If layers are processed, no basename will be used for output files (requires layer index or layer identifier to be activated for valid file names");
-
-		Option.Builder builder = Option.builder();
-		builder.longOpt("fout-no-basename");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_FoutNoBasename.stg", false);
 	}
 
 	@Override

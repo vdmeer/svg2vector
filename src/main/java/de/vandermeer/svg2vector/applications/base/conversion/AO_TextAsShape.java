@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.conversion;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_TextAsShape extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_TextAsShape(){
-		super("text as shape", "switch on text-as-shape property");
-
-		Option.Builder builder = Option.builder("s");
-		builder.longOpt("text-as-shape");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/conversion/AO_TextAsShape.stg", false);
 	}
 
 	@Override

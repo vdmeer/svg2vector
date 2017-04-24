@@ -1,0 +1,15 @@
+In layer mode, any output file will have the Inkscape label of the layer in the filename.
+The label is the name of the label as seen in the Inkscape GUI in the layers menu.
+
+=== Dependency on other CLI options
+
+This option only works in layer mode, so only with `layers`.
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+Yes (in layer mode only)
+

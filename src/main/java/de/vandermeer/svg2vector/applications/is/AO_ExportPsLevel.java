@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * Application option `export-ps-level`.
@@ -28,17 +28,8 @@ public class AO_ExportPsLevel extends IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.
-	 * @param target the target to which this option applies, must not be null
-	 * @param isCli the Inkscape command line option to be used including any leading dashs, must not be blank
-	 * @throws NullPointerException - if any required parameter is null
-	 * @throws IllegalArgumentException - if any required parameter is null
 	 */
-	public AO_ExportPsLevel(SvgTargets target, String isCli){
-		super(
-				target, isCli,
-				"export-ps-level", "LEVEL",
-				"sets the PS level for export (2 or 3)",
-				"The default PS level used for export in Inkscape is 2."
-		);
+	public AO_ExportPsLevel(){
+		super(SvgTargets.ps, "--export-ps-level", "de/vandermeer/svg2vector/applications/is/AO_ExportPsLevel.stg");
 	}
 }

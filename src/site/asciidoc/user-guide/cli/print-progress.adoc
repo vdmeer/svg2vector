@@ -1,0 +1,49 @@
+== print-progress
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|print progress information to stdout
+
+|supported by
+|all applications
+
+|usage
+|`-p` or `--print-progress`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|`quiet`
+
+|interactions
+|`verbose`
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option will activate the message mode for print progress information.
+If used, an application will print information about the conversion progress.
+This information includes the current state of the process as well as some progress details.
+
+
+=== Dependency on other CLI options
+This option has no effect if `quiet` is used.
+
+
+=== Interaction with other CLI options
+This option is automatically activated if `verbose` is used.
+
+
+=== Supported in Layers
+Yes
+

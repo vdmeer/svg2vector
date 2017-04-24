@@ -1,0 +1,49 @@
+== no-errors
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|switch off error messages
+
+|supported by
+|all applications
+
+|usage
+|`--no-errors`
+
+|required
+|no
+
+|default value
+|print errors, unless this option is used in command line
+
+|dependencies
+|`verbose`
+
+|interactions
+|none
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+By default, applications will print error messages to the standard error device.
+With this option, the printing of error messages can be switched off.
+This has no effect error processing or application termination.
+
+
+=== Dependency on other CLI options
+This option has no effect if `verbose` is used.
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+

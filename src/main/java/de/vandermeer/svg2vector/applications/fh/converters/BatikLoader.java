@@ -32,9 +32,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
-import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**
  * Loads an SVG document using Batik and provides some methods to deal with layers.

@@ -1,0 +1,6 @@
+By default, output directories should exist, i.e. no directory will be created by an application.
+Using this option will activate automated directory creation.
+For any output file, all directories in the path will be created if they do not exist already.
+Existing directories will not be changed.
+If automated creation fails, an error will be created and not conversion will take place.
+

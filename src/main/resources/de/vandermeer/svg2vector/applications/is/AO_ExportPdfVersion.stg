@@ -1,0 +1,53 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Description and other functions for AO_MsgDetails.
+ *
+ * @package    de.vandermeer.svg2vector.applications.base.messages
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+shortOption() ::= ""
+longOption() ::= "export-pdf-version"
+argument() ::= "VERSION"
+argumentHelp() ::= "the PDF version, must be an exact version string"
+shortDescription() ::= "set PDF version for export"
+
+longDescription() ::= <<
+
+=== Description
+This option sets the PDF version for a  conversion  to  target  `pdf`.  The
+given value must be a nexact PDF version string as used in the Inkscape PDF
+version selector found in the PDF-export dialog of the GUI, e.g. "PDF  1.4"
+which is PDF-a  conformant.  This  option  does  have  no  default  itself.
+Inkscape defaults the PDF version to 1.5.
+
+
+=== Dependency on other CLI options
+Only has an effect if `target` is set to `pdf`.
+
+
+=== Interaction with  other CLI options
+None
+
+
+=== Supported in Layers
+Yes
+
+>>

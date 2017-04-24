@@ -1,0 +1,5 @@
+By default, output file should not exist, i.e. no existing file will be overwritten by an application.
+Using this option will activate the overwrite mode.
+For any output file, an existing file will be overwritten.
+If a file exists and cannot be written, an error will be created and no conversion will take place.
+

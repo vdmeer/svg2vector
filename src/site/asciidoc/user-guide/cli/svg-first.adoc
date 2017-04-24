@@ -1,0 +1,49 @@
+== svg-first
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|convert to SVG first, then to actual target
+
+|supported by
+|`s2v-is`
+
+|usage
+|`-g` or `--svg-first`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in the command line
+
+|dependencies
+|none
+
+|interactions
+|`keep-tmp-artifacts`
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+Requires the application to convert the input SVG document to an SVG file first and then to the actually required target.
+The intermediate SVG file will be created as a temporary file in a temporary directory.
+This file will be removed when the application finishes, unless `keep-tmp-artifacts` is used.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with other CLI options
+If `keep-tmp-artifacts` the created temporary file (and the containing directory) will not be removed when the application finishes.
+
+
+=== Supported in Layers
+Yes
+

@@ -1,0 +1,43 @@
+== create-directories
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|automatically create directories for output
+
+|supported by
+|all applications
+
+|usage
+|`--create-directories`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|none
+
+|interactions
+|None
+
+|===
+
+
+=== Description
+By default, output directories should exist, i.e. no directory will be created by an application.
+Using this option will activate automated directory creation.
+For any output file, all directories in the path will be created if they do not exist already.
+Existing directories will not be changed.
+If automated creation fails, an error will be created and not conversion will take place.
+
+=== Dependency on other CLI options
+None
+
+=== Interaction with other CLI options
+None
+
+

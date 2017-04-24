@@ -1,0 +1,52 @@
+== input-file
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|specifies the input file (path and filename)
+
+|supported by
+|all applications
+
+|usage
+|`-f FILE` or `--input-file FILE`
+
+|FILE
+|a valid SVG document either GZIP compressed or plain text file
+
+|required
+|yes
+
+|default value
+|none
+
+|dependencies
+|none
+
+|interactions
+|some output options
+
+|===
+
+
+=== Description
+This option specifies the input file.
+The file must be a valid SVG document.
+It can be plain text or GZIP compressed.
+An application will try GZIP first and if that fails read the file as a plain text file.
+Depending on the application the SVG document can be plain SVG (as in standard W3C SVG) or Inkscape SVG (as in using Inkscape and sodipodi name spaces).
+
+The input file will never be changed by any application.
+Reuqested manipulations, such as swithcing on layers or processing layers individually, are realized in memory.
+Any action that requires writing an SVG file (other than target `svg`) will write temporary files in a temporary directory.
+
+
+=== Dependency on other CLI options
+None
+
+=== Interaction with other CLI options
+The path and the basename of the input file might be used to specify an output directory and output filename(s).
+For instance, if no output option is used and no layers are processed, the output file will be in the same directory as the input file, using the same basename thus only differ in the file extension.
+
+

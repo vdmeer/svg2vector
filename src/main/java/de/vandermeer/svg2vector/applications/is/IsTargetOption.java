@@ -15,12 +15,10 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import org.apache.commons.cli.Option;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.execs.options.AbstractApplicationOption;
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * An Inkscape target option.
@@ -41,26 +39,12 @@ public abstract class IsTargetOption extends AbstractApplicationOption<String> {
 	 * Returns the new option as not required and without a short option.
 	 * @param target the target to which this option applies, must not be null
 	 * @param isCli the Inkscape command line option to be used including any leading dashs, must not be blank
-	 * @param longOption the long option, must not be blank
-	 * @param argument the argument, no argument added if blank
-	 * @param description the short description, must not be blank
-	 * @param longDescription the long description, must not be blank
-	 * @throws NullPointerException - if any required parameter is null
-	 * @throws IllegalArgumentException - if any required parameter is null
+	 * @param stgFile STG file name for all other options
 	 */
-	public IsTargetOption(SvgTargets target, String isCli, String longOption, String argument, String description, String longDescription){
-		super(description, longDescription);
+	public IsTargetOption(SvgTargets target, String isCli, String stgFile){
+		super(stgFile, false);
 		Validate.notNull(target);
 		Validate.notBlank(isCli);
-		Validate.notBlank(longOption);
-
-		final Option.Builder builder = Option.builder();
-		builder.longOpt(longOption);
-		if(!StringUtils.isBlank(argument)){
-			builder.hasArg().argName(argument);
-		}
-		builder.required(false);
-		this.setCliOption(builder.build());
 
 		this.target = target;
 		this.isCli = isCli;

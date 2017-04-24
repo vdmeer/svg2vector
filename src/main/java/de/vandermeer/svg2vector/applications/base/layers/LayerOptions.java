@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Application options for processing Inkscpe layers.

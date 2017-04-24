@@ -1,0 +1,14 @@
+If no layers are processed and a single output file is created, this option can be used to switch on all layers prior to the conversion.
+
+=== Dependency on other CLI options
+
+None
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+No, this option is not available in layer mode.
+

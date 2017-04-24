@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.misc;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_Simulate extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_Simulate(){
-		super("simulate application, no file output", "This option puts the application into simulation mode. All actions will be done as normal, except no directories will be created and no file will be created or written. This includes temporary directories. Use this option with detailed messaging to see what would happen for a given application run.");
-
-		Option.Builder builder = Option.builder("S");
-		builder.longOpt("simulate");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/misc/AO_Simulate.stg", false);
 	}
 
 	@Override

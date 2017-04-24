@@ -23,6 +23,8 @@ import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.vandermeer.svg2vector.Svg2Vector_IS;
+
 /**
  * Simple tests for {@link Svg2Vector_IS}.
  *
@@ -33,13 +35,13 @@ import org.junit.Test;
 public class Test_Svg2Vector_IS {
 
 	/** Prefix for tests that create output. */
-	static String OUT_DIR_PREFIX = "target/output-tests/s2v-is/";
+	public static String OUT_DIR_PREFIX = "target/output-tests/s2v-is/";
 
 	/** Prefix for tests that create output. */
-	static String FAKE_EXEC = OUT_DIR_PREFIX + "fake-is-exec";
+	public static String FAKE_EXEC = OUT_DIR_PREFIX + "fake-is-exec";
 
 	/** Standard CLI options for tests. */
-	static String[] STD_OPTIONS = new String[]{
+	public static String[] STD_OPTIONS = new String[]{
 			"--create-directories", "--overwrite-existing", "--all-layers", "-q",
 			"-x", FAKE_EXEC,
 //			"-x", "C:/Program Files/Inkscape/inkscape.exe",
@@ -100,4 +102,13 @@ public class Test_Svg2Vector_IS {
 		assertEquals(1, app.executeApplication(args));
 	}
 
+	@Test
+	public void test_HelpWithStg(){
+		Svg2Vector_IS app = new Svg2Vector_IS();
+		String[] args = new String[]{
+				"--help",
+				"x"
+		};
+		assertEquals(1, app.executeApplication(args));
+	}
 }

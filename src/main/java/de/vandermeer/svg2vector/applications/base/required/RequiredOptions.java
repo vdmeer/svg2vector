@@ -22,12 +22,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
-import de.vandermeer.execs.options.AO_FileIn;
 import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
-import de.vandermeer.svg2vector.applications.base.SV_DocumentLoader;
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * Required application options.
@@ -39,7 +38,7 @@ import de.vandermeer.svg2vector.applications.base.SvgTargets;
 public final class RequiredOptions {
 
 	/** Application option for input file. */
-	private final AO_FileIn aoFileIn = new AO_FileIn(true, 'f', "input file <file>, must be a valid SVG file, can be compressed SVG (svgz)");
+	private final AO_FileInExt aoFileIn = new AO_FileInExt();
 
 	/** Application option for target. */
 	private final AO_TargetExt aoTarget;
@@ -59,7 +58,7 @@ public final class RequiredOptions {
 	 */
 	public RequiredOptions(SvgTargets[] supportedTargets){
 		Validate.noNullElements(supportedTargets);
-		this.aoTarget = new AO_TargetExt(true, 't', "target for the conversion", supportedTargets);
+		this.aoTarget = new AO_TargetExt(supportedTargets);
 
 		this.options = new ApplicationOption<?>[]{
 			this.aoFileIn,

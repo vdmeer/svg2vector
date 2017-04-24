@@ -29,8 +29,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 
 /**
@@ -63,7 +64,7 @@ public class Test_AppBase {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
-		assertEquals(24, testApp.getAppOptions().length);
+		assertEquals(23, testApp.getAppOptions().length);
 	}
 
 	@Test

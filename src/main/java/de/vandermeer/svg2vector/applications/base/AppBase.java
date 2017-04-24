@@ -25,13 +25,15 @@ import org.apache.commons.lang3.Validate;
 import de.vandermeer.execs.ExecS_Application;
 import de.vandermeer.execs.options.ApplicationOption;
 import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.S2VExeception;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
 import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
 import de.vandermeer.svg2vector.applications.base.messages.MessageOptions;
 import de.vandermeer.svg2vector.applications.base.misc.MiscOptions;
 import de.vandermeer.svg2vector.applications.base.output.OutputOptions;
 import de.vandermeer.svg2vector.applications.base.required.RequiredOptions;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * Abstract base class for Svg2Vector applications.
@@ -100,6 +102,14 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 		this.addAllOptions(this.outputOptions.getOptions());
 	}
 
+	private void addAllOptions(ApplicationOption<?>[] options){
+		if(options!=null){
+			for(ApplicationOption<?> opt : options){
+				this.addOption(opt);
+			}
+		}
+	}
+
 	/**
 	 * Adds a new option to CLI parser and option list.
 	 * @param option new option, ignored if null
@@ -111,18 +121,133 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 		}
 	}
 
-	private void addAllOptions(ApplicationOption<?>[] options){
-		if(options!=null){
-			for(ApplicationOption<?> opt : options){
-				this.addOption(opt);
-			}
-		}
+	/**
+	 * Tests if the properties are set to process layers.
+	 * @return true if set to process layers (layer and output options do layers), false otherwise
+	 */
+	public boolean doesLayers(){
+		return this.layerOptions.doLayers() && this.outputOptions.doLayers();
 	}
 
 	@Override
 	public int executeApplication(String[] args){
 		// parse command line, exit with help screen if error
 		return ExecS_Application.super.executeApplication(args);
+	}
+
+	/**
+	 * Returns an output file name using the set output file name and given options without file extension.
+	 * @param index an index, ignored if smaller than 1
+	 * @param entry an entry, ignored if null
+	 * @return the output file name
+	 * @throws S2VExeception in case the resulting file name was not valid
+	 */
+	public String fopFileOnly(int index, Entry<String, Integer> entry) throws S2VExeception{
+		return this.outputOptions.getPattern().generateName(
+				null,
+				this.outputOptions.getFile(),
+				null,
+				index,
+				entry
+		).toString();
+	}
+
+	/**
+	 * Returns an output file name using the settings for the OutputOptions.
+	 * @return the output file name
+	 * @throws S2VExeception in case the resulting file name was not valid
+	 */
+	public String fopOO() throws S2VExeception{
+		return this.outputOptions.getPattern().generateName(
+				this.outputOptions.getDirectory(),
+				this.outputOptions.getFile(),
+				this.outputOptions.getFileExtension(),
+				-1,
+				null
+		).toString();
+	}
+
+	/**
+	 * Returns an output file name using the settings for the OutputOptions.
+	 * @param index an index, ignored if smaller than 1
+	 * @param entry an entry, ignored if null
+	 * @return the output file name
+	 * @throws S2VExeception in case the resulting file name was not valid
+	 */
+	public String fopOO(int index, Entry<String, Integer> entry) throws S2VExeception{
+		return this.outputOptions.getPattern().generateName(
+				this.outputOptions.getDirectory(),
+				this.outputOptions.getFile(),
+				this.outputOptions.getFileExtension(),
+				index,
+				entry
+		).toString();
+	}
+
+	/**
+	 * Returns an output file name using the settings for the OutputOptions.
+	 * @oaram filename file name to be used
+	 * @return the output file name
+	 * @throws S2VExeception in case the resulting file name was not valid
+	 */
+	public String fopOO(Path filename) throws S2VExeception{
+		return this.outputOptions.getPattern().generateName(
+				this.outputOptions.getDirectory(),
+				filename,
+				this.outputOptions.getFileExtension(),
+				-1,
+				null
+		).toString();
+	}
+
+	@Override
+	public ApplicationOption<?>[] getAppOptions() {
+		return this.options.toArray(new ApplicationOption<?>[]{});
+	}
+
+	@Override
+	public ExecS_CliParser getCli() {
+		return this.cli;
+	}
+
+	/**
+	 * Returns the conversion options.
+	 * @return conversion options
+	 */
+	public ConversionOptions getConversionOptions(){
+		return this.conversionOptions;
+	}
+
+	/**
+	 * Returns the document loader.
+	 * @return the document loader
+	 */
+	public L getLoader(){
+		return this.loader;
+	}
+
+	/**
+	 * Returns the miscellaneous options.
+	 * @return miscellaneous options
+	 */
+	public MiscOptions getMiscOptions(){
+		return this.miscOptions;
+	}
+
+	/**
+	 * Returns the required options.
+	 * @return required options
+	 */
+	public RequiredOptions getRequiredOptions(){
+		return this.requiredOptions;
+	}
+
+	/**
+	 * Returns the set target.
+	 * @return target, null if not set
+	 */
+	public SvgTargets getTarget(){
+		return this.requiredOptions.getTarget();
 	}
 
 	/**
@@ -185,30 +310,12 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 		}
 	}
 
-	@Override
-	public ApplicationOption<?>[] getAppOptions() {
-		return this.options.toArray(new ApplicationOption<?>[]{});
-	}
-
-	@Override
-	public ExecS_CliParser getCli() {
-		return this.cli;
-	}
-
 	/**
 	 * Prints a detail message if activated in mode
 	 * @param msg the detail message, not printed if null
 	 */
 	public void printDetailMessage(String msg){
 		this.printMessage(msg, MessageOptions.OPTION_DEAILS);
-	}
-
-	/**
-	 * Prints a error message if activated in mode
-	 * @param err the error message, not printed if null
-	 */
-	public void printErrorMessage(String err){
-		this.printMessage(err, MessageOptions.OPTION_ERROR);
 	}
 
 	/**
@@ -234,6 +341,14 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 				}
 			}
 		}
+	}
+
+	/**
+	 * Prints a error message if activated in mode
+	 * @param err the error message, not printed if null
+	 */
+	public void printErrorMessage(String err){
+		this.printMessage(err, MessageOptions.OPTION_ERROR);
 	}
 
 	/**
@@ -293,116 +408,8 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 		}
 	}
 
-	/**
-	 * Returns the miscellaneous options.
-	 * @return miscellaneous options
-	 */
-	public MiscOptions getMiscOptions(){
-		return this.miscOptions;
-	}
-
-	/**
-	 * Returns the conversion options.
-	 * @return conversion options
-	 */
-	public ConversionOptions getConversionOptions(){
-		return this.conversionOptions;
-	}
-
-	/**
-	 * Returns the required options.
-	 * @return required options
-	 */
-	public RequiredOptions getRequiredOptions(){
-		return this.requiredOptions;
-	}
-
-	/**
-	 * Returns the document loader.
-	 * @return the document loader
-	 */
-	public L getLoader(){
-		return this.loader;
-	}
-
-	/**
-	 * Tests if the properties are set to process layers.
-	 * @return true if set to process layers (layer and output options do layers), false otherwise
-	 */
-	public boolean doesLayers(){
-		return this.layerOptions.doLayers() && this.outputOptions.doLayers();
-	}
-
-	/**
-	 * Returns the set target.
-	 * @return target, null if not set
-	 */
-	public SvgTargets getTarget(){
-		return this.requiredOptions.getTarget();
-	}
-
-	/**
-	 * Returns an output file name using the set output file name and given options without file extension.
-	 * @param index an index, ignored if smaller than 1
-	 * @param entry an entry, ignored if null
-	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
-	 */
-	public String fopFileOnly(int index, Entry<String, Integer> entry) throws S2VExeception{
-		return this.outputOptions.getPattern().generateName(
-				null,
-				this.outputOptions.getFile(),
-				null,
-				index,
-				entry
-		).toString();
-	}
-
-	/**
-	 * Returns an output file name using the settings for the OutputOptions.
-	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
-	 */
-	public String fopOO() throws S2VExeception{
-		return this.outputOptions.getPattern().generateName(
-				this.outputOptions.getDirectory(),
-				this.outputOptions.getFile(),
-				this.outputOptions.getFileExtension(),
-				-1,
-				null
-		).toString();
-	}
-
-	/**
-	 * Returns an output file name using the settings for the OutputOptions.
-	 * @oaram filename file name to be used
-	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
-	 */
-	public String fopOO(Path filename) throws S2VExeception{
-		return this.outputOptions.getPattern().generateName(
-				this.outputOptions.getDirectory(),
-				filename,
-				this.outputOptions.getFileExtension(),
-				-1,
-				null
-		).toString();
-	}
-
-	/**
-	 * Returns an output file name using the settings for the OutputOptions.
-	 * @param index an index, ignored if smaller than 1
-	 * @param entry an entry, ignored if null
-	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
-	 */
-	public String fopOO(int index, Entry<String, Integer> entry) throws S2VExeception{
-		return this.outputOptions.getPattern().generateName(
-				this.outputOptions.getDirectory(),
-				this.outputOptions.getFile(),
-				this.outputOptions.getFileExtension(),
-				index,
-				entry
-		).toString();
+	@Override
+	public boolean useShortHelp(){
+		return true;
 	}
 }

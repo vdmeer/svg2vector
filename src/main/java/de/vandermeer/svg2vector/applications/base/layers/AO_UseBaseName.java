@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,13 +30,7 @@ public class AO_UseBaseName extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_UseBaseName(){
-		super("use specified base name for output", "When processing layers, use the given base name for created output files.");
-
-		Option.Builder builder = Option.builder();
-		builder.longOpt("use-basename");
-		builder.hasArg().argName("BASENAME");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg", false);
 	}
 
 	@Override

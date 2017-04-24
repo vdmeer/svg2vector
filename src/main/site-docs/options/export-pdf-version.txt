@@ -1,0 +1,17 @@
+This option sets the PDF version for a conversion to target `pdf`.
+The given value must be a nexact PDF version string as used in the Inkscape PDF version selector found in the PDF-export dialog of the GUI, e.g. "PDF 1.4" which is PDF-a conformant.
+This option does have no default itself.
+Inkscape defaults the PDF version to 1.5.
+
+=== Dependency on other CLI options
+
+Only has an effect if `target` is set to `pdf`.
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+Yes
+

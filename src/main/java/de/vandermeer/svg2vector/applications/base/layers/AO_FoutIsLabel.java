@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,15 +30,7 @@ public class AO_FoutIsLabel extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_FoutIsLabel(){
-		super(
-				"use Inkscape label in output file names",
-				"If layers are processed, the output file name will use the Inkscape label."
-		);
-
-		Option.Builder builder = Option.builder("B");
-		builder.longOpt("fout-islabel");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsLabel.stg", false);
 	}
 
 	@Override

@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_LayersIfExist extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_LayersIfExist(){
-		super("process layers if if input file has layers, create one file per layer", "Create one output file (for given target) file per Inkscape layer. Input files without layers will be processed normally. This option might result in the input file being openend and read more than once.");
-
-		Option.Builder builder = Option.builder("L");
-		builder.longOpt("layers-if-exist");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_LayersIfExist.stg", false);
 	}
 
 	@Override

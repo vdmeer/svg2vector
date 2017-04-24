@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_NoErrors extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_NoErrors(){
-		super("switch off error messages", "This option will switch off all error messages.");
-
-		Option.Builder builder = Option.builder();
-		builder.longOpt("no-errors");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg", false);
 	}
 
 	@Override

@@ -1,0 +1,49 @@
+== fout-isindex
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|use the Inkscape layer index in output file name
+
+|supported by
+|all applications
+
+|usage
+|`-I` or `--fout-isindex`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in command line
+
+|dependencies
+|`layers`
+
+|interactions
+|none
+
+|in layers
+|yes (in layer mode only)
+
+|===
+
+
+=== Description
+In layer mode, any output file will have the Inkscape layer index in the filename.
+This index is generated from the field `id`, which in Inkscape starts with the term `layer` followed by an integer.
+This integer can but does not have to be continuous (this depends on layers being added, deleted, and moved).
+
+
+=== Dependency on other CLI options
+This option only works in layer mode, so only with `layers`.
+
+
+=== Interaction with other CLI options
+None
+
+
+=== Supported in Layers
+Yes (in layer mode only)
+

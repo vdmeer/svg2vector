@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_SwitchOnLayers extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_SwitchOnLayers(){
-		super("switch on all layers", "If no layers are processed and a single output file is created, this option can be used to switch on all layers prior to the conversion.");
-
-		Option.Builder builder = Option.builder();
-		builder.longOpt("all-layers");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_SwitchOnLayers.stg", false);
 	}
 
 	@Override

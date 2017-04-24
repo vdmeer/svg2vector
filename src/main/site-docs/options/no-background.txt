@@ -1,0 +1,14 @@
+This option will switch off background for conversions.
+
+=== Dependency on other CLI options
+
+None
+
+=== Interaction with other CLI options
+
+If used, `bgrnd-color` will have no effect.
+
+=== Supported in Layers
+
+Yes
+

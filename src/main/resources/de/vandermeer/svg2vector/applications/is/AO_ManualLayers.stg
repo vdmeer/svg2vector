@@ -1,0 +1,61 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Description and other functions for AO_MsgDetails.
+ *
+ * @package    de.vandermeer.svg2vector.applications.base.messages
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+shortOption() ::= "m"
+longOption() ::= "manual-layers"
+argument() ::= ""
+argumentHelp() ::= ""
+shortDescription() ::= "manage layers manually when in layer mode and creating SVG temporary files first"
+
+longDescription() ::= <<
+
+=== Description
+###
+
+
+=== Dependency on other CLI options
+This option will activate manual Inkscape layer handling when in layer mode
+and when temporary SVG artifacts  are  produced.  Manual  layer  management
+means that the Inkscape SVG document is manipulated line-by-line in  memory
+rather than using any existing SVG or XML library or Inkscape directly.
+
+If not used in the command line, layer management will be done by  Inkscape
+using the Inkscape CLI options `-j` to export a specific  identifier,  `-i`
+to name the identifier, and `--select` for identifier  selection.  Inkscape
+will perform as expected for  targets  such  as  `pdf`,  `png`,  and  `ps`.
+However, for the target `emf` the export area (clipping) will  not  be  the
+page but the actual objects in the layer.
+
+
+=== Interaction with  other CLI options
+If the `target` is set to `emf`, this option  is  currently  the  only  way
+within the given applications to correctly transform Inkscape  name  spaces
+to an EMF graphic.
+
+
+=== Supported in Layers
+Yes
+
+>>

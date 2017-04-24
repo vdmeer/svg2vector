@@ -1,0 +1,60 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Description and other functions for AO_MsgDetails.
+ *
+ * @package    de.vandermeer.svg2vector.applications.base.messages
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+shortOption() ::= "o"
+longOption() ::= "output-file"
+argument() ::= "FILE"
+argumentHelp() ::= "specifies the input file (path and filename)"
+shortDescription() ::= "output filename, default is the basename of the input file plus target extension"
+
+longDescription() ::= <<
+
+=== Description
+This option sets the output filename. The argument may contain a path using
+the system's path separator or '/'. The option is only used when no  layers
+are processed, otherwise it will be ignored.
+
+The filename (i.e. all path elements removed)  may  contain  any  character
+that the underlying operating system supports. It  can  also  contain  dots
+`.`.
+
+
+=== Dependency on other CLI options
+The default value, when the option is not used in the command line, is  the
+directory and basename of the input file name plus the file  extension  for
+the  required  target.  For  instance,  if   the   input   file   name   is
+`mydir/foo/bla.svg`  the  output  filename  for  a  `pdf`  target  will  be
+`mydir/foo/bla.pdf`.
+
+
+=== Interaction with  other CLI options
+The output directory can be changed using the option `output-directory`.
+
+
+=== Supported in Layers
+No, the option is not used when layers are processed.  A  warning  will  be
+created instead and the option will be ignored.
+
+>>

@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
+import de.vandermeer.svg2vector.Svg2Vector_FH;
+
 /**
  * Tests for {@link Svg2Vector_FH} with PDF conversion.
  *

@@ -1,0 +1,50 @@
+== use-basename
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|use the specified basename for output files
+
+|supported by
+|all applications
+
+|usage
+|`--use-basename BASENAME`
+
+|BASENAME
+|a basename to be used for output files
+
+|required
+|no
+
+|default value
+|none
+
+|dependencies
+|`layers`
+
+|interactions
+|`fout-no-basename`
+
+|in layers
+|yes (layer mode only)
+
+|===
+
+
+=== Description
+In layer mode, this option will change the basename for output files to the given basename.
+
+
+=== Dependency on other CLI options
+This option only works in layer mode, so only with `layers`.
+
+
+=== Interaction with other CLI options
+This option has no effect if `fout-no-basename` is used.
+
+
+=== Supported in Layers
+Yes (layer mode only)
+

@@ -24,12 +24,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
-import de.vandermeer.execs.options.AO_DirectoryOut;
-import de.vandermeer.execs.options.AO_FileOut;
 import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.svg2vector.ErrorCodes;
-import de.vandermeer.svg2vector.S2VExeception;
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * Application output options.
@@ -47,10 +45,10 @@ public final class OutputOptions {
 	};
 
 	/** Application option for output file. */
-	final private AO_FileOut aoFileOut = new AO_FileOut(false, 'o', "output file name, default is the basename of the input file plus target extension");
+	final private AO_FileOutExt aoFileOut = new AO_FileOutExt();
 
 	/** Application option for output directory. */
-	final private AO_DirectoryOut aoDirOut = new AO_DirectoryOut(false, 'd', "output directory, default value is the current directory");
+	final private AO_DirectoryOutExt aoDirOut = new AO_DirectoryOutExt();
 
 	/** Application option to automatically create output directories. */
 	final private AO_CreateDirectories aoCreateDirs = new AO_CreateDirectories();
@@ -141,6 +139,14 @@ public final class OutputOptions {
 	 */
 	public final ApplicationOption<?>[] getOptions(){
 		return this.options;
+	}
+
+	/**
+	 * Returns the output pattern.
+	 * @return output pattern
+	 */
+	public OutputPattern getPattern(){
+		return this.pattern;
 	}
 
 	/**
@@ -248,7 +254,7 @@ public final class OutputOptions {
 				String fn = StringUtils.replaceEach(inFilename, EXTENSION_REMOVALS, new String[]{"", ""});
 				file = FileSystems.getDefault().getPath(fn);
 			}
-			// file is set, no a given output directory overwrites the directory set
+			// file is set, now a given output directory overwrites the directory set
 			if(this.aoDirOut.inCli()){
 				Path ao = FileSystems.getDefault().getPath(this.aoDirOut.getCliValue());
 				this.testPath(ao, false);
@@ -411,13 +417,5 @@ public final class OutputOptions {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Returns the output pattern.
-	 * @return output pattern
-	 */
-	public OutputPattern getPattern(){
-		return this.pattern;
 	}
 }

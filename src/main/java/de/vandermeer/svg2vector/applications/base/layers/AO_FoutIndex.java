@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,17 +30,7 @@ public class AO_FoutIndex extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_FoutIndex(){
-		super(
-				"use a continuous index in output file name",
-				"If layers are processed, the output file name will use a continuous index." +
-				" The index is generated from the position of the layer in the SVG document." +
-				" The first layer has index 1, the second index 2, etc."
-		);
-
-		Option.Builder builder = Option.builder("i");
-		builder.longOpt("fout-index");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIndex.stg", false);
 	}
 
 	@Override

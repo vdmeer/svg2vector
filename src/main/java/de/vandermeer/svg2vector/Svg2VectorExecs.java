@@ -16,8 +16,6 @@
 package de.vandermeer.svg2vector;
 
 import de.vandermeer.execs.ExecS;
-import de.vandermeer.svg2vector.applications.fh.Svg2Vector_FH;
-import de.vandermeer.svg2vector.applications.is.Svg2Vector_IS;
 
 /**
  * An ExecS class for the tool.

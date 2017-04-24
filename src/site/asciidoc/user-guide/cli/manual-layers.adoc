@@ -1,0 +1,53 @@
+== manual-layers
+
+[role="table table-striped", frame=topbot, grid=rows, cols="2,8"]
+|===
+
+|description
+|manage layers manually when in layer mode and creating SVG temporary files first
+
+|supported by
+|`s2v-is`
+
+|usage
+|`-m` or `--manual-layers`
+
+|required
+|no
+
+|default value
+|false, i.e. not used in the command line
+
+|dependencies
+|`svg-first`, `layers`, `layers-if-exist`
+
+|interactions
+|`target` when set to `emf`
+
+|in layers
+|yes
+
+|===
+
+
+=== Description
+This option will activate manual Inkscape layer handling when in layer mode and when temporary SVG artifacts are produced.
+Manual layer management means that the Inkscape SVG document is manipulated line-by-line in memory rather than using any existing SVG or XML library or Inkscape directly.
+
+If not used in the command line, layer management will be done by Inkscape using the Inkscape CLI options `-j` to export a specific identifier, `-i` to name the identifier, and `--select` for identifier selection.
+Inkscape will perform as expected for targets such as `pdf`, `png`, and `ps`.
+However, for the target `emf` the export area (clipping) will not be the page but the actual objects in the layer.
+
+
+=== Dependency on other CLI options
+This option has an effect only when in layer mode and when `svg-first` is activated.
+Layer mode requires `layers` or `layers-if-exist` and an Inkscape SVG document with layers.
+
+
+=== Interaction with other CLI options
+If the `target` is set to `emf`, this option is currently the only way within the given applications to correctly transform Inkscape name spaces to an EMF graphic.
+
+
+=== Supported in Layers
+Yes
+

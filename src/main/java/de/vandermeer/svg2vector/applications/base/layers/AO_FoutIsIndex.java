@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,15 +30,7 @@ public class AO_FoutIsIndex extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_FoutIsIndex(){
-		super(
-				"use the Inkscape layer index in output file name",
-				"If layers are processed, the output file name will use an index generated from the Inkscape layer name."
-		);
-
-		Option.Builder builder = Option.builder("I");
-		builder.longOpt("fout-isindex");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg", false);
 	}
 
 	@Override

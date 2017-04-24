@@ -24,22 +24,50 @@
         <menu name="SVG2Vector">
         	<item href="index.html" name="Introduction" />
             <item href="features.html" name="Features" />
-            <item href="concepts.html" name="Concepts">
-<!--
-                <item href="concepts/01-application.html" name="Application" />
-                <item href="concepts/02-input.html" name="Input" />
-                <item href="concepts/03-target.html" name="Target" />
-                <item href="concepts/04-conversion-options.html" name="Conversion Options" />
-                <item href="concepts/05-report-options.html" name="Report Options" />
--->
-            </item>
+            <item href="concepts.html" name="Concepts" />
             <item href="installation.html" name="Installation" />
             <item href="short-user-guide.html" name="Short User Guide" />
             <item href="cli.html" name="Command Line Interface" />
             <item href="error-codes.html" name="Error Codes" />
-<!--
-            <item name="User Guide" />
- -->
+
+            <item href="user-guide.html" name="User Guide">
+                <item href="user-guide/cli-arguments.html" name="CLI Arguments">
+                    <item href="user-guide/cli/all-layers.html" name="all-layers" />
+                    <item href="user-guide/cli/bgrnd-color.html" name="bgrnd-color" />
+                    <item href="user-guide/cli/create-directories.html" name="create-directories" />
+                    <item href="user-guide/cli/export-dpi.html" name="export-dpi" />
+                    <item href="user-guide/cli/export-pdf-version.html" name="export-pdf-version" />
+                    <item href="user-guide/cli/export-ps-level.html" name="export-ps-level" />
+                    <item href="user-guide/cli/fout-index.html" name="fout-index" />
+                    <item href="user-guide/cli/fout-isindex.html" name="fout-isindex" />
+                    <item href="user-guide/cli/fout-islabel.html" name="fout-islabel" />
+                    <item href="user-guide/cli/fout-no-basename.html" name="fout-no-basename" />
+                    <item href="user-guide/cli/input-file.html" name="input-file" />
+                    <item href="user-guide/cli/no-background.html" name="no-background" />
+                    <item href="user-guide/cli/no-errors.html" name="no-errors" />
+                    <item href="user-guide/cli/not-transparent.html" name="not-transparent" />
+                    <item href="user-guide/cli/is-exec.html" name="is-exec" />
+                    <item href="user-guide/cli/keep-tmp-artifacts.html" name="keep-tmp-artifacts" />
+                    <item href="user-guide/cli/layers-if-exist.html" name="layers-if-exist" />
+                    <item href="user-guide/cli/layers.html" name="layers" />
+                    <item href="user-guide/cli/manual-layers.html" name="manual-layers" />
+                    <item href="user-guide/cli/output-directory.html" name="output-directory" />
+                    <item href="user-guide/cli/output-file.html" name="output-file" />
+                    <item href="user-guide/cli/overwrite-existing.html" name="overwrite-existing" />
+                    <item href="user-guide/cli/print-details.html" name="print-details" />
+                    <item href="user-guide/cli/print-progress.html" name="print-progress" />
+                    <item href="user-guide/cli/print-stack-trace.html" name="print-stack-trace" />
+                    <item href="user-guide/cli/print-warnings.html" name="print-warnings" />
+                    <item href="user-guide/cli/quiet.html" name="quiet" />
+                    <item href="user-guide/cli/simulate.html" name="simulate" />
+                    <item href="user-guide/cli/svg-first.html" name="svg-first" />
+                    <item href="user-guide/cli/target.html" name="target" />
+                    <item href="user-guide/cli/text-as-shape.html" name="text-as-shape" />
+                    <item href="user-guide/cli/use-basename.html" name="use-basename" />
+                    <item href="user-guide/cli/verbose.html" name="verbose" />
+                </item>
+            </item>
+
             <item href="resources.html" name="Resources" />
             <item href="apidocs/index.html" name="JAVA API Doc" />
             <item href="changelog.html" name="Change Log" />

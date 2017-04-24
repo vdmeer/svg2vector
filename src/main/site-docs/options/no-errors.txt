@@ -1,0 +1,16 @@
+By default, applications will print error messages to the standard error device.
+With this option, the printing of error messages can be switched off.
+This has no effect error processing or application termination.
+
+=== Dependency on other CLI options
+
+This option has no effect if `verbose` is used.
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+Yes
+

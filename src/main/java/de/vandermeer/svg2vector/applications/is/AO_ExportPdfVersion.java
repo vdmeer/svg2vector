@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import de.vandermeer.svg2vector.applications.base.SvgTargets;
+import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
  * Application option `export-pdf-version`.
@@ -28,17 +28,8 @@ public class AO_ExportPdfVersion extends IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.
-	 * @param target the target to which this option applies, must not be null
-	 * @param isCli the Inkscape command line option to be used including any leading dashes, must not be blank
-	 * @throws NullPointerException - if any required parameter is null
-	 * @throws IllegalArgumentException - if any required parameter is null
 	 */
-	public AO_ExportPdfVersion(SvgTargets target, String isCli){
-		super(
-				target, isCli,
-				"export-pdf-version", "VERSION",
-				"set PDf version for export",
-				"Make sure to input the exact string found in the PDF export dialog, e.g. \"PDF 1.4\" which is PDF-a conformant."
-		);
+	public AO_ExportPdfVersion(){
+		super(SvgTargets.pdf, "--export-pdf-version", "de/vandermeer/svg2vector/applications/is/AO_ExportPdfVersion.stg");
 	}
 }

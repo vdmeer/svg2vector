@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import de.vandermeer.execs.options.AO_Quiet;
-import de.vandermeer.execs.options.AO_Verbose;
 import de.vandermeer.execs.options.ApplicationOption;
 
 /**
@@ -47,16 +45,16 @@ public final class MessageOptions {
 	public final static int OPTION_VERBOSE = OPTION_ERROR | OPTION_WARNING | OPTION_PROGRESS | OPTION_DEAILS;
 
 	/** Application option for verbose mode. */
-	private final AO_Verbose optVerbose = new AO_Verbose('v');
+	private final AO_VerboseExt optVerbose = new AO_VerboseExt();
 
 	/** Application option for quiet mode. */
-	private final AO_Quiet optQuiet = new AO_Quiet("appliction will be absolutely quiet, no output to sterr or stout.");
+	private final AO_QuietExt optQuiet = new AO_QuietExt();
 
 	/** Application option for printing progress information. */
 	private final AO_MsgProgress optMsgProgress = new AO_MsgProgress();
 
 	/** Application option for printing warning messages. */
-	private final AO_MsgWarning optMsgWarning = new AO_MsgWarning();
+	private final AO_MsgWarnings optMsgWarning = new AO_MsgWarnings();
 
 	/** Application option for printing detailed messages. */
 	private final AO_MsgDetail optMsgDetail = new AO_MsgDetail();
@@ -98,9 +96,11 @@ public final class MessageOptions {
 	public void setMessageMode(){
 		if(this.optQuiet.inCli()){
 			this.msgMode = OPTION_QUIET;
+			return;
 		}
 		if(this.optVerbose.inCli()){
 			this.msgMode = OPTION_VERBOSE;
+			return;
 		}
 
 		if(this.optMsgProgress.inCli()){

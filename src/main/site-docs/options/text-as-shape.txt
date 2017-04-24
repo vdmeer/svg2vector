@@ -1,0 +1,15 @@
+This option will switch on the text-as-shape flag.
+This means that in a conversion, if possible, all texts will be converted as shapes and not as text.
+
+=== Dependency on other CLI options
+
+None
+
+=== Interaction with other CLI options
+
+None
+
+=== Supported in Layers
+
+Yes
+

@@ -1,0 +1,59 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Description and other functions for AO_MsgDetails.
+ *
+ * @package    de.vandermeer.svg2vector.applications.base.messages
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+shortOption() ::= "f"
+longOption() ::= "input-file"
+argument() ::= "FILE"
+argumentHelp() ::= "a valid SVG document either GZIP compressed or plain text file"
+shortDescription() ::= "specifies the input file (path and filename)"
+
+longDescription() ::= <<
+
+=== Description
+This option specifies the  input  file.  The  file  must  be  a  valid  SVG
+document. It can be plain text or GZIP compressed. An application will  try
+GZIP first and if that fails read the file as a plain text file.  Depending
+on the application the SVG document can be plain SVG (as  in  standard  W3C
+SVG) or Inkscape SVG (as in using Inkscape and sodipodi name spaces).
+
+The input  file  will  never  be  changed  by  any  application.  Reuqested
+manipulations,  such  as  swithcing  on   layers   or   processing   layers
+individually, are realized in memory. Any action that requires  writing  an
+SVG file (other  than  target  `svg`)  will  write  temporary  files  in  a
+temporary directory.
+
+
+=== Dependency on other CLI options
+None
+
+
+=== Interaction with  other CLI options
+The path and the basename of the input file might be  used  to  specify  an
+output  directory and output filename(s). For instance, if no output option
+is used and no layers are processed, the output file will be  in  the  same
+directory as the input file, using the same basename thus  only  differ  in
+the file extension.
+
+>>

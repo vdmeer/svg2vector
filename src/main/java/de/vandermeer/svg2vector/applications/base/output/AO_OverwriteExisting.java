@@ -15,8 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.base.output;
 
-import org.apache.commons.cli.Option;
-
 import de.vandermeer.execs.options.AbstractApplicationOption;
 
 /**
@@ -32,12 +30,7 @@ public class AO_OverwriteExisting extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_OverwriteExisting(){
-		super("overwrite existing files on output", "With this option, existing files will be overwritten when generating output. Use with care!");
-
-		Option.Builder builder = Option.builder();
-		builder.longOpt("overwrite-existing");
-		builder.required(false);
-		this.setCliOption(builder.build());
+		super("de/vandermeer/svg2vector/applications/base/output/AO_OverwriteExisting.stg", false);
 	}
 
 	@Override

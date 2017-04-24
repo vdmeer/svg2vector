@@ -1,0 +1,18 @@
+This option sets the output directory.
+The argument may contain a path using the system's path separator or '/'.
+Every element in the path will be treated as a directory, even if the pattern is that of a filename.
+For instance, in an output directory `mydir/foo/bla.pdf` the last path element `bla.pdf` is treated as a directory.
+
+The default value in layer mode is the current directory.
+In no layer mode, the option has no default value.
+
+=== Dependency on other CLI options
+
+=== Interaction with other CLI options
+
+If not in layer mode, this option will change the output directory while the filename is generated from either `output-file` or `input-file`.
+
+=== Supported in Layers
+
+Yes, in layer mode the option is used to specify the output directory.
+
