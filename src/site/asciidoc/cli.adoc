@@ -2,115 +2,147 @@
 
 === Standard CLI options
 
-[role="table table-striped", frame=topbot, grid=rows, cols="1,3,6", options="header"]
+[role="table table-striped", frame=topbot, grid=rows, cols="1,2,1,7", options="header"]
 |===
 
-| Short
-| Long
-| Description
-
-|-?
-|--help <ARG>
-|application and argument help
+|Short
+|Long
+|Required
+|Description (Argument Description)
 
 |
-|--all-layers
+|all-layers
+|no
 |switch on all layers
 
-|-B
-|--fout-islabel
+|B
+|fout-islabel
+|no
 |use Inkscape label in output file names
 
 |
-|--create-directories
+|create-directories
+|no
 |automatically create directories for output
 
-|-d
-|--output-directory <DIR>
-|output directory
+|d DIR
+|output-directory DIR
+|no
+|output directory, default in layer mode is current directory
 
-|-e
-|--print-details
-|print detailed information to stdout
+DIR: a directory
 
-|-f
-|--input-file <FILE>
-|input filename
+|e
+|print-details
+|no
+|print very detailed information to stdout
 
 |
-|--fout-no-basename
-|when processing layers, do not use a basename for output files
+|fout-no-basename
+|no
+|do not use a basename for output files (in layer mode)
 
-|-I
-|--fout-isindex
-|use the Inkscape layer index in output file name
+|f FILE
+|input-file FILE
+|yes
+|specifies the input file (path and filename)
 
-|-i
-|--fout-index
+FILE: a valid SVG document either GZIP compressed or plain text file
+
+|h ARG
+|help ARG
+|no
+|application and argument help
+
+|i
+|fout-index
+|no
 |use a continuous index in output file name
 
+|I
+|fout-isindex
+|no
+|use the Inkscape layer index in output file name
+
+|l
+|layers
+|no
+|switch on layer mode, process layers, create one file per layer
+
+|L
+|layers-if-exist
+|no
+|switch on layer mode, if input SVG document has layers, otherwise do not process layers
+
 |
-|--keep-tmp-artifacts
-|keep temporary created artifacts (files and directories)
-
-|-l
-|--layers
-|process layers, create one file per layer
-
-|-L
-|--layers-if-exist
-|process layers if if input file has layers, create one file per layer
-
-|
-|--no-errors
+|no-errors
+|no
 |switch off error messages
 
-|-o
-|--output-file <FILE>
-|output filename
+|o FILE
+|output-file FILE
+|no
+|output filename, default is the basename of the input file plus target extension
+
+FILE: specifies the input file (path and filename)
 
 |
-|--overwrite-existing
+|overwrite-existing
+|no
 |overwrite existing files on output
 
-|-p
-|--print-progress
+|p
+|print-progress
+|no
 |print progress information to stdout
 
 |
-|--print-stack-trace
+|print-stack-trace
+|no
 |sets a flag to print the stack trace of exceptions
 
-|-q
-|--quiet
-|puts the application in quiet mode, no progres or error messages will be printed
+|q
+|quiet
+|no
+|puts the application in quiet mode, no errors, warnings, progress, or details will be printed
 
-|-S
-|--simulate
-|simulate application, no file output
+|S
+|simulate
+|no
+|simulate application, no output directories or files will be created
 
-|-s
-|--text-as-shape
-|text as shape
+|s
+|text-as-shape
+|no
+|convert text as shapes
 
-|-t
-|--target <TARGET>
-|specifies a target, for instance for a compilation
+|t TARGET
+|target TARGET
+|yes
+|specifies a conversion target
+
+TARGET: supported targets are: svg, pdf, emf, wmf, ps, eps, png
 
 |
-|--use-basename <BASENAME>
-|use specified base name for output
+|use-basename BASENAME
+|no
+|use the specified basename for output files
 
-|-v
-|--verbose
+BASENAME: a basename to be used for output files
+
+|v
+|verbose
+|no
 |verbose mode for application
 
 |
-|--version
+|version
+|no
 |application version
 
-|-w
-|--print-warnings
+|w
+|print-warnings
+|no
 |print warning messages to stdout
 
 |===
@@ -119,71 +151,87 @@
 
 === s2v-fp specific CLI options
 
-[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+[role="table table-striped", frame=topbot, grid=rows, cols="1,2,1,7", options="header"]
 |===
 
-| Short
-| Long
-| Description
-
-
-|
-|--export-dpi <DPI>
-|set DPI for export
+|Short
+|Long
+|Required
+|Description (Argument Description)
 
 |
-|--export-pdf-version <VERSION>
-|set PDf version for export
+|export-dpi DPI
+|no
+|set DPI for bitmap conversion or for rasterization of filters
+
+DPI: the DPI value
 
 |
-|--export-ps-level <LEVEL>
-|sets the PS level for export (2 or 3)
+|export-pdf-version VERSION
+|no
+|set PDF version for export
 
-|-g
-|--svg-first
-|convert to SVG first, then to actual
+VERSION: the PDF version, must be an exact version string
 
-|-m
-|--manual-layers
-|manage layers manually when creating
+|
+|export-ps-level LEVEL
+|no
+|sets the PS level for export
 
-|-x
-|--is-exec <PATH>
-|path to Inkscape executable
+LEVEL: the PS level to use (2 or 3)
 
+|g
+|svg-first
+|no
+|convert to SVG first, then to actual target
 
+|
+|keep-tmp-artifacts
+|no
+|keep temporary created artifacts (files and directories)
+
+|m
+|manual-layers
+|no
+|manage layers manually when in layer mode and creating SVG temporary files first
+
+|x EXEC
+|is-exec EXEC
+|yes
+|sets the Inkscape executable (default values from environment or for Windows and Unix)
+
+EXEC: the Inkscape executable
 
 |===
 
 
 === s2v-is specific CLI options
 
-[frame=topbot, grid=rows, cols="1,3,6", options="header"]
+[role="table table-striped", frame=topbot, grid=rows, cols="1,2,1,7", options="header"]
 |===
 
-| Short
-| Long
-| Description
+|Short
+|Long
+|Required
+|Description (Argument Description)
 
-|-b
-|--no-background
-|no background
+|b
+|no-background
+|no
+|switch off background property
 
-|-c
-|--clip
-|clip
+|n
+|not-transparent
+|no
+|switch off transparency
 
-|-n
-|--not-transparent
-|not transparent
+|r COLOR
+|bgrnd-color COLOR
+|no
+|sets a background color
 
-|-r
-|--bgrnd-color <COLOR>
-|background color
+COLOR: name of a system property that has the background color
 
 |===
-
-
-=== CLI error codes
 
 

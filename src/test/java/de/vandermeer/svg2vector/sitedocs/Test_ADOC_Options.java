@@ -26,7 +26,7 @@ import de.vandermeer.asciiparagraph.AsciiParagraph;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
 /**
- * Simple class to generate documentation for an option.
+ * Simple class to generate documentation for options.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8

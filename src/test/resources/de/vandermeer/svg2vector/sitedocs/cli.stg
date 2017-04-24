@@ -1,0 +1,50 @@
+/* Copyright 2017 Sven van der Meer <vdmeer.sven@mykolab.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Template for printing CLI arguments for documentation.
+ *
+ * @package    de.vandermeer.svg2vector.sitedocs
+ * @author     Sven van der Meer <vdmeer.sven@mykolab.com>
+ * @copyright  2017 Sven van der Meer
+ * @license    http://www.apache.org/licenses/LICENSE-2.0  Apache License, Version 2.0
+ * @version    v0.4.0 build 170413 (13-Apr-17)
+ */
+
+table(options) ::= <<
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,2,1,7", options="header"]
+|===
+
+|Short
+|Long
+|Required
+|Description (Argument Description)
+
+<options:{opt | <opt>}; separator="\n">
+|===
+
+>>
+
+tableEntry(shortOpt, longOpt, arg, required, descr, argDescr) ::= <<
+|<if(shortOpt)><shortOpt><if(arg)> <arg><endif><endif>
+|<longOpt><if(arg)> <arg><endif>
+|<if(required)>yes<else>no<endif>
+|<descr><if(argDescr)>
+
+<arg>: <argDescr><endif>
+
+
+>>
