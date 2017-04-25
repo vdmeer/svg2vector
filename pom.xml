@@ -105,7 +105,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test,</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -242,20 +242,6 @@
             	</configuration>
             	<executions>
             		<execution>
-            			<id>make-assembly</id>
-            			<phase>package</phase>
-            			<goals>
-            				<goal>single</goal>
-            			</goals>
-            		</execution>
-            	</executions>
-            </plugin>
-
-            <plugin>
-            	<artifactId>maven-assembly-plugin</artifactId>
-            	<version>${pm.version.maven-assembly-plugin}</version>
-            	<executions>
-            		<execution>
             			<id>generate-complete-tar</id>
             			<phase>package</phase>
             			<goals>
@@ -267,6 +253,13 @@
             				</descriptors>
             				<finalName>application/${project.artifactId}-${project.version}</finalName>
             			</configuration>
+            		</execution>
+            		<execution>
+            			<id>make-assembly</id>
+            			<phase>package</phase>
+            			<goals>
+            				<goal>single</goal>
+            			</goals>
             		</execution>
             	</executions>
             </plugin>
