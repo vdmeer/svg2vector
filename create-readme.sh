@@ -20,7 +20,7 @@ files="
 	src/site/asciidoc/user-guide/cli.adoc
 "
 
-output_file=src/bundle/doc/README.adoc
+output_file=./README.adoc
 
 echo > ${output_file}
 echo ":release-version: ${version}" >> ${output_file}

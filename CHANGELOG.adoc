@@ -23,6 +23,7 @@
   ** standard runtime exceptions are not mentioned anymore in JavaDoc, arguments are described with "must" and "should" to indicate them (all must/should are runtime tested
   ** added S2VException for exceptions that use a defined error code and message
   ** changed the applications to catch exceptions and stop processing (old behavior was to return early)
+* removed `clip` CLI option from `s2v-fh`, clip always activated anyway
 
 
 === v2.0.0 - major rewrite, changed CLI behavior - 2017-04-13

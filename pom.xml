@@ -21,7 +21,7 @@
       More project information
       -->
     <name>SVG 2 Vector</name>
-    <description>SVG to vector converter. This tool converts an SVG graphic to a vector format. Currently supported targets are EMF, PDF and SVG. The tool does support SVG and SVGZ input formats. It also can deal with SVG layers. Input can be a file or a URL. Output can be a single file or a set of files, i.e. handling SVG layers individually. This means that the tool can be part of a tool chain for creating animations. Simply create an SVG image with several layers, one per step of an animation. Then use this tool to create an image per layer and use them in the target publication platform.</description>
+    <description>Set of applications that automate the conversion of SVG documents into other verctor formats (such as EMF and PDF) and some bitmap formats (PNG), with features such as Inkscape layer handling.</description>
     <url>http://www.vandermeer.de/projects/skb/java/svg2vector</url>
     <inceptionYear>2012</inceptionYear>
 
@@ -293,13 +293,13 @@
         						<id>bundle-asciidoc</id>
         						<phase>process-resources</phase>
         						<configuration>
-        							<sourceDirectory>src/bundle/doc</sourceDirectory>
-        							<outputDirectory>./</outputDirectory>
+        							<sourceDirectory>${project.basedir}/target/bundle/doc</sourceDirectory>
+        							<outputDirectory>${project.basedir}</outputDirectory>
         							<sourceHighlighter>coderay</sourceHighlighter>
         							<backend>html</backend>
         							<attributes>
         								<toc>true</toc>
-        								<baseDir>${project.basedir}/src</baseDir>
+        								<baseDir>${project.basedir}/target/bundle/doc</baseDir>
         							</attributes>
         						</configuration>
         						<goals>
@@ -319,15 +319,20 @@
         						<phase>generate-resources</phase>
         						<goals><goal>copy-resources</goal></goals>
         						<configuration>
-        							<outputDirectory>./</outputDirectory>
+        							<outputDirectory>${project.basedir}/target/bundle/doc</outputDirectory>
         							<resources>
         								<resource>
-        									<directory>src/bundle/doc</directory>
+        									<directory>${project.basedir}</directory>
         									<filtering>true</filtering>
+        									<includes>
+        										<include>*.adoc</include>
+        										<include>*.asciidoc</include>
+        									</includes>
         								</resource>
         							</resources>
         						</configuration>
         					</execution>
+        <!--
         					<execution>
         						<id>copy-to-jar</id>
         						<phase>prepare-package</phase>
@@ -339,13 +344,14 @@
         									<directory>${basedir}</directory>
         									<includes>
         										<include>LICENSE</include>
-        										<include>CHANGELOG*</include>
-        										<include>README*</include>
+        										<include>CHANGELOG.*</include>
+        										<include>README.*</include>
         									</includes>
         								</resource>
         							</resources>
         						</configuration>
         					</execution>
+        -->
         				</executions>
         			</plugin>
         		</plugins>
