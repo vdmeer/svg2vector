@@ -149,7 +149,7 @@ BASENAME: a basename to be used for output files
 
 
 
-=== s2v-fp specific CLI options
+=== s2v-fh specific CLI options
 
 [role="table table-striped", frame=topbot, grid=rows, cols="1,2,1,7", options="header"]
 |===

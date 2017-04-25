@@ -10,15 +10,14 @@ files="
 	src/bundle/doc-fragments/concepts.adoc
 	src/bundle/doc-fragments/features.adoc
 	src/bundle/doc-fragments/install.adoc
-		src/bundle/doc-fragments/install-app.adoc
-		src/bundle/doc-fragments/install-execjar.adoc
-		src/bundle/doc-fragments/install-buildsys.adoc
-		src/bundle/doc-fragments/install-fromsrc.adoc
+	src/bundle/doc-fragments/install-app.adoc
+	src/bundle/doc-fragments/install-execjar.adoc
+	src/bundle/doc-fragments/install-buildsys.adoc
+	src/bundle/doc-fragments/install-fromsrc.adoc
 	src/bundle/doc-fragments/qs.adoc
-		src/bundle/doc-fragments/qs-cli.adoc
-		src/bundle/doc-fragments/qs-java.adoc
+	src/bundle/doc-fragments/qs-cli.adoc
+	src/bundle/doc-fragments/qs-java.adoc
 	src/site/asciidoc/user-guide/cli.adoc
-	src/site/asciidoc/error-codes.adoc
 "
 
 output_file=src/bundle/doc/README.adoc

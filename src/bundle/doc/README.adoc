@@ -33,27 +33,36 @@ image::https://img.shields.io/github/tag/vdmeer/svg2vector.svg[GitHub Tags]
 
 
 
-A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF. 
+A simple tool box to convert SVG graphics to other vector formats, such as EMF and PDF.
 
 
 == Resources
 
+The current version of SVG2Vector is *{release-version}*.
 
-[frame=topbot, grid=rows, cols="d,d"]
+SVG2Vector has its own home page with full documentation, including a user guide, details on the command line interface, and errors.
+The source code is hosted on Github, along with issue and feedback managements.
+Distributions are published in parallel on Bintray (application as archive and executable JAR) and Maven (for JAR artifacts).
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,5"]
 |===
 
-| Home page
-| http://www.vandermeer.de/projects/skb/java/svg2vector[site]
+|Home page
+|http://www.vandermeer.de/projects/skb/java/svg2vector[site], 
+http://www.vandermeer.de/projects/skb/java/svg2vector/user-guide.html[user-guide], 
+http://www.vandermeer.de/projects/skb/java/svg2vector/user-guide/cli.html[CLI overview], 
+http://www.vandermeer.de/projects/skb/java/svg2vector/apidocs[JAVA API Doc]
 
-| Source repository
-| https://github.com/vdmeer/svg2vector/tree/master[Github]
+|Source (Github)
+|https://github.com/vdmeer/svg2vector/tree/master[source], 
+https://github.com/vdmeer/svg2vector/issues[issues]
 
-| Binaries
-| https://bintray.com/vdmeer/generic/svg2vector/{release-version}[v{release-version}], 
+|Binaries (Bintray)
+|https://bintray.com/vdmeer/generic/svg2vector/{release-version}[v{release-version}], 
 https://bintray.com/vdmeer/generic/svg2vector[all releases]
 
-| Maven Central
-| https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[v{release-version}], 
+|JARs (Maven)
+|https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[v{release-version}], 
 https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22[all releases]
 
 |===
@@ -62,6 +71,7 @@ https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%2
 == Concepts
 
 The main concepts are: application, input, and target.
+The applications also use a standard set of return codes (organized in categories) when returning with errors.
 
 
 === Application
@@ -128,6 +138,7 @@ The negative return codes are error codes. Each error has a specific code.
 All error codes are handled by an enumerate.
 Use the application `s2v-aec` to print all error codes.
 
+
 == Features
 
 Tool box with applications to convert SVG graphics to other vector formats and some bitmap formats.
@@ -144,7 +155,7 @@ In addition, the applications are using the ExecS package and thus providing hel
 
 ==== Input options
 * read file either as plain text file or as GZIP (`.gz`) file
-* can process plain SVG or Inkscape SVg files (latter required for layers)
+* can process plain SVG or Inkscape SVG files (layers only supported for Inkscape files)
 
 ==== Target
 * set conversion target
@@ -155,6 +166,7 @@ In addition, the applications are using the ExecS package and thus providing hel
 * set application to verbose mode
 * activate warnings, process information, and detailed messages
 * deactivate error messages
+* print stack traces for exceptions
 
 ==== Output handling
 * automatically create directories
@@ -169,14 +181,15 @@ In addition, the applications are using the ExecS package and thus providing hel
 ==== Layer handling
 * process Inkscape layers found in input files
 * process layers if they exist
-* several options for the output file names when using layers
+* several options for the output file names when using layers (continuous index, Inkscape identifier index, Inkscape label)
 * switch all layers on for single conversion
+
 
 ==== Other features
 * simulate conversion, i.e. run but only print messages, do not create any output
 
 
-=== s2v-fp features
+=== s2v-fh features
 Converts SVG to vector formats using Apache Batik to load an SVG document and the FreeHep libraries for the conversion.
 Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
 Each target allows to configure:
@@ -206,36 +219,6 @@ Requirements:
 * Java 8 runtime to run the applications
 * Maven or other build system if build from source
 * CygWin or UNIX to install application from ZIP/TAR archive
-
-
-=== In your build system
-
-==== Maven
-
-For Maven declare a dependency in the `<dependencies>` section of your POM file.
-
-[source,xml,subs=attributes+]
-.Dependency declaration in pom.xml
-----
-<dependency>
-    <groupId>de.vandermeer</groupId>
-    <artifactId>svg2vector</artifactId>
-    <version>{release-version}</version>
-</dependency>
-----
-
-
-==== Gradle / Grails
-
-[source,sh,subs=attributes+]
-----
-compile 'de.vandermeer:svg2vector:{release-version}'
-----
-
-
-==== Other build systems
-
-For other build systems see https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven Central]
 
 
 === As a stand-alone application
@@ -287,6 +270,36 @@ java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-is
 ----
 
 
+=== In your build system
+
+==== Maven
+
+For Maven declare a dependency in the `<dependencies>` section of your POM file.
+
+[source,xml,subs=attributes+]
+.Dependency declaration in pom.xml
+----
+<dependency>
+    <groupId>de.vandermeer</groupId>
+    <artifactId>svg2vector</artifactId>
+    <version>{release-version}</version>
+</dependency>
+----
+
+
+==== Gradle / Grails
+
+[source,sh,subs=attributes+]
+----
+compile 'de.vandermeer:svg2vector:{release-version}'
+----
+
+
+==== Other build systems
+
+For other build systems see https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven Central]
+
+
 === Build and install from source
 One can also clone the repository, build it, and then use the created application artifacts.
 Clone and build the repository from Github:
@@ -316,10 +329,10 @@ The artifacts there are (substitute X/Y/Z with the version you cloned/built)
 Now use either of the two archives and install the stand-alone application or the executable JAR.
 
 
-== Short User Guide
+== Quick Start
 
 
-=== Using applications from command line
+=== Command line
 
 After installation, simply run an application with command line (CLI) options.
 Input file and target are always required.
@@ -368,9 +381,7 @@ s2v-fh: --- finished successfully
 ----------------------------------------------------------------------------------------
 
 
-
-
-=== Using applications in Java
+=== In Java
 
 The applications can be used in Java by simply creating a `String[]` with the commands (same as command line) and then calling the execution method `executeApplication(...)` directly.
 The following code shows an example creating and object for the `s2v-fh` application, with a set of command line options, and then executing it.
@@ -547,7 +558,7 @@ BASENAME: a basename to be used for output files
 
 
 
-=== s2v-fp specific CLI options
+=== s2v-fh specific CLI options
 
 [role="table table-striped", frame=topbot, grid=rows, cols="1,2,1,7", options="header"]
 |===
@@ -629,303 +640,6 @@ EXEC: the Inkscape executable
 |sets a background color
 
 COLOR: name of a system property that has the background color
-
-|===
-
-
-== Error codes
-
-=== General Errors (-1 to -49)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-2
-|General code for a null pointer exception.
-|"a null pointer exception occurred"
-
-|-3
-|General code for an I/O exception.
-|"an I/O pointer exception occurred"
-
-|-4
-|An internal implementation error, something wrong with property settings.
-|"implementation error: something wrong with property settings"
-
-|===
-
-
-
-=== Input File Errors (-100 to -199)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-100
-|No input file given, was either null or blank.
-|"no input file given"
-
-|-101
-|Input file does not exist (file name).
-|"input file <{}> does not exist, please check path and filename"
-
-|-102
-|Input file does exist but is not a file (file name).
-|"input file <{}> is not a file, please check path and filename"
-
-|-103
-|Input file does exist but is not readable (file name).
-|"cannot read input file <{}>, please file permissions"
-
-|===
-
-
-
-=== Apache Batik Loader Errors (-210 to -219)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-210
-|A loader using Apache Batik could not load an SVG document (loaders class, original exception message).
-|"{}: exception loading svgDocument: {}"
-
-|-211
-|A loader using Apache Batik could set the size for an SVG document, set the dimension (loaders class, original exception message).
-|"{}: exception setting docucment size: {}"
-
-|===
-
-
-
-=== Inkscape Loader Errors (-220 to -229)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-220
-|A loader could not open an SVG file as compressed SVG (loader class, input file, original exception message).
-|"{}: ZIP exception reading file <{}>: {}"
-
-|-221
-|A loader did catch an I/O exception while reading a GZIP stream (loader class, input file, original exception message).
-|"{}: IO error reading GZIP file <{}>: {}"
-
-|-222
-|A loader did catch a file-not-found exception while reading a plain SVG file (loader class, input file, original exception message).
-|"{}: FileNotFoundException exception reading plain file {}: {}"
-
-|-223
-|A loader did catch an I/O exception while reading a plain SVG file (loader class, input file, original exception message).
-|"{}: IO exception reading plain file {}: {}"
-
-|===
-
-
-
-=== Layer Errors (-300 to -319)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-300
-|An application was requested to process layers, but the input SVG file did not had any.
-|"layers requested in command line, but SVG input file has not layers"
-
-|===
-
-
-
-=== General Output Errors (-400 to -419)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-400
-|An implementation error processing output options for a no-layer process: with illegal arguments.
-|"implementation error: output for no-layers with illegal arguments"
-
-|===
-
-
-
-=== Output File Errors (-420 to -439)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-420
-|A required output file name is blank.
-|"output filename is blank"
-
-|-422
-|An output file name is the same as the input file name (output file name, input file name).
-|"output <{}> same as input <{}>"
-
-|-423
-|The output file name points to a directory (file name).
-|"output file <{}> exists but is a directory"
-
-|-424
-|The output file exists but no overwrite option given in CLI (file name, required CLI option).
-|"output file <{}> exists and no option {} used"
-
-|-425
-|Output file exists but no permission (on file system) to write (file name).
-|"output file <{}> exists but cannot write to it, please check permissions"
-
-|===
-
-
-
-=== Output Directoy Errors (-440 to -459)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-440
-|An output directory does not exist and no CLI option given to create directories (directory, requried CLI option).
-|"output directory <{}> does not exist and CLI option {} not used"
-
-|-441
-|An output directory exists but is not a directory (output directory).
-|"output directory <{}> exists but is not a directory"
-
-|-442
-|An output directory exists no permissions (on file system) to write to it (output directory).
-|"output directory <{}> exists but cannot write to it, please check permissions"
-
-|-443
-|An output directory may contain target files and no overwrite option given in CLI
-|"output directory <{}> may contain target files for extension <{}> and no overwrite in CLI"
-
-|===
-
-
-
-=== Output Pattern Errors (-460 to -469)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-460
-|The output pattern configuration resulted in a path only containing a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.
-|"output pattern <{}> only contains file extension, check options for generating fnout"
-
-|-461
-|The output pattern configuration resulted in a path only containing a directory and a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.
-|"output pattern <{}> only contains directory and file extension, check options for generating fnout"
-
-|===
-
-
-
-=== General Errors (-50 to -99)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-50
-|A given target was blank, null or empty (arguments: supported targets).
-|"given target is blank. Use one of the supported targets: {}"
-
-|-51
-|A given target is unknown (arguments: target, supported targets).
-|"given target <{}> is unknown. Use one of the supported targets: {}"
-
-|-52
-|A given target is not supported by an application (arguments: target, supported targets).
-|"given target <{}> not supported. Use one of the supported targets: {}"
-
-|===
-
-
-
-=== Inkscape Executor Errors (file name) (-500 to -509)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-500
-|The given executable for Inkscape was blank (Inkscape executable).
-|"expected Inkscape executable, found <{}>"
-
-|-501
-|The given executable for Inkscape does not exist (Inkscape executable).
-|"Inkscape executable <{}> does not exist, please check path and filename"
-
-|-503
-|The given executable for Inkscape is not a file (Inkscape executable).
-|"Inkscape executable <{}> is not a file, please check path and filename"
-
-|-504
-|The given executable for Inkscape cannot be executed (Inkscape executable).
-|"cannot execute input Inkscape executable <{}>, please file permissions"
-
-|===
-
-
-
-=== Inkscape Executor Errors (execution) (-510 to -519)
-
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
-|===
-
-| Code
-| Description
-| Error Message
-
-|-510
-|An Inkscape executor did catch an I/O exception during execution (original exception message).
-|"IO exception while executing Inkscape with error: {}"
-
-|-511
-|An Inkscape executor did get interrupted during execution (original exception message).
-|"InterruptedException exception while executing Inkscape with error: {}"
 
 |===
 

@@ -486,45 +486,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_features">Features</a>
 <ul class="sectlevel2">
 <li><a href="#_standard_features">Standard Features</a></li>
-<li><a href="#_s2v_fp_features">s2v-fp features</a></li>
+<li><a href="#_s2v_fh_features">s2v-fh features</a></li>
 <li><a href="#_s2v_is_features">s2v-is features</a></li>
 </ul>
 </li>
 <li><a href="#_installation">Installation</a>
 <ul class="sectlevel2">
-<li><a href="#_in_your_build_system">In your build system</a></li>
 <li><a href="#_as_a_stand_alone_application">As a stand-alone application</a></li>
 <li><a href="#_using_the_executable_jar">Using the executable JAR</a></li>
+<li><a href="#_in_your_build_system">In your build system</a></li>
 <li><a href="#_build_and_install_from_source">Build and install from source</a></li>
 </ul>
 </li>
-<li><a href="#_short_user_guide">Short User Guide</a>
+<li><a href="#_quick_start">Quick Start</a>
 <ul class="sectlevel2">
-<li><a href="#_using_applications_from_command_line">Using applications from command line</a></li>
-<li><a href="#_using_applications_in_java">Using applications in Java</a></li>
+<li><a href="#_command_line">Command line</a></li>
+<li><a href="#_in_java">In Java</a></li>
 </ul>
 </li>
 <li><a href="#_command_line_interface">Command Line Interface</a>
 <ul class="sectlevel2">
 <li><a href="#_standard_cli_options">Standard CLI options</a></li>
-<li><a href="#_s2v_fp_specific_cli_options">s2v-fp specific CLI options</a></li>
+<li><a href="#_s2v_fh_specific_cli_options">s2v-fh specific CLI options</a></li>
 <li><a href="#_s2v_is_specific_cli_options">s2v-is specific CLI options</a></li>
-</ul>
-</li>
-<li><a href="#_error_codes">Error codes</a>
-<ul class="sectlevel2">
-<li><a href="#_general_errors_1_to_49">General Errors (-1 to -49)</a></li>
-<li><a href="#_input_file_errors_100_to_199">Input File Errors (-100 to -199)</a></li>
-<li><a href="#_apache_batik_loader_errors_210_to_219">Apache Batik Loader Errors (-210 to -219)</a></li>
-<li><a href="#_inkscape_loader_errors_220_to_229">Inkscape Loader Errors (-220 to -229)</a></li>
-<li><a href="#_layer_errors_300_to_319">Layer Errors (-300 to -319)</a></li>
-<li><a href="#_general_output_errors_400_to_419">General Output Errors (-400 to -419)</a></li>
-<li><a href="#_output_file_errors_420_to_439">Output File Errors (-420 to -439)</a></li>
-<li><a href="#_output_directoy_errors_440_to_459">Output Directoy Errors (-440 to -459)</a></li>
-<li><a href="#_output_pattern_errors_460_to_469">Output Pattern Errors (-460 to -469)</a></li>
-<li><a href="#_general_errors_50_to_99">General Errors (-50 to -99)</a></li>
-<li><a href="#_inkscape_executor_errors_file_name_500_to_509">Inkscape Executor Errors (file name) (-500 to -509)</a></li>
-<li><a href="#_inkscape_executor_errors_execution_510_to_519">Inkscape Executor Errors (execution) (-510 to -519)</a></li>
 </ul>
 </li>
 </ul>
@@ -533,27 +517,39 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_resources">Resources</h2>
 <div class="sectionbody">
-<table class="tableblock frame-topbot grid-rows spread">
+<div class="paragraph">
+<p>The current version of SVG2Vector is <strong>2.1.0-SNAPSHOT</strong>.</p>
+</div>
+<div class="paragraph">
+<p>SVG2Vector has its own home page with full documentation, including a user guide, details on the command line interface, and errors.
+The source code is hosted on Github, along with issue and feedback managements.
+Distributions are published in parallel on Bintray (application as archive and executable JAR) and Maven (for JAR artifacts).</p>
+</div>
+<table class="tableblock frame-topbot grid-rows spread table table-striped">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
 </colgroup>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Home page</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.vandermeer.de/projects/skb/java/svg2vector">site</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.vandermeer.de/projects/skb/java/svg2vector">site</a>,
+<a href="http://www.vandermeer.de/projects/skb/java/svg2vector/user-guide.html">user-guide</a>,
+<a href="http://www.vandermeer.de/projects/skb/java/svg2vector/user-guide/cli.html">CLI overview</a>,
+<a href="http://www.vandermeer.de/projects/skb/java/svg2vector/apidocs">JAVA API Doc</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Source repository</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/vdmeer/svg2vector/tree/master">Github</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source (Github)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/vdmeer/svg2vector/tree/master">source</a>,
+<a href="https://github.com/vdmeer/svg2vector/issues">issues</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries (Bintray)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bintray.com/vdmeer/generic/svg2vector/2.1.0-SNAPSHOT">v2.1.0-SNAPSHOT</a>,
 <a href="https://bintray.com/vdmeer/generic/svg2vector">all releases</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maven Central</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JARs (Maven)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://search.maven.org/#artifactdetails|de.vandermeer|svg2vector|2.1.0-SNAPSHOT|jar">v2.1.0-SNAPSHOT</a>,
 <a href="https://search.maven.org/#search|gav|1|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22">all releases</a></p></td>
 </tr>
@@ -565,7 +561,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_concepts">Concepts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The main concepts are: application, input, and target.</p>
+<p>The main concepts are: application, input, and target.
+The applications also use a standard set of return codes (organized in categories) when returning with errors.</p>
 </div>
 <div class="sect2">
 <h3 id="_application">Application</h3>
@@ -722,7 +719,7 @@ In addition, the applications are using the ExecS package and thus providing hel
 <p>read file either as plain text file or as GZIP (<code>.gz</code>) file</p>
 </li>
 <li>
-<p>can process plain SVG or Inkscape SVg files (latter required for layers)</p>
+<p>can process plain SVG or Inkscape SVG files (layers only supported for Inkscape files)</p>
 </li>
 </ul>
 </div>
@@ -755,6 +752,9 @@ In addition, the applications are using the ExecS package and thus providing hel
 </li>
 <li>
 <p>deactivate error messages</p>
+</li>
+<li>
+<p>print stack traces for exceptions</p>
 </li>
 </ul>
 </div>
@@ -802,7 +802,7 @@ In addition, the applications are using the ExecS package and thus providing hel
 <p>process layers if they exist</p>
 </li>
 <li>
-<p>several options for the output file names when using layers</p>
+<p>several options for the output file names when using layers (continuous index, Inkscape identifier index, Inkscape label)</p>
 </li>
 <li>
 <p>switch all layers on for single conversion</p>
@@ -822,7 +822,7 @@ In addition, the applications are using the ExecS package and thus providing hel
 </div>
 </div>
 <div class="sect2">
-<h3 id="_s2v_fp_features">s2v-fp features</h3>
+<h3 id="_s2v_fh_features">s2v-fh features</h3>
 <div class="paragraph">
 <p>Converts SVG to vector formats using Apache Batik to load an SVG document and the FreeHep libraries for the conversion.
 Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
@@ -901,39 +901,6 @@ Other supported options are:</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_in_your_build_system">In your build system</h3>
-<div class="sect3">
-<h4 id="_maven">Maven</h4>
-<div class="paragraph">
-<p>For Maven declare a dependency in the <code>&lt;dependencies&gt;</code> section of your POM file.</p>
-</div>
-<div class="listingblock">
-<div class="title">Dependency declaration in pom.xml</div>
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;de.vandermeer&lt;/groupId&gt;
-    &lt;artifactId&gt;svg2vector&lt;/artifactId&gt;
-    &lt;version&gt;2.1.0-SNAPSHOT&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_gradle_grails">Gradle / Grails</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">compile 'de.vandermeer:svg2vector:2.1.0-SNAPSHOT'</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_other_build_systems">Other build systems</h4>
-<div class="paragraph">
-<p>For other build systems see <a href="https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|2.1.0-SNAPSHOT\|jar">Maven Central</a></p>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_as_a_stand_alone_application">As a stand-alone application</h3>
 <div class="paragraph">
 <p>The stand-alone application can be installed in UNIX and CygWin systems.
@@ -1006,6 +973,39 @@ Directly running the conversion applications as follows</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_in_your_build_system">In your build system</h3>
+<div class="sect3">
+<h4 id="_maven">Maven</h4>
+<div class="paragraph">
+<p>For Maven declare a dependency in the <code>&lt;dependencies&gt;</code> section of your POM file.</p>
+</div>
+<div class="listingblock">
+<div class="title">Dependency declaration in pom.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;de.vandermeer&lt;/groupId&gt;
+    &lt;artifactId&gt;svg2vector&lt;/artifactId&gt;
+    &lt;version&gt;2.1.0-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gradle_grails">Gradle / Grails</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-sh" data-lang="sh">compile 'de.vandermeer:svg2vector:2.1.0-SNAPSHOT'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_other_build_systems">Other build systems</h4>
+<div class="paragraph">
+<p>For other build systems see <a href="https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|2.1.0-SNAPSHOT\|jar">Maven Central</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_build_and_install_from_source">Build and install from source</h3>
 <div class="paragraph">
 <p>One can also clone the repository, build it, and then use the created application artifacts.
@@ -1051,10 +1051,10 @@ ls -l</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_short_user_guide">Short User Guide</h2>
+<h2 id="_quick_start">Quick Start</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_using_applications_from_command_line">Using applications from command line</h3>
+<h3 id="_command_line">Command line</h3>
 <div class="paragraph">
 <p>After installation, simply run an application with command line (CLI) options.
 Input file and target are always required.
@@ -1104,7 +1104,7 @@ s2v-fh: --- finished successfully</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_using_applications_in_java">Using applications in Java</h3>
+<h3 id="_in_java">In Java</h3>
 <div class="paragraph">
 <p>The applications can be used in Java by simply creating a <code>String[]</code> with the commands (same as command line) and then calling the execution method <code>executeApplication(&#8230;&#8203;)</code> directly.
 The following code shows an example creating and object for the <code>s2v-fh</code> application, with a set of command line options, and then executing it.</p>
@@ -1322,7 +1322,7 @@ app.executeApplication(args);</code></pre>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_s2v_fp_specific_cli_options">s2v-fp specific CLI options</h3>
+<h3 id="_s2v_fh_specific_cli_options">s2v-fh specific CLI options</h3>
 <table class="tableblock frame-topbot grid-rows spread table table-striped">
 <colgroup>
 <col style="width: 9.0909%;">
@@ -1430,418 +1430,10 @@ app.executeApplication(args);</code></pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_error_codes">Error codes</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_general_errors_1_to_49">General Errors (-1 to -49)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">General code for a null pointer exception.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"a null pointer exception occurred"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">General code for an I/O exception.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"an I/O pointer exception occurred"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An internal implementation error, something wrong with property settings.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"implementation error: something wrong with property settings"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_input_file_errors_100_to_199">Input File Errors (-100 to -199)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-100</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No input file given, was either null or blank.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"no input file given"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-101</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Input file does not exist (file name).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"input file &lt;{}&gt; does not exist, please check path and filename"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-102</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Input file does exist but is not a file (file name).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"input file &lt;{}&gt; is not a file, please check path and filename"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-103</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Input file does exist but is not readable (file name).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"cannot read input file &lt;{}&gt;, please file permissions"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_apache_batik_loader_errors_210_to_219">Apache Batik Loader Errors (-210 to -219)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-210</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A loader using Apache Batik could not load an SVG document (loaders class, original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"{}: exception loading svgDocument: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-211</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A loader using Apache Batik could set the size for an SVG document, set the dimension (loaders class, original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"{}: exception setting docucment size: {}"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_inkscape_loader_errors_220_to_229">Inkscape Loader Errors (-220 to -229)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-220</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A loader could not open an SVG file as compressed SVG (loader class, input file, original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"{}: ZIP exception reading file &lt;{}&gt;: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-221</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A loader did catch an I/O exception while reading a GZIP stream (loader class, input file, original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"{}: IO error reading GZIP file &lt;{}&gt;: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-222</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A loader did catch a file-not-found exception while reading a plain SVG file (loader class, input file, original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"{}: FileNotFoundException exception reading plain file {}: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-223</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A loader did catch an I/O exception while reading a plain SVG file (loader class, input file, original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"{}: IO exception reading plain file {}: {}"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_layer_errors_300_to_319">Layer Errors (-300 to -319)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-300</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An application was requested to process layers, but the input SVG file did not had any.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"layers requested in command line, but SVG input file has not layers"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_general_output_errors_400_to_419">General Output Errors (-400 to -419)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-400</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An implementation error processing output options for a no-layer process: with illegal arguments.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"implementation error: output for no-layers with illegal arguments"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_output_file_errors_420_to_439">Output File Errors (-420 to -439)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-420</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A required output file name is blank.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output filename is blank"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-422</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An output file name is the same as the input file name (output file name, input file name).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output &lt;{}&gt; same as input &lt;{}&gt;"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-423</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The output file name points to a directory (file name).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output file &lt;{}&gt; exists but is a directory"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-424</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The output file exists but no overwrite option given in CLI (file name, required CLI option).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output file &lt;{}&gt; exists and no option {} used"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-425</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Output file exists but no permission (on file system) to write (file name).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output file &lt;{}&gt; exists but cannot write to it, please check permissions"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_output_directoy_errors_440_to_459">Output Directoy Errors (-440 to -459)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-440</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An output directory does not exist and no CLI option given to create directories (directory, requried CLI option).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output directory &lt;{}&gt; does not exist and CLI option {} not used"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-441</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An output directory exists but is not a directory (output directory).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output directory &lt;{}&gt; exists but is not a directory"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-442</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An output directory exists no permissions (on file system) to write to it (output directory).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output directory &lt;{}&gt; exists but cannot write to it, please check permissions"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-443</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An output directory may contain target files and no overwrite option given in CLI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output directory &lt;{}&gt; may contain target files for extension &lt;{}&gt; and no overwrite in CLI"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_output_pattern_errors_460_to_469">Output Pattern Errors (-460 to -469)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-460</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The output pattern configuration resulted in a path only containing a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output pattern &lt;{}&gt; only contains file extension, check options for generating fnout"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-461</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The output pattern configuration resulted in a path only containing a directory and a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"output pattern &lt;{}&gt; only contains directory and file extension, check options for generating fnout"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_general_errors_50_to_99">General Errors (-50 to -99)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-50</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A given target was blank, null or empty (arguments: supported targets).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"given target is blank. Use one of the supported targets: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-51</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A given target is unknown (arguments: target, supported targets).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"given target &lt;{}&gt; is unknown. Use one of the supported targets: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-52</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A given target is not supported by an application (arguments: target, supported targets).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"given target &lt;{}&gt; not supported. Use one of the supported targets: {}"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_inkscape_executor_errors_file_name_500_to_509">Inkscape Executor Errors (file name) (-500 to -509)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-500</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The given executable for Inkscape was blank (Inkscape executable).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"expected Inkscape executable, found &lt;{}&gt;"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-501</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The given executable for Inkscape does not exist (Inkscape executable).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"Inkscape executable &lt;{}&gt; does not exist, please check path and filename"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-503</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The given executable for Inkscape is not a file (Inkscape executable).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"Inkscape executable &lt;{}&gt; is not a file, please check path and filename"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-504</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The given executable for Inkscape cannot be executed (Inkscape executable).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"cannot execute input Inkscape executable &lt;{}&gt;, please file permissions"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_inkscape_executor_errors_execution_510_to_519">Inkscape Executor Errors (execution) (-510 to -519)</h3>
-<table class="tableblock frame-topbot grid-rows spread">
-<colgroup>
-<col style="width: 11.1111%;">
-<col style="width: 44.4444%;">
-<col style="width: 44.4445%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Error Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-510</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An Inkscape executor did catch an I/O exception during execution (original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"IO exception while executing Inkscape with error: {}"</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-511</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An Inkscape executor did get interrupted during execution (original exception message).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"InterruptedException exception while executing Inkscape with error: {}"</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-25 08:28:38 IST
+Last updated 2017-04-25 12:12:44 IST
 </div>
 </div>
 </body>
