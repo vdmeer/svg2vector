@@ -1,17 +1,16 @@
 include::main/asciidoc/overview-start.adoc[]
 
-include::site/asciidoc/concepts.adoc[]
+include::bundle/doc-fragments/concepts.adoc[]
 
-include::site/asciidoc/features.adoc[]
+include::bundle/doc-fragments/features.adoc[]
 
-include::site/asciidoc/short-user-guide.adoc[]
+include::bundle/doc-fragments/qs.adoc[]
 
-include::site/asciidoc/cli.adoc[]
+include::bundle/doc-fragments/qs-cli.adoc[]
 
-include::site/asciidoc/error-codes.adoc[]
+include::bundle/doc-fragments/qs-java.adoc[]
 
-== User Guide and Examples
+include::site/asciidoc/user-guide/cli.adoc[]
 
-A user guide and examples can be found at the project's home page: http://www.vandermeer.de/projects/skb/java/svg2vector
+include::bundle/doc-fragments/resources.adoc[]
 
-include::site/asciidoc/resources.adoc[]
