@@ -1,0 +1,26 @@
+=== In Java
+
+The applications can be used in Java by simply creating a `String[]` with the commands (same as command line) and then calling the execution method `executeApplication(...)` directly.
+The following code shows an example creating and object for the `s2v-fh` application, with a set of command line options, and then executing it.
+
+[source, java, linenums]
+----------------------------------------------------------------------------------------
+String[] args = new String[]{
+	"--create-directories", "--overwrite-existing",
+	"--all-layers", "-l", "-i",
+	"-t", "pdf",
+	"-f", "src/test/resources/svg-files/time-interval-based.svgz",
+	"-d", "target/output-tests/s2v-fh/pdf/layers-index",
+	"-q"
+};
+Svg2Vector_FH app = new Svg2Vector_FH();
+app.executeApplication(args);
+----------------------------------------------------------------------------------------
+
+The applications use return codes to provide information about the execution status:
+
+* `0` means successful execution
+* `>0` means an early exit option (such as `--help` or `--version`) was used
+* `<0` means an error did occur
+
+

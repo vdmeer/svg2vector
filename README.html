@@ -509,7 +509,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_standard_cli_options">Standard CLI options</a></li>
 <li><a href="#_s2v_fp_specific_cli_options">s2v-fp specific CLI options</a></li>
 <li><a href="#_s2v_is_specific_cli_options">s2v-is specific CLI options</a></li>
-<li><a href="#_cli_error_codes">CLI error codes</a></li>
 </ul>
 </li>
 <li><a href="#_error_codes">Error codes</a>
@@ -545,24 +544,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.vandermeer.de/projects/skb/java/svg2vector">site</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries current release</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bintray.com/vdmeer/generic/svg2vector/2.1.0-SNAPSHOT">Bintray current release 2.1.0-SNAPSHOT</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries all releases</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bintray.com/vdmeer/generic/svg2vector">Bintray all releases</a></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Source repository</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/vdmeer/svg2vector/tree/master">Github</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maven Central current release</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://search.maven.org/#artifactdetails|de.vandermeer|svg2vector|2.1.0-SNAPSHOT|jar">Maven current release 2.1.0-SNAPSHOT</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://bintray.com/vdmeer/generic/svg2vector/2.1.0-SNAPSHOT">v2.1.0-SNAPSHOT</a>,
+<a href="https://bintray.com/vdmeer/generic/svg2vector">all releases</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maven Central all releases</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://search.maven.org/#search|gav|1|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22">Maven all releases</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven Central</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://search.maven.org/#artifactdetails|de.vandermeer|svg2vector|2.1.0-SNAPSHOT|jar">v2.1.0-SNAPSHOT</a>,
+<a href="https://search.maven.org/#search|gav|1|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22">all releases</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -588,7 +581,7 @@ Once an application is selected for execution, the application specific command 
 <div class="ulist">
 <ul>
 <li>
-<p><code>s2v-hp</code> - converting SVG graphics to vector formats using Apache Batik and Freehep libraries</p>
+<p><code>s2v-hp</code> - converting SVG graphics to vector formats using Apache Batik and FreeHep libraries</p>
 </li>
 <li>
 <p><code>s2v-is</code> - converting SVG graphics to vector (and selected bitmap) formats using an existing Inkscape executable</p>
@@ -645,7 +638,7 @@ There are several options for a valid SVG file:</p>
 <h3 id="_target">Target</h3>
 <div class="paragraph">
 <p>The target of a conversion defines the target format and helps to select a target converter.
-The target implicitely defines the target file extension.
+The target implicitly defines the target file extension.
 The target also allows to identify target-specific conversion options, for instance the PS level for a PS or EPS target.</p>
 </div>
 <div class="paragraph">
@@ -674,7 +667,7 @@ Those codes can be used by a calling application to understand potential errors 
 <div class="ulist">
 <ul>
 <li>
-<p>0 - the execution was successfull, all steps have been passed, output should have been created as requested</p>
+<p>0 - the execution was successful, all steps have been passed, output should have been created as requested</p>
 </li>
 <li>
 <p>1 (or other positive integer) - the application found an <em>early</em> exit option, such as help, version, or usage.</p>
@@ -686,7 +679,7 @@ Those codes can be used by a calling application to understand potential errors 
 </div>
 <div class="paragraph">
 <p>The negative return codes are error codes. Each error has a specific code.
-All error codes are handled by an enumerat.
+All error codes are handled by an enumerate.
 Use the application <code>s2v-aec</code> to print all error codes.</p>
 </div>
 </div>
@@ -696,13 +689,13 @@ Use the application <code>s2v-aec</code> to print all error codes.</p>
 <h2 id="_features">Features</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Tool box with applications to convert SVG graphivs to other vector formats and some bitmap formats.</p>
+<p>Tool box with applications to convert SVG graphics to other vector formats and some bitmap formats.</p>
 </div>
 <div class="sect2">
 <h3 id="_standard_features">Standard Features</h3>
 <div class="paragraph">
 <p>Standard features are available in all applications.
-They cover configuration for conversion targets, message handling, input file, names for outoput file(s) and directories, Inkscape layer handline, and other general options.
+They cover configuration for conversion targets, message handling, input file, names for output file(s) and directories, Inkscape layer handling, and other general options.
 In addition, the applications are using the ExecS package and thus providing help and version information via command line as well.</p>
 </div>
 <div class="sect3">
@@ -831,7 +824,7 @@ In addition, the applications are using the ExecS package and thus providing hel
 <div class="sect2">
 <h3 id="_s2v_fp_features">s2v-fp features</h3>
 <div class="paragraph">
-<p>Converts SVG to vector formats using Apache Batik to load an SVG document and the Freehep libraries for the conversion.
+<p>Converts SVG to vector formats using Apache Batik to load an SVG document and the FreeHep libraries for the conversion.
 Supported target formats are: EMF, PDF, plain SVG (no Inkscape name space).
 Each target allows to configure:</p>
 </div>
@@ -844,10 +837,7 @@ Each target allows to configure:</p>
 <p>background color</p>
 </li>
 <li>
-<p>switch off transparancy</p>
-</li>
-<li>
-<p>use cliping</p>
+<p>switch off transparency</p>
 </li>
 </ul>
 </div>
@@ -871,7 +861,7 @@ Other supported options are:</p>
 <p>manual (for optimized EMF generation) or Inkscape object selection handling of layers</p>
 </li>
 <li>
-<p>target specific options as upported by Inkscape:</p>
+<p>target specific options as supported by Inkscape:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -906,7 +896,7 @@ Other supported options are:</p>
 <p>Maven or other build system if build from source</p>
 </li>
 <li>
-<p>CygWin or UNIX to install application from ZIP</p>
+<p>CygWin or UNIX to install application from ZIP/TAR archive</p>
 </li>
 </ul>
 </div>
@@ -1002,7 +992,7 @@ Now simple run the script <code>sh/s2v-hp.sh</code> (assuming you are on a Unix 
 The main class of the JAR is set to an ExecS execution service.
 Simply running the jar will produce a help screen from ExecS.
 Using <code>-l</code> shows all registered applications, including <code>s2v-fh</code> and <code>s2v-is</code>.
-Direcly running the conversion applications as follows</p>
+Directly running the conversion applications as follows</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1019,7 +1009,7 @@ Direcly running the conversion applications as follows</p>
 <h3 id="_build_and_install_from_source">Build and install from source</h3>
 <div class="paragraph">
 <p>One can also clone the repository, build it, and then use the created application artifacts.
-Clone and build the repo:</p>
+Clone and build the repository from Github:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1093,7 +1083,7 @@ target for the conversion Supported targets are: svg, pdf, emf, wmf, ps, eps, pn
 </div>
 </div>
 <div class="paragraph">
-<p>Assuming there is an input file <code>time-interval-based.svgz</code> in the directory <code>src/test/resources/svg-files</code>, a conversion with layer handling into the output folder <code>target/output-tests/s2v-fh/pdf/layers-index</code> with simple progress information can be realised as follows:</p>
+<p>Assuming there is an input file <code>time-interval-based.svgz</code> in the directory <code>src/test/resources/svg-files</code>, a conversion with layer handling into the output folder <code>target/output-tests/s2v-fh/pdf/layers-index</code> with simple progress information can be realized as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1116,8 +1106,8 @@ s2v-fh: --- finished successfully</code></pre>
 <div class="sect2">
 <h3 id="_using_applications_in_java">Using applications in Java</h3>
 <div class="paragraph">
-<p>The applications can be used in Java by simply creating a <code>String[]</code> with the commands (same as command line) and then calling the execution method <code>executeApplication(&#8230;&#8203;)`directly.
-The following code shows an example creating and object for the `s2v-fh</code> application, with a set of command line options, and then executing it.</p>
+<p>The applications can be used in Java by simply creating a <code>String[]</code> with the commands (same as command line) and then calling the execution method <code>executeApplication(&#8230;&#8203;)</code> directly.
+The following code shows an example creating and object for the <code>s2v-fh</code> application, with a set of command line options, and then executing it.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1139,7 +1129,7 @@ app.executeApplication(args);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>0</code> means successfull execution</p>
+<p><code>0</code> means successful execution</p>
 </li>
 <li>
 <p><code>&gt;0</code> means an early exit option (such as <code>--help</code> or <code>--version</code>) was used</p>
@@ -1157,148 +1147,175 @@ app.executeApplication(args);</code></pre>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_standard_cli_options">Standard CLI options</h3>
-<table class="tableblock frame-topbot grid-rows spread">
+<table class="tableblock frame-topbot grid-rows spread table table-striped">
 <colgroup>
-<col style="width: 10%;">
-<col style="width: 30%;">
-<col style="width: 60%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 63.6364%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Short</th>
 <th class="tableblock halign-left valign-top">Long</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description (Argument Description)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-?</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--help &lt;ARG&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application and argument help</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--all-layers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all-layers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">switch on all layers</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-B</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--fout-islabel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fout-islabel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use Inkscape label in output file names</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--create-directories</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">create-directories</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">automatically create directories for output</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-d</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--output-directory &lt;DIR&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">output directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">d DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">output-directory DIR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">output directory, default in layer mode is current directory
+</p><p class="tableblock">DIR: a directory</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-e</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--print-details</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">print detailed information to stdout</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-f</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--input-file &lt;FILE&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">input filename</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">e</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">print-details</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">print very detailed information to stdout</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--fout-no-basename</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">when processing layers, do not use a basename for output files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fout-no-basename</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">do not use a basename for output files (in layer mode)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-I</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--fout-isindex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">use the Inkscape layer index in output file name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">f FILE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">input-file FILE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">specifies the input file (path and filename)
+</p><p class="tableblock">FILE: a valid SVG document either GZIP compressed or plain text file</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-i</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--fout-index</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">h ARG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">help ARG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application and argument help</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">i</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fout-index</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use a continuous index in output file name</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">I</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fout-isindex</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use the Inkscape layer index in output file name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">l</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">layers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">switch on layer mode, process layers, create one file per layer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">layers-if-exist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">switch on layer mode, if input SVG document has layers, otherwise do not process layers</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--keep-tmp-artifacts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keep temporary created artifacts (files and directories)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-l</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--layers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">process layers, create one file per layer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-L</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--layers-if-exist</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">process layers if if input file has layers, create one file per layer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--no-errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no-errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">switch off error messages</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-o</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--output-file &lt;FILE&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">output filename</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">o FILE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">output-file FILE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">output filename, default is the basename of the input file plus target extension
+</p><p class="tableblock">FILE: specifies the input file (path and filename)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--overwrite-existing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">overwrite-existing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">overwrite existing files on output</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-p</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--print-progress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">p</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">print-progress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">print progress information to stdout</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--print-stack-trace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">print-stack-trace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sets a flag to print the stack trace of exceptions</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-q</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--quiet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">puts the application in quiet mode, no progres or error messages will be printed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">quiet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">puts the application in quiet mode, no errors, warnings, progress, or details will be printed</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-S</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--simulate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">simulate application, no file output</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">simulate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">simulate application, no output directories or files will be created</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--text-as-shape</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">text as shape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text-as-shape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">convert text as shapes</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-t</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--target &lt;TARGET&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">specifies a target, for instance for a compilation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">t TARGET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">target TARGET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">specifies a conversion target
+</p><p class="tableblock">TARGET: supported targets are: svg, pdf, emf, wmf, ps, eps, png</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--use-basename &lt;BASENAME&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">use specified base name for output</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use-basename BASENAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use the specified basename for output files
+</p><p class="tableblock">BASENAME: a basename to be used for output files</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-v</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">verbose mode for application</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">application version</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-w</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--print-warnings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">w</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">print-warnings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">print warning messages to stdout</p></td>
 </tr>
 </tbody>
@@ -1306,95 +1323,110 @@ app.executeApplication(args);</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_s2v_fp_specific_cli_options">s2v-fp specific CLI options</h3>
-<table class="tableblock frame-topbot grid-rows spread">
+<table class="tableblock frame-topbot grid-rows spread table table-striped">
 <colgroup>
-<col style="width: 10%;">
-<col style="width: 30%;">
-<col style="width: 60%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 63.6364%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Short</th>
 <th class="tableblock halign-left valign-top">Long</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description (Argument Description)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--export-dpi &lt;DPI&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">set DPI for export</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">export-dpi DPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">set DPI for bitmap conversion or for rasterization of filters
+</p><p class="tableblock">DPI: the DPI value</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--export-pdf-version &lt;VERSION&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">set PDf version for export</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">export-pdf-version VERSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">set PDF version for export
+</p><p class="tableblock">VERSION: the PDF version, must be an exact version string</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--export-ps-level &lt;LEVEL&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">sets the PS level for export (2 or 3)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">export-ps-level LEVEL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sets the PS level for export
+</p><p class="tableblock">LEVEL: the PS level to use (2 or 3)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-g</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--svg-first</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">convert to SVG first, then to actual</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">g</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">svg-first</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">convert to SVG first, then to actual target</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-m</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--manual-layers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">manage layers manually when creating</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep-tmp-artifacts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep temporary created artifacts (files and directories)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-x</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--is-exec &lt;PATH&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">path to Inkscape executable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manual-layers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage layers manually when in layer mode and creating SVG temporary files first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">x EXEC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is-exec EXEC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sets the Inkscape executable (default values from environment or for Windows and Unix)
+</p><p class="tableblock">EXEC: the Inkscape executable</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
 <h3 id="_s2v_is_specific_cli_options">s2v-is specific CLI options</h3>
-<table class="tableblock frame-topbot grid-rows spread">
+<table class="tableblock frame-topbot grid-rows spread table table-striped">
 <colgroup>
-<col style="width: 10%;">
-<col style="width: 30%;">
-<col style="width: 60%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 63.6364%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Short</th>
 <th class="tableblock halign-left valign-top">Long</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description (Argument Description)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-b</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--no-background</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">no background</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no-background</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">switch off background property</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-c</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--clip</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">clip</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not-transparent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">switch off transparency</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-n</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--not-transparent</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">not transparent</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-r</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">--bgrnd-color &lt;COLOR&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">background color</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">r COLOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bgrnd-color COLOR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sets a background color
+</p><p class="tableblock">COLOR: name of a system property that has the background color</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="sect2">
-<h3 id="_cli_error_codes">CLI error codes</h3>
-
 </div>
 </div>
 </div>
@@ -1809,7 +1841,7 @@ app.executeApplication(args);</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-24 09:46:20 IST
+Last updated 2017-04-25 08:28:38 IST
 </div>
 </div>
 </body>

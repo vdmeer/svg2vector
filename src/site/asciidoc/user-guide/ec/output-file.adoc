@@ -1,0 +1,32 @@
+=== Output File Errors (-420 to -439)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-420
+|A required output file name is blank.
+|"output filename is blank"
+
+|-422
+|An output file name is the same as the input file name (output file name, input file name).
+|"output <{}> same as input <{}>"
+
+|-423
+|The output file name points to a directory (file name).
+|"output file <{}> exists but is a directory"
+
+|-424
+|The output file exists but no overwrite option given in CLI (file name, required CLI option).
+|"output file <{}> exists and no option {} used"
+
+|-425
+|Output file exists but no permission (on file system) to write (file name).
+|"output file <{}> exists but cannot write to it, please check permissions"
+
+|===
+
+

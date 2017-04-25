@@ -1,0 +1,20 @@
+=== Output Pattern Errors (-460 to -469)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-460
+|The output pattern configuration resulted in a path only containing a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.
+|"output pattern <{}> only contains file extension, check options for generating fnout"
+
+|-461
+|The output pattern configuration resulted in a path only containing a directory and a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.
+|"output pattern <{}> only contains directory and file extension, check options for generating fnout"
+
+|===
+
+

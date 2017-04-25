@@ -1,0 +1,81 @@
+== Error codes
+
+Error codes are organized in categories.
+Each category covers a particular aspect of errors.
+It has a maximum and minimum value for returns codes so that no overlap between return codes eixsts.
+
+The following table lists all categories.
+Details for the error codes in the categories can be found in the sub sections.
+
+
+[role="table table-striped", frame=topbot, grid=rows, cols="3,1,1,6", options="header"]
+|===
+
+|Title
+|Start
+|End
+|Description
+
+|General Errors
+|-1
+|-49
+|Category for all errors that do not fit into a specialized category. These are unexpected exceptions (e.g. null pointer, I/O) and internal implementation errors (aka bugs).
+
+|Target Errors
+|-50
+|-99
+|Category for all errors regarding the target. Those errors cover any reason to reject a given target: blank, not suported, etc.
+
+|Input File Errors
+|-100
+|-199
+|Category for all errors that can occur processing the input file, which contains the SVG document to convert. The given file migh not exist, not be readable, etc.
+
+|Apache Batik Loader Errors
+|-210
+|-219
+|Category for the loader that uses Apache Batik to load an SVG document. Errors cover files that cannot be read and problems setting the document size.
+
+|Inkscape Loader Errors
+|-220
+|-229
+|Category for the loader used in the Inkscape applications. This loader tries to read a file 'manually', so here errors can be related to (beside file not found) encoding and compression.
+
+|Layer Errors
+|-300
+|-319
+|Category for errors when an application is in layer mode. Core problem here are SVG document that do not have layers.
+
+|General Output Errors
+|-400
+|-419
+|Category for general output errors, currently only some implementation errors (bugs) identified at runtime.
+
+|Output File Errors
+|-420
+|-439
+|Category for problems with an output filename, such as file does not exist, is of wrong type, cannot be written to, etc.
+
+|Output Directory Errors
+|-440
+|-459
+|Category for problems with an output directory, such as wrong type, does not exist, etc.
+
+|Output Pattern Errors
+|-460
+|-469
+|Category to for problems with a generated pattern for output filenames. This pattern is generated from various different combinations of CLI arguments. At runtime, problems with the pattern can still exist.
+
+|Inkscape Executor Errors (file name)
+|-500
+|-509
+|Category to for problems with the filename of the Inkscape executable in an Inkscape application, such as file does not exist, is not executable, etc.
+
+|Inkscape Executor Errors (execution)
+|-510
+|-519
+|Category to for problems when executing Inkscape. Those problems are mostly related to exceptions (e.g. I/O) and interruptions.
+
+|===
+
+

@@ -59,16 +59,7 @@ public class S2VErrorCodes implements ExecS_Application {
 		if(ret!=0){
 			return ret;
 		}
-
-//		this.printEcList("de/vandermeer/svg2vector/applications/aec/console.stg");
-//		this.printEcList("de/vandermeer/svg2vector/applications/aec/adoc.stg");
-
-//		this.printCatList("de/vandermeer/svg2vector/applications/aec/console.stg");
-//		this.printCatList("de/vandermeer/svg2vector/applications/aec/adoc.stg");
-
 		this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
-//		this.fullTable("de/vandermeer/svg2vector/applications/aec/adoc.stg");
-
 		return 0;
 	}
 
@@ -98,6 +89,27 @@ public class S2VErrorCodes implements ExecS_Application {
 	}
 
 	/**
+	 * Prints a full table of error categories with all information.
+	 * @param stgFilename the STG file name
+	 */
+	public void printCatFullTable(String stgFilename){
+		STGroupFile stg = new STGroupFile(stgFilename);
+		ST cats = stg.getInstanceOf("catFullTable");
+
+		TreeMap<Integer, ErrorCodeCategories> catMap = this.catMap();
+		for(ErrorCodeCategories cat : catMap.values()){
+			ST catST = stg.getInstanceOf("catFullTableEntry");
+			catST.add("title", cat.getTitle());
+			catST.add("start", cat.getStart());
+			catST.add("end", cat.getEnd());
+			catST.add("description", cat.getDescription());
+			cats.add("cats", catST.render());
+		}
+
+		System.out.println(cats.render());
+	}
+
+	/**
 	 * Prints list of error categories.
 	 * @param stgFilename the STG file name
 	 */
@@ -108,7 +120,7 @@ public class S2VErrorCodes implements ExecS_Application {
 		TreeMap<Integer, ErrorCodeCategories> catMap = this.catMap();
 		for(ErrorCodeCategories cat : catMap.values()){
 			ST catST = stg.getInstanceOf("catListEntry");
-			catST.add("cat", cat.getDescription());
+			catST.add("title", cat.getTitle());
 			catST.add("start", cat.getStart());
 			catST.add("end", cat.getEnd());
 			cats.add("cats", catST.render());
@@ -123,19 +135,19 @@ public class S2VErrorCodes implements ExecS_Application {
 	 */
 	public void fullTable(String stgFilename){
 		STGroupFile stg = new STGroupFile(stgFilename);
-		ST cats = stg.getInstanceOf("catTable");
+		ST cats = stg.getInstanceOf("fullTable");
 
 		TreeMap<Integer, ErrorCodeCategories> catMap = this.catMap();
 
 		for(ErrorCodeCategories cat : catMap.values()){
-			ST catST = stg.getInstanceOf("catTableEntry");
-			catST.add("cat", cat.getDescription());
+			ST catST = stg.getInstanceOf("fullTableCatEntry");
+			catST.add("title", cat.getTitle());
 			catST.add("start", cat.getStart());
 			catST.add("end", cat.getEnd());
 
 			TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(cat);
 			for(ErrorCodes ec : ecMap.values()){
-				ST ecST = stg.getInstanceOf("ecTableEntry");
+				ST ecST = stg.getInstanceOf("fullTableEcEntry");
 				ecST.add("code", ec.getCode());
 				ecST.add("description", ec.getDescription());
 				ecST.add("message", ec.getMessage());
@@ -166,7 +178,7 @@ public class S2VErrorCodes implements ExecS_Application {
 
 	/**
 	 * Returns a sorted map of all error codes.
-	 * @param category an optional catagory to select error codes for
+	 * @param category an optional category to select error codes for
 	 * @return sorted map, empty if no error codes found
 	 */
 	protected TreeMap<Integer, ErrorCodes> ecMap(ErrorCodeCategories category){

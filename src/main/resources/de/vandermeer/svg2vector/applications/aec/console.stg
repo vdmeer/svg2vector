@@ -27,8 +27,8 @@ catList(cats) ::= <<
 <cats:{cat | <cat>}; separator="\n">
 >>
 
-catListEntry(cat, start, end, aecs) ::= <<
-* <cat> (<start> to <end>)
+catListEntry(title, start, end, aecs) ::= <<
+* <title> (<start> to <end>)
 >>
 
 
@@ -41,7 +41,7 @@ ecListEntry(code, description, message, padding) ::= <<
 <padding><message>
 >>
 
-catTable(cats) ::= <<
+fullTable(cats) ::= <<
 
 S2V application Error Codes
  - sorted by categories, then by error codes
@@ -54,13 +54,29 @@ S2V application Error Codes
 
 >>
 
-catTableEntry(cat, start, end, aecs) ::= <<
-* <cat> (<start> to <end>)
+fullTableCatEntry(title, start, end, aecs) ::= <<
+* <title> (<start> to <end>)
 <aecs:{ec | <ec>}; separator="\n">
 
 >>
 
-ecTableEntry(code, description, message, padding) ::= <<
+fullTableEcEntry(code, description, message, padding) ::= <<
   <code> -> <description>
 <padding><message>
+>>
+
+
+
+catFullTable(cats) ::= <<
+<cats:{cat | <cat>}; separator="\n">
+
+
+>>
+
+catFullTableEntry(title, start, end, description) ::= <<
+* <title>
+  * start: <start>
+  * end: <end>
+  * description: <description>
+
 >>

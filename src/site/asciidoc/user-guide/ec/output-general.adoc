@@ -1,0 +1,16 @@
+=== General Output Errors (-400 to -419)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-400
+|An implementation error processing output options for a no-layer process: with illegal arguments.
+|"implementation error: output for no-layers with illegal arguments"
+
+|===
+
+

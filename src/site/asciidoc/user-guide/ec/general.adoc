@@ -1,0 +1,24 @@
+=== General Errors (-1 to -49)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-2
+|General code for a null pointer exception.
+|"a null pointer exception occurred"
+
+|-3
+|General code for an I/O exception.
+|"an I/O pointer exception occurred"
+
+|-4
+|An internal implementation error, something wrong with property settings.
+|"implementation error: something wrong with property settings"
+
+|===
+
+

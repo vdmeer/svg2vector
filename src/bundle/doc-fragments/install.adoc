@@ -3,7 +3,7 @@ Requirements:
 
 * Java 8 runtime to run the applications
 * Maven or other build system if build from source
-* CygWin or UNIX to install application from ZIP
+* CygWin or UNIX to install application from ZIP/TAR archive
 
 
 === In your build system
@@ -72,7 +72,7 @@ You can manually run the executable JAR file as well.
 The main class of the JAR is set to an ExecS execution service.
 Simply running the jar will produce a help screen from ExecS.
 Using `-l` shows all registered applications, including `s2v-fh` and `s2v-is`.
-Direcly running the conversion applications as follows
+Directly running the conversion applications as follows
 
 [source,sh,subs=attributes+]
 ----
@@ -87,7 +87,7 @@ java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-is
 
 === Build and install from source
 One can also clone the repository, build it, and then use the created application artifacts.
-Clone and build the repo:
+Clone and build the repository from Github:
 
 [source,sh,subs=attributes+]
 ----

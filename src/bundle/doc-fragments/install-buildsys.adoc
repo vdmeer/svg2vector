@@ -1,0 +1,30 @@
+=== In your build system
+
+==== Maven
+
+For Maven declare a dependency in the `<dependencies>` section of your POM file.
+
+[source,xml,subs=attributes+]
+.Dependency declaration in pom.xml
+----
+<dependency>
+    <groupId>de.vandermeer</groupId>
+    <artifactId>svg2vector</artifactId>
+    <version>{release-version}</version>
+</dependency>
+----
+
+
+==== Gradle / Grails
+
+[source,sh,subs=attributes+]
+----
+compile 'de.vandermeer:svg2vector:{release-version}'
+----
+
+
+==== Other build systems
+
+For other build systems see https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[Maven Central]
+
+

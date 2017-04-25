@@ -6,12 +6,18 @@ java=`cat src/bundle/pm/project.properties | grep "mvn.properties.compiler.sourc
 files="
 	src/bundle/doc-fragments/badges.adoc
 	src/main/asciidoc/overview-start.adoc
-	src/site/asciidoc/resources.adoc
-	src/site/asciidoc/concepts.adoc
-	src/site/asciidoc/features.adoc
-	src/site/asciidoc/installation.adoc
-	src/site/asciidoc/short-user-guide.adoc
-	src/site/asciidoc/cli.adoc
+	src/bundle/doc-fragments/resources.adoc
+	src/bundle/doc-fragments/concepts.adoc
+	src/bundle/doc-fragments/features.adoc
+	src/bundle/doc-fragments/install.adoc
+		src/bundle/doc-fragments/install-app.adoc
+		src/bundle/doc-fragments/install-execjar.adoc
+		src/bundle/doc-fragments/install-buildsys.adoc
+		src/bundle/doc-fragments/install-fromsrc.adoc
+	src/bundle/doc-fragments/qs.adoc
+		src/bundle/doc-fragments/qs-cli.adoc
+		src/bundle/doc-fragments/qs-java.adoc
+	src/site/asciidoc/user-guide/cli.adoc
 	src/site/asciidoc/error-codes.adoc
 "
 

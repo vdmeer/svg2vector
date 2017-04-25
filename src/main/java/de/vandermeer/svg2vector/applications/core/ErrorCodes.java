@@ -107,7 +107,7 @@ public enum ErrorCodes {
 			-100,
 			"no input file given",
 			"No input file given, was either null or blank.",
-			ErrorCodeCategories.input
+			ErrorCodeCategories.input_file
 	),
 
 	/**
@@ -118,7 +118,7 @@ public enum ErrorCodes {
 			-101, 1,
 			"input file <{}> does not exist, please check path and filename",
 			"Input file does not exist (file name).",
-			ErrorCodeCategories.input
+			ErrorCodeCategories.input_file
 	),
 
 	/**
@@ -129,7 +129,7 @@ public enum ErrorCodes {
 			-102, 1,
 			"input file <{}> is not a file, please check path and filename",
 			"Input file does exist but is not a file (file name).",
-			ErrorCodeCategories.input
+			ErrorCodeCategories.input_file
 	),
 
 	/**
@@ -140,7 +140,7 @@ public enum ErrorCodes {
 			-103, 1,
 			"cannot read input file <{}>, please file permissions",
 			"Input file does exist but is not readable (file name).",
-			ErrorCodeCategories.input
+			ErrorCodeCategories.input_file
 	),
 
 

@@ -1,0 +1,16 @@
+=== Layer Errors (-300 to -319)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-300
+|An application was requested to process layers, but the input SVG file did not had any.
+|"layers requested in command line, but SVG input file has not layers"
+
+|===
+
+

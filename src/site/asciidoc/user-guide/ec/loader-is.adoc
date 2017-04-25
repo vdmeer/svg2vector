@@ -1,0 +1,28 @@
+=== Inkscape Loader Errors (-220 to -229)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-220
+|A loader could not open an SVG file as compressed SVG (loader class, input file, original exception message).
+|"{}: ZIP exception reading file <{}>: {}"
+
+|-221
+|A loader did catch an I/O exception while reading a GZIP stream (loader class, input file, original exception message).
+|"{}: IO error reading GZIP file <{}>: {}"
+
+|-222
+|A loader did catch a file-not-found exception while reading a plain SVG file (loader class, input file, original exception message).
+|"{}: FileNotFoundException exception reading plain file {}: {}"
+
+|-223
+|A loader did catch an I/O exception while reading a plain SVG file (loader class, input file, original exception message).
+|"{}: IO exception reading plain file {}: {}"
+
+|===
+
+

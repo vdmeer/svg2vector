@@ -27,37 +27,48 @@ catList(cats) ::= <<
 <cats:{cat | <cat>}; separator="\n">
 >>
 
-catListEntry(cat, start, end, aecs) ::= <<
-* <cat> (<start> to <end>)
+catListEntry(title, start, end, aecs) ::= <<
+* <title> (<start> to <end>)
 >>
 
 
 ecList(aecs) ::= <<
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
 <aecs:{ec | <ec>}; separator="\n">
+|===
+
 >>
 
 ecListEntry(code, description, message, padding) ::= <<
-  <code> -> <description>
-<padding><message>
+|<code>
+|<description>
+|"<message>"
+
 >>
 
 
-catTable(cats) ::= <<
+fullTable(cats) ::= <<
 
 <cats:{cat | <cat>}; separator="\n">
 
 >>
 
-catTableEntry(cat, start, end, aecs) ::= <<
+fullTableCatEntry(title, start, end, aecs) ::= <<
 
-=== <cat> (<start> to <end>)
+=== <title> (<start> to <end>)
 
-[frame=topbot, grid=rows, cols="1,4,4", options="header"]
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
 |===
 
-| Code
-| Description
-| Error Message
+|Code
+|Description
+|Error Message
 
 <aecs:{ec | <ec>}; separator="\n">
 |===
@@ -66,9 +77,34 @@ catTableEntry(cat, start, end, aecs) ::= <<
 
 >>
 
-ecTableEntry(code, description, message, padding) ::= <<
+fullTableEcEntry(code, description, message, padding) ::= <<
 |<code>
 |<description>
 |"<message>"
+
+>>
+
+
+
+catFullTable(cats) ::= <<
+[role="table table-striped", frame=topbot, grid=rows, cols="3,1,1,6", options="header"]
+|===
+
+|Title
+|Start
+|End
+|Description
+
+<cats:{cat | <cat>}; separator="\n">
+|===
+
+
+>>
+
+catFullTableEntry(title, start, end, description) ::= <<
+|<title>
+|<start>
+|<end>
+|<description>
 
 >>

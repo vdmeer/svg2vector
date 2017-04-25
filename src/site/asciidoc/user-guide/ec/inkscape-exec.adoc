@@ -1,0 +1,20 @@
+=== Inkscape Executor Errors (execution) (-510 to -519)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-510
+|An Inkscape executor did catch an I/O exception during execution (original exception message).
+|"IO exception while executing Inkscape with error: {}"
+
+|-511
+|An Inkscape executor did get interrupted during execution (original exception message).
+|"InterruptedException exception while executing Inkscape with error: {}"
+
+|===
+
+

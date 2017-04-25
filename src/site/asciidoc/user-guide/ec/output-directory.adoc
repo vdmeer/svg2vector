@@ -1,0 +1,28 @@
+=== Output Directory Errors (-440 to -459)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-440
+|An output directory does not exist and no CLI option given to create directories (directory, requried CLI option).
+|"output directory <{}> does not exist and CLI option {} not used"
+
+|-441
+|An output directory exists but is not a directory (output directory).
+|"output directory <{}> exists but is not a directory"
+
+|-442
+|An output directory exists no permissions (on file system) to write to it (output directory).
+|"output directory <{}> exists but cannot write to it, please check permissions"
+
+|-443
+|An output directory may contain target files and no overwrite option given in CLI
+|"output directory <{}> may contain target files for extension <{}> and no overwrite in CLI"
+
+|===
+
+

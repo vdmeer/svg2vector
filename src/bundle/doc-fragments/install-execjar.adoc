@@ -1,0 +1,31 @@
+=== Using the executable JAR
+
+* download the executable JAR file from BinTray: https://bintray.com/vdmeer/generic/svg2vector/{release-version}[{release-version}].
+* move the JAR to a directory on your system
+
+Now you can run the following command to create scripts executing the applications:
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar gen-exec-jar-scripts
+----
+
+This will create scripts, which you can then move into a binary directory of your system.
+
+You can manually run the executable JAR file as well.
+The main class of the JAR is set to an ExecS execution service.
+Simply running the jar will produce a help screen from ExecS.
+Using `-l` shows all registered applications, including `s2v-fh` and `s2v-is`.
+Directly running the conversion applications as follows
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-fh
+----
+
+[source,sh,subs=attributes+]
+----
+java -jar svg2vector-{release-version}-jar-with-dependencies.jar s2v-is
+----
+
+

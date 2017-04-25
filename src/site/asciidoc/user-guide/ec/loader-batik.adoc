@@ -1,0 +1,20 @@
+=== Apache Batik Loader Errors (-210 to -219)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-210
+|A loader using Apache Batik could not load an SVG document (loaders class, original exception message).
+|"{}: exception loading svgDocument: {}"
+
+|-211
+|A loader using Apache Batik could set the size for an SVG document, set the dimension (loaders class, original exception message).
+|"{}: exception setting docucment size: {}"
+
+|===
+
+

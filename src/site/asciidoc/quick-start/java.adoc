@@ -1,0 +1,1 @@
+include::{basedir}/bundle/doc-fragments/qs-java.adoc[]

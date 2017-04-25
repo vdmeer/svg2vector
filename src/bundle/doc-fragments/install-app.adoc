@@ -1,0 +1,18 @@
+=== As a stand-alone application
+The stand-alone application can be installed in UNIX and CygWin systems.
+The installation will create all required scripts to run the applications
+On CygWin, the installation will also create DOS/Windows batch files to start the applications.
+
+* download the ZIP archive from BinTray: https://bintray.com/vdmeer/generic/svg2vector/{release-version}[{release-version}].
+* unzip in a directory of your choice
+
+Now you can run the script generation:
+----
+cd bin
+./init.sh
+----
+
+The script `init.sh` will create scripts to run the tool for Unix (`bin/sh`) and if you run `init.sh` on a CygWin system also for CygWin (`bin/cyg`) and DOS/Windows (`bin/bat`).
+Now simple run the script `sh/s2v-hp.sh` (assuming you are on a Unix system).
+
+

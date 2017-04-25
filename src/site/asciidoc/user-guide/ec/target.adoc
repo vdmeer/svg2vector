@@ -1,0 +1,24 @@
+=== Target Errors (-50 to -99)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-50
+|A given target was blank, null or empty (arguments: supported targets).
+|"given target is blank. Use one of the supported targets: {}"
+
+|-51
+|A given target is unknown (arguments: target, supported targets).
+|"given target <{}> is unknown. Use one of the supported targets: {}"
+
+|-52
+|A given target is not supported by an application (arguments: target, supported targets).
+|"given target <{}> not supported. Use one of the supported targets: {}"
+
+|===
+
+

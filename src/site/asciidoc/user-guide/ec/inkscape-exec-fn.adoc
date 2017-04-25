@@ -1,0 +1,28 @@
+=== Inkscape Executor Errors (file name) (-500 to -509)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-500
+|The given executable for Inkscape was blank (Inkscape executable).
+|"expected Inkscape executable, found <{}>"
+
+|-501
+|The given executable for Inkscape does not exist (Inkscape executable).
+|"Inkscape executable <{}> does not exist, please check path and filename"
+
+|-503
+|The given executable for Inkscape is not a file (Inkscape executable).
+|"Inkscape executable <{}> is not a file, please check path and filename"
+
+|-504
+|The given executable for Inkscape cannot be executed (Inkscape executable).
+|"cannot execute input Inkscape executable <{}>, please file permissions"
+
+|===
+
+

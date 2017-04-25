@@ -1,0 +1,28 @@
+=== Input File Errors (-100 to -199)
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,4,4", options="header"]
+|===
+
+|Code
+|Description
+|Error Message
+
+|-100
+|No input file given, was either null or blank.
+|"no input file given"
+
+|-101
+|Input file does not exist (file name).
+|"input file <{}> does not exist, please check path and filename"
+
+|-102
+|Input file does exist but is not a file (file name).
+|"input file <{}> is not a file, please check path and filename"
+
+|-103
+|Input file does exist but is not readable (file name).
+|"cannot read input file <{}>, please file permissions"
+
+|===
+
+

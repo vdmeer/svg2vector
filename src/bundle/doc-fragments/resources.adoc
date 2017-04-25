@@ -1,0 +1,32 @@
+== Resources
+
+The current version of SVG2Vector is *{release-version}*.
+
+SVG2Vector has its own home page with full documentation, including a user guide, details on the command line interface, and errors.
+The source code is hosted on Github, along with issue and feedback managements.
+Distributions are published in parallel on Bintray (application as archive and executable JAR) and Maven (for JAR artifacts).
+
+[role="table table-striped", frame=topbot, grid=rows, cols="1,5"]
+|===
+
+|Home page
+|http://www.vandermeer.de/projects/skb/java/svg2vector[site], 
+http://www.vandermeer.de/projects/skb/java/svg2vector/user-guide.html[user-guide], 
+http://www.vandermeer.de/projects/skb/java/svg2vector/user-guide/cli.html[CLI overview], 
+http://www.vandermeer.de/projects/skb/java/svg2vector/apidocs[JAVA API Doc]
+
+|Source (Github)
+|https://github.com/vdmeer/svg2vector/tree/master[source], 
+https://github.com/vdmeer/svg2vector/issues[issues]
+
+|Binaries (Bintray)
+|https://bintray.com/vdmeer/generic/svg2vector/{release-version}[v{release-version}], 
+https://bintray.com/vdmeer/generic/svg2vector[all releases]
+
+|JARs (Maven)
+|https://search.maven.org/#artifactdetails\|de.vandermeer\|svg2vector\|{release-version}\|jar[v{release-version}], 
+https://search.maven.org/#search\|gav\|1\|g%3A%22de.vandermeer%22%20AND%20a%3A%22svg2vector%22[all releases]
+
+|===
+
+
