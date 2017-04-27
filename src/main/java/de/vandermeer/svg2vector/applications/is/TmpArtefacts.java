@@ -80,7 +80,7 @@ public class TmpArtefacts {
 
 	/**
 	 * Creates a new temporary file and writes lines into it.
-	 * @param extension file extension, can be null
+	 * @param filename the name of the file to create
 	 * @param lines strings to write into the file, cannot be null or have null elements
 	 * @throws IOException if an IO error occurred
 	 * @throws NullPointerException if lines was null, or if no temporary directory was created or already deleted

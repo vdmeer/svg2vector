@@ -161,7 +161,7 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 
 	/**
 	 * Returns an output file name using the settings for the OutputOptions.
-	 * @oaram filename file name to be used
+	 * @param filename file name to be used
 	 * @return the output file name
 	 * @throws S2VExeception in case the resulting file name was not valid
 	 */
@@ -217,7 +217,7 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 
 	/**
 	 * Initialized the properties, loads all input and output.
-	 * @throws {@link S2VExeception} if anything went wrong
+	 * @throws S2VExeception if anything went wrong
 	 */
 	protected void init() throws S2VExeception{
 		this.messageOptions.setMessageMode();

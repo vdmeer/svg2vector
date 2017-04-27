@@ -37,7 +37,7 @@ public abstract class SV_DocumentLoader {
 	 * Loads the SVG file.
 	 * This method will not re-load an SVG file once the loader already has a document loaded.
 	 * @param fn the file name for the SVG document, must not be blank
-	 * @throws {@link S2VExeception} if file could not be loaded
+	 * @throws S2VExeception if file could not be loaded
 	 */
 	public abstract void load(String fn) throws S2VExeception; 
 

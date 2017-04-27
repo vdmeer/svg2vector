@@ -66,7 +66,8 @@ public class IsExecutor {
 	/**
 	 * Creates a new executor.
 	 * @param isExec the executable (including path) file name for Inkscape
-	 * @throws {@link S2VExeception} if isExec was blank or not a file or was not executable
+	 * @param simulate flag for simulation, if true no execution happens
+	 * @throws S2VExeception if isExec was blank or not a file or was not executable
 	 */
 	public IsExecutor(String isExec, final boolean simulate) throws S2VExeception {
 		if(StringUtils.isBlank(isExec)){
@@ -161,7 +162,7 @@ public class IsExecutor {
 	 * Executes Inkscape with the created command for given input and output files.
 	 * @param fin the input file, must not be blank
 	 * @param fout the output file, must not be blank
-	 * @throws {@link S2VExeception} if execution had errors
+	 * @throws S2VExeception if execution had errors
 	 */
 	public void executeInkscape(final String fin, final String fout) throws S2VExeception{
 		Validate.notBlank(fin);
