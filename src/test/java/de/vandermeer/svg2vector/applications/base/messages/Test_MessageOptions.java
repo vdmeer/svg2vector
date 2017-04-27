@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
+import de.vandermeer.execs.DefaultCliParser;
 
 /**
  * Tests for {@link MessageOptions} - message options.
@@ -34,19 +33,18 @@ public class Test_MessageOptions {
 	@Test
 	public void test_Constructor_Values(){
 		MessageOptions mo = new MessageOptions();
-		assertEquals(6, mo.getOptions().length);
+		assertEquals(6, mo.getSimpleOptions().length);
 		assertEquals(MessageOptions.OPTION_ERROR, mo.getMessageMode());
 	}
 
 	@Test
 	public void test_DefaultMsgOptions(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
-		String[] args = new String[]{};
+		cli.addAllOptions(mo.getSimpleOptions());
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		String[] args = new String[]{};
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(MessageOptions.OPTION_ERROR, mo.getMessageMode());
@@ -54,15 +52,14 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_WarningMsgOptions(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
+		cli.addAllOptions(mo.getSimpleOptions());
+
 		String[] args = new String[]{
 				"-w"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(MessageOptions.OPTION_ERROR | MessageOptions.OPTION_WARNING, mo.getMessageMode());
@@ -70,15 +67,14 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_ProgressMsgOptions(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
+		cli.addAllOptions(mo.getSimpleOptions());
+
 		String[] args = new String[]{
 				"-p"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(MessageOptions.OPTION_ERROR | MessageOptions.OPTION_PROGRESS, mo.getMessageMode());
@@ -86,15 +82,14 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_DetailsMsgOptions(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
+		cli.addAllOptions(mo.getSimpleOptions());
+
 		String[] args = new String[]{
 				"-e"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(MessageOptions.OPTION_ERROR | MessageOptions.OPTION_DEAILS, mo.getMessageMode());
@@ -102,15 +97,14 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_NoErrors(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
+		cli.addAllOptions(mo.getSimpleOptions());
+
 		String[] args = new String[]{
 				"--no-errors"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(0, mo.getMessageMode());
@@ -118,15 +112,14 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_VerboseMsgOptions(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
+		cli.addAllOptions(mo.getSimpleOptions());
+
 		String[] args = new String[]{
 				"-v"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(MessageOptions.OPTION_VERBOSE, mo.getMessageMode());
@@ -134,15 +127,14 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_QuietMsgOptions(){
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getOptions());
+		cli.addAllOptions(mo.getSimpleOptions());
+
 		String[] args = new String[]{
 				"-q"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), mo.getOptions()));
+		cli.parse(args);
 
 		mo.setMessageMode();
 		assertEquals(0, mo.getMessageMode());

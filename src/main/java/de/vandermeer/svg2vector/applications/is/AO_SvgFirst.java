@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `svg-first`.
@@ -24,20 +26,16 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_SvgFirst extends AbstractApplicationOption<String> {
+public class AO_SvgFirst extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_SvgFirst(){
-		super("de/vandermeer/svg2vector/applications/is/AO_SvgFirst.stg", false);	}
+		super('g', "svg-first", false, "convert to SVG first, then to actual target");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_SvgFirst.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 }

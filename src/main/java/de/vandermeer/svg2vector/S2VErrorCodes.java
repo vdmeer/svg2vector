@@ -21,9 +21,9 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.ExecS_Application;
-import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.execs.options.ExecS_CliParser;
+import de.vandermeer.execs.AbstractAppliction;
+import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.IsApplication;
 import de.vandermeer.svg2vector.applications.core.ErrorCodeCategories;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 
@@ -34,7 +34,7 @@ import de.vandermeer.svg2vector.applications.core.ErrorCodes;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class S2VErrorCodes implements ExecS_Application {
+public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-aec";
@@ -45,17 +45,14 @@ public class S2VErrorCodes implements ExecS_Application {
 	/** Application version, should be same as the version in the class JavaDoc. */
 	public final static String APP_VERSION = "v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8";
 
-	/** CLI parser. */
-	final private ExecS_CliParser cli;
-
 	public S2VErrorCodes(){
-		this.cli = new ExecS_CliParser();
+		super(new DefaultCliParser(), AbstractAppliction.HELP_SIMPLE_SHORTLONG, AbstractAppliction.VERSION_SHORTLONG);
 	}
 
 	@Override
 	public int executeApplication(String[] args){
 		// parse command line, exit with help screen if error
-		final int ret = ExecS_Application.super.executeApplication(args);
+		final int ret = IsApplication.super.executeApplication(args);
 		if(ret!=0){
 			return ret;
 		}
@@ -211,13 +208,4 @@ public class S2VErrorCodes implements ExecS_Application {
 		return APP_VERSION;
 	}
 
-	@Override
-	public ApplicationOption<?>[] getAppOptions() {
-		return null;
-	}
-
-	@Override
-	public ExecS_CliParser getCli() {
-		return this.cli;
-	}
 }

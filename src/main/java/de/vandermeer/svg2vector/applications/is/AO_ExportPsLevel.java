@@ -15,6 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -24,12 +27,32 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_ExportPsLevel extends IsTargetOption {
+public class AO_ExportPsLevel extends AbstractTypedC_String implements IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.
 	 */
 	public AO_ExportPsLevel(){
-		super(SvgTargets.ps, "--export-ps-level", "de/vandermeer/svg2vector/applications/is/AO_ExportPsLevel.stg");
+		super(null, "export-ps-level", false, "LEVEL", false,
+				"the PS level to use (2 or 3)", "sets the PS level for export"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportPsLevel.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
+	}
+
+	@Override
+	public SvgTargets getTarget() {
+		return SvgTargets.ps;
+	}
+
+	@Override
+	public String getIsCmd() {
+		return "--export-ps-level";
+	}
+
+	@Override
+	public String getOptValue() {
+		return this.getValue();
 	}
 }

@@ -136,8 +136,8 @@ public class IsExecutor {
 		Validate.noNullElements(options);
 
 		for(IsTargetOption to : options){
-			if(target==to.getTarget() && to.inCli() && to.getValue()!=null){
-				this.cmd.append(' ').append(to.getIsCmd()).append('=').append(to.getValue());
+			if(target==to.getTarget() && to.inCli() && to.getOptValue()!=null){
+				this.cmd.append(' ').append(to.getIsCmd()).append('=').append(to.getOptValue());
 			}
 		}
 		return this;

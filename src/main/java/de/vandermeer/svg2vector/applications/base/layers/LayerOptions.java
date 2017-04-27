@@ -18,7 +18,8 @@ package de.vandermeer.svg2vector.applications.base.layers;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.vandermeer.execs.options.ApplicationOption;
+import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.execs.options.AbstractTypedC;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
@@ -55,8 +56,11 @@ public final class LayerOptions {
 	/** Application option for using a specified base name when processing layers. */
 	final private AO_UseBaseName aoUseBaseName = new AO_UseBaseName();
 
-	/** List of application options. */
-	private final ApplicationOption<?>[] options;
+	/** List of simple options. */
+	private final AbstractSimpleC[] simpleOptions;
+
+	/** List of typed options. */
+	private final AbstractTypedC<?>[] typedOptions;
 
 	/** Flag for layer mode, default is false. */
 	private boolean doLayers = false;
@@ -65,16 +69,35 @@ public final class LayerOptions {
 	 * Creates a new option object.
 	 */
 	public LayerOptions(){
-		this.options = new ApplicationOption<?>[]{
+		this.simpleOptions = new AbstractSimpleC[]{
 			this.aoSwitchOnLayers,
 			this.aoLayers,
 			this.aoLayersIfExists,
 			this.aoFoutIsIndex,
 			this.aoFoutIsLabel,
 			this.aoFoutIndex,
-			this.aoFoutNoBasename,
+			this.aoFoutNoBasename
+		};
+
+		this.typedOptions = new AbstractTypedC<?>[]{
 			this.aoUseBaseName
 		};
+	}
+
+	/**
+	 * Returns the typed options.
+	 * @return typed options, empty if none set
+	 */
+	public AbstractTypedC<?>[] getTypedOptions(){
+		return this.typedOptions;
+	}
+
+	/**
+	 * Returns the simple options.
+	 * @return simple options, empty if none set
+	 */
+	public AbstractSimpleC[] getSimpleOptions(){
+		return this.simpleOptions;
 	}
 
 	/**
@@ -103,38 +126,37 @@ public final class LayerOptions {
 	public List<String> getWarnings(){
 		List<String> ret = new ArrayList<>();
 		if(this.doLayers){
-			ApplicationOption<?>[] options = new ApplicationOption<?>[]{
+			AbstractSimpleC[] options = new AbstractSimpleC[]{
 				this.aoSwitchOnLayers
 			};
-			for(ApplicationOption<?> ao : options){
+			for(AbstractSimpleC ao : options){
 				if(ao.inCli()){
-					ret.add("layers processed but CLI option <" + ao.getCliOption().getLongOpt() + "> used, will be ignored");
+					ret.add("layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 				}
 			}
 		}
 		else{
-			ApplicationOption<?>[] options = new ApplicationOption<?>[]{
+			AbstractSimpleC[] simpleOptions = new AbstractSimpleC[]{
 				this.aoFoutIndex,
 				this.aoFoutIsIndex,
 				this.aoFoutIsLabel,
 				this.aoFoutNoBasename,
-				this.aoUseBaseName
 			};
-			for(ApplicationOption<?> ao : options){
+			for(AbstractSimpleC ao : simpleOptions){
 				if(ao.inCli()){
-					ret.add("no layers processed but CLI option <" + ao.getCliOption().getLongOpt() + "> used, will be ignored");
+					ret.add("no layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 				}
 			}
+			AbstractTypedC<?>[] typedOptions = new AbstractTypedC<?>[]{
+					this.aoUseBaseName
+				};
+				for(AbstractTypedC<?> ao : typedOptions){
+					if(ao.inCli()){
+						ret.add("no layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
+					}
+				}
 		}
 		return ret;
-	}
-
-	/**
-	 * Returns the message options as array.
-	 * @return message options array
-	 */
-	public final ApplicationOption<?>[] getOptions(){
-		return this.options;
 	}
 
 	/**

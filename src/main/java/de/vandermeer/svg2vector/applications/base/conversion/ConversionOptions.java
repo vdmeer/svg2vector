@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.conversion;
 
-import de.vandermeer.execs.options.ApplicationOption;
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Conversion options.
@@ -30,10 +30,10 @@ public class ConversionOptions {
 	final private AO_TextAsShape aoTextAsShape = new AO_TextAsShape();
 
 	/** List of application options. */
-	private final ApplicationOption<?>[] options;
+	private final AbstractSimpleC[] options;
 
 	public ConversionOptions(){
-		this.options = new ApplicationOption<?>[]{
+		this.options = new AbstractSimpleC[]{
 			this.aoTextAsShape
 		};
 	}
@@ -42,7 +42,7 @@ public class ConversionOptions {
 	 * Returns the message options as array.
 	 * @return message options array
 	 */
-	public final ApplicationOption<?>[] getOptions(){
+	public final AbstractSimpleC[] getSimpleOptions(){
 		return this.options;
 	}
 

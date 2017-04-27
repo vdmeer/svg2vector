@@ -21,9 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
-import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
+import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
@@ -37,15 +35,15 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_BN() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"--fout-no-basename",
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertFalse(lo.doLayers());
@@ -55,15 +53,15 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_UseBN() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"--use-basename", "bn"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertFalse(lo.doLayers());
@@ -73,15 +71,15 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_Index() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-i"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertFalse(lo.doLayers());
@@ -91,15 +89,15 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_IsIndex() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-I"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertFalse(lo.doLayers());
@@ -109,15 +107,15 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_IsLabel() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-B"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertFalse(lo.doLayers());
@@ -127,15 +125,15 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_Layers_SwitchOn() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-l", "--all-layers", "--fout-index"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertTrue(lo.doLayers());

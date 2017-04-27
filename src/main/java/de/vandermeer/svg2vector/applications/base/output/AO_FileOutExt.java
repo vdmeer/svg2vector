@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.output;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 
 /**
  * Application option `output-file`.
@@ -24,20 +26,19 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class AO_FileOutExt extends AbstractApplicationOption<String> {
+public class AO_FileOutExt extends AbstractTypedC_String {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_FileOutExt(){
-		super("de/vandermeer/svg2vector/applications/base/output/AO_FileOutExt.stg", false);
+		super(
+				'o', "output-file", false, "FILE", false,
+				"specifies the input file (path and filename)", "output filename, default is the basename of the input file plus target extension"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_FileOutExt.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

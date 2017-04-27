@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.misc;
 
-import de.vandermeer.execs.options.ApplicationOption;
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Miscellaneous application options.
@@ -33,24 +33,24 @@ public class MiscOptions {
 	final private AO_PrintStackTraceExt aoPrintStackTrace = new AO_PrintStackTraceExt();
 
 	/** List of application options. */
-	private final ApplicationOption<?>[] options;
+	private final AbstractSimpleC[] simpleOptions;
 
 	/**
 	 * Creates a new option object.
 	 */
 	public MiscOptions(){
-		this.options = new ApplicationOption<?>[]{
+		this.simpleOptions = new AbstractSimpleC[]{
 			this.aoSimulate,
 			this.aoPrintStackTrace,
 		};
 	}
 
 	/**
-	 * Returns the message options as array.
-	 * @return message options array
+	 * Returns the simple options.
+	 * @return simple options, empty if none set
 	 */
-	public final ApplicationOption<?>[] getOptions(){
-		return this.options;
+	public AbstractSimpleC[] getSimpleOptions(){
+		return this.simpleOptions;
 	}
 
 	/**

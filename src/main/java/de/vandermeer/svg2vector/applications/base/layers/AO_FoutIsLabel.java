@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `fout-islabel`.
@@ -24,21 +26,16 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_FoutIsLabel extends AbstractApplicationOption<String> {
+public class AO_FoutIsLabel extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_FoutIsLabel(){
-		super("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsLabel.stg", false);
-	}
+		super('B', "fout-islabel", false, "use Inkscape label in output file names");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsLabel.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 }

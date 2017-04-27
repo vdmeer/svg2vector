@@ -16,8 +16,9 @@
 package de.vandermeer.svg2vector.applications.is;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import de.vandermeer.execs.options.AbstractTypedC_String;
 
 /**
  * Application option `inkscape-executable`.
@@ -26,7 +27,7 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
+public class AO_InkscapeExecutable extends AbstractTypedC_String {
 
 	/** Key for an environment variable pointing to the Inkscape executable. */
 	public final static String ENV_KEY = "INKSCAPE";
@@ -41,7 +42,12 @@ public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
 	 * Returns the new option.
 	 */
 	public AO_InkscapeExecutable(){
-		super("de/vandermeer/svg2vector/applications/is/AO_InkscapeExecutable.stg", true);
+		super('x', "is-exec", true, "EXEC", false,
+				"the Inkscape executable", "sets the Inkscape executable (default values from environment or for Windows and Unix)"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_InkscapeExecutable.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 
 		String env = System.getenv(ENV_KEY);
 		if(env!=null){
@@ -55,11 +61,4 @@ public class AO_InkscapeExecutable extends AbstractApplicationOption<String> {
 		}
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `fout-isindex`.
@@ -24,21 +26,16 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class AO_FoutIsIndex extends AbstractApplicationOption<String> {
+public class AO_FoutIsIndex extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_FoutIsIndex(){
-		super("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg", false);
-	}
+		super('I', "fout-isindex", false, "use the Inkscape layer index in output file name");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 }

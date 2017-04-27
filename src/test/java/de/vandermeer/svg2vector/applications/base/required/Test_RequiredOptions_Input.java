@@ -25,8 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
+import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -46,16 +45,15 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_NoLoader() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getOptions());
+		cli.addAllOptions(ro.getTypedOptions());
+
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", ""
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(-1, Test_Artifacts.setCli4Options(cli.getCommandLine(), ro.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(NullPointerException.class);
 		ro.setInput(null);
@@ -63,16 +61,15 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_Blank() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getOptions());
+		cli.addAllOptions(ro.getTypedOptions());
+
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", ""
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(-1, Test_Artifacts.setCli4Options(cli.getCommandLine(), ro.getOptions()));
+		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
 		thrown.expect(S2VExeception.class);
@@ -83,16 +80,15 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_DoesNotexist() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getOptions());
+		cli.addAllOptions(ro.getTypedOptions());
+
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "testfile"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), ro.getOptions()));
+		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
 		thrown.expect(S2VExeception.class);
@@ -103,16 +99,15 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_NotAFile() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getOptions());
+		cli.addAllOptions(ro.getTypedOptions());
+
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/main/java"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), ro.getOptions()));
+		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
 		thrown.expect(S2VExeception.class);
@@ -123,16 +118,15 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_ValidLayers() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getOptions());
+		cli.addAllOptions(ro.getTypedOptions());
+
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/rina-ipc.svgz"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), ro.getOptions()));
+		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
 		ro.setInput(loader);
@@ -143,16 +137,15 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_ValidNoLayers() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getOptions());
+		cli.addAllOptions(ro.getTypedOptions());
+
 		String[] args = new String[]{
 				"-t", "pdf",
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), ro.getOptions()));
+		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
 		ro.setInput(loader);

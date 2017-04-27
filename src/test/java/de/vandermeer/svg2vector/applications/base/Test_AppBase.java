@@ -64,7 +64,10 @@ public class Test_AppBase {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
-		assertEquals(23, testApp.getAppOptions().length);
+		assertEquals(18, testApp.getCliParser().getSimpleOptions().size());
+		assertEquals(5, testApp.getCliParser().getTypedOptions().size());
+		assertEquals(0, testApp.getEnvironmentOptions().size());
+		assertEquals(0, testApp.getPropertyOptions().size());
 	}
 
 	@Test

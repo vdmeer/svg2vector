@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.output;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 
 /**
  * Application option `output-directory`.
@@ -24,20 +26,18 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class AO_DirectoryOutExt extends AbstractApplicationOption<String> {
+public class AO_DirectoryOutExt extends AbstractTypedC_String {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_DirectoryOutExt(){
-		super("de/vandermeer/svg2vector/applications/base/output/AO_DirectoryOutExt.stg", false);
+		super('d', "output-directory", false, "DIR", false,
+				"a directory", "output directory, default in layer mode is current directory"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_DirectoryOutExt.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

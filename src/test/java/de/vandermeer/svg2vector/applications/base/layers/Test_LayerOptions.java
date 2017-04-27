@@ -25,9 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.options.ExecS_CliParser;
-import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
-import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
+import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
@@ -46,7 +44,8 @@ public class Test_LayerOptions {
 	@Test
 	public void test_Constructor_Values(){
 		LayerOptions lo = new LayerOptions();
-		assertEquals(8, lo.getOptions().length);
+		assertEquals(7, lo.getSimpleOptions().length);
+		assertEquals(1, lo.getTypedOptions().length);
 		assertFalse(lo.doLayers());
 		assertFalse(lo.allLayersOn());
 		assertEquals(0, lo.getWarnings().size());
@@ -64,30 +63,31 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_LayerTrue() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-l", "-i"
 		};
+		cli.parse(args);
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
 		lo.setOptions(true);
 		assertTrue(lo.doLayers());
 	}
 
 	@Test
 	public void test_Error_LayerFalse() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-l"
 		};
-
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("layers requested in command line, but SVG input file has not layers");
@@ -97,30 +97,30 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_IfexistsTrue() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-L", "-i"
-		};
+		};cli.parse(args);
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
 		lo.setOptions(true);
 		assertTrue(lo.doLayers());
 	}
 
 	@Test
 	public void test_IfexistsFalse() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getOptions());
+		cli.addAllOptions(lo.getSimpleOptions());
+		cli.addAllOptions(lo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-L",
-		};
+		};cli.parse(args);
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), lo.getOptions()));
 		lo.setOptions(false);
 		assertFalse(lo.doLayers());
 	}

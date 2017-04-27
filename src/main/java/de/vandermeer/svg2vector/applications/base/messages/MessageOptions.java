@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import de.vandermeer.execs.options.ApplicationOption;
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application message options for errors, warnings, progess information, and detailed information.
@@ -63,7 +63,7 @@ public final class MessageOptions {
 	private final AO_NoErrors optNoErrors = new AO_NoErrors();
 
 	/** List of application options. */
-	private final ApplicationOption<?>[] options;
+	private final AbstractSimpleC[] simpleOptions;
 
 	/** Message mode for the application, 0 is quiet, all other values are generated using message type bit masks. */
 	private int msgMode = OPTION_ERROR;
@@ -72,7 +72,7 @@ public final class MessageOptions {
 	 * Creates a new message options object with application options loaded.
 	 */
 	public MessageOptions(){
-		this.options = new ApplicationOption<?>[]{
+		this.simpleOptions = new AbstractSimpleC[]{
 			this.optVerbose,
 			this.optQuiet,
 			this.optMsgProgress,
@@ -86,8 +86,8 @@ public final class MessageOptions {
 	 * Returns the message options as array.
 	 * @return message options array
 	 */
-	public ApplicationOption<?>[] getOptions(){
-		return this.options;
+	public AbstractSimpleC[] getSimpleOptions(){
+		return this.simpleOptions;
 	}
 
 	/**

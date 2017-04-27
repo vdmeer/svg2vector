@@ -16,7 +16,6 @@
 package de.vandermeer.svg2vector;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -32,7 +31,10 @@ public class Test_S2V_ErrorCodes {
 	@Test
 	public void test_AddedOptions(){
 		S2VErrorCodes app = new S2VErrorCodes();
-		assertTrue(app.getAppOptions()==null);
+		assertEquals(0, app.getCliParser().getSimpleOptions().size());
+		assertEquals(0, app.getCliParser().getTypedOptions().size());
+		assertEquals(0, app.getEnvironmentOptions().size());
+		assertEquals(0, app.getPropertyOptions().size());
 	}
 
 	@Test

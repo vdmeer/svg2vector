@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.output;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `overwrite-existing`.
@@ -24,21 +26,16 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_OverwriteExisting extends AbstractApplicationOption<String> {
+public class AO_OverwriteExisting extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_OverwriteExisting(){
-		super("de/vandermeer/svg2vector/applications/base/output/AO_OverwriteExisting.stg", false);
-	}
+		super(null, "overwrite-existing", false, "overwrite existing files on output");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_OverwriteExisting.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 }

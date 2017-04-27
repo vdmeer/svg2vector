@@ -24,7 +24,8 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
-import de.vandermeer.execs.options.ApplicationOption;
+import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.execs.options.AbstractTypedC;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -56,8 +57,11 @@ public final class OutputOptions {
 	/** Application option to automatically overwrite existing files on output. */
 	final private AO_OverwriteExisting aoOverwriteExisting = new AO_OverwriteExisting();
 
-	/** List of application options. */
-	private final ApplicationOption<?>[] options;
+	/** List of simple options. */
+	private final AbstractSimpleC[] simpleOptions;
+
+	/** List of typed options. */
+	private final AbstractTypedC<?>[] typedOptions;
 
 	/** Output file name without path elements (no layer mode only). */
 	protected Path file;
@@ -77,12 +81,31 @@ public final class OutputOptions {
 	public OutputOptions(){
 		this.aoDirOut.setDefaultValue(System.getProperty("user.dir"));
 
-		this.options = new ApplicationOption<?>[]{
-			this.aoFileOut,
-			this.aoDirOut,
+		this.simpleOptions = new AbstractSimpleC[]{
 			this.aoCreateDirs,
 			this.aoOverwriteExisting
 		};
+
+		this.typedOptions = new AbstractTypedC<?>[]{
+			this.aoFileOut,
+			this.aoDirOut
+		};
+	}
+
+	/**
+	 * Returns the typed options.
+	 * @return typed options, empty if none set
+	 */
+	public AbstractTypedC<?>[] getTypedOptions(){
+		return this.typedOptions;
+	}
+
+	/**
+	 * Returns the simple options.
+	 * @return simple options, empty if none set
+	 */
+	public AbstractSimpleC[] getSimpleOptions(){
+		return this.simpleOptions;
 	}
 
 	/**
@@ -134,14 +157,6 @@ public final class OutputOptions {
 	}
 
 	/**
-	 * Returns the message options as array.
-	 * @return message options array
-	 */
-	public final ApplicationOption<?>[] getOptions(){
-		return this.options;
-	}
-
-	/**
 	 * Returns the output pattern.
 	 * @return output pattern
 	 */
@@ -167,21 +182,21 @@ public final class OutputOptions {
 
 		List<String> ret = new ArrayList<>();
 		if(this.file==null){
-			ApplicationOption<?>[] options = new ApplicationOption<?>[]{
+			AbstractTypedC<?>[] options = new AbstractTypedC<?>[]{
 				this.aoFileOut
 			};
-			for(ApplicationOption<?> ao : options){
+			for(AbstractTypedC<?> ao : options){
 				if(ao.inCli()){
-					ret.add("layers processed but CLI option <" + ao.getCliOption().getLongOpt() + "> used, will be ignored");
+					ret.add("layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 				}
 			}
 		}
 		else{
-			ApplicationOption<?>[] options = new ApplicationOption<?>[]{
+			AbstractSimpleC[] options = new AbstractSimpleC[]{
 			};
-			for(ApplicationOption<?> ao : options){
+			for(AbstractSimpleC ao : options){
 				if(ao.inCli()){
-					ret.add("no layers processed but CLI option <" + ao.getCliOption().getLongOpt() + "> used, will be ignored");
+					ret.add("no layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 				}
 			}
 		}
@@ -387,7 +402,7 @@ public final class OutputOptions {
 					throw new S2VExeception(
 							ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2,
 							testDir.toString(),
-							this.aoCreateDirs.getCliOption().getLongOpt()
+							this.aoCreateDirs.getCliLong()
 					);
 				}
 			}
@@ -406,7 +421,7 @@ public final class OutputOptions {
 					throw new S2VExeception(
 							ErrorCodes.OUTPUT_FN_EXISTS_NO_OVERWRITE_OPTION__2,
 							fileFile.toString(),
-							this.aoOverwriteExisting.getCliOption().getLongOpt()
+							this.aoOverwriteExisting.getCliLong()
 					);
 				}
 				else if(!fileFile.canWrite()){

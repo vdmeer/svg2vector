@@ -17,10 +17,6 @@ package de.vandermeer.svg2vector.applications.base;
 
 import java.io.File;
 
-import org.apache.commons.cli.CommandLine;
-
-import de.vandermeer.execs.options.ApplicationOption;
-
 /**
  * Temporary created artifacts for tests (files and directories).
  *
@@ -50,25 +46,25 @@ public class Test_Artifacts {
 		}
 	}
 
-	/**
-	 * Parse a command line and set application option.
-	 * @param cmdLine the command line
-	 * @param options the application options
-	 * @return 1 on exit option, 0 on success, -1 on error
-	 */
-	public static int setCli4Options(CommandLine cmdLine, ApplicationOption<?>[] options){
-		if(cmdLine==null){
-			return -99;
-		}
-
-		int ret = 0;
-		if(options!=null){
-			for(ApplicationOption<?> opt : options){
-				if(opt.getCliOption()!=null){
-					ret += opt.setCliValue(cmdLine);
-				}
-			}
-		}
-		return ret;
-	}
+//	/**
+//	 * Parse a command line and set application option.
+//	 * @param cmdLine the command line
+//	 * @param options the application options
+//	 * @return 1 on exit option, 0 on success, -1 on error
+//	 */
+//	public static int setCli4Options(CommandLine cmdLine, ApplicationOption<?>[] options){
+//		if(cmdLine==null){
+//			return -99;
+//		}
+//
+//		int ret = 0;
+//		if(options!=null){
+//			for(ApplicationOption<?> opt : options){
+//				if(opt.getCliOption()!=null){
+//					ret += opt.setCliValue(cmdLine);
+//				}
+//			}
+//		}
+//		return ret;
+//	}
 }

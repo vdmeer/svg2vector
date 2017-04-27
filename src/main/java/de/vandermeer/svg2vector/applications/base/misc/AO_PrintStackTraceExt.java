@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.misc;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `print-stack-trace`.
@@ -24,20 +26,16 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class AO_PrintStackTraceExt extends AbstractApplicationOption<String> {
+public class AO_PrintStackTraceExt extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_PrintStackTraceExt(){
-		super("de/vandermeer/svg2vector/applications/base/misc/AO_PrintStackTraceExt.stg", false);
+		super(null, "print-stack-trace", false, "sets a flag to print the stack trace of exceptions");
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/misc/AO_PrintStackTraceExt.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

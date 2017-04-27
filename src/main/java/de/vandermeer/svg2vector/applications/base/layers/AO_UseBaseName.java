@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 
 /**
  * Application option `use-basename`.
@@ -24,20 +26,19 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_UseBaseName extends AbstractApplicationOption<String> {
+public class AO_UseBaseName extends AbstractTypedC_String {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_UseBaseName(){
-		super("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg", false);
+		super(
+				null, "use-basename", false, "BASENAME", false,
+				"a basename to be used for output files", "use the specified basename for output files"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

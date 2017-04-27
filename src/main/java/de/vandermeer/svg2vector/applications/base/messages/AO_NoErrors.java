@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `no-errors`.
@@ -24,21 +26,17 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_NoErrors extends AbstractApplicationOption<String> {
+public class AO_NoErrors extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_NoErrors(){
-		super("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg", false);
-	}
+		super(null, "no-errors", false, "switch off error messages");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
+
 	}
 
 }

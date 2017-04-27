@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.base.required;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 
 /**
  * Application option `input-file`.
@@ -24,20 +26,18 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class AO_FileInExt extends AbstractApplicationOption<String> {
+public class AO_FileInExt extends AbstractTypedC_String {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_FileInExt(){
-		super("de/vandermeer/svg2vector/applications/base/required/AO_FileInExt.stg", true);
+		super('f', "input-file", true, "FILE", false,
+				"a valid SVG document either GZIP compressed or plain text file", "specifies the input file (path and filename)"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/required/AO_FileInExt.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

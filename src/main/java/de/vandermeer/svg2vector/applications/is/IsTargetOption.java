@@ -15,9 +15,6 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
-import org.apache.commons.lang3.Validate;
-
-import de.vandermeer.execs.options.AbstractApplicationOption;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -27,50 +24,29 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public abstract class IsTargetOption extends AbstractApplicationOption<String> {
-
-	/** The target the option applies to. */
-	protected SvgTargets target;
-
-	/** The Inkscape command line option for this target option. */
-	protected String isCli;
-
-	/**
-	 * Returns the new option as not required and without a short option.
-	 * @param target the target to which this option applies, must not be null
-	 * @param isCli the Inkscape command line option to be used including any leading dashs, must not be blank
-	 * @param stgFile STG file name for all other options
-	 */
-	public IsTargetOption(SvgTargets target, String isCli, String stgFile){
-		super(stgFile, false);
-		Validate.notNull(target);
-		Validate.notBlank(isCli);
-
-		this.target = target;
-		this.isCli = isCli;
-	}
+public interface IsTargetOption {
 
 	/**
 	 * Returns the target the option applies to.
 	 * @return the target
 	 */
-	public SvgTargets getTarget(){
-		return this.target;
-	}
+	SvgTargets getTarget();
 
 	/**
 	 * Returns the Inkscape CLI option.
 	 * @return Inkscape CLI option
 	 */
-	public String getIsCmd(){
-		return this.isCli;
-	}
+	String getIsCmd();
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
+	/**
+	 * Tests if the option was in the command line.
+	 * @return true if it was in the CLI, false otherwise
+	 */
+	boolean inCli();
+
+	/**
+	 * Returns the option value.
+	 * @return value
+	 */
+	String getOptValue();
 }

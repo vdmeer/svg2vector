@@ -41,7 +41,8 @@ public class Test_Svg2Vector_FH {
 	@Test
 	public void test_AddedOptions(){
 		Svg2Vector_FH app = new Svg2Vector_FH();
-		assertEquals(26, app.getAppOptions().length);
+		assertEquals(20, app.getCliParser().getSimpleOptions().size());
+		assertEquals(6, app.getCliParser().getTypedOptions().size());
 	}
 
 	@Test

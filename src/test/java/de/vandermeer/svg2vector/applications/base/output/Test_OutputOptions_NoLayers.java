@@ -29,7 +29,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.options.ExecS_CliParser;
+import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
@@ -60,15 +60,16 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_FoutBlank() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-o", ""
 		};
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(-1, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output filename is blank");
@@ -88,9 +89,11 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_SameAsTarget_FNDir() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/bla/foo"
 		};
@@ -99,8 +102,7 @@ public class Test_OutputOptions_NoLayers {
 		Test_Artifacts.newFile.mkdirs();
 		Test_Artifacts.newDir = new File("target/output-tests/app-props/bla");
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/bla/foo/simple.svg") + "> same as input <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/bla/foo/simple.svg") + ">");
@@ -110,9 +112,11 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_Fout_Isdir() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/fout-exists"
 		};
@@ -120,8 +124,7 @@ public class Test_OutputOptions_NoLayers {
 		Test_Artifacts.newFile = new File("target/output-tests/app-props/fout-exists.pdf");
 		Test_Artifacts.newFile.mkdirs();
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists but is a directory");
@@ -131,9 +134,11 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_FoutExistsNoOverwrite() throws S2VExeception, IOException{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/fout-exists"
 		};
@@ -143,8 +148,7 @@ public class Test_OutputOptions_NoLayers {
 		Test_Artifacts.newFile = new File("target/output-tests/app-props/fout-exists.pdf");
 		Test_Artifacts.newFile.createNewFile();
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists and no option overwrite-existing used");
@@ -154,9 +158,11 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_FoutExistsCantWrite() throws S2VExeception, IOException{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"--overwrite-existing",
 				"-o", "target/output-tests/app-props/fout-exists"
@@ -169,8 +175,7 @@ public class Test_OutputOptions_NoLayers {
 		Test_Artifacts.newFile.createNewFile();
 		Test_Artifacts.newFile.setWritable(false);
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists but cannot write to it, please check permissions");
@@ -180,9 +185,11 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_ParrentNoDir() throws S2VExeception, IOException{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file"
 		};
@@ -193,8 +200,7 @@ public class Test_OutputOptions_NoLayers {
 		Test_Artifacts.newFile.createNewFile();
 		Test_Artifacts.newFile.setWritable(false);
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> exists but is not a directory");
@@ -204,15 +210,16 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_NoParrentNoCreate() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file"
 		};
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> does not exist and CLI option create-directories not used");
@@ -222,16 +229,17 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_DoesNoLayers() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file",
 				"--create-directories",
 		};
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 		assertTrue(oo.file!=null);
@@ -239,17 +247,18 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Opt1() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/pdf",
 				"-o", "chomsky1",
 				"--create-directories",
 		};
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 		assertEquals(oo.file.toString(), "chomsky1");

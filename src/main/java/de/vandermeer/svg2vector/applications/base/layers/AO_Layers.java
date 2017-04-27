@@ -15,31 +15,27 @@
 
 package de.vandermeer.svg2vector.applications.base.layers;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
- * Application option `layers`
- * .
+ * Application option `layers`.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_Layers extends AbstractApplicationOption<String> {
+public class AO_Layers extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_Layers(){
-		super("de/vandermeer/svg2vector/applications/base/layers/AO_Layers.stg", false);
-	}
+		super('l', "layers", false, "switch on layer mode, process layers, create one file per layer");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_Layers.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 }

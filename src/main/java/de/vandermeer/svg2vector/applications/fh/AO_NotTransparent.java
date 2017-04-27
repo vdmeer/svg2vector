@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.fh;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractSimpleC;
 
 /**
  * Application option `not-transparent`.
@@ -24,21 +26,16 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_NotTransparent extends AbstractApplicationOption<String> {
+public class AO_NotTransparent extends AbstractSimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_NotTransparent(){
-		super("de/vandermeer/svg2vector/applications/fh/AO_NotTransparent.stg", false);
-	}
+		super('n', "not-transparent", false, "switch off transparency");
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_NotTransparent.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 }

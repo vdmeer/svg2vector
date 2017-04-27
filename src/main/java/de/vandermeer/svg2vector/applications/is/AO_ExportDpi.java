@@ -15,6 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -24,12 +27,32 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_ExportDpi extends IsTargetOption {
+public class AO_ExportDpi extends AbstractTypedC_String implements IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.
 	 */
 	public AO_ExportDpi(){
-		super(SvgTargets.png, "--export-dpi", "de/vandermeer/svg2vector/applications/is/AO_ExportDpi.stg");
+		super(null, "export-dpi", false, "DPI", false,
+				"the DPI value", "set DPI for bitmap conversion or for rasterization of filters"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportDpi.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
+	}
+
+	@Override
+	public SvgTargets getTarget() {
+		return SvgTargets.png;
+	}
+
+	@Override
+	public String getIsCmd() {
+		return "--export-dpi";
+	}
+
+	@Override
+	public String getOptValue() {
+		return this.getValue();
 	}
 }

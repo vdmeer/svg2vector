@@ -29,7 +29,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.options.ExecS_CliParser;
+import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
@@ -60,9 +60,11 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Error_DoutNotDir() throws S2VExeception, IOException{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/test"
 		};
@@ -72,8 +74,7 @@ public class Test_OutputOptions_Layers {
 		Test_Artifacts.newFile = new File("target/output-tests/app-props/test");
 		Test_Artifacts.newFile.createNewFile();
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> exists but is not a directory");
@@ -83,15 +84,16 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Error_NoDoutNoCreate() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/test/file"
 		};
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test/file") + "> does not exist and CLI option create-directories not used");
@@ -101,9 +103,11 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_DoesLayers() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/",
 				"--create-directories"
@@ -111,8 +115,7 @@ public class Test_OutputOptions_Layers {
 
 		Test_Artifacts.newDir = new File("target/output-tests/app-props");
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		oo.setOptions(true, SvgTargets.svg, "foo.svg");
 		assertTrue(oo.file==null);
@@ -120,16 +123,17 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Warning_Fout() throws S2VExeception{
-		ExecS_CliParser cli = new ExecS_CliParser();
+		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getOptions());
+		cli.addAllOptions(oo.getSimpleOptions());
+		cli.addAllOptions(oo.getTypedOptions());
+
 		String[] args = new String[]{
 				"-d", "target",
 				"-o", "foo"
 		};
 
-		assertEquals(null, cli.parse(args));
-		assertEquals(0, Test_Artifacts.setCli4Options(cli.getCommandLine(), oo.getOptions()));
+		cli.parse(args);
 
 		oo.setOptions(true, SvgTargets.svg, "foo.svg");
 		assertEquals(1, oo.getWarnings().size());

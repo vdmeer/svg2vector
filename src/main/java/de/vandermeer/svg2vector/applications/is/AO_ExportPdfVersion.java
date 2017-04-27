@@ -15,6 +15,10 @@
 
 package de.vandermeer.svg2vector.applications.is;
 
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -24,12 +28,38 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_ExportPdfVersion extends IsTargetOption {
+public class AO_ExportPdfVersion extends AbstractTypedC_String implements IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.
 	 */
 	public AO_ExportPdfVersion(){
-		super(SvgTargets.pdf, "--export-pdf-version", "de/vandermeer/svg2vector/applications/is/AO_ExportPdfVersion.stg");
+		super(null, "export-pdf-version", false, "VERSION", false,
+				"the PDF version, must be an exact version string", "set PDF version for export"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportPdfVersion.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
+	}
+
+	@Override
+	public SvgTargets getTarget() {
+		return SvgTargets.pdf;
+	}
+
+	@Override
+	public String getIsCmd() {
+		return "--export-pdf-version";
+	}
+
+	@Override
+	public ST getHelp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOptValue() {
+		return this.getValue();
 	}
 }

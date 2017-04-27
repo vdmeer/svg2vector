@@ -279,16 +279,16 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 		final String ignored = "> used, will be ignored";
 
 		if(target!=SvgTargets.pdf && this.optionExpPdfver.inCli()){
-			warnings.add("target is not <pdf> but CLI option <" + this.optionExpPdfver.getCliOption().getLongOpt() + ignored);
+			warnings.add("target is not <pdf> but CLI option <" + this.optionExpPdfver.getCliLong() + ignored);
 		}
 		if(target!=SvgTargets.png && this.optionExpDpi.inCli()){
-			warnings.add("target is not <png> but CLI option <" + this.optionExpDpi.getCliOption().getLongOpt() + ignored);
+			warnings.add("target is not <png> but CLI option <" + this.optionExpDpi.getCliLong() + ignored);
 		}
 		if(target!=SvgTargets.ps && this.optionExpPslevel.inCli()){
-			warnings.add("target is not <ps> but CLI option <" + this.optionExpPslevel.getCliOption().getLongOpt() + ignored);
+			warnings.add("target is not <ps> but CLI option <" + this.optionExpPslevel.getCliLong() + ignored);
 		}
 		if(!this.optionSvgFirst.inCli() && this.optionManualLayers.inCli()){
-			warnings.add("found CLI option <" + this.optionManualLayers.getCliOption().getLongOpt() + "> but not <" + this.optionSvgFirst.getCliOption().getLongOpt() + ">, option will be ignored");
+			warnings.add("found CLI option <" + this.optionManualLayers.getCliLong() + "> but not <" + this.optionSvgFirst.getCliLong() + ">, option will be ignored");
 		}
 
 		if(this.doesLayers()){
@@ -296,7 +296,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 		}
 		else{
 			if(this.optionManualLayers.inCli()){
-				warnings.add("no layers processed but CLI option <" + this.optionManualLayers.getCliOption().getLongOpt() + ignored);
+				warnings.add("no layers processed but CLI option <" + this.optionManualLayers.getCliLong() + ignored);
 			}
 		}
 		this.printWarnings(warnings);

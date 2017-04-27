@@ -16,15 +16,14 @@
 package de.vandermeer.svg2vector.applications.base;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.Validate;
 
-import de.vandermeer.execs.ExecS_Application;
-import de.vandermeer.execs.options.ApplicationOption;
-import de.vandermeer.execs.options.ExecS_CliParser;
+import de.vandermeer.execs.AbstractAppliction;
+import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.IsApplication;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
 import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
 import de.vandermeer.svg2vector.applications.base.messages.MessageOptions;
@@ -42,16 +41,10 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_Application {
-
-	/** CLI parser. */
-	final private ExecS_CliParser cli;
+public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppliction implements IsApplication {
 
 	/** The SVG document loader. */
 	final private L loader;
-
-	/** List of application options. */
-	final private ArrayList<ApplicationOption<?>> options;
 
 	/** Application messaging options. */
 	final private MessageOptions messageOptions;
@@ -77,48 +70,30 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 	 * @param loader the SVG document loader, must not be null
 	 */
 	protected AppBase(SvgTargets[] supportedTargets, L loader){
+		super(new DefaultCliParser(), AbstractAppliction.HELP_SIMPLE_SHORTLONG, AbstractAppliction.VERSION_SHORTLONG);
+
 		Validate.notNull(loader);
 		this.loader = loader;
 
-		this.options = new ArrayList<>();
-		this.cli = new ExecS_CliParser();
-
 		this.messageOptions = new MessageOptions();
-		this.addAllOptions(this.messageOptions.getOptions());
+		this.addAllOptions(this.messageOptions.getSimpleOptions());
 
 		this.miscOptions = new MiscOptions();
-		this.addAllOptions(this.miscOptions.getOptions());
+		this.addAllOptions(this.miscOptions.getSimpleOptions());
 
 		this.conversionOptions = new ConversionOptions();
-		this.addAllOptions(this.conversionOptions.getOptions());
+		this.addAllOptions(this.conversionOptions.getSimpleOptions());
 
 		this.requiredOptions = new RequiredOptions(supportedTargets);
-		this.addAllOptions(this.requiredOptions.getOptions());
+		this.addAllOptions(this.requiredOptions.getTypedOptions());
 
 		this.layerOptions = new LayerOptions();
-		this.addAllOptions(this.layerOptions.getOptions());
-	
+		this.addAllOptions(this.layerOptions.getSimpleOptions());
+		this.addAllOptions(this.layerOptions.getTypedOptions());
+
 		this.outputOptions = new OutputOptions();
-		this.addAllOptions(this.outputOptions.getOptions());
-	}
-
-	private void addAllOptions(ApplicationOption<?>[] options){
-		if(options!=null){
-			for(ApplicationOption<?> opt : options){
-				this.addOption(opt);
-			}
-		}
-	}
-
-	/**
-	 * Adds a new option to CLI parser and option list.
-	 * @param option new option, ignored if null
-	 */
-	protected void addOption(ApplicationOption<?> option){
-		if(option!=null){
-			this.getCli().addOption(option);
-			this.options.add(option);
-		}
+		this.addAllOptions(this.outputOptions.getSimpleOptions());
+		this.addAllOptions(this.outputOptions.getTypedOptions());
 	}
 
 	/**
@@ -132,7 +107,7 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 	@Override
 	public int executeApplication(String[] args){
 		// parse command line, exit with help screen if error
-		return ExecS_Application.super.executeApplication(args);
+		return IsApplication.super.executeApplication(args);
 	}
 
 	/**
@@ -198,16 +173,6 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 				-1,
 				null
 		).toString();
-	}
-
-	@Override
-	public ApplicationOption<?>[] getAppOptions() {
-		return this.options.toArray(new ApplicationOption<?>[]{});
-	}
-
-	@Override
-	public ExecS_CliParser getCli() {
-		return this.cli;
 	}
 
 	/**
@@ -406,10 +371,5 @@ public abstract class AppBase <L extends SV_DocumentLoader> implements ExecS_App
 				this.printWarningMessage(msg);
 			}
 		}
-	}
-
-	@Override
-	public boolean useShortHelp(){
-		return true;
 	}
 }

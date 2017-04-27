@@ -22,7 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
-import de.vandermeer.execs.options.ApplicationOption;
+import de.vandermeer.execs.options.AbstractTypedC;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
@@ -44,7 +44,7 @@ public final class RequiredOptions {
 	private final AO_TargetExt aoTarget;
 
 	/** List of application options. */
-	private final ApplicationOption<?>[] options;
+	private final AbstractTypedC<?>[] typedOptions;
 
 	/** Input file name, set by set options. */
 	private String fileName;
@@ -60,18 +60,18 @@ public final class RequiredOptions {
 		Validate.noNullElements(supportedTargets);
 		this.aoTarget = new AO_TargetExt(supportedTargets);
 
-		this.options = new ApplicationOption<?>[]{
+		this.typedOptions = new AbstractTypedC<?>[]{
 			this.aoFileIn,
 			this.aoTarget,
 		};
 	}
 
 	/**
-	 * Returns the message options as array.
-	 * @return message options array
+	 * Returns the typed options.
+	 * @return typed options, empty if none set
 	 */
-	public ApplicationOption<?>[] getOptions(){
-		return this.options;
+	public AbstractTypedC<?>[] getTypedOptions(){
+		return this.typedOptions;
 	}
 
 	/**

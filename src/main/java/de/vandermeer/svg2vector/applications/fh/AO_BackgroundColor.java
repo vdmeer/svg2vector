@@ -15,7 +15,9 @@
 
 package de.vandermeer.svg2vector.applications.fh;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import org.stringtemplate.v4.STGroupFile;
+
+import de.vandermeer.execs.options.AbstractTypedC_String;
 
 /**
  * Application option `bgrnd-color`.
@@ -24,20 +26,19 @@ import de.vandermeer.execs.options.AbstractApplicationOption;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_BackgroundColor extends AbstractApplicationOption<String> {
+public class AO_BackgroundColor extends AbstractTypedC_String {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_BackgroundColor(){
-		super("de/vandermeer/svg2vector/applications/fh/AO_BackgroundColor.stg", false);
+		super(
+				'r', "bgrnd-color", false, "COLOR", false,
+				"name of a system property that has the background color", "sets a background color"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_BackgroundColor.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
-	}
 }

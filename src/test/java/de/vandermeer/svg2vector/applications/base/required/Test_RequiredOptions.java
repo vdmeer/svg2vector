@@ -67,7 +67,7 @@ public class Test_RequiredOptions {
 	@Test
 	public void test_Constructor_Values(){
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{});
-		assertEquals(2, ro.getOptions().length);
+		assertEquals(2, ro.getTypedOptions().length);
 		assertEquals(0, ro.getSupportedTargets().length);
 		assertTrue(ro.getInputFilename()==null);
 		assertTrue(ro.getTarget()==null);

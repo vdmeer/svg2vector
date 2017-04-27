@@ -17,8 +17,9 @@ package de.vandermeer.svg2vector.applications.base.required;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractApplicationOption;
+import de.vandermeer.execs.options.AbstractTypedC_String;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -28,7 +29,7 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.1
  */
-public class AO_TargetExt extends AbstractApplicationOption<String> {
+public class AO_TargetExt extends AbstractTypedC_String {
 
 	/** The supported targets of the application. */
 	protected SvgTargets[] supportedTargets;
@@ -40,31 +41,38 @@ public class AO_TargetExt extends AbstractApplicationOption<String> {
 	 * @throws IllegalArgumentException - if supportedTargets has null elements
 	 */
 	public AO_TargetExt(SvgTargets[] supportedTargets){
-		super("de/vandermeer/svg2vector/applications/base/required/AO_TargetExt.stg", true);
+		super('t', "target", true, "TARGET", false,
+				"the actual target, " + supportedTargets(supportedTargets), "specifies a conversion target"
+		);
+
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/required/AO_TargetExt.stg");
+		this.setLongDescription(stg.getInstanceOf("longDescription"));
 
 		Validate.notNull(supportedTargets);
 		Validate.noNullElements(supportedTargets);
 		this.supportedTargets = supportedTargets;
 
-		StrBuilder ret = new StrBuilder();
-		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
-		this.setCliArgumentDescription(ret.toString());
+//		StrBuilder ret = new StrBuilder();
+//		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
+//		this.setCliArgumentDescription(ret.toString());
 	}
 
 	/**
-	 * Returns the supported targets.
+	 * Returns the set supported targets.
 	 * @return supported targets
 	 */
 	public SvgTargets[] getSupportedTargets(){
 		return this.supportedTargets;
 	}
 
-	@Override
-	public String convertValue(Object value) {
-		if(value==null){
-			return null;
-		}
-		return value.toString();
+	/**
+	 * Creates a string for argument description.
+	 * @param supportedTargets the supported targets
+	 * @return string
+	 */
+	protected static final String supportedTargets(SvgTargets[] supportedTargets){
+		StrBuilder ret = new StrBuilder();
+		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
+		return ret.build();
 	}
-
 }
