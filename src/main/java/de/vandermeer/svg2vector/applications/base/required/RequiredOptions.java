@@ -17,12 +17,10 @@ package de.vandermeer.svg2vector.applications.base.required;
 
 import java.io.File;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.text.StrBuilder;
 
-import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
@@ -35,7 +33,7 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public final class RequiredOptions {
+public final class RequiredOptions extends CliOptionPackage {
 
 	/** Application option for input file. */
 	private final AO_FileInExt aoFileIn = new AO_FileInExt();
@@ -43,14 +41,8 @@ public final class RequiredOptions {
 	/** Application option for target. */
 	private final AO_TargetExt aoTarget;
 
-	/** List of application options. */
-	private final AbstractTypedC<?>[] typedOptions;
-
 	/** Input file name, set by set options. */
 	private String fileName;
-
-	/** The conversion target, set by set options. */
-	private SvgTargets target;
 
 	/**
 	 * Creates a new option object
@@ -60,18 +52,10 @@ public final class RequiredOptions {
 		Validate.noNullElements(supportedTargets);
 		this.aoTarget = new AO_TargetExt(supportedTargets);
 
-		this.typedOptions = new AbstractTypedC<?>[]{
+		this.setTypedOptions(
 			this.aoFileIn,
-			this.aoTarget,
-		};
-	}
-
-	/**
-	 * Returns the typed options.
-	 * @return typed options, empty if none set
-	 */
-	public AbstractTypedC<?>[] getTypedOptions(){
-		return this.typedOptions;
+			this.aoTarget
+		);
 	}
 
 	/**
@@ -102,37 +86,6 @@ public final class RequiredOptions {
 	}
 
 	/**
-	 * Sets the target from target option.
-	 * @throws S2VExeception in any error case
-	 */
-	public void setTarget() throws S2VExeception{
-		String target = this.aoTarget.getValue();
-		if(StringUtils.isBlank(target)){
-			throw new S2VExeception(
-					ErrorCodes.TARGET_BLANK__1,
-					new StrBuilder().appendWithSeparators(this.aoTarget.getSupportedTargets(), ", ")
-			);
-		}
-		try{
-			this.target = SvgTargets.valueOf(target);
-		}
-		catch(IllegalArgumentException iaEx){
-			throw new S2VExeception(
-					ErrorCodes.TARGET_UNKNOWN__2,
-					target,
-					new StrBuilder().appendWithSeparators(this.aoTarget.getSupportedTargets(), ", ")
-			);
-		}
-		if(!ArrayUtils.contains(this.aoTarget.getSupportedTargets(), this.target)){
-			throw new S2VExeception(
-					ErrorCodes.TARGET_NOT_SUPPORTED__2,
-					target,
-					new StrBuilder().appendWithSeparators(this.aoTarget.getSupportedTargets(), ", ")
-			);
-		}
-	}
-
-	/**
 	 * Returns the input file name.
 	 * @return input file name, null if not set
 	 */
@@ -145,14 +98,6 @@ public final class RequiredOptions {
 	 * @return conversion target, null if not set
 	 */
 	public SvgTargets getTarget(){
-		return this.target;
-	}
-
-	/**
-	 * Returns the value of the target option.
-	 * @return value of the target option, null if none set
-	 */
-	public String getTargetValue(){
 		return this.aoTarget.getValue();
 	}
 

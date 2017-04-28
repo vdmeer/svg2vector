@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -44,10 +45,10 @@ public class Test_RequiredOptions_Input {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void test_NoLoader() throws S2VExeception{
+	public void test_NoLoader() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getTypedOptions());
+		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -60,10 +61,10 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_Blank() throws S2VExeception{
+	public void test_Fin_Blank() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getTypedOptions());
+		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -79,10 +80,10 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_DoesNotexist() throws S2VExeception{
+	public void test_Fin_DoesNotexist() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getTypedOptions());
+		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -98,10 +99,10 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_NotAFile() throws S2VExeception{
+	public void test_Fin_NotAFile() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getTypedOptions());
+		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -117,10 +118,10 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_ValidLayers() throws S2VExeception{
+	public void test_Fin_ValidLayers() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getTypedOptions());
+		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -136,10 +137,10 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_ValidNoLayers() throws S2VExeception{
+	public void test_Fin_ValidNoLayers() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
-		cli.addAllOptions(ro.getTypedOptions());
+		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -154,4 +155,3 @@ public class Test_RequiredOptions_Input {
 		assertFalse(loader.hasInkscapeLayers());
 	}
 }
-

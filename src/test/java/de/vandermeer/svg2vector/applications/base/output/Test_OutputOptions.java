@@ -43,8 +43,8 @@ public class Test_OutputOptions {
 	@Test
 	public void test_Constructor_Values(){
 		OutputOptions oo = new OutputOptions();
-		assertEquals(2, oo.getSimpleOptions().length);
-		assertEquals(2, oo.getTypedOptions().length);
+		assertEquals(2, oo.getSimpleOptions().size());
+		assertEquals(2, oo.getTypedOptions().size());
 		assertTrue(oo.directory==null);
 		assertTrue(oo.file==null);
 		assertTrue(oo.fileExtension==null);

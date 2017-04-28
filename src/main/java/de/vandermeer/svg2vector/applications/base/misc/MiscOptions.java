@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.misc;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 
 /**
  * Miscellaneous application options.
@@ -24,7 +24,7 @@ import de.vandermeer.execs.options.AbstractSimpleC;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class MiscOptions {
+public class MiscOptions extends CliOptionPackage {
 
 	/** Application option activating simulation mode. */
 	final private AO_Simulate aoSimulate = new AO_Simulate();
@@ -32,33 +32,14 @@ public class MiscOptions {
 	/** Application option to print a stack trace if exceptions are caught. */
 	final private AO_PrintStackTraceExt aoPrintStackTrace = new AO_PrintStackTraceExt();
 
-	/** List of application options. */
-	private final AbstractSimpleC[] simpleOptions;
-
 	/**
 	 * Creates a new option object.
 	 */
 	public MiscOptions(){
-		this.simpleOptions = new AbstractSimpleC[]{
+		this.setSimpleOptions(
 			this.aoSimulate,
-			this.aoPrintStackTrace,
-		};
-	}
-
-	/**
-	 * Returns the simple options.
-	 * @return simple options, empty if none set
-	 */
-	public AbstractSimpleC[] getSimpleOptions(){
-		return this.simpleOptions;
-	}
-
-	/**
-	 * Returns the flag for printing stack traces.
-	 * @return true if requested, false otherwise
-	 */
-	public boolean printStackTrace(){
-		return this.aoPrintStackTrace.inCli();
+			this.aoPrintStackTrace
+		);
 	}
 
 	/**
@@ -67,6 +48,14 @@ public class MiscOptions {
 	 */
 	public boolean doesSimulate(){
 		return this.aoSimulate.inCli();
+	}
+
+	/**
+	 * Returns the flag for printing stack traces.
+	 * @return true if requested, false otherwise
+	 */
+	public boolean printStackTrace(){
+		return this.aoPrintStackTrace.inCli();
 	}
 
 }

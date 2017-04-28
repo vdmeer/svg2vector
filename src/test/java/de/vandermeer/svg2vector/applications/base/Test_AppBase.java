@@ -66,7 +66,7 @@ public class Test_AppBase {
 		};
 		assertEquals(18, testApp.getCliParser().getSimpleOptions().size());
 		assertEquals(5, testApp.getCliParser().getTypedOptions().size());
-		assertEquals(0, testApp.getEnvironmentOptions().size());
+		assertEquals(1, testApp.getEnvironmentOptions().size());
 		assertEquals(0, testApp.getPropertyOptions().size());
 	}
 
@@ -108,12 +108,7 @@ public class Test_AppBase {
 				"-f", "testfile",
 				"-q"
 		};
-
-		assertEquals(0, testApp.executeApplication(args));
-		thrown.expect(S2VExeception.class);
-		thrown.expectMessage("given target <eps> not supported. Use one of the supported targets: pdf");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.TARGET_NOT_SUPPORTED__2)));
-		testApp.init();
+		assertEquals(-52, testApp.executeApplication(args));
 	}
 
 	@Test

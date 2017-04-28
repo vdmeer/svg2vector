@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 
 /**
  * Application message options for errors, warnings, progess information, and detailed information.
@@ -24,7 +24,7 @@ import de.vandermeer.execs.options.AbstractSimpleC;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public final class MessageOptions {
+public final class MessageOptions extends CliOptionPackage {
 
 	/** Print option quiet. */
 	public final static int OPTION_QUIET = 0b000;
@@ -62,9 +62,6 @@ public final class MessageOptions {
 	/** Application option to switch off error messages. */
 	private final AO_NoErrors optNoErrors = new AO_NoErrors();
 
-	/** List of application options. */
-	private final AbstractSimpleC[] simpleOptions;
-
 	/** Message mode for the application, 0 is quiet, all other values are generated using message type bit masks. */
 	private int msgMode = OPTION_ERROR;
 
@@ -72,22 +69,14 @@ public final class MessageOptions {
 	 * Creates a new message options object with application options loaded.
 	 */
 	public MessageOptions(){
-		this.simpleOptions = new AbstractSimpleC[]{
+		this.setSimpleOptions(
 			this.optVerbose,
 			this.optQuiet,
 			this.optMsgProgress,
 			this.optMsgWarning,
 			this.optMsgDetail,
-			this.optNoErrors,
-		};
-	}
-
-	/**
-	 * Returns the message options as array.
-	 * @return message options array
-	 */
-	public AbstractSimpleC[] getSimpleOptions(){
-		return this.simpleOptions;
+			this.optNoErrors
+		);
 	}
 
 	/**

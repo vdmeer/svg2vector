@@ -20,17 +20,18 @@ import java.util.List;
 
 import de.vandermeer.execs.options.AbstractSimpleC;
 import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
- * Application options for processing Inkscpe layers.
+ * Application options for processing Inkscape layers.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public final class LayerOptions {
+public final class LayerOptions extends CliOptionPackage {
 
 	/** Application option to automatically switch on all layers when no layers are processed. */
 	final private AO_SwitchOnLayers aoSwitchOnLayers = new AO_SwitchOnLayers();
@@ -56,12 +57,6 @@ public final class LayerOptions {
 	/** Application option for using a specified base name when processing layers. */
 	final private AO_UseBaseName aoUseBaseName = new AO_UseBaseName();
 
-	/** List of simple options. */
-	private final AbstractSimpleC[] simpleOptions;
-
-	/** List of typed options. */
-	private final AbstractTypedC<?>[] typedOptions;
-
 	/** Flag for layer mode, default is false. */
 	private boolean doLayers = false;
 
@@ -69,35 +64,19 @@ public final class LayerOptions {
 	 * Creates a new option object.
 	 */
 	public LayerOptions(){
-		this.simpleOptions = new AbstractSimpleC[]{
-			this.aoSwitchOnLayers,
-			this.aoLayers,
-			this.aoLayersIfExists,
-			this.aoFoutIsIndex,
-			this.aoFoutIsLabel,
-			this.aoFoutIndex,
-			this.aoFoutNoBasename
-		};
+		this.setSimpleOptions(
+				this.aoSwitchOnLayers,
+				this.aoLayers,
+				this.aoLayersIfExists,
+				this.aoFoutIsIndex,
+				this.aoFoutIsLabel,
+				this.aoFoutIndex,
+				this.aoFoutNoBasename
+		);
 
-		this.typedOptions = new AbstractTypedC<?>[]{
+		this.setTypedOptions(
 			this.aoUseBaseName
-		};
-	}
-
-	/**
-	 * Returns the typed options.
-	 * @return typed options, empty if none set
-	 */
-	public AbstractTypedC<?>[] getTypedOptions(){
-		return this.typedOptions;
-	}
-
-	/**
-	 * Returns the simple options.
-	 * @return simple options, empty if none set
-	 */
-	public AbstractSimpleC[] getSimpleOptions(){
-		return this.simpleOptions;
+		);
 	}
 
 	/**

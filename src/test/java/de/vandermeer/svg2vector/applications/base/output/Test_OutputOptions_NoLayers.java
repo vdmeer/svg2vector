@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
@@ -59,16 +60,14 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_FoutBlank() throws S2VExeception{
+	public void test_Error_FoutBlank() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", ""
 		};
-
 		cli.parse(args);
 
 		thrown.expect(S2VExeception.class);
@@ -78,7 +77,7 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_SameAsTarget_FN() throws S2VExeception{
+	public void test_Error_SameAsTarget_FN() throws S2VExeception, IllegalStateException, CliParseException{
 		OutputOptions oo = new OutputOptions();
 
 		thrown.expect(S2VExeception.class);
@@ -88,11 +87,10 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_SameAsTarget_FNDir() throws S2VExeception{
+	public void test_Error_SameAsTarget_FNDir() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/bla/foo"
@@ -111,11 +109,10 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_Fout_Isdir() throws S2VExeception{
+	public void test_Error_Fout_Isdir() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/fout-exists"
@@ -133,11 +130,10 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_FoutExistsNoOverwrite() throws S2VExeception, IOException{
+	public void test_Error_FoutExistsNoOverwrite() throws S2VExeception, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/fout-exists"
@@ -157,11 +153,10 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_FoutExistsCantWrite() throws S2VExeception, IOException{
+	public void test_Error_FoutExistsCantWrite() throws S2VExeception, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"--overwrite-existing",
@@ -184,11 +179,10 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_ParrentNoDir() throws S2VExeception, IOException{
+	public void test_Error_ParrentNoDir() throws S2VExeception, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file"
@@ -209,11 +203,10 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_NoParrentNoCreate() throws S2VExeception{
+	public void test_Error_NoParrentNoCreate() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file"
@@ -228,17 +221,15 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_DoesNoLayers() throws S2VExeception{
+	public void test_DoesNoLayers() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file",
 				"--create-directories",
 		};
-
 		cli.parse(args);
 
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
@@ -246,18 +237,16 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Opt1() throws S2VExeception{
+	public void test_Opt1() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/pdf",
 				"-o", "chomsky1",
 				"--create-directories",
 		};
-
 		cli.parse(args);
 
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");

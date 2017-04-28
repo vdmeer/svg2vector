@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
@@ -59,11 +60,10 @@ public class Test_OutputOptions_Layers {
 	}
 
 	@Test
-	public void test_Error_DoutNotDir() throws S2VExeception, IOException{
+	public void test_Error_DoutNotDir() throws S2VExeception, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/test"
@@ -83,11 +83,10 @@ public class Test_OutputOptions_Layers {
 	}
 
 	@Test
-	public void test_Error_NoDoutNoCreate() throws S2VExeception{
+	public void test_Error_NoDoutNoCreate() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/test/file"
@@ -102,11 +101,10 @@ public class Test_OutputOptions_Layers {
 	}
 
 	@Test
-	public void test_DoesLayers() throws S2VExeception{
+	public void test_DoesLayers() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/",
@@ -122,11 +120,10 @@ public class Test_OutputOptions_Layers {
 	}
 
 	@Test
-	public void test_Warning_Fout() throws S2VExeception{
+	public void test_Warning_Fout() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getSimpleOptions());
-		cli.addAllOptions(oo.getTypedOptions());
+		cli.addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target",

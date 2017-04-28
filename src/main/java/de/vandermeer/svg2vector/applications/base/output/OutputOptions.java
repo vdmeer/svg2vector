@@ -26,6 +26,7 @@ import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.execs.options.AbstractSimpleC;
 import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -37,7 +38,7 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public final class OutputOptions {
+public final class OutputOptions extends CliOptionPackage {
 
 	/** Extensions to remove from an input file name, `svg` and `svgz`. */
 	public final static String[] EXTENSION_REMOVALS = new String[]{
@@ -57,12 +58,6 @@ public final class OutputOptions {
 	/** Application option to automatically overwrite existing files on output. */
 	final private AO_OverwriteExisting aoOverwriteExisting = new AO_OverwriteExisting();
 
-	/** List of simple options. */
-	private final AbstractSimpleC[] simpleOptions;
-
-	/** List of typed options. */
-	private final AbstractTypedC<?>[] typedOptions;
-
 	/** Output file name without path elements (no layer mode only). */
 	protected Path file;
 
@@ -81,31 +76,15 @@ public final class OutputOptions {
 	public OutputOptions(){
 		this.aoDirOut.setDefaultValue(System.getProperty("user.dir"));
 
-		this.simpleOptions = new AbstractSimpleC[]{
+		this.setSimpleOptions(
 			this.aoCreateDirs,
 			this.aoOverwriteExisting
-		};
+		);
 
-		this.typedOptions = new AbstractTypedC<?>[]{
+		this.setTypedOptions(
 			this.aoFileOut,
 			this.aoDirOut
-		};
-	}
-
-	/**
-	 * Returns the typed options.
-	 * @return typed options, empty if none set
-	 */
-	public AbstractTypedC<?>[] getTypedOptions(){
-		return this.typedOptions;
-	}
-
-	/**
-	 * Returns the simple options.
-	 * @return simple options, empty if none set
-	 */
-	public AbstractSimpleC[] getSimpleOptions(){
-		return this.simpleOptions;
+		);
 	}
 
 	/**

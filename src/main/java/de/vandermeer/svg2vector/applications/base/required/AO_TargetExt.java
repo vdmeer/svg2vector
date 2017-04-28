@@ -15,11 +15,14 @@
 
 package de.vandermeer.svg2vector.applications.base.required;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
-import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractTypedC_String;
+import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.skb.interfaces.application.CliParseException;
+import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -29,32 +32,18 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.1
  */
-public class AO_TargetExt extends AbstractTypedC_String {
+public class AO_TargetExt extends AbstractTypedC<SvgTargets> {
 
 	/** The supported targets of the application. */
 	protected SvgTargets[] supportedTargets;
 
-	/**
-	 * Returns the new option.
-	 * @param supportedTargets list of supported targets
-	 * @throws NullPointerException - if supportedTargets is null
-	 * @throws IllegalArgumentException - if supportedTargets has null elements
-	 */
-	public AO_TargetExt(SvgTargets[] supportedTargets){
+	protected AO_TargetExt(SvgTargets[] supportedTargets) {
 		super('t', "target", true, "TARGET", false,
 				"the actual target, " + supportedTargets(supportedTargets), "specifies a conversion target"
 		);
 
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/required/AO_TargetExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
-
-		Validate.notNull(supportedTargets);
 		Validate.noNullElements(supportedTargets);
 		this.supportedTargets = supportedTargets;
-
-//		StrBuilder ret = new StrBuilder();
-//		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
-//		this.setCliArgumentDescription(ret.toString());
 	}
 
 	/**
@@ -75,4 +64,41 @@ public class AO_TargetExt extends AbstractTypedC_String {
 		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
 		return ret.build();
 	}
+
+	@Override
+	public void setCliValue(Object value) throws IllegalStateException, CliParseException {
+		Validate.validState(value!=null, this.getCliLong() + " argument <" + this.getCliArgumentName() +  "> mandatory but trying to set null");
+		String str = value.toString();
+
+		if(StringUtils.isBlank(str)){
+			throw new CliParseException(
+					ErrorCodes.TARGET_BLANK__1.getCode(),
+					ErrorCodes.TARGET_BLANK__1.getMessageSubstituted(
+							new StrBuilder().appendWithSeparators(this.getSupportedTargets(), ", ")
+					)
+			);
+		}
+		try{
+			this.cliValue = SvgTargets.valueOf(str);
+		}
+		catch(IllegalArgumentException iaEx){
+			throw new CliParseException(
+					ErrorCodes.TARGET_UNKNOWN__2.getCode(),
+					ErrorCodes.TARGET_UNKNOWN__2.getMessageSubstituted(
+							str,
+							new StrBuilder().appendWithSeparators(this.getSupportedTargets(), ", ")
+					)
+			);
+		}
+		if(!ArrayUtils.contains(this.getSupportedTargets(), this.cliValue)){
+			throw new CliParseException(
+					ErrorCodes.TARGET_NOT_SUPPORTED__2.getCode(),
+					ErrorCodes.TARGET_NOT_SUPPORTED__2.getMessageSubstituted(
+							str,
+							new StrBuilder().appendWithSeparators(this.getSupportedTargets(), ", ")
+					)
+			);
+		}
+	}
+
 }

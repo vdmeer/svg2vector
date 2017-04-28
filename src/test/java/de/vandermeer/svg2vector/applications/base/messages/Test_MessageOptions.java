@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.CliParseException;
 
 /**
  * Tests for {@link MessageOptions} - message options.
@@ -33,15 +34,15 @@ public class Test_MessageOptions {
 	@Test
 	public void test_Constructor_Values(){
 		MessageOptions mo = new MessageOptions();
-		assertEquals(6, mo.getSimpleOptions().length);
+		assertEquals(6, mo.getSimpleOptions().size());
 		assertEquals(MessageOptions.OPTION_ERROR, mo.getMessageMode());
 	}
 
 	@Test
-	public void test_DefaultMsgOptions(){
+	public void test_DefaultMsgOptions() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{};
 		cli.parse(args);
@@ -51,10 +52,10 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_WarningMsgOptions(){
+	public void test_WarningMsgOptions() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-w"
@@ -66,10 +67,10 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_ProgressMsgOptions(){
+	public void test_ProgressMsgOptions() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-p"
@@ -81,10 +82,10 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_DetailsMsgOptions(){
+	public void test_DetailsMsgOptions() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-e"
@@ -96,10 +97,10 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_NoErrors(){
+	public void test_NoErrors() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"--no-errors"
@@ -111,10 +112,10 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_VerboseMsgOptions(){
+	public void test_VerboseMsgOptions() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-v"
@@ -126,10 +127,10 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_QuietMsgOptions(){
+	public void test_QuietMsgOptions() throws IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getSimpleOptions());
+		cli.addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-q"

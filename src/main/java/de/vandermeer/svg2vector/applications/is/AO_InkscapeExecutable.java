@@ -18,7 +18,7 @@ package de.vandermeer.svg2vector.applications.is;
 import org.apache.commons.lang3.SystemUtils;
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractTypedC_String;
+import de.vandermeer.execs.options.AbstractTypedCE_String;
 
 /**
  * Application option `inkscape-executable`.
@@ -27,7 +27,7 @@ import de.vandermeer.execs.options.AbstractTypedC_String;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_InkscapeExecutable extends AbstractTypedC_String {
+public class AO_InkscapeExecutable extends AbstractTypedCE_String {
 
 	/** Key for an environment variable pointing to the Inkscape executable. */
 	public final static String ENV_KEY = "INKSCAPE";
@@ -42,18 +42,17 @@ public class AO_InkscapeExecutable extends AbstractTypedC_String {
 	 * Returns the new option.
 	 */
 	public AO_InkscapeExecutable(){
-		super('x', "is-exec", true, "EXEC", false,
-				"the Inkscape executable", "sets the Inkscape executable (default values from environment or for Windows and Unix)"
-		);
+		super(
+				'x', "is-exec", false, "EXEC", false,
+				"the Inkscape executable", "INKSCAPE",
+				"sets the Inkscape executable (default values from environment or for Windows and Unix)");
 
 		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_InkscapeExecutable.stg");
 		this.setLongDescription(stg.getInstanceOf("longDescription"));
 
-		String env = System.getenv(ENV_KEY);
-		if(env!=null){
-			this.setDefaultValue(env);
-		}
-		else if(SystemUtils.IS_OS_WINDOWS){
+
+		this.environmentValue = System.getenv(ENV_KEY);
+		if(SystemUtils.IS_OS_WINDOWS){
 			this.setDefaultValue(DEFAULT_WINDOWS);
 		}
 		else if(SystemUtils.IS_OS_UNIX){

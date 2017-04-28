@@ -33,7 +33,7 @@ public class Test_S2V_ErrorCodes {
 		S2VErrorCodes app = new S2VErrorCodes();
 		assertEquals(0, app.getCliParser().getSimpleOptions().size());
 		assertEquals(0, app.getCliParser().getTypedOptions().size());
-		assertEquals(0, app.getEnvironmentOptions().size());
+		assertEquals(1, app.getEnvironmentOptions().size());
 		assertEquals(0, app.getPropertyOptions().size());
 	}
 

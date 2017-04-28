@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
@@ -44,8 +45,8 @@ public class Test_LayerOptions {
 	@Test
 	public void test_Constructor_Values(){
 		LayerOptions lo = new LayerOptions();
-		assertEquals(7, lo.getSimpleOptions().length);
-		assertEquals(1, lo.getTypedOptions().length);
+		assertEquals(7, lo.getSimpleOptions().size());
+		assertEquals(1, lo.getTypedOptions().size());
 		assertFalse(lo.doLayers());
 		assertFalse(lo.allLayersOn());
 		assertEquals(0, lo.getWarnings().size());
@@ -62,11 +63,10 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_LayerTrue() throws S2VExeception{
+	public void test_LayerTrue() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getSimpleOptions());
-		cli.addAllOptions(lo.getTypedOptions());
+		cli.addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-l", "-i"
@@ -78,11 +78,10 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_Error_LayerFalse() throws S2VExeception{
+	public void test_Error_LayerFalse() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getSimpleOptions());
-		cli.addAllOptions(lo.getTypedOptions());
+		cli.addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-l"
@@ -96,30 +95,30 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_IfexistsTrue() throws S2VExeception{
+	public void test_IfexistsTrue() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getSimpleOptions());
-		cli.addAllOptions(lo.getTypedOptions());
+		cli.addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-L", "-i"
-		};cli.parse(args);
+		};
+		cli.parse(args);
 
 		lo.setOptions(true);
 		assertTrue(lo.doLayers());
 	}
 
 	@Test
-	public void test_IfexistsFalse() throws S2VExeception{
+	public void test_IfexistsFalse() throws S2VExeception, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getSimpleOptions());
-		cli.addAllOptions(lo.getTypedOptions());
+		cli.addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-L",
-		};cli.parse(args);
+		};
+		cli.parse(args);
 
 		lo.setOptions(false);
 		assertFalse(lo.doLayers());

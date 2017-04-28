@@ -15,7 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.conversion;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 
 /**
  * Conversion options.
@@ -24,26 +24,18 @@ import de.vandermeer.execs.options.AbstractSimpleC;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class ConversionOptions {
+public class ConversionOptions extends CliOptionPackage {
 
 	/** Application option for text-as-shape mode. */
 	final private AO_TextAsShape aoTextAsShape = new AO_TextAsShape();
 
-	/** List of application options. */
-	private final AbstractSimpleC[] options;
-
-	public ConversionOptions(){
-		this.options = new AbstractSimpleC[]{
-			this.aoTextAsShape
-		};
-	}
-
 	/**
-	 * Returns the message options as array.
-	 * @return message options array
+	 * Creates a new conversion option package.
 	 */
-	public final AbstractSimpleC[] getSimpleOptions(){
-		return this.options;
+	public ConversionOptions(){
+		this.setSimpleOptions(
+			this.aoTextAsShape
+		);
 	}
 
 	/**

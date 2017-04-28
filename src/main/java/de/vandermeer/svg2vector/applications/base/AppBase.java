@@ -70,30 +70,28 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 * @param loader the SVG document loader, must not be null
 	 */
 	protected AppBase(SvgTargets[] supportedTargets, L loader){
-		super(new DefaultCliParser(), AbstractAppliction.HELP_SIMPLE_SHORTLONG, AbstractAppliction.VERSION_SHORTLONG);
+		super(new DefaultCliParser(), AbstractAppliction.HELP_TYPED_SHORTLONG, AbstractAppliction.VERSION_SHORTLONG);
 
 		Validate.notNull(loader);
 		this.loader = loader;
 
 		this.messageOptions = new MessageOptions();
-		this.addAllOptions(this.messageOptions.getSimpleOptions());
+		this.addAllOptions(this.messageOptions.getAllOptions());
 
 		this.miscOptions = new MiscOptions();
-		this.addAllOptions(this.miscOptions.getSimpleOptions());
+		this.addAllOptions(this.miscOptions.getAllOptions());
 
 		this.conversionOptions = new ConversionOptions();
-		this.addAllOptions(this.conversionOptions.getSimpleOptions());
+		this.addAllOptions(this.conversionOptions.getAllOptions());
 
 		this.requiredOptions = new RequiredOptions(supportedTargets);
-		this.addAllOptions(this.requiredOptions.getTypedOptions());
+		this.addAllOptions(this.requiredOptions.getAllOptions());
 
 		this.layerOptions = new LayerOptions();
-		this.addAllOptions(this.layerOptions.getSimpleOptions());
-		this.addAllOptions(this.layerOptions.getTypedOptions());
+		this.addAllOptions(this.layerOptions.getAllOptions());
 
 		this.outputOptions = new OutputOptions();
-		this.addAllOptions(this.outputOptions.getSimpleOptions());
-		this.addAllOptions(this.outputOptions.getTypedOptions());
+		this.addAllOptions(this.outputOptions.getAllOptions());
 	}
 
 	/**
@@ -221,7 +219,6 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 */
 	protected void init() throws S2VExeception{
 		this.messageOptions.setMessageMode();
-		this.requiredOptions.setTarget();
 		this.requiredOptions.setInput(this.loader);
 		this.layerOptions.setOptions(this.loader.hasInkscapeLayers());
 		this.printWarnings(this.layerOptions.getWarnings());
