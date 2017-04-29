@@ -22,8 +22,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.CliParseException;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Tests for {@link LayerOptions} - warnings.
@@ -35,7 +35,7 @@ import de.vandermeer.svg2vector.applications.core.S2VExeception;
 public class Test_LayerOptions_Warnings {
 
 	@Test
-	public void test_Warning_NoLayers_BN() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_NoLayers_BN() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -52,7 +52,7 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_UseBN() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_NoLayers_UseBN() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -69,7 +69,7 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_Index() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_NoLayers_Index() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -86,7 +86,7 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_IsIndex() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_NoLayers_IsIndex() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -103,7 +103,7 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_IsLabel() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_NoLayers_IsLabel() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -120,7 +120,7 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_Layers_SwitchOn() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_Layers_SwitchOn() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());

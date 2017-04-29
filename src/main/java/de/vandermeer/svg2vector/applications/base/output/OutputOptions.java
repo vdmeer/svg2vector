@@ -26,9 +26,9 @@ import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.execs.options.AbstractSimpleC;
 import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -188,9 +188,9 @@ public final class OutputOptions extends CliOptionPackage {
 	 * @param index true if index option should be removed
 	 * @param isIndex true if Inkscape index option should be removed
 	 * @param isLabel true if Inkscape label option should be removed
-	 * @throws S2VExeception if resulting pattern is not valid
+	 * @throws ApplicationException if resulting pattern is not valid
 	 */
-	public void removePatternOptions(boolean fout, boolean index, boolean isIndex, boolean isLabel) throws S2VExeception{
+	public void removePatternOptions(boolean fout, boolean index, boolean isIndex, boolean isLabel) throws ApplicationException{
 		if(fout){
 			pattern.pattern.replaceAll(OutputPattern.FILE_OUT, "");
 		}
@@ -217,9 +217,9 @@ public final class OutputOptions extends CliOptionPackage {
 	 * @param doLayers true if options should be set for layer mode, false otherwise
 	 * @param target the target, must not be null
 	 * @param inFilename the file name of the input file (with path), must not be blank
-	 * @throws S2VExeception for any error
+	 * @throws ApplicationException for any error
 	 */
-	public void setOptions(boolean doLayers, SvgTargets target, String inFilename) throws S2VExeception{
+	public void setOptions(boolean doLayers, SvgTargets target, String inFilename) throws ApplicationException{
 		Validate.notNull(target);
 		Validate.notBlank(inFilename);
 
@@ -237,7 +237,7 @@ public final class OutputOptions extends CliOptionPackage {
 			if(this.aoFileOut.inCli()){
 				// first check the output file name
 				if(StringUtils.isBlank(this.aoFileOut.getCliValue())){
-					throw new S2VExeception(ErrorCodes.OUTPUT_FN_IS_BLANK__0);
+					throw new ApplicationException(ErrorCodes.OUTPUT_FN_IS_BLANK__0);
 				}
 				file = FileSystems.getDefault().getPath(
 						StringUtils.substringBeforeLast(this.aoFileOut.getCliValue(), "." + target.name())
@@ -283,9 +283,9 @@ public final class OutputOptions extends CliOptionPackage {
 	/**
 	 * Sets the base name in the output pattern if not already set.
 	 * @param basename the base name, ignored if blank
-	 * @throws S2VExeception if resulting pattern is not valid
+	 * @throws ApplicationException if resulting pattern is not valid
 	 */
-	public void setPatternBasename(String basename) throws S2VExeception{
+	public void setPatternBasename(String basename) throws ApplicationException{
 		if(StringUtils.isBlank(basename)){
 			return;
 		}
@@ -297,9 +297,9 @@ public final class OutputOptions extends CliOptionPackage {
 	 * Tests a directory for files ending with the target extension.
 	 * @param directory the directory, nothing tested if null or does not exist
 	 * @param target the target, must not be null
-	 * @throws S2VExeception for any error
+	 * @throws ApplicationException for any error
 	 */
-	protected final void testDirectoryContent(Path directory, SvgTargets target) throws S2VExeception{
+	protected final void testDirectoryContent(Path directory, SvgTargets target) throws ApplicationException{
 		if(directory==null){
 			return;
 		}
@@ -309,7 +309,7 @@ public final class OutputOptions extends CliOptionPackage {
 		if(dirFile.exists()){
 			for(File file : dirFile.listFiles()){
 				if(file.getName().contains("." + target.name()) && !this.createDirs()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_DIR_MAY_HAVE_FN_NOOVERWRITE__2,
 							directory.toString(),
 							target.name()
@@ -324,15 +324,15 @@ public final class OutputOptions extends CliOptionPackage {
 	 * If they are the same, an exception is thrown, nothing happens otherwise
 	 * @param in the input file name
 	 * @param out the output file as path
-	 * @throws S2VExeception if they are the same
+	 * @throws ApplicationException if they are the same
 	 */
-	protected final void testIdentity(String in, Path out) throws S2VExeception{
+	protected final void testIdentity(String in, Path out) throws ApplicationException{
 		Validate.notBlank(in);
 		Validate.notNull(out);
 
 		Path pIn = FileSystems.getDefault().getPath(in);
 		if(StringUtils.compare(pIn.toString(), out.toString())==0){
-			throw new S2VExeception(
+			throw new ApplicationException(
 					ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2,
 					pIn.toFile(),
 					out.toString()
@@ -344,9 +344,9 @@ public final class OutputOptions extends CliOptionPackage {
 	 * Tests a path being either a directory or a file name (optional with path information).
 	 * @param path the path to test for, must not be null
 	 * @param hasFilename flag for testing path as a file name (true) or as a directory (false)
-	 * @throws S2VExeception in any error case
+	 * @throws ApplicationException in any error case
 	 */
-	protected final void testPath(Path path, boolean hasFilename) throws S2VExeception{
+	protected final void testPath(Path path, boolean hasFilename) throws ApplicationException{
 		Validate.notNull(path);
 
 		Path testDir = FileSystems.getDefault().getPath(path.toString());
@@ -364,13 +364,13 @@ public final class OutputOptions extends CliOptionPackage {
 			File dirFile = testDir.toFile();
 			if(dirFile.exists()){
 				if(!dirFile.isDirectory()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1,
 							testDir.toString()
 					);
 				}
 				else if(!dirFile.canWrite()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_DIR_EXISTS_CANNOT_WRITE__1,
 							testDir.toString()
 					);
@@ -378,7 +378,7 @@ public final class OutputOptions extends CliOptionPackage {
 			}
 			else{
 				if(!this.aoCreateDirs.inCli()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2,
 							testDir.toString(),
 							this.aoCreateDirs.getCliLong()
@@ -391,20 +391,20 @@ public final class OutputOptions extends CliOptionPackage {
 			File fileFile = testFile.toFile();
 			if(fileFile.exists()){
 				if(fileFile.isDirectory()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_FN_IS_DIRECTORY__1,
 							fileFile.toString()
 					);
 				}
 				else if(!this.aoOverwriteExisting.inCli()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_FN_EXISTS_NO_OVERWRITE_OPTION__2,
 							fileFile.toString(),
 							this.aoOverwriteExisting.getCliLong()
 					);
 				}
 				else if(!fileFile.canWrite()){
-					throw new S2VExeception(
+					throw new ApplicationException(
 							ErrorCodes.OUTPUT_FN_EXISTS_CANNOT_WRITE__1,
 							fileFile.toString()
 					);

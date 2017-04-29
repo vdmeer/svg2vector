@@ -18,6 +18,9 @@ package de.vandermeer.svg2vector.applications.core;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
+import de.vandermeer.skb.interfaces.application.ApplicationErrorCode;
+import de.vandermeer.skb.interfaces.application.ErrorCodeCategory;
+
 /**
  * Error codes of the svg2Vector applications.
  *
@@ -25,7 +28,7 @@ import org.apache.commons.lang3.text.StrBuilder;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public enum ErrorCodes {
+public enum ErrorCodes implements ApplicationErrorCode {
 
 	/*******************************************
 	 * General Errors
@@ -38,7 +41,7 @@ public enum ErrorCodes {
 			-2,
 			"a null pointer exception occurred",
 			"General code for a null pointer exception.",
-			ErrorCodeCategories.general
+			EC_Categories.general
 	),
 
 	/**
@@ -48,7 +51,7 @@ public enum ErrorCodes {
 			-3,
 			"an I/O pointer exception occurred",
 			"General code for an I/O exception.",
-			ErrorCodeCategories.general
+			EC_Categories.general
 	),
 
 	/**
@@ -58,7 +61,7 @@ public enum ErrorCodes {
 			-4,
 			"implementation error: something wrong with property settings",
 			"An internal implementation error, something wrong with property settings.",
-			ErrorCodeCategories.general
+			EC_Categories.general
 	),
 
 	/**
@@ -69,7 +72,7 @@ public enum ErrorCodes {
 			-50, 1,
 			"given target is blank. Use one of the supported targets: {}",
 			"A given target was blank, null or empty (arguments: supported targets).",
-			ErrorCodeCategories.target
+			EC_Categories.target
 	),
 
 	/**
@@ -80,7 +83,7 @@ public enum ErrorCodes {
 			-51, 2,
 			"given target <{}> is unknown. Use one of the supported targets: {}",
 			"A given target is unknown (arguments: target, supported targets).",
-			ErrorCodeCategories.target
+			EC_Categories.target
 	),
 
 	/**
@@ -91,7 +94,7 @@ public enum ErrorCodes {
 			-52, 2,
 			"given target <{}> not supported. Use one of the supported targets: {}",
 			"A given target is not supported by an application (arguments: target, supported targets).",
-			ErrorCodeCategories.target
+			EC_Categories.target
 	),
 
 
@@ -107,7 +110,7 @@ public enum ErrorCodes {
 			-100,
 			"no input file given",
 			"No input file given, was either null or blank.",
-			ErrorCodeCategories.input_file
+			EC_Categories.input_file
 	),
 
 	/**
@@ -118,7 +121,7 @@ public enum ErrorCodes {
 			-101, 1,
 			"input file <{}> does not exist, please check path and filename",
 			"Input file does not exist (file name).",
-			ErrorCodeCategories.input_file
+			EC_Categories.input_file
 	),
 
 	/**
@@ -129,7 +132,7 @@ public enum ErrorCodes {
 			-102, 1,
 			"input file <{}> is not a file, please check path and filename",
 			"Input file does exist but is not a file (file name).",
-			ErrorCodeCategories.input_file
+			EC_Categories.input_file
 	),
 
 	/**
@@ -140,7 +143,7 @@ public enum ErrorCodes {
 			-103, 1,
 			"cannot read input file <{}>, please file permissions",
 			"Input file does exist but is not readable (file name).",
-			ErrorCodeCategories.input_file
+			EC_Categories.input_file
 	),
 
 
@@ -157,7 +160,7 @@ public enum ErrorCodes {
 			-220, 3,
 			"{}: ZIP exception reading file <{}>: {}",
 			"A loader could not open an SVG file as compressed SVG (loader class, input file, original exception message).",
-			ErrorCodeCategories.loader_inkscape
+			EC_Categories.loader_inkscape
 	),
 
 	/**
@@ -168,7 +171,7 @@ public enum ErrorCodes {
 			-221, 3,
 			"{}: IO error reading GZIP file <{}>: {}",
 			"A loader did catch an I/O exception while reading a GZIP stream (loader class, input file, original exception message).",
-			ErrorCodeCategories.loader_inkscape
+			EC_Categories.loader_inkscape
 	),
 
 	/**
@@ -179,7 +182,7 @@ public enum ErrorCodes {
 			-222, 3,
 			"{}: FileNotFoundException exception reading plain file {}: {}",
 			"A loader did catch a file-not-found exception while reading a plain SVG file (loader class, input file, original exception message).",
-			ErrorCodeCategories.loader_inkscape
+			EC_Categories.loader_inkscape
 	),
 
 	/**
@@ -190,7 +193,7 @@ public enum ErrorCodes {
 			-223, 3,
 			"{}: IO exception reading plain file {}: {}",
 			"A loader did catch an I/O exception while reading a plain SVG file (loader class, input file, original exception message).",
-			ErrorCodeCategories.loader_inkscape
+			EC_Categories.loader_inkscape
 	),
 
 
@@ -207,7 +210,7 @@ public enum ErrorCodes {
 			-210, 2,
 			"{}: exception loading svgDocument: {}",
 			"A loader using Apache Batik could not load an SVG document (loaders class, original exception message).",
-			ErrorCodeCategories.loader_batik
+			EC_Categories.loader_batik
 	),
 
 	/**
@@ -218,7 +221,7 @@ public enum ErrorCodes {
 			-211, 2,
 			"{}: exception setting docucment size: {}",
 			"A loader using Apache Batik could set the size for an SVG document, set the dimension (loaders class, original exception message).",
-			ErrorCodeCategories.loader_batik
+			EC_Categories.loader_batik
 	),
 
 
@@ -234,7 +237,7 @@ public enum ErrorCodes {
 			-300, 0,
 			"layers requested in command line, but SVG input file has not layers",
 			"An application was requested to process layers, but the input SVG file did not had any.",
-			ErrorCodeCategories.layers
+			EC_Categories.layers
 	),
 
 	/*******************************************
@@ -246,7 +249,7 @@ public enum ErrorCodes {
 			-400,
 			"implementation error: output for no-layers with illegal arguments",
 			"An implementation error processing output options for a no-layer process: with illegal arguments.",
-			ErrorCodeCategories.output_general
+			EC_Categories.output_general
 	),
 
 
@@ -262,7 +265,7 @@ public enum ErrorCodes {
 			-420,
 			"output filename is blank",
 			"A required output file name is blank.",
-			ErrorCodeCategories.output_fn
+			EC_Categories.output_fn
 	),
 
 	/**
@@ -273,7 +276,7 @@ public enum ErrorCodes {
 			-422, 2,
 			"output <{}> same as input <{}>",
 			"An output file name is the same as the input file name (output file name, input file name).",
-			ErrorCodeCategories.output_fn
+			EC_Categories.output_fn
 	),
 
 	/**
@@ -284,7 +287,7 @@ public enum ErrorCodes {
 			-423, 1,
 			"output file <{}> exists but is a directory",
 			"The output file name points to a directory (file name).",
-			ErrorCodeCategories.output_fn
+			EC_Categories.output_fn
 	),
 
 	/**
@@ -295,7 +298,7 @@ public enum ErrorCodes {
 			-424, 2,
 			"output file <{}> exists and no option {} used",
 			"The output file exists but no overwrite option given in CLI (file name, required CLI option).",
-			ErrorCodeCategories.output_fn
+			EC_Categories.output_fn
 	),
 
 	/**
@@ -306,7 +309,7 @@ public enum ErrorCodes {
 			-425, 1,
 			"output file <{}> exists but cannot write to it, please check permissions",
 			"Output file exists but no permission (on file system) to write (file name).",
-			ErrorCodeCategories.output_fn
+			EC_Categories.output_fn
 	),
 
 
@@ -323,7 +326,7 @@ public enum ErrorCodes {
 			-440, 2,
 			"output directory <{}> does not exist and CLI option {} not used",
 			"An output directory does not exist and no CLI option given to create directories (directory, requried CLI option).",
-			ErrorCodeCategories.output_dir
+			EC_Categories.output_dir
 	),
 
 	/**
@@ -334,7 +337,7 @@ public enum ErrorCodes {
 			-441, 1,
 			"output directory <{}> exists but is not a directory",
 			"An output directory exists but is not a directory (output directory).",
-			ErrorCodeCategories.output_dir
+			EC_Categories.output_dir
 	),
 
 	/**
@@ -345,7 +348,7 @@ public enum ErrorCodes {
 			-442, 1,
 			"output directory <{}> exists but cannot write to it, please check permissions",
 			"An output directory exists no permissions (on file system) to write to it (output directory).",
-			ErrorCodeCategories.output_dir
+			EC_Categories.output_dir
 	),
 
 	/**
@@ -356,7 +359,7 @@ public enum ErrorCodes {
 			-443, 2,
 			"output directory <{}> may contain target files for extension <{}> and no overwrite in CLI",
 			"An output directory may contain target files and no overwrite option given in CLI",
-			ErrorCodeCategories.output_dir
+			EC_Categories.output_dir
 	),
 
 
@@ -372,7 +375,7 @@ public enum ErrorCodes {
 			-460, 1,
 			"output pattern <{}> only contains file extension, check options for generating fnout",
 			"The output pattern configuration resulted in a path only containing a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.",
-			ErrorCodeCategories.output_pattern
+			EC_Categories.output_pattern
 	),
 
 	/**
@@ -383,7 +386,7 @@ public enum ErrorCodes {
 			-461, 1,
 			"output pattern <{}> only contains directory and file extension, check options for generating fnout",
 			"The output pattern configuration resulted in a path only containing a directory and a file extension. This can happen for instance when processing layers, not using a base name, and not using any other fout options (such as indexes and labels). Check those options.",
-			ErrorCodeCategories.output_pattern
+			EC_Categories.output_pattern
 	),
 
 
@@ -399,7 +402,7 @@ public enum ErrorCodes {
 			-500, 1,
 			"expected Inkscape executable, found <{}>",
 			"The given executable for Inkscape was blank (Inkscape executable).",
-			ErrorCodeCategories.inkscape_exec_fn
+			EC_Categories.inkscape_exec_fn
 	),
 
 	/**
@@ -410,7 +413,7 @@ public enum ErrorCodes {
 			-501, 1,
 			"Inkscape executable <{}> does not exist, please check path and filename",
 			"The given executable for Inkscape does not exist (Inkscape executable).",
-			ErrorCodeCategories.inkscape_exec_fn
+			EC_Categories.inkscape_exec_fn
 	),
 
 	/**
@@ -421,7 +424,7 @@ public enum ErrorCodes {
 			-503, 1,
 			"Inkscape executable <{}> is not a file, please check path and filename",
 			"The given executable for Inkscape is not a file (Inkscape executable).",
-			ErrorCodeCategories.inkscape_exec_fn
+			EC_Categories.inkscape_exec_fn
 	),
 
 	/**
@@ -432,7 +435,7 @@ public enum ErrorCodes {
 			-504, 1,
 			"cannot execute input Inkscape executable <{}>, please file permissions",
 			"The given executable for Inkscape cannot be executed (Inkscape executable).",
-			ErrorCodeCategories.inkscape_exec_fn
+			EC_Categories.inkscape_exec_fn
 	),
 
 
@@ -449,7 +452,7 @@ public enum ErrorCodes {
 			-510, 1,
 			"IO exception while executing Inkscape with error: {}",
 			"An Inkscape executor did catch an I/O exception during execution (original exception message).",
-			ErrorCodeCategories.inkscape_exec_exec
+			EC_Categories.inkscape_exec_exec
 	),
 
 	/**
@@ -460,7 +463,7 @@ public enum ErrorCodes {
 			-511, 1,
 			"InterruptedException exception while executing Inkscape with error: {}",
 			"An Inkscape executor did get interrupted during execution (original exception message).",
-			ErrorCodeCategories.inkscape_exec_exec
+			EC_Categories.inkscape_exec_exec
 	),
 
 
@@ -479,7 +482,7 @@ public enum ErrorCodes {
 	private final String description;
 
 	/** The error code category. */
-	private final ErrorCodeCategories category;
+	private final ErrorCodeCategory category;
 
 	/**
 	 * Creates a new error code with message and no arguments.
@@ -488,7 +491,7 @@ public enum ErrorCodes {
 	 * @param description a description for the error code, must not be blank
 	 * @param category the error code category, will be used for testing code, must not be null
 	 */
-	ErrorCodes(final int code, final String message, final String description, final ErrorCodeCategories category){
+	ErrorCodes(final int code, final String message, final String description, final ErrorCodeCategory category){
 		this(code, 0, message, description, category);
 	}
 
@@ -500,20 +503,12 @@ public enum ErrorCodes {
 	 * @param description a description for the error code, must not be blank
 	 * @param category the error code category, will be used for testing code, must not be null
 	 */
-	ErrorCodes(final int code, final int args, final String message, final String description, final ErrorCodeCategories category){
+	ErrorCodes(final int code, final int args, final String message, final String description, final ErrorCodeCategory category){
 		this.args = args;
 		this.message = message;
 		this.description = description;
 		this.code = code;
 		this.category = category;
-	}
-
-	/**
-	 * Returns the error code.
-	 * @return error code
-	 */
-	public int getCode(){
-		return this.code;
 	}
 
 	/**
@@ -541,14 +536,6 @@ public enum ErrorCodes {
 	}
 
 	/**
-	 * Returns the category of the error code.
-	 * @return error code category
-	 */
-	public ErrorCodeCategories getCategory(){
-		return this.category;
-	}
-
-	/**
 	 * Creates a new error message with all arguments substituted.
 	 * The length of `arguments` must be equal to the number of expected arguments of this error code.
 	 * If the number of expected arguments is 0, then `args` can be null or of length 0.
@@ -570,5 +557,15 @@ public enum ErrorCodes {
 			ret.replaceFirst("{}", arg.toString());
 		}
 		return ret.toString();
+	}
+
+	@Override
+	public int getCode() {
+		return this.code;
+	}
+
+	@Override
+	public ErrorCodeCategory getCategory() {
+		return this.category;
 	}
 }

@@ -17,6 +17,8 @@ package de.vandermeer.svg2vector.applications.core;
 
 import org.apache.commons.lang3.Validate;
 
+import de.vandermeer.skb.interfaces.application.ErrorCodeCategory;
+
 /**
  * Categories for error codes.
  *
@@ -24,7 +26,7 @@ import org.apache.commons.lang3.Validate;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public enum ErrorCodeCategories {
+public enum EC_Categories implements ErrorCodeCategory {
 
 	/** General error codes. */
 	general(
@@ -112,8 +114,8 @@ public enum ErrorCodeCategories {
 
 	;
 
-	/** Category title. */
-	private final String title;
+	/** Category display name. */
+	private final String displayName;
 
 	/** Start for error codes (minimum error code). */
 	private final int start;
@@ -128,48 +130,16 @@ public enum ErrorCodeCategories {
 	 * Creates a new category.
 	 * @param start category start
 	 * @param end category end
-	 * @param title category title, must not be blank
+	 * @param displayName category display name, must not be blank
 	 */
-	ErrorCodeCategories(final int start, final int end, final String title, String description){
-		Validate.notBlank(title);
+	EC_Categories(final int start, final int end, final String displayName, String description){
+		Validate.notBlank(displayName);
 		Validate.notBlank(description);
 
 		this.start = start;
 		this.end = end;
-		this.title = title;
+		this.displayName = displayName;
 		this.description = description;
-	}
-
-	/**
-	 * Returns the category title.
-	 * @return category title
-	 */
-	public String getTitle(){
-		return this.title;
-	}
-
-	/**
-	 * Returns the category description.
-	 * @return category description
-	 */
-	public String getDescription(){
-		return this.description;
-	}
-
-	/**
-	 * Returns the start of the error codes.
-	 * @return error code start
-	 */
-	public int getStart(){
-		return this.start;
-	}
-
-	/**
-	 * Returns the end of the error codes.
-	 * @return error code end
-	 */
-	public int getEnd(){
-		return this.end;
 	}
 
 	/**
@@ -178,6 +148,26 @@ public enum ErrorCodeCategories {
 	 */
 	@Override
 	public String toString(){
-		return this.name() + ": " + this.getTitle() + " (" + this.getStart() + ", " + this.getEnd() + ")";
+		return this.name() + ": " + this.getDisplayName() + " (" + this.getStart() + ", " + this.getEnd() + ")";
+	}
+
+	@Override
+	public String getDisplayName() {
+		return this.displayName;
+	}
+
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
+
+	@Override
+	public int getStart() {
+		return this.start;
+	}
+
+	@Override
+	public int getEnd() {
+		return this.end;
 	}
 }

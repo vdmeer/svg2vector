@@ -27,8 +27,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Pattern for generating output file names.
@@ -93,9 +93,9 @@ public final class OutputPattern {
 	 * @param index the continuous index, ignored if smaller than 1
 	 * @param entry the entry for Inkscape label and index, ignored if null or key was null or value was smaller than 0
 	 * @return a file name, all non-used patterns will be removed
-	 * @throws S2VExeception if resulting path is not valid as tested by {@link #testPattern(String)}
+	 * @throws ApplicationException if resulting path is not valid as tested by {@link #testPattern(String)}
 	 */
-	public Path generateName(Path directory, Path filename, String extension, int index, Entry<String, Integer> entry) throws S2VExeception{
+	public Path generateName(Path directory, Path filename, String extension, int index, Entry<String, Integer> entry) throws ApplicationException{
 		StrBuilder sb = new StrBuilder().append(this.pattern.toCharArray());
 		Map<String, String> map = new HashMap<>();
 
@@ -153,9 +153,9 @@ public final class OutputPattern {
 
 	/**
 	 * Tests the current pattern using {@link #testPattern(String)}.
-	 * @throws S2VExeception if pattern is not valid
+	 * @throws ApplicationException if pattern is not valid
 	 */
-	public void testPattern() throws S2VExeception{
+	public void testPattern() throws ApplicationException{
 		this.testPattern(this.pattern.build());
 	}
 
@@ -163,15 +163,15 @@ public final class OutputPattern {
 	 * Tests a pattern string for validity.
 	 * Invalid means that no actual file name is used but a file extension is in the pattern
 	 * @param test input string, must not be blank
-	 * @throws S2VExeception if resulting path is not valid
+	 * @throws ApplicationException if resulting path is not valid
 	 */
-	public void testPattern(String test) throws S2VExeception{
+	public void testPattern(String test) throws ApplicationException{
 		Validate.notBlank(test);
 		if(test.startsWith(".")){
-			throw new S2VExeception(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1, test);
+			throw new ApplicationException(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1, test);
 		}
 		if(test.contains(File.separator + ".")){
-			throw new S2VExeception(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1, test);
+			throw new ApplicationException(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1, test);
 		}
 	}
 

@@ -23,6 +23,7 @@ import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.execs.AbstractAppliction;
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.IsApplication;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
 import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
@@ -30,7 +31,6 @@ import de.vandermeer.svg2vector.applications.base.messages.MessageOptions;
 import de.vandermeer.svg2vector.applications.base.misc.MiscOptions;
 import de.vandermeer.svg2vector.applications.base.output.OutputOptions;
 import de.vandermeer.svg2vector.applications.base.required.RequiredOptions;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
@@ -113,9 +113,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 * @param index an index, ignored if smaller than 1
 	 * @param entry an entry, ignored if null
 	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
+	 * @throws ApplicationException in case the resulting file name was not valid
 	 */
-	public String fopFileOnly(int index, Entry<String, Integer> entry) throws S2VExeception{
+	public String fopFileOnly(int index, Entry<String, Integer> entry) throws ApplicationException{
 		return this.outputOptions.getPattern().generateName(
 				null,
 				this.outputOptions.getFile(),
@@ -128,9 +128,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	/**
 	 * Returns an output file name using the settings for the OutputOptions.
 	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
+	 * @throws ApplicationException in case the resulting file name was not valid
 	 */
-	public String fopOO() throws S2VExeception{
+	public String fopOO() throws ApplicationException{
 		return this.outputOptions.getPattern().generateName(
 				this.outputOptions.getDirectory(),
 				this.outputOptions.getFile(),
@@ -145,9 +145,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 * @param index an index, ignored if smaller than 1
 	 * @param entry an entry, ignored if null
 	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
+	 * @throws ApplicationException in case the resulting file name was not valid
 	 */
-	public String fopOO(int index, Entry<String, Integer> entry) throws S2VExeception{
+	public String fopOO(int index, Entry<String, Integer> entry) throws ApplicationException{
 		return this.outputOptions.getPattern().generateName(
 				this.outputOptions.getDirectory(),
 				this.outputOptions.getFile(),
@@ -161,9 +161,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 * Returns an output file name using the settings for the OutputOptions.
 	 * @param filename file name to be used
 	 * @return the output file name
-	 * @throws S2VExeception in case the resulting file name was not valid
+	 * @throws ApplicationException in case the resulting file name was not valid
 	 */
-	public String fopOO(Path filename) throws S2VExeception{
+	public String fopOO(Path filename) throws ApplicationException{
 		return this.outputOptions.getPattern().generateName(
 				this.outputOptions.getDirectory(),
 				filename,
@@ -215,9 +215,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 
 	/**
 	 * Initialized the properties, loads all input and output.
-	 * @throws S2VExeception if anything went wrong
+	 * @throws ApplicationException if anything went wrong
 	 */
-	protected void init() throws S2VExeception{
+	protected void init() throws ApplicationException{
 		this.messageOptions.setMessageMode();
 		this.requiredOptions.setInput(this.loader);
 		this.layerOptions.setOptions(this.loader.hasInkscapeLayers());

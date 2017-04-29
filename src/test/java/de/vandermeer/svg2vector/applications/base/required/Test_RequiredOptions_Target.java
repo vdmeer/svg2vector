@@ -24,9 +24,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -42,7 +42,7 @@ public class Test_RequiredOptions_Target {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void test_NoneSet() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_NoneSet() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{});
 		cli.addAllOptions(ro.getAllOptions());
@@ -54,7 +54,7 @@ public class Test_RequiredOptions_Target {
 	}
 
 	@Test
-	public void test_Unknown() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Unknown() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -71,7 +71,7 @@ public class Test_RequiredOptions_Target {
 	}
 
 	@Test
-	public void test_NotSupported() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_NotSupported() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -88,7 +88,7 @@ public class Test_RequiredOptions_Target {
 	}
 
 	@Test
-	public void test_ValidTarget() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_ValidTarget() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.addAllOptions(ro.getAllOptions());

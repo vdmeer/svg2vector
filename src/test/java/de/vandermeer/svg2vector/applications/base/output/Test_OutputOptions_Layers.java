@@ -30,10 +30,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -60,7 +60,7 @@ public class Test_OutputOptions_Layers {
 	}
 
 	@Test
-	public void test_Error_DoutNotDir() throws S2VExeception, IOException, IllegalStateException, CliParseException{
+	public void test_Error_DoutNotDir() throws ApplicationException, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -76,14 +76,14 @@ public class Test_OutputOptions_Layers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> exists but is not a directory");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1)));
 		oo.setOptions(true, SvgTargets.svg, "foo.svg");
 	}
 
 	@Test
-	public void test_Error_NoDoutNoCreate() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_NoDoutNoCreate() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -94,14 +94,14 @@ public class Test_OutputOptions_Layers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test/file") + "> does not exist and CLI option create-directories not used");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2)));
 		oo.setOptions(true, SvgTargets.svg, "foo.svg");
 	}
 
 	@Test
-	public void test_DoesLayers() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_DoesLayers() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -120,7 +120,7 @@ public class Test_OutputOptions_Layers {
 	}
 
 	@Test
-	public void test_Warning_Fout() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Warning_Fout() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());

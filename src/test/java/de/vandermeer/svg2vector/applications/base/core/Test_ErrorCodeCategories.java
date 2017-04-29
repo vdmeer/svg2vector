@@ -24,10 +24,10 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import de.vandermeer.svg2vector.applications.core.ErrorCodeCategories;
+import de.vandermeer.svg2vector.applications.core.EC_Categories;
 
 /**
- * Tests for {@link ErrorCodeCategories}.
+ * Tests for {@link EC_Categories}.
  *
  * @author     Sven van der Meer &lt;vdmeer.sven@mykolab.com&gt;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
@@ -37,7 +37,7 @@ public class Test_ErrorCodeCategories {
 
 	@Test
 	public void test_Init(){
-		for(ErrorCodeCategories cat : ErrorCodeCategories.values()){
+		for(EC_Categories cat : EC_Categories.values()){
 //			System.err.println(cat.name());
 			assertTrue(StringUtils.isNotBlank(cat.getDescription()));
 
@@ -49,7 +49,7 @@ public class Test_ErrorCodeCategories {
 	@Test
 	public void test_CodeUsed(){
 		Map<Integer, String> inuse = new HashMap<>();
-		for(ErrorCodeCategories cat : ErrorCodeCategories.values()){
+		for(EC_Categories cat : EC_Categories.values()){
 			for (int i=cat.getStart(); i>=cat.getEnd(); i--){
 				if(inuse.containsKey(i)){
 					System.err.println(i + " == " + inuse.get(i) + " ==> " + cat.name());

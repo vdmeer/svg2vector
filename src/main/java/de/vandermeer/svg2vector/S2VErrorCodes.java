@@ -24,7 +24,7 @@ import org.stringtemplate.v4.STGroupFile;
 import de.vandermeer.execs.AbstractAppliction;
 import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.skb.interfaces.application.IsApplication;
-import de.vandermeer.svg2vector.applications.core.ErrorCodeCategories;
+import de.vandermeer.svg2vector.applications.core.EC_Categories;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 
 /**
@@ -93,10 +93,10 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 		STGroupFile stg = new STGroupFile(stgFilename);
 		ST cats = stg.getInstanceOf("catFullTable");
 
-		TreeMap<Integer, ErrorCodeCategories> catMap = this.catMap();
-		for(ErrorCodeCategories cat : catMap.values()){
+		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+		for(EC_Categories cat : catMap.values()){
 			ST catST = stg.getInstanceOf("catFullTableEntry");
-			catST.add("title", cat.getTitle());
+			catST.add("title", cat.getDisplayName());//TODO title->displayname
 			catST.add("start", cat.getStart());
 			catST.add("end", cat.getEnd());
 			catST.add("description", cat.getDescription());
@@ -114,10 +114,10 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 		STGroupFile stg = new STGroupFile(stgFilename);
 		ST cats = stg.getInstanceOf("catList");
 
-		TreeMap<Integer, ErrorCodeCategories> catMap = this.catMap();
-		for(ErrorCodeCategories cat : catMap.values()){
+		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+		for(EC_Categories cat : catMap.values()){
 			ST catST = stg.getInstanceOf("catListEntry");
-			catST.add("title", cat.getTitle());
+			catST.add("title", cat.getDisplayName());//TODO title->displayname
 			catST.add("start", cat.getStart());
 			catST.add("end", cat.getEnd());
 			cats.add("cats", catST.render());
@@ -134,11 +134,11 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 		STGroupFile stg = new STGroupFile(stgFilename);
 		ST cats = stg.getInstanceOf("fullTable");
 
-		TreeMap<Integer, ErrorCodeCategories> catMap = this.catMap();
+		TreeMap<Integer, EC_Categories> catMap = this.catMap();
 
-		for(ErrorCodeCategories cat : catMap.values()){
+		for(EC_Categories cat : catMap.values()){
 			ST catST = stg.getInstanceOf("fullTableCatEntry");
-			catST.add("title", cat.getTitle());
+			catST.add("title", cat.getDisplayName());//TODO title->displayname
 			catST.add("start", cat.getStart());
 			catST.add("end", cat.getEnd());
 
@@ -165,9 +165,9 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	 * Returns a sorted map of all categories.
 	 * @return sorted map
 	 */
-	protected TreeMap<Integer, ErrorCodeCategories> catMap(){
-		TreeMap<Integer, ErrorCodeCategories> catMap = new TreeMap<>();
-		for(ErrorCodeCategories cat : ErrorCodeCategories.values()){
+	protected TreeMap<Integer, EC_Categories> catMap(){
+		TreeMap<Integer, EC_Categories> catMap = new TreeMap<>();
+		for(EC_Categories cat : EC_Categories.values()){
 			catMap.put(0-cat.getStart(), cat);
 		}
 		return catMap;
@@ -178,7 +178,7 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	 * @param category an optional category to select error codes for
 	 * @return sorted map, empty if no error codes found
 	 */
-	protected TreeMap<Integer, ErrorCodes> ecMap(ErrorCodeCategories category){
+	protected TreeMap<Integer, ErrorCodes> ecMap(EC_Categories category){
 		TreeMap<Integer, ErrorCodes> ecMap = new TreeMap<>();
 		for(ErrorCodes ec : ErrorCodes.values()){
 			if(category==null || ec.getCategory()==category){

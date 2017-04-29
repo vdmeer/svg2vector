@@ -26,9 +26,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 
@@ -45,7 +45,7 @@ public class Test_RequiredOptions_Input {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void test_NoLoader() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_NoLoader() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -61,7 +61,7 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_Blank() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Fin_Blank() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -73,14 +73,14 @@ public class Test_RequiredOptions_Input {
 		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("no input file given");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.NO_FIN__0)));
 		ro.setInput(loader);
 	}
 
 	@Test
-	public void test_Fin_DoesNotexist() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Fin_DoesNotexist() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -92,14 +92,14 @@ public class Test_RequiredOptions_Input {
 		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("input file <testfile> does not exist, please check path and filename");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1)));
 		ro.setInput(loader);
 	}
 
 	@Test
-	public void test_Fin_NotAFile() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Fin_NotAFile() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -111,14 +111,14 @@ public class Test_RequiredOptions_Input {
 		cli.parse(args);
 
 		IsLoader loader = new IsLoader();
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("input file <src/main/java> is not a file, please check path and filename");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_NOT_A_FILE__1)));
 		ro.setInput(loader);
 	}
 
 	@Test
-	public void test_Fin_ValidLayers() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Fin_ValidLayers() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.addAllOptions(ro.getAllOptions());
@@ -137,7 +137,7 @@ public class Test_RequiredOptions_Input {
 	}
 
 	@Test
-	public void test_Fin_ValidNoLayers() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Fin_ValidNoLayers() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.addAllOptions(ro.getAllOptions());

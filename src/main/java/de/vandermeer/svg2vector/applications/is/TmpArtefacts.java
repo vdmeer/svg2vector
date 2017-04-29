@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.Validate;
 
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 
 /**
  * Utility to handle (create, list, delete) temporary artifacts (files and directories).
@@ -110,9 +110,9 @@ public class TmpArtefacts {
 	 * @throws NullPointerException if command, input file, or output file was null, or if no temporary directory was created or already deleted
 	 * @throws IllegalArgumentException if input file or output file was blank
 	 * @throws IOException if the temporary file could not be created
-	 * @throws S2VExeception if Inkscape execution failed
+	 * @throws ApplicationException if Inkscape execution failed
 	 */
-	public void createTempFile(IsExecutor cmd, final String fin, String fout) throws IOException, S2VExeception{
+	public void createTempFile(IsExecutor cmd, final String fin, String fout) throws IOException, ApplicationException {
 		Validate.notNull(this.tmpDir);
 		Validate.notNull(cmd);
 		Validate.notBlank(fin);

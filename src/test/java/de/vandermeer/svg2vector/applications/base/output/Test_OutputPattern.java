@@ -27,8 +27,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Tests for {@link OutputPattern} - constructors and remove options.
@@ -57,37 +57,37 @@ public class Test_OutputPattern {
 	}
 
 	@Test
-	public void test_Error_FextOnly() throws S2VExeception{
+	public void test_Error_FextOnly() throws ApplicationException{
 		OutputPattern op = new OutputPattern();
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output pattern <.pdf> only contains file extension, check options for generating fnout");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1)));
 		op.generateName(null, null, "pdf", -1, null);
 	}
 
 	@Test
-	public void test_Error_DirFextOnly_Simple() throws S2VExeception{
+	public void test_Error_DirFextOnly_Simple() throws ApplicationException{
 		OutputPattern op = new OutputPattern();
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output pattern <target" + File.separator + ".pdf> only contains directory and file extension, check options for generating fnout");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1)));
 		op.generateName(FileSystems.getDefault().getPath("target"), null, "pdf", -1, null);
 	}
 
 	@Test
-	public void test_Error_DirFextOnly_more() throws S2VExeception{
+	public void test_Error_DirFextOnly_more() throws ApplicationException{
 		OutputPattern op = new OutputPattern();
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output pattern <target" + File.separator + "foo" + File.separator + ".pdf> only contains directory and file extension, check options for generating fnout");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1)));
 		op.generateName(FileSystems.getDefault().getPath("target/foo"), null, "pdf", -1, null);
 	}
 
 	@Test
-	public void test_Only_Dout() throws S2VExeception{
+	public void test_Only_Dout() throws ApplicationException{
 		Path path = FileSystems.getDefault().getPath("/bla/foo");
 		OutputPattern op = new OutputPattern();
 		Path ret = op.generateName(path, null, null, -1, null);
@@ -98,7 +98,7 @@ public class Test_OutputPattern {
 	}
 
 	@Test
-	public void test_Only_Fout() throws S2VExeception{
+	public void test_Only_Fout() throws ApplicationException{
 		Path path = FileSystems.getDefault().getPath("foo");
 		OutputPattern op = new OutputPattern();
 		Path ret = op.generateName(null, path, null, -1, null);
@@ -109,7 +109,7 @@ public class Test_OutputPattern {
 	}
 
 	@Test
-	public void test_Only_Fout2() throws S2VExeception{
+	public void test_Only_Fout2() throws ApplicationException{
 		Path path = FileSystems.getDefault().getPath("bla/foo");
 		OutputPattern op = new OutputPattern();
 		Path ret = op.generateName(null, path, null, -1, null);

@@ -20,9 +20,9 @@ import java.util.List;
 
 import de.vandermeer.execs.options.AbstractSimpleC;
 import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Application options for processing Inkscape layers.
@@ -82,12 +82,12 @@ public final class LayerOptions extends CliOptionPackage {
 	/**
 	 * Sets options from CLI settings.
 	 * @param docHasLayers flag for layers detected in a loaded SVG file, true if has layers, false otherwise
-	 * @throws S2VExeception for any error
+	 * @throws ApplicationException for any error
 	 */
-	public void setOptions(boolean docHasLayers) throws S2VExeception{
+	public void setOptions(boolean docHasLayers) throws ApplicationException{
 		if(this.aoLayers.inCli()){
 			if(!docHasLayers){
-				throw new S2VExeception(ErrorCodes.LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0);
+				throw new ApplicationException(ErrorCodes.LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0);
 			}
 			else{
 				this.doLayers = true;

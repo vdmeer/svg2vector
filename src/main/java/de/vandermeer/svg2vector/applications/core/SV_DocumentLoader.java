@@ -18,6 +18,8 @@ package de.vandermeer.svg2vector.applications.core;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
+
 /**
  * Base class for an SVG document loader.
  *
@@ -37,9 +39,9 @@ public abstract class SV_DocumentLoader {
 	 * Loads the SVG file.
 	 * This method will not re-load an SVG file once the loader already has a document loaded.
 	 * @param fn the file name for the SVG document, must not be blank
-	 * @throws S2VExeception if file could not be loaded
+	 * @throws ApplicationException if file could not be loaded
 	 */
-	public abstract void load(String fn) throws S2VExeception; 
+	public abstract void load(String fn) throws ApplicationException; 
 
 	/**
 	 * Returns the status of the loader.

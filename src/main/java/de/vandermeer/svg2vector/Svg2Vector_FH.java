@@ -24,9 +24,9 @@ import java.util.Set;
 
 import org.freehep.graphicsbase.util.UserProperties;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.fh.AO_BackgroundColor;
 import de.vandermeer.svg2vector.applications.fh.AO_NoBackground;
@@ -142,9 +142,9 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 
 			this.printProgressMessage("finished successfully");
 		}
-		catch(S2VExeception s2vEx){
+		catch(ApplicationException s2vEx){
 			this.printErrorMessage(s2vEx);
-			return s2vEx.getErrorCode().getCode();
+			return s2vEx.getErrorCode();
 		}
 		catch(NullPointerException npEx){
 			this.printErrorMessage(npEx);

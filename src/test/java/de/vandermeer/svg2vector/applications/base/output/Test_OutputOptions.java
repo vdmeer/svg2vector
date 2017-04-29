@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -86,21 +86,21 @@ public class Test_OutputOptions {
 	}
 
 	@Test
-	public void test_Set_NullTarget() throws S2VExeception{
+	public void test_Set_NullTarget() throws ApplicationException{
 		OutputOptions oo = new OutputOptions();
 		thrown.expect(NullPointerException.class);
 		oo.setOptions(false, null, "foo");
 	}
 
 	@Test
-	public void test_Set_NullFin() throws S2VExeception{
+	public void test_Set_NullFin() throws ApplicationException{
 		OutputOptions oo = new OutputOptions();
 		thrown.expect(NullPointerException.class);
 		oo.setOptions(false, SvgTargets.pdf, null);
 	}
 
 	@Test
-	public void test_Set_BlankFin() throws S2VExeception{
+	public void test_Set_BlankFin() throws ApplicationException{
 		OutputOptions oo = new OutputOptions();
 		thrown.expect(IllegalArgumentException.class);
 		oo.setOptions(false, SvgTargets.pdf, " 	");

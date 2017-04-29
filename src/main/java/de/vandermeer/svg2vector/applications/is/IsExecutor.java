@@ -25,9 +25,9 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -67,21 +67,21 @@ public class IsExecutor {
 	 * Creates a new executor.
 	 * @param isExec the executable (including path) file name for Inkscape
 	 * @param simulate flag for simulation, if true no execution happens
-	 * @throws S2VExeception if isExec was blank or not a file or was not executable
+	 * @throws ApplicationException if isExec was blank or not a file or was not executable
 	 */
-	public IsExecutor(String isExec, final boolean simulate) throws S2VExeception {
+	public IsExecutor(String isExec, final boolean simulate) throws ApplicationException {
 		if(StringUtils.isBlank(isExec)){
-			throw new S2VExeception(ErrorCodes.INKSCAPE_EXEC_FN_BLANK__1, isExec);
+			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_BLANK__1, isExec);
 		}
 		File testFD = new File(isExec);
 		if(!testFD.exists()){
-			throw new S2VExeception(ErrorCodes.INKSCAPE_EXEC_FN_NOTEXIST__1, isExec);
+			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_NOTEXIST__1, isExec);
 		}
 		if(!testFD.isFile()){
-			throw new S2VExeception(ErrorCodes.INKSCAPE_EXEC_FN_NOT_FILE__1, isExec);
+			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_NOT_FILE__1, isExec);
 		}
 		if(!testFD.canExecute()){
-			throw new S2VExeception(ErrorCodes.INKSCAPE_EXEC_FN_CANNOT_EXECUTE__1, isExec);
+			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_CANNOT_EXECUTE__1, isExec);
 		}
 
 		this.cmd = new StrBuilder();
@@ -162,9 +162,9 @@ public class IsExecutor {
 	 * Executes Inkscape with the created command for given input and output files.
 	 * @param fin the input file, must not be blank
 	 * @param fout the output file, must not be blank
-	 * @throws S2VExeception if execution had errors
+	 * @throws ApplicationException if execution had errors
 	 */
-	public void executeInkscape(final String fin, final String fout) throws S2VExeception{
+	public void executeInkscape(final String fin, final String fout) throws ApplicationException{
 		Validate.notBlank(fin);
 		Validate.notBlank(fout);
 
@@ -177,10 +177,10 @@ public class IsExecutor {
 			p.waitFor();
 		}
 		catch (IOException e) {
-			throw new S2VExeception(ErrorCodes.INKSCAPE_EXEC_IO__1, e.getMessage());
+			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_IO__1, e.getMessage());
 		}
 		catch (InterruptedException e) {
-			throw new S2VExeception(ErrorCodes.INKSCAPE_EXEC_INTERRUPTED__1, e.getMessage());
+			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_INTERRUPTED__1, e.getMessage());
 		}
 	}
 

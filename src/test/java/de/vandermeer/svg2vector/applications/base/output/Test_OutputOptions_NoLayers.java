@@ -30,10 +30,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -60,7 +60,7 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Error_FoutBlank() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_FoutBlank() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -70,24 +70,24 @@ public class Test_OutputOptions_NoLayers {
 		};
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output filename is blank");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_IS_BLANK__0)));
 		oo.setOptions(false, SvgTargets.pdf, "foo");
 	}
 
 	@Test
-	public void test_Error_SameAsTarget_FN() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_SameAsTarget_FN() throws ApplicationException, IllegalStateException, CliParseException{
 		OutputOptions oo = new OutputOptions();
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output <simple.svg> same as input <simple.svg>");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2)));
 		oo.setOptions(false, SvgTargets.svg, "simple.svg");
 	}
 
 	@Test
-	public void test_Error_SameAsTarget_FNDir() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_SameAsTarget_FNDir() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -102,14 +102,14 @@ public class Test_OutputOptions_NoLayers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/bla/foo/simple.svg") + "> same as input <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/bla/foo/simple.svg") + ">");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2)));
 		oo.setOptions(false, SvgTargets.svg, "target/output-tests/app-props/bla/foo/simple.svg");
 	}
 
 	@Test
-	public void test_Error_Fout_Isdir() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_Fout_Isdir() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -123,14 +123,14 @@ public class Test_OutputOptions_NoLayers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists but is a directory");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_IS_DIRECTORY__1)));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
 	@Test
-	public void test_Error_FoutExistsNoOverwrite() throws S2VExeception, IOException, IllegalStateException, CliParseException{
+	public void test_Error_FoutExistsNoOverwrite() throws ApplicationException, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -146,14 +146,14 @@ public class Test_OutputOptions_NoLayers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists and no option overwrite-existing used");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_EXISTS_NO_OVERWRITE_OPTION__2)));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
 	@Test
-	public void test_Error_FoutExistsCantWrite() throws S2VExeception, IOException, IllegalStateException, CliParseException{
+	public void test_Error_FoutExistsCantWrite() throws ApplicationException, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -172,14 +172,14 @@ public class Test_OutputOptions_NoLayers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists but cannot write to it, please check permissions");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_EXISTS_CANNOT_WRITE__1)));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
 	@Test
-	public void test_Error_ParrentNoDir() throws S2VExeception, IOException, IllegalStateException, CliParseException{
+	public void test_Error_ParrentNoDir() throws ApplicationException, IOException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -196,14 +196,14 @@ public class Test_OutputOptions_NoLayers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> exists but is not a directory");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1)));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
 	@Test
-	public void test_Error_NoParrentNoCreate() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_NoParrentNoCreate() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -214,14 +214,14 @@ public class Test_OutputOptions_NoLayers {
 
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> does not exist and CLI option create-directories not used");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2)));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
 	@Test
-	public void test_DoesNoLayers() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_DoesNoLayers() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());
@@ -237,7 +237,7 @@ public class Test_OutputOptions_NoLayers {
 	}
 
 	@Test
-	public void test_Opt1() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Opt1() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		OutputOptions oo = new OutputOptions();
 		cli.addAllOptions(oo.getAllOptions());

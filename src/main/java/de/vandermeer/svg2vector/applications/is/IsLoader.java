@@ -29,8 +29,8 @@ import java.util.zip.ZipException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**
@@ -46,7 +46,7 @@ public class IsLoader extends SV_DocumentLoader {
 	protected ArrayList<String> lines;
 
 	@Override
-	public void load(String fn) throws S2VExeception {
+	public void load(String fn) throws ApplicationException {
 		Validate.notBlank(fn);
 
 		if(!this.isLoaded){
@@ -64,11 +64,11 @@ public class IsLoader extends SV_DocumentLoader {
 			}
 			catch(ZipException exZip){
 				@SuppressWarnings("unused")
-				S2VExeception ex = new S2VExeception(ErrorCodes.LOADER_ZIP__3, this.getClass().getSimpleName(), fn, exZip.getMessage());
+				ApplicationException ex = new ApplicationException(ErrorCodes.LOADER_ZIP__3, this.getClass().getSimpleName(), fn, exZip.getMessage());
 			}
 			catch(IOException exIO){
 				this.lines = null;
-				throw new S2VExeception(ErrorCodes.LOADER_IO_GZIP__3, this.getClass().getSimpleName(), fn, exIO.getMessage());
+				throw new ApplicationException(ErrorCodes.LOADER_IO_GZIP__3, this.getClass().getSimpleName(), fn, exIO.getMessage());
 			}
 		}
 
@@ -85,11 +85,11 @@ public class IsLoader extends SV_DocumentLoader {
 			}
 			catch(FileNotFoundException e){
 				this.lines = null;
-				throw new S2VExeception(ErrorCodes.LOADER_FILE_NOT_FOUND_PLAIN_SVG__3, this.getClass().getSimpleName(), fn, e.getMessage());
+				throw new ApplicationException(ErrorCodes.LOADER_FILE_NOT_FOUND_PLAIN_SVG__3, this.getClass().getSimpleName(), fn, e.getMessage());
 			}
 			catch(IOException e){
 				this.lines = null;
-				throw new S2VExeception(ErrorCodes.LOADER_IO_PLAIN__3, this.getClass().getSimpleName(), fn, e.getMessage());
+				throw new ApplicationException(ErrorCodes.LOADER_IO_PLAIN__3, this.getClass().getSimpleName(), fn, e.getMessage());
 			}
 		}
 

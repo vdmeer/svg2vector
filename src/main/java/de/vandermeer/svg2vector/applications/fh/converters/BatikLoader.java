@@ -32,8 +32,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**
@@ -98,7 +98,7 @@ public class BatikLoader extends SV_DocumentLoader {
 	}
 
 	@Override
-	public void load(String fn) throws S2VExeception {
+	public void load(String fn) throws ApplicationException {
 		Validate.notBlank(fn);
 
 		if(!this.isLoaded){
@@ -117,7 +117,7 @@ public class BatikLoader extends SV_DocumentLoader {
 			catch(Exception ex){
 				this.bridgeContext = null;
 				this.svgDocument = null;
-				throw new S2VExeception(ErrorCodes.LOADER_BATIK_CANNOT_LOAD_SVG__2, this.getClass().getSimpleName(), ex.getMessage());
+				throw new ApplicationException(ErrorCodes.LOADER_BATIK_CANNOT_LOAD_SVG__2, this.getClass().getSimpleName(), ex.getMessage());
 			}
 			documentLoader.dispose();
 
@@ -130,7 +130,7 @@ public class BatikLoader extends SV_DocumentLoader {
 				this.bridgeContext = null;
 				this.svgDocument = null;
 				this.size = null;
-				throw new S2VExeception(ErrorCodes.LOADER_BATIK_CANNOT_SET_SIZE__2, this.getClass().getSimpleName(), ex.getMessage());
+				throw new ApplicationException(ErrorCodes.LOADER_BATIK_CANNOT_SET_SIZE__2, this.getClass().getSimpleName(), ex.getMessage());
 			}
 
 			NodeList nodes = elem.getChildNodes();

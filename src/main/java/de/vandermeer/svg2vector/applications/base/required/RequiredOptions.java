@@ -20,9 +20,9 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
@@ -61,25 +61,25 @@ public final class RequiredOptions extends CliOptionPackage {
 	/**
 	 * Sets the input and loads the document
 	 * @param loader a document loader, must not be null
-	 * @throws S2VExeception in any error case
+	 * @throws ApplicationException in any error case
 	 */
-	public void setInput(final SV_DocumentLoader loader) throws S2VExeception{
+	public void setInput(final SV_DocumentLoader loader) throws ApplicationException{
 		Validate.notNull(loader);
 
 		if(StringUtils.isBlank(this.aoFileIn.getCliValue())){
-			throw new S2VExeception(ErrorCodes.NO_FIN__0);
+			throw new ApplicationException(ErrorCodes.NO_FIN__0);
 		}
 
 		String fileName = this.aoFileIn.getValue();
 		File testFD = new File(fileName);
 		if(!testFD.exists()){
-			throw new S2VExeception(ErrorCodes.FIN_DOES_NOT_EXIST__1, fileName);
+			throw new ApplicationException(ErrorCodes.FIN_DOES_NOT_EXIST__1, fileName);
 		}
 		if(!testFD.isFile()){
-			throw new S2VExeception(ErrorCodes.FIN_NOT_A_FILE__1, fileName);
+			throw new ApplicationException(ErrorCodes.FIN_NOT_A_FILE__1, fileName);
 		}
 		if(!testFD.canRead()){
-			throw new S2VExeception(ErrorCodes.CANNOT_READ_FIN__1, fileName);
+			throw new ApplicationException(ErrorCodes.CANNOT_READ_FIN__1, fileName);
 		}
 		this.fileName = fileName;
 		loader.load(fileName);

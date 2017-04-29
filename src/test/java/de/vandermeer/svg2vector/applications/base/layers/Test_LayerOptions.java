@@ -26,9 +26,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.CliParseException;
 import de.vandermeer.svg2vector.applications.core.ErrorCodes;
-import de.vandermeer.svg2vector.applications.core.S2VExeception;
 
 /**
  * Tests for {@link LayerOptions}.
@@ -53,7 +53,7 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_NothingSet() throws S2VExeception{
+	public void test_NothingSet() throws ApplicationException{
 		LayerOptions lo = new LayerOptions();
 		lo.setOptions(true);
 
@@ -63,7 +63,7 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_LayerTrue() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_LayerTrue() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -78,7 +78,7 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_Error_LayerFalse() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_Error_LayerFalse() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -88,14 +88,14 @@ public class Test_LayerOptions {
 		};
 		cli.parse(args);
 
-		thrown.expect(S2VExeception.class);
+		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("layers requested in command line, but SVG input file has not layers");
 		thrown.expect(hasProperty("errorCode", is(ErrorCodes.LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0)));
 		lo.setOptions(false);
 	}
 
 	@Test
-	public void test_IfexistsTrue() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_IfexistsTrue() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
@@ -110,7 +110,7 @@ public class Test_LayerOptions {
 	}
 
 	@Test
-	public void test_IfexistsFalse() throws S2VExeception, IllegalStateException, CliParseException{
+	public void test_IfexistsFalse() throws ApplicationException, IllegalStateException, CliParseException{
 		DefaultCliParser cli = new DefaultCliParser();
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
