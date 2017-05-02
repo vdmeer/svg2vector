@@ -32,10 +32,19 @@ public class AO_Simulate extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_Simulate(){
-		super('S', "simulate", false, "simulate application, no output directories or files will be created");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/misc/AO_Simulate.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Simulate", 'S', "simulate", false,
+				"simulate application, no output directories or files will be created",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/misc/AO_Simulate.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

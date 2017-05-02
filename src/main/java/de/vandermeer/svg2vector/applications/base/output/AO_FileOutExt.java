@@ -33,12 +33,19 @@ public class AO_FileOutExt extends AbstractTypedC_String {
 	 */
 	public AO_FileOutExt(){
 		super(
+				"Output File",
 				'o', "output-file", false, "FILE", false,
-				"specifies the input file (path and filename)", "output filename, default is the basename of the input file plus target extension"
+				"specifies the input file (path and filename)", "output filename, default is the basename of the input file plus target extension",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_FileOutExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_FileOutExt.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

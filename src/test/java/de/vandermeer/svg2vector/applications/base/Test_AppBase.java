@@ -128,7 +128,7 @@ public class Test_AppBase {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("input file <testfile> does not exist, please check path and filename");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1.getCode())));
 		testApp.init();
 	}
 
@@ -149,7 +149,7 @@ public class Test_AppBase {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + StringUtils.replace("target/output-tests/app-props/test", "/", File.separator) + "> does not exist and CLI option create-directories not used");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2.getCode())));
 		testApp.init();
 	}
 

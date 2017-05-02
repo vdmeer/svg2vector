@@ -32,10 +32,19 @@ public class AO_NoBackground extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_NoBackground(){
-		super('v', "no-background", false, "switch off background property");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_NoBackground.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"No Background", 'v', "no-background", false,
+				"switch off background property",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_NoBackground.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

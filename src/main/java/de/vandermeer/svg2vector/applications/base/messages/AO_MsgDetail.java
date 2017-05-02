@@ -32,10 +32,19 @@ public class AO_MsgDetail extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_MsgDetail(){
-		super('e', "print-details", false, "print very detailed information to stdout");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_MsgDetail.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Print Details", 'e', "print-details", false,
+				"print very detailed information to stdout",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_MsgDetail.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

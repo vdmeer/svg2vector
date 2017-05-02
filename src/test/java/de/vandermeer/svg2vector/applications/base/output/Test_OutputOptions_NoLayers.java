@@ -72,7 +72,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output filename is blank");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_IS_BLANK__0)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_IS_BLANK__0.getCode())));
 		oo.setOptions(false, SvgTargets.pdf, "foo");
 	}
 
@@ -82,7 +82,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output <simple.svg> same as input <simple.svg>");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2.getCode())));
 		oo.setOptions(false, SvgTargets.svg, "simple.svg");
 	}
 
@@ -104,7 +104,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/bla/foo/simple.svg") + "> same as input <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/bla/foo/simple.svg") + ">");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_SAMEAS_FIN__2.getCode())));
 		oo.setOptions(false, SvgTargets.svg, "target/output-tests/app-props/bla/foo/simple.svg");
 	}
 
@@ -125,7 +125,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists but is a directory");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_IS_DIRECTORY__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_IS_DIRECTORY__1.getCode())));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
@@ -148,7 +148,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists and no option overwrite-existing used");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_EXISTS_NO_OVERWRITE_OPTION__2)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_EXISTS_NO_OVERWRITE_OPTION__2.getCode())));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
@@ -174,7 +174,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output file <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/fout-exists.pdf") + "> exists but cannot write to it, please check permissions");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_EXISTS_CANNOT_WRITE__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_FN_EXISTS_CANNOT_WRITE__1.getCode())));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
@@ -198,7 +198,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> exists but is not a directory");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1.getCode())));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 
@@ -216,7 +216,7 @@ public class Test_OutputOptions_NoLayers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> does not exist and CLI option create-directories not used");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2.getCode())));
 		oo.setOptions(false, SvgTargets.pdf, "src/test/resources/svg-files/chomsky-hierarchy.svgz");
 	}
 

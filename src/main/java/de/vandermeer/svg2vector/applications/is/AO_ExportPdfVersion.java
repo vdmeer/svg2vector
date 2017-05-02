@@ -34,12 +34,11 @@ public class AO_ExportPdfVersion extends AbstractTypedC_String implements IsTarg
 	 * Returns the new option as not required and without a short option.
 	 */
 	public AO_ExportPdfVersion(){
-		super(null, "export-pdf-version", false, "VERSION", false,
-				"the PDF version, must be an exact version string", "set PDF version for export"
+		super(
+				"Export PDF: PDF Version", null, "export-pdf-version", false, "VERSION", false,
+				"the PDF version, must be an exact version string", "set PDF version for export",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportPdfVersion.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 	@Override
@@ -61,5 +60,14 @@ public class AO_ExportPdfVersion extends AbstractTypedC_String implements IsTarg
 	@Override
 	public String getOptValue() {
 		return this.getValue();
+	}
+
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportPdfVersion.stg");
+		return stg.getInstanceOf("longDescription");
 	}
 }

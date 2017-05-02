@@ -32,10 +32,19 @@ public class AO_LayersIfExist extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_LayersIfExist(){
-		super('L', "layers-if-exist", false, "switch on layer mode, if input SVG document has layers, otherwise do not process layers");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_LayersIfExist.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Layers, if Exist", 'L', "layers-if-exist", false,
+				"switch on layer mode, if input SVG document has layers, otherwise do not process layers",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_LayersIfExist.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

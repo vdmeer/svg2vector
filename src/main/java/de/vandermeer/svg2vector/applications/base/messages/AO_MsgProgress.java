@@ -32,10 +32,19 @@ public class AO_MsgProgress extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_MsgProgress(){
-		super('p', "print-progress", false, "print progress information to stdout");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_MsgProgress.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Print Progress", 'p', "print-progress", false,
+				"print progress information to stdout",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_MsgProgress.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

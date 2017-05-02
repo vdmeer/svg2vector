@@ -32,11 +32,19 @@ public class AO_NoErrors extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_NoErrors(){
-		super(null, "no-errors", false, "switch off error messages");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
-
+		super(
+				"Print No Errors", null, "no-errors", false,
+				"switch off error messages",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

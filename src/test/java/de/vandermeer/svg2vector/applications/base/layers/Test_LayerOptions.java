@@ -89,8 +89,8 @@ public class Test_LayerOptions {
 		cli.parse(args);
 
 		thrown.expect(ApplicationException.class);
-		thrown.expectMessage("layers requested in command line, but SVG input file has not layers");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0)));
+		thrown.expectMessage("layers requested in command line, but SVG input file has no layers");
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0.getCode())));
 		lo.setOptions(false);
 	}
 

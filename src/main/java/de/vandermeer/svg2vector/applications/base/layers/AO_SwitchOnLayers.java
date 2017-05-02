@@ -32,10 +32,19 @@ public class AO_SwitchOnLayers extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_SwitchOnLayers(){
-		super(null, "all-layers", false, "switch on all layers");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_SwitchOnLayers.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"All Layers", null, "all-layers", false,
+				"switch on all layers",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_SwitchOnLayers.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

@@ -33,12 +33,19 @@ public class AO_BackgroundColor extends AbstractTypedC_String {
 	 */
 	public AO_BackgroundColor(){
 		super(
+				"Background Color",
 				'r', "bgrnd-color", false, "COLOR", false,
-				"name of a system property that has the background color", "sets a background color"
+				"name of a system property that has the background color", "sets a background color",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_BackgroundColor.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_BackgroundColor.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

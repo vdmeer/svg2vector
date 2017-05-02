@@ -32,12 +32,20 @@ public class AO_DirectoryOutExt extends AbstractTypedC_String {
 	 * Returns the new option.
 	 */
 	public AO_DirectoryOutExt(){
-		super('d', "output-directory", false, "DIR", false,
-				"a directory", "output directory, default in layer mode is current directory"
+		super(
+				"Output Directory",
+				'd', "output-directory", false, "DIR", false,
+				"a directory", "output directory, default in layer mode is current directory",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_DirectoryOutExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_DirectoryOutExt.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

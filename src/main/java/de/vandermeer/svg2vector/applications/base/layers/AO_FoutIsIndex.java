@@ -32,10 +32,19 @@ public class AO_FoutIsIndex extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_FoutIsIndex(){
-		super('I', "fout-isindex", false, "use the Inkscape layer index in output file name");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Output Filename: Inkscape Index", 'I', "fout-isindex", false,
+				"use the Inkscape layer index in output file name",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

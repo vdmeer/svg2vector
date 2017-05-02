@@ -32,10 +32,19 @@ public class AO_NotTransparent extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_NotTransparent(){
-		super('n', "not-transparent", false, "switch off transparency");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_NotTransparent.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Not Transparent", 'n', "not-transparent", false,
+				"switch off transparency",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/fh/AO_NotTransparent.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

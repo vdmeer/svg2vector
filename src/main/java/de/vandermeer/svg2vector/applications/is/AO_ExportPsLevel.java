@@ -33,12 +33,11 @@ public class AO_ExportPsLevel extends AbstractTypedC_String implements IsTargetO
 	 * Returns the new option as not required and without a short option.
 	 */
 	public AO_ExportPsLevel(){
-		super(null, "export-ps-level", false, "LEVEL", false,
-				"the PS level to use (2 or 3)", "sets the PS level for export"
+		super(
+				"Export PS: PS Level", null, "export-ps-level", false, "LEVEL", false,
+				"the PS level to use (2 or 3)", "sets the PS level for export",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportPsLevel.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 	@Override
@@ -54,5 +53,14 @@ public class AO_ExportPsLevel extends AbstractTypedC_String implements IsTargetO
 	@Override
 	public String getOptValue() {
 		return this.getValue();
+	}
+
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportPsLevel.stg");
+		return stg.getInstanceOf("longDescription");
 	}
 }

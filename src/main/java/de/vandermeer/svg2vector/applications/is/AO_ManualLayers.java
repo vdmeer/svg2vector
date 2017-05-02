@@ -32,10 +32,19 @@ public class AO_ManualLayers extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_ManualLayers(){
-		super('m', "manual-layers", false, "manage layers manually when in layer mode and creating SVG temporary files first");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ManualLayers.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Manual Layer Management", 'm', "manual-layers", false,
+				"manage layers manually when in layer mode and creating SVG temporary files first",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ManualLayers.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

@@ -32,10 +32,19 @@ public class AO_MsgWarnings extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_MsgWarnings(){
-		super('w', "print-warnings", false, "print warning messages to stdout");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_MsgWarnings.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Print Warnings", 'w', "print-warnings", false,
+				"print warning messages to stdout",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_MsgWarnings.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

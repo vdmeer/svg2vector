@@ -32,10 +32,19 @@ public class AO_SvgFirst extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_SvgFirst(){
-		super('g', "svg-first", false, "convert to SVG first, then to actual target");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_SvgFirst.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"SVG Conversion First", 'g', "svg-first", false,
+				"convert to SVG first, then to actual target",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_SvgFirst.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

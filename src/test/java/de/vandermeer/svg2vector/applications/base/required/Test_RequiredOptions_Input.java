@@ -75,7 +75,7 @@ public class Test_RequiredOptions_Input {
 		IsLoader loader = new IsLoader();
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("no input file given");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.NO_FIN__0)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.NO_FIN__0.getCode())));
 		ro.setInput(loader);
 	}
 
@@ -94,7 +94,7 @@ public class Test_RequiredOptions_Input {
 		IsLoader loader = new IsLoader();
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("input file <testfile> does not exist, please check path and filename");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1.getCode())));
 		ro.setInput(loader);
 	}
 
@@ -113,7 +113,7 @@ public class Test_RequiredOptions_Input {
 		IsLoader loader = new IsLoader();
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("input file <src/main/java> is not a file, please check path and filename");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_NOT_A_FILE__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_NOT_A_FILE__1.getCode())));
 		ro.setInput(loader);
 	}
 

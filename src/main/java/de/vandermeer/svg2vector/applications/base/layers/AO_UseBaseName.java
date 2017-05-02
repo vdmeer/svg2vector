@@ -33,12 +33,19 @@ public class AO_UseBaseName extends AbstractTypedC_String {
 	 */
 	public AO_UseBaseName(){
 		super(
+				"Use Basename",
 				null, "use-basename", false, "BASENAME", false,
-				"a basename to be used for output files", "use the specified basename for output files"
+				"a basename to be used for output files", "use the specified basename for output files",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

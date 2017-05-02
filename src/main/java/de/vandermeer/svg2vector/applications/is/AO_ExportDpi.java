@@ -33,12 +33,11 @@ public class AO_ExportDpi extends AbstractTypedC_String implements IsTargetOptio
 	 * Returns the new option as not required and without a short option.
 	 */
 	public AO_ExportDpi(){
-		super(null, "export-dpi", false, "DPI", false,
-				"the DPI value", "set DPI for bitmap conversion or for rasterization of filters"
+		super(
+				"Export: Export DPI", null, "export-dpi", false, "DPI", false,
+				"the DPI value", "set DPI for bitmap conversion or for rasterization of filters",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportDpi.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
 	@Override
@@ -54,5 +53,14 @@ public class AO_ExportDpi extends AbstractTypedC_String implements IsTargetOptio
 	@Override
 	public String getOptValue() {
 		return this.getValue();
+	}
+
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_ExportDpi.stg");
+		return stg.getInstanceOf("longDescription");
 	}
 }

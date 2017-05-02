@@ -32,10 +32,19 @@ public class AO_Layers extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_Layers(){
-		super('l', "layers", false, "switch on layer mode, process layers, create one file per layer");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_Layers.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Layers", 'l', "layers", false,
+				"switch on layer mode, process layers, create one file per layer",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_Layers.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

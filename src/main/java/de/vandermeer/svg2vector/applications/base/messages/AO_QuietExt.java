@@ -32,10 +32,19 @@ public class AO_QuietExt extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_QuietExt(){
-		super('q', "quiet", false, "puts the application in quiet mode, no errors, warnings, progress, or details will be printed");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_QuietExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Quiet", 'q', "quiet", false,
+				"puts the application in quiet mode, no errors, warnings, progress, or details will be printed",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_QuietExt.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

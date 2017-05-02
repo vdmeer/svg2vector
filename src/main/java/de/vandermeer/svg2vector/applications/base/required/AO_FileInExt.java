@@ -32,12 +32,20 @@ public class AO_FileInExt extends AbstractTypedC_String {
 	 * Returns the new option.
 	 */
 	public AO_FileInExt(){
-		super('f', "input-file", true, "FILE", false,
-				"a valid SVG document either GZIP compressed or plain text file", "specifies the input file (path and filename)"
+		super(
+				"Input File",
+				'f', "input-file", true, "FILE", false,
+				"a valid SVG document either GZIP compressed or plain text file", "specifies the input file (path and filename)",
+				LONG_DESCRIPTION()
 		);
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/required/AO_FileInExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/required/AO_FileInExt.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

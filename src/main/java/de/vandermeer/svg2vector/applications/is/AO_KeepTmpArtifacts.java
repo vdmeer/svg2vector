@@ -32,10 +32,19 @@ public class AO_KeepTmpArtifacts extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_KeepTmpArtifacts(){
-		super(null, "keep-tmp-artifacts", false, "keep temporary created artifacts (files and directories)");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_KeepTmpArtifacts.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Keep Temporary Artifacts", null, "keep-tmp-artifacts", false,
+				"keep temporary created artifacts (files and directories)",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_KeepTmpArtifacts.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

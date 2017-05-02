@@ -235,7 +235,7 @@ public enum ErrorCodes implements ApplicationErrorCode {
 	 */
 	LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0(
 			-300, 0,
-			"layers requested in command line, but SVG input file has not layers",
+			"layers requested in command line, but SVG input file has no layers",
 			"An application was requested to process layers, but the input SVG file did not had any.",
 			EC_Categories.layers
 	),

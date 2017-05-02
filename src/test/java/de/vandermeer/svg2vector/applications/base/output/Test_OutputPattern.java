@@ -62,7 +62,7 @@ public class Test_OutputPattern {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output pattern <.pdf> only contains file extension, check options for generating fnout");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1.getCode())));
 		op.generateName(null, null, "pdf", -1, null);
 	}
 
@@ -72,7 +72,7 @@ public class Test_OutputPattern {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output pattern <target" + File.separator + ".pdf> only contains directory and file extension, check options for generating fnout");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1.getCode())));
 		op.generateName(FileSystems.getDefault().getPath("target"), null, "pdf", -1, null);
 	}
 
@@ -82,7 +82,7 @@ public class Test_OutputPattern {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output pattern <target" + File.separator + "foo" + File.separator + ".pdf> only contains directory and file extension, check options for generating fnout");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1.getCode())));
 		op.generateName(FileSystems.getDefault().getPath("target/foo"), null, "pdf", -1, null);
 	}
 

@@ -19,6 +19,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.stringtemplate.v4.STGroupFile;
 
 import de.vandermeer.execs.options.AbstractTypedC;
 import de.vandermeer.skb.interfaces.application.CliParseException;
@@ -38,8 +39,11 @@ public class AO_TargetExt extends AbstractTypedC<SvgTargets> {
 	protected SvgTargets[] supportedTargets;
 
 	protected AO_TargetExt(SvgTargets[] supportedTargets) {
-		super('t', "target", true, "TARGET", false,
-				"the actual target, " + supportedTargets(supportedTargets), "specifies a conversion target"
+		super(
+				"Target",
+				't', "target", true, "TARGET", false,
+				"the actual target, " + supportedTargets(supportedTargets), "specifies a conversion target",
+				LONG_DESCRIPTION()
 		);
 
 		Validate.noNullElements(supportedTargets);
@@ -63,6 +67,15 @@ public class AO_TargetExt extends AbstractTypedC<SvgTargets> {
 		StrBuilder ret = new StrBuilder();
 		ret.append("supported targets are: ").appendWithSeparators(supportedTargets, ", ");
 		return ret.build();
+	}
+
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/required/AO_TargetExt.stg");
+		return stg.getInstanceOf("longDescription");
 	}
 
 	@Override

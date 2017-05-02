@@ -43,13 +43,12 @@ public class AO_InkscapeExecutable extends AbstractTypedCE_String {
 	 */
 	public AO_InkscapeExecutable(){
 		super(
+				"Inkscape Executable", 
 				'x', "is-exec", false, "EXEC", false,
 				"the Inkscape executable", "INKSCAPE",
-				"sets the Inkscape executable (default values from environment or for Windows and Unix)");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_InkscapeExecutable.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
-
+				"sets the Inkscape executable (default values from environment or for Windows and Unix)",
+				LONG_DESCRIPTION()
+		);
 
 		this.environmentValue = System.getenv(ENV_KEY);
 		if(SystemUtils.IS_OS_WINDOWS){
@@ -60,4 +59,12 @@ public class AO_InkscapeExecutable extends AbstractTypedCE_String {
 		}
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/is/AO_InkscapeExecutable.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

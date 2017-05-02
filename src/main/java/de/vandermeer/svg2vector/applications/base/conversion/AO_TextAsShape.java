@@ -32,10 +32,19 @@ public class AO_TextAsShape extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_TextAsShape(){
-		super('s', "text-as-shape", false, "convert text as shapes");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/conversion/AO_TextAsShape.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Text as Shape", 's', "text-as-shape", false,
+				"convert text as shapes",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/conversion/AO_TextAsShape.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

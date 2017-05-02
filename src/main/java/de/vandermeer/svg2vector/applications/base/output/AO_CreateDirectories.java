@@ -32,10 +32,19 @@ public class AO_CreateDirectories extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_CreateDirectories(){
-		super(null, "create-directories", false, "automatically create directories for output");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_CreateDirectories.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Create Directories", null, "create-directories", false,
+				"automatically create directories for output",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/output/AO_CreateDirectories.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

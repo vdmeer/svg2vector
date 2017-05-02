@@ -32,10 +32,19 @@ public class AO_VerboseExt extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_VerboseExt(){
-		super('v', "verbose", false, "verbose mode for application");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_VerboseExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Verbose", 'v', "verbose", false,
+				"verbose mode for application",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_VerboseExt.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

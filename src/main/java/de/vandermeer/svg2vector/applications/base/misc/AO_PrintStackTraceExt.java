@@ -32,10 +32,19 @@ public class AO_PrintStackTraceExt extends AbstractSimpleC {
 	 * Returns the new option.
 	 */
 	public AO_PrintStackTraceExt(){
-		super(null, "print-stack-trace", false, "sets a flag to print the stack trace of exceptions");
-
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/misc/AO_PrintStackTraceExt.stg");
-		this.setLongDescription(stg.getInstanceOf("longDescription"));
+		super(
+				"Print Stacktrace", null, "print-stack-trace", false,
+				"sets a flag to print the stack trace of exceptions",
+				LONG_DESCRIPTION()
+		);
 	}
 
+	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/misc/AO_PrintStackTraceExt.stg");
+		return stg.getInstanceOf("longDescription");
+	}
 }

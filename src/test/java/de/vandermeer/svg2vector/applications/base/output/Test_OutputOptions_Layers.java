@@ -78,7 +78,7 @@ public class Test_OutputOptions_Layers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test") + "> exists but is not a directory");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_IS_NOT_DIRECTORY__1.getCode())));
 		oo.setOptions(true, SvgTargets.svg, "foo.svg");
 	}
 
@@ -96,7 +96,7 @@ public class Test_OutputOptions_Layers {
 
 		thrown.expect(ApplicationException.class);
 		thrown.expectMessage("output directory <" + Test_OutputOptions.substPathSeparator("target/output-tests/app-props/test/file") + "> does not exist and CLI option create-directories not used");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2)));
+		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2.getCode())));
 		oo.setOptions(true, SvgTargets.svg, "foo.svg");
 	}
 

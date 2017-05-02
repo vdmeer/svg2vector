@@ -104,7 +104,7 @@ public class Test_Svg2Vector_IS {
 	}
 
 	@Test
-	public void test_HelpWithStg(){
+	public void test_HelpWithX(){
 		Svg2Vector_IS app = new Svg2Vector_IS();
 		String[] args = new String[]{
 				"--help",
