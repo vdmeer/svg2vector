@@ -33,7 +33,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**
@@ -117,7 +118,12 @@ public class BatikLoader extends SV_DocumentLoader {
 			catch(Exception ex){
 				this.bridgeContext = null;
 				this.svgDocument = null;
-				throw new ApplicationException(ErrorCodes.LOADER_BATIK_CANNOT_LOAD_SVG__2, this.getClass().getSimpleName(), ex.getMessage());
+				throw new ApplicationException(
+						Templates_InputFile.EXCEPTION_LOADING,
+						this.getClass().getSimpleName(),
+						"SVG",
+						fn,
+						ex.getMessage());
 			}
 			documentLoader.dispose();
 
@@ -130,7 +136,13 @@ public class BatikLoader extends SV_DocumentLoader {
 				this.bridgeContext = null;
 				this.svgDocument = null;
 				this.size = null;
-				throw new ApplicationException(ErrorCodes.LOADER_BATIK_CANNOT_SET_SIZE__2, this.getClass().getSimpleName(), ex.getMessage());
+				throw new ApplicationException(
+						Templates_ExceptionRuntimeUnexpected.U_EXCEPTION,
+						this.getClass().getSimpleName(),
+						"load",
+						"loading SVG document",
+						ex.getMessage()
+				);
 			}
 
 			NodeList nodes = elem.getChildNodes();

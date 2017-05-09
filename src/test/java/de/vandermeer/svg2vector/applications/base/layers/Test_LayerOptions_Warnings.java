@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import de.vandermeer.execs.DefaultCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.application.CliParseException;
 
 /**
  * Tests for {@link LayerOptions} - warnings.
@@ -35,8 +34,8 @@ import de.vandermeer.skb.interfaces.application.CliParseException;
 public class Test_LayerOptions_Warnings {
 
 	@Test
-	public void test_Warning_NoLayers_BN() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Warning_NoLayers_BN() throws ApplicationException, IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
 
@@ -52,8 +51,8 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_UseBN() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Warning_NoLayers_UseBN() throws ApplicationException, IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
 
@@ -69,8 +68,8 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_Index() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Warning_NoLayers_Index() throws ApplicationException, IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
 
@@ -86,8 +85,8 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_IsIndex() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Warning_NoLayers_IsIndex() throws ApplicationException, IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
 
@@ -103,8 +102,8 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_NoLayers_IsLabel() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Warning_NoLayers_IsLabel() throws ApplicationException, IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
 
@@ -120,8 +119,8 @@ public class Test_LayerOptions_Warnings {
 	}
 
 	@Test
-	public void test_Warning_Layers_SwitchOn() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Warning_Layers_SwitchOn() throws ApplicationException, IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		LayerOptions lo = new LayerOptions();
 		cli.addAllOptions(lo.getAllOptions());
 

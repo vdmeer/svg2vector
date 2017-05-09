@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import de.vandermeer.execs.DefaultCliParser;
-import de.vandermeer.skb.interfaces.application.CliParseException;
 
 /**
  * Tests for {@link MessageOptions} - message options.
@@ -39,8 +38,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_DefaultMsgOptions() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_DefaultMsgOptions() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 
@@ -52,8 +51,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_WarningMsgOptions() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_WarningMsgOptions() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 
@@ -67,8 +66,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_ProgressMsgOptions() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_ProgressMsgOptions() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 
@@ -82,8 +81,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_DetailsMsgOptions() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_DetailsMsgOptions() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 
@@ -97,8 +96,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_NoErrors() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_NoErrors() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 
@@ -112,8 +111,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_VerboseMsgOptions() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_VerboseMsgOptions() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 
@@ -127,8 +126,8 @@ public class Test_MessageOptions {
 	}
 
 	@Test
-	public void test_QuietMsgOptions() throws IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_QuietMsgOptions() throws IllegalStateException {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		MessageOptions mo = new MessageOptions();
 		cli.addAllOptions(mo.getAllOptions());
 

@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +29,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputDirectory;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 
@@ -59,47 +60,45 @@ public class Test_AppBase {
 
 	@Test
 	public void test_AddedOptions(){
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
 		assertEquals(18, testApp.getCliParser().getSimpleOptions().size());
 		assertEquals(5, testApp.getCliParser().getTypedOptions().size());
-		assertEquals(1, testApp.getEnvironmentOptions().size());
-		assertEquals(0, testApp.getPropertyOptions().size());
+		assertEquals(1, testApp.getEnvironmentParser().getOptions().size());
+		assertEquals(0, testApp.getPropertyParser().getOptions().size());
 	}
 
 	@Test
 	public void test_Usage(){
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
 		String[] args = new String[]{
 				"--help"
 		};
-		assertEquals(1, testApp.executeApplication(args));
+		testApp.executeApplication(args);
+		assertEquals(1, testApp.getErrNo());
 	}
 
 	@Test
 	public void test_Version(){
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
 		String[] args = new String[]{
 				"--version"
 		};
-		assertEquals(1, testApp.executeApplication(args));
+		testApp.executeApplication(args);
+		assertEquals(1, testApp.getErrNo());
 	}
 
 	@Test
 	public void test_Init_Error_Target() throws ApplicationException{
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(new SvgTargets[]{SvgTargets.pdf}, new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", new SvgTargets[]{SvgTargets.pdf}, new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
@@ -108,13 +107,13 @@ public class Test_AppBase {
 				"-f", "testfile",
 				"-q"
 		};
-		assertEquals(-52, testApp.executeApplication(args));
+		testApp.executeApplication(args);
+		assertEquals(Templates_Target.NOT_UNKNOWN.getCode(), testApp.getErrNo());
 	}
 
 	@Test
 	public void test_Init_Error_Input() throws ApplicationException{
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
@@ -124,18 +123,17 @@ public class Test_AppBase {
 				"-q"
 		};
 
-		assertEquals(0, testApp.executeApplication(args));
+		testApp.executeApplication(args);
+		assertEquals(0, testApp.getErrNo());
 
 		thrown.expect(ApplicationException.class);
-		thrown.expectMessage("input file <testfile> does not exist, please check path and filename");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.FIN_DOES_NOT_EXIST__1.getCode())));
+		thrown.expect(hasProperty("errorCode", is(Templates_InputFile.FILE_NOTEXIST.getCode())));
 		testApp.init();
 	}
 
 	@Test
 	public void test_Init_Error_Output() throws ApplicationException{
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
@@ -145,18 +143,17 @@ public class Test_AppBase {
 				"-o", "target/output-tests/app-props/test/file",
 				"-q"
 		};
-		assertEquals(0, testApp.executeApplication(args));
+		testApp.executeApplication(args);
+		assertEquals(0, testApp.getErrNo());
 
 		thrown.expect(ApplicationException.class);
-		thrown.expectMessage("output directory <" + StringUtils.replace("target/output-tests/app-props/test", "/", File.separator) + "> does not exist and CLI option create-directories not used");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.OUTPUT_DIR_NOTEXISTS_NO_CREATE_DIR_OPTION__2.getCode())));
+		thrown.expect(hasProperty("errorCode", is(Templates_OutputDirectory.DIR_EXIST_NOOVERWRITE.getCode())));
 		testApp.init();
 	}
 
 	@Test
 	public void test_Init_Good() throws ApplicationException{
-		AppBase<IsLoader> testApp = new AppBase<IsLoader>(SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppName() {return "test-app";}
+		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
 		};
@@ -171,7 +168,8 @@ public class Test_AppBase {
 
 		Test_Artifacts.newDir = new File("target/output-tests/app-props/test");
 
-		assertEquals(0, testApp.executeApplication(args));
+		testApp.executeApplication(args);
+		assertEquals(0, testApp.getErrNo());
 		testApp.init();
 	}
 }

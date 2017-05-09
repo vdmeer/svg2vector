@@ -22,7 +22,8 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.execs.AbstractAppliction;
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.execs.options.simple.AO_Version;
+import de.vandermeer.execs.options.typed.AO_HelpTyped;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.application.IsApplication;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
@@ -66,11 +67,12 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 
 	/**
 	 * Creates a new base application.
+	 * @param appName the actual application name
 	 * @param supportedTargets the supported targets, must not be null and have no null elements
 	 * @param loader the SVG document loader, must not be null
 	 */
-	protected AppBase(SvgTargets[] supportedTargets, L loader){
-		super(new DefaultCliParser(), AbstractAppliction.HELP_TYPED_SHORTLONG, AbstractAppliction.VERSION_SHORTLONG);
+	protected AppBase(String appName, SvgTargets[] supportedTargets, L loader){
+		super(appName, null, new AO_HelpTyped('h', null), new AO_Version(null, null));
 
 		Validate.notNull(loader);
 		this.loader = loader;
@@ -103,9 +105,8 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	}
 
 	@Override
-	public int executeApplication(String[] args){
-		// parse command line, exit with help screen if error
-		return IsApplication.super.executeApplication(args);
+	public void executeApplication(String[] args){
+		IsApplication.super.executeApplication(args);
 	}
 
 	/**
@@ -369,4 +370,5 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 			}
 		}
 	}
+
 }

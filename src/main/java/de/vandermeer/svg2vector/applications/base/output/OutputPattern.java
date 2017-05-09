@@ -28,7 +28,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputFile;
 
 /**
  * Pattern for generating output file names.
@@ -65,8 +65,8 @@ public final class OutputPattern {
 	 * Layer and index patterns are used in the following order.
 	 * 
 	 * . Index, for a continuous index using {@link #LAYER_INDEX}
-	 * . Inkscape index, for an index generated from Inkskape layers, using {@link #IS_INDEX}
-	 * . Inkscape label, for a label generated from Inkskape layers, using {@link #IS_LABEL}
+	 * . Inkscape index, for an index generated from Inkscape layers, using {@link #IS_INDEX}
+	 * . Inkscape label, for a label generated from Inkscape layers, using {@link #IS_LABEL}
 	 */
 	public OutputPattern(){
 		this.pattern = new StrBuilder();
@@ -168,10 +168,18 @@ public final class OutputPattern {
 	public void testPattern(String test) throws ApplicationException{
 		Validate.notBlank(test);
 		if(test.startsWith(".")){
-			throw new ApplicationException(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1, test);
+			throw new ApplicationException(
+					Templates_OutputFile.FN_PATTERN_ONLY_EXT,
+					this.getClass().getSimpleName(),
+					test
+			);
 		}
 		if(test.contains(File.separator + ".")){
-			throw new ApplicationException(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1, test);
+			throw new ApplicationException(
+					Templates_OutputFile.FN_PATTERN_ONLY_DIREXT,
+					this.getClass().getSimpleName(),
+					test
+			);
 		}
 	}
 

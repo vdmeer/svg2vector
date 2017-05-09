@@ -21,9 +21,9 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractTypedC;
-import de.vandermeer.skb.interfaces.application.CliParseException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.execs.options.Abstract_TypedC;
+import de.vandermeer.skb.interfaces.messagesets.errors.IsError;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -33,7 +33,7 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.1
  */
-public class AO_TargetExt extends AbstractTypedC<SvgTargets> {
+public class AO_TargetExt extends Abstract_TypedC<SvgTargets> {
 
 	/** The supported targets of the application. */
 	protected SvgTargets[] supportedTargets;
@@ -79,39 +79,23 @@ public class AO_TargetExt extends AbstractTypedC<SvgTargets> {
 	}
 
 	@Override
-	public void setCliValue(Object value) throws IllegalStateException, CliParseException {
+	public IsError setCliValue(Object value) {
 		Validate.validState(value!=null, this.getCliLong() + " argument <" + this.getCliArgumentName() +  "> mandatory but trying to set null");
 		String str = value.toString();
 
 		if(StringUtils.isBlank(str)){
-			throw new CliParseException(
-					ErrorCodes.TARGET_BLANK__1.getCode(),
-					ErrorCodes.TARGET_BLANK__1.getMessageSubstituted(
-							new StrBuilder().appendWithSeparators(this.getSupportedTargets(), ", ")
-					)
-			);
+			return Templates_Target.TARGET_BLANK.getError(this.getClass().getSimpleName());
 		}
 		try{
 			this.cliValue = SvgTargets.valueOf(str);
 		}
 		catch(IllegalArgumentException iaEx){
-			throw new CliParseException(
-					ErrorCodes.TARGET_UNKNOWN__2.getCode(),
-					ErrorCodes.TARGET_UNKNOWN__2.getMessageSubstituted(
-							str,
-							new StrBuilder().appendWithSeparators(this.getSupportedTargets(), ", ")
-					)
-			);
+			return Templates_Target.NOT_UNKNOWN.getError(this.getClass().getSimpleName(), str, new StrBuilder().appendWithSeparators(supportedTargets, ", "));
 		}
 		if(!ArrayUtils.contains(this.getSupportedTargets(), this.cliValue)){
-			throw new CliParseException(
-					ErrorCodes.TARGET_NOT_SUPPORTED__2.getCode(),
-					ErrorCodes.TARGET_NOT_SUPPORTED__2.getMessageSubstituted(
-							str,
-							new StrBuilder().appendWithSeparators(this.getSupportedTargets(), ", ")
-					)
-			);
+			return Templates_Target.NOT_UNKNOWN.getError(this.getClass().getSimpleName(), str, new StrBuilder().appendWithSeparators(supportedTargets, ", "));
 		}
+		return null;
 	}
 
 }

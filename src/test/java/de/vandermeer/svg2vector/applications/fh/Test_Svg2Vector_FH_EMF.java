@@ -47,7 +47,7 @@ public class Test_Svg2Vector_FH_EMF {
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
 				"-d", OUT_DIR_PREFIX
 		);
-		assertEquals(0, app.executeApplication(args));
+		app.executeApplication(args);
 	}
 
 	@Test
@@ -58,7 +58,9 @@ public class Test_Svg2Vector_FH_EMF {
 				"-d", OUT_DIR_PREFIX,
 				"-o", "chomsky1"
 		);
-		assertEquals(0, app.executeApplication(args));
+
+		app.executeApplication(args);
+		assertEquals(0, app.getErrNo());
 	}
 
 	@Test
@@ -68,7 +70,8 @@ public class Test_Svg2Vector_FH_EMF {
 				"-f", "src/test/resources/svg-files/chomsky-hierarchy.svgz",
 				"-o", OUT_DIR_PREFIX + "chomsky2"
 		);
-		assertEquals(0, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(0, app.getErrNo());
 	}
 
 	@Test
@@ -79,7 +82,8 @@ public class Test_Svg2Vector_FH_EMF {
 				"-d", OUT_DIR_PREFIX + "layers-index",
 				"-l", "-i"
 		);
-		assertEquals(0, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(0, app.getErrNo());
 	}
 
 	@Test
@@ -90,7 +94,8 @@ public class Test_Svg2Vector_FH_EMF {
 				"-d", OUT_DIR_PREFIX + "layers-id",
 				"-l", "-I"
 		);
-		assertEquals(0, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(0, app.getErrNo());
 	}
 
 	@Test
@@ -101,6 +106,7 @@ public class Test_Svg2Vector_FH_EMF {
 				"-d", OUT_DIR_PREFIX + "layers-id-index",
 				"-l", "-I", "-i"
 		);
-		assertEquals(0, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(0, app.getErrNo());
 	}
 }

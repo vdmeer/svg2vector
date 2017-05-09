@@ -25,8 +25,8 @@ import java.util.Set;
 import org.freehep.graphicsbase.util.UserProperties;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
 import de.vandermeer.svg2vector.applications.base.AppBase;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.fh.AO_BackgroundColor;
 import de.vandermeer.svg2vector.applications.fh.AO_NoBackground;
@@ -73,7 +73,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 	 * Returns a new application.
 	 */
 	public Svg2Vector_FH(){
-		super(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg}, new BatikLoader());
+		super(APP_NAME, new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf, SvgTargets.svg}, new BatikLoader());
 
 		this.addOption(this.optionNotTransparent);
 		this.addOption(this.optionBackgroundColor);
@@ -81,10 +81,10 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 	}
 
 	@Override
-	public int executeApplication(String[] args) {
-		final int ret = super.executeApplication(args);
-		if(ret!=0){
-			return ret;
+	public void executeApplication(String[] args) {
+		super.executeApplication(args);
+		if(this.errNo!=0){
+			return;
 		}
 
 		try{
@@ -95,7 +95,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 			FhConverter converter = TARGET_2_CONVERTER(target);
 			if(converter==null){
 				this.printErrorMessage("no converter found for target <" + target.name() + ">");
-				return -20;
+				this.errNo = -20;//TODO
 			}
 
 			converter.setPropertyTransparent(!this.optionNotTransparent.inCli());
@@ -144,18 +144,16 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 		}
 		catch(ApplicationException s2vEx){
 			this.printErrorMessage(s2vEx);
-			return s2vEx.getErrorCode();
+			this.errNo = s2vEx.getErrorCode();
 		}
 		catch(NullPointerException npEx){
 			this.printErrorMessage(npEx);
-			return ErrorCodes.GENERAL_NULL_POINTER__0.getCode();
+			this.errNo = Templates_ExceptionRuntimeUnexpected.U_NULL_POINTER.getCode();
 		}
 		catch(IOException ioEx){
 			this.printErrorMessage(ioEx);
-			return ErrorCodes.GENERAL_IO__0.getCode();
+			this.errNo = Templates_ExceptionRuntimeUnexpected.U_IO.getCode();
 		}
-
-		return 0;
 	}
 
 	@Override

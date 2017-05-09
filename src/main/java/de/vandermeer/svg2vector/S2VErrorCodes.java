@@ -15,17 +15,10 @@
 
 package de.vandermeer.svg2vector;
 
-import java.util.TreeMap;
-
-import org.apache.commons.lang3.text.StrBuilder;
-import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.STGroupFile;
-
 import de.vandermeer.execs.AbstractAppliction;
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.execs.options.simple.AO_HelpSimple;
+import de.vandermeer.execs.options.simple.AO_Version;
 import de.vandermeer.skb.interfaces.application.IsApplication;
-import de.vandermeer.svg2vector.applications.core.EC_Categories;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 
 /**
  * Simple application that prints all S2V application error codes.
@@ -46,18 +39,15 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	public final static String APP_VERSION = "v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8";
 
 	public S2VErrorCodes(){
-		super(new DefaultCliParser(), AbstractAppliction.HELP_SIMPLE_SHORTLONG, AbstractAppliction.VERSION_SHORTLONG);
+		super(APP_NAME, new AO_HelpSimple('h', null), null, new AO_Version(null, null));
 	}
 
 	@Override
-	public int executeApplication(String[] args){
-		// parse command line, exit with help screen if error
-		final int ret = IsApplication.super.executeApplication(args);
-		if(ret!=0){
-			return ret;
+	public void executeApplication(String[] args){
+		super.executeApplication(args);
+		if(this.errNo==0){
+			this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
 		}
-		this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
-		return 0;
 	}
 
 	/**
@@ -65,24 +55,24 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	 * @param stgFilename the STG file name
 	 */
 	public void printEcList(String stgFilename){
-		STGroupFile stg = new STGroupFile(stgFilename);
-		ST ecList = stg.getInstanceOf("ecList");
-
-		TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(null);
-		for(ErrorCodes ec : ecMap.values()){
-			ST ecST = stg.getInstanceOf("ecListEntry");
-			ecST.add("code", ec.getCode());
-			ecST.add("description", ec.getDescription());
-			ecST.add("message", ec.getMessage());
-
-			String padding = "  " + ec.getCode() + " -> ";
-			new StrBuilder().appendPadding(padding.length(), ' ');
-			ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
-
-			ecList.add("aecs", ecST.render());
-		}
-
-		System.out.println(ecList.render());
+//		STGroupFile stg = new STGroupFile(stgFilename);
+//		ST ecList = stg.getInstanceOf("ecList");
+//
+//		TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(null);
+//		for(ErrorCodes ec : ecMap.values()){
+//			ST ecST = stg.getInstanceOf("ecListEntry");
+//			ecST.add("code", ec.getCode());
+//			ecST.add("description", ec.getDescription());
+//			ecST.add("message", ec.getMessage());
+//
+//			String padding = "  " + ec.getCode() + " -> ";
+//			new StrBuilder().appendPadding(padding.length(), ' ');
+//			ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
+//
+//			ecList.add("aecs", ecST.render());
+//		}
+//
+//		System.out.println(ecList.render());
 	}
 
 	/**
@@ -90,20 +80,20 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	 * @param stgFilename the STG file name
 	 */
 	public void printCatFullTable(String stgFilename){
-		STGroupFile stg = new STGroupFile(stgFilename);
-		ST cats = stg.getInstanceOf("catFullTable");
-
-		TreeMap<Integer, EC_Categories> catMap = this.catMap();
-		for(EC_Categories cat : catMap.values()){
-			ST catST = stg.getInstanceOf("catFullTableEntry");
-			catST.add("title", cat.getDisplayName());//TODO title->displayname
-			catST.add("start", cat.getStart());
-			catST.add("end", cat.getEnd());
-			catST.add("description", cat.getDescription());
-			cats.add("cats", catST.render());
-		}
-
-		System.out.println(cats.render());
+//		STGroupFile stg = new STGroupFile(stgFilename);
+//		ST cats = stg.getInstanceOf("catFullTable");
+//
+//		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+//		for(EC_Categories cat : catMap.values()){
+//			ST catST = stg.getInstanceOf("catFullTableEntry");
+//			catST.add("title", cat.getDisplayName());//TODO title->displayname
+//			catST.add("start", cat.getStart());
+//			catST.add("end", cat.getEnd());
+//			catST.add("description", cat.getDescription());
+//			cats.add("cats", catST.render());
+//		}
+//
+//		System.out.println(cats.render());
 	}
 
 	/**
@@ -111,19 +101,19 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	 * @param stgFilename the STG file name
 	 */
 	public void printCatList(String stgFilename){
-		STGroupFile stg = new STGroupFile(stgFilename);
-		ST cats = stg.getInstanceOf("catList");
-
-		TreeMap<Integer, EC_Categories> catMap = this.catMap();
-		for(EC_Categories cat : catMap.values()){
-			ST catST = stg.getInstanceOf("catListEntry");
-			catST.add("title", cat.getDisplayName());//TODO title->displayname
-			catST.add("start", cat.getStart());
-			catST.add("end", cat.getEnd());
-			cats.add("cats", catST.render());
-		}
-
-		System.out.println(cats.render());
+//		STGroupFile stg = new STGroupFile(stgFilename);
+//		ST cats = stg.getInstanceOf("catList");
+//
+//		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+//		for(EC_Categories cat : catMap.values()){
+//			ST catST = stg.getInstanceOf("catListEntry");
+//			catST.add("title", cat.getDisplayName());//TODO title->displayname
+//			catST.add("start", cat.getStart());
+//			catST.add("end", cat.getEnd());
+//			cats.add("cats", catST.render());
+//		}
+//
+//		System.out.println(cats.render());
 	}
 
 	/**
@@ -131,62 +121,62 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	 * @param stgFilename the STG file name
 	 */
 	public void fullTable(String stgFilename){
-		STGroupFile stg = new STGroupFile(stgFilename);
-		ST cats = stg.getInstanceOf("fullTable");
-
-		TreeMap<Integer, EC_Categories> catMap = this.catMap();
-
-		for(EC_Categories cat : catMap.values()){
-			ST catST = stg.getInstanceOf("fullTableCatEntry");
-			catST.add("title", cat.getDisplayName());//TODO title->displayname
-			catST.add("start", cat.getStart());
-			catST.add("end", cat.getEnd());
-
-			TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(cat);
-			for(ErrorCodes ec : ecMap.values()){
-				ST ecST = stg.getInstanceOf("fullTableEcEntry");
-				ecST.add("code", ec.getCode());
-				ecST.add("description", ec.getDescription());
-				ecST.add("message", ec.getMessage());
-
-				String padding = "  " + ec.getCode() + " -> ";
-				new StrBuilder().appendPadding(padding.length(), ' ');
-				ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
-
-				catST.add("aecs", ecST.render());
-			}
-			cats.add("cats", catST.render());
-		}
-
-		System.out.println(cats.render());
+//		STGroupFile stg = new STGroupFile(stgFilename);
+//		ST cats = stg.getInstanceOf("fullTable");
+//
+//		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+//
+//		for(EC_Categories cat : catMap.values()){
+//			ST catST = stg.getInstanceOf("fullTableCatEntry");
+//			catST.add("title", cat.getDisplayName());//TODO title->displayname
+//			catST.add("start", cat.getStart());
+//			catST.add("end", cat.getEnd());
+//
+//			TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(cat);
+//			for(ErrorCodes ec : ecMap.values()){
+//				ST ecST = stg.getInstanceOf("fullTableEcEntry");
+//				ecST.add("code", ec.getCode());
+//				ecST.add("description", ec.getDescription());
+//				ecST.add("message", ec.getMessage());
+//
+//				String padding = "  " + ec.getCode() + " -> ";
+//				new StrBuilder().appendPadding(padding.length(), ' ');
+//				ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
+//
+//				catST.add("aecs", ecST.render());
+//			}
+//			cats.add("cats", catST.render());
+//		}
+//
+//		System.out.println(cats.render());
 	}
 
 	/**
 	 * Returns a sorted map of all categories.
 	 * @return sorted map
 	 */
-	protected TreeMap<Integer, EC_Categories> catMap(){
-		TreeMap<Integer, EC_Categories> catMap = new TreeMap<>();
-		for(EC_Categories cat : EC_Categories.values()){
-			catMap.put(0-cat.getStart(), cat);
-		}
-		return catMap;
-	}
+//	protected TreeMap<Integer, EC_Categories> catMap(){
+//		TreeMap<Integer, EC_Categories> catMap = new TreeMap<>();
+//		for(EC_Categories cat : EC_Categories.values()){
+//			catMap.put(0-cat.getStart(), cat);
+//		}
+//		return catMap;
+//	}
 
 	/**
 	 * Returns a sorted map of all error codes.
 	 * @param category an optional category to select error codes for
 	 * @return sorted map, empty if no error codes found
 	 */
-	protected TreeMap<Integer, ErrorCodes> ecMap(EC_Categories category){
-		TreeMap<Integer, ErrorCodes> ecMap = new TreeMap<>();
-		for(ErrorCodes ec : ErrorCodes.values()){
-			if(category==null || ec.getCategory()==category){
-				ecMap.put(0-ec.getCode(), ec);
-			}
-		}
-		return ecMap;
-	}
+//	protected TreeMap<Integer, ErrorCodes> ecMap(EC_Categories category){
+//		TreeMap<Integer, ErrorCodes> ecMap = new TreeMap<>();
+//		for(ErrorCodes ec : ErrorCodes.values()){
+//			if(category==null || ec.getCategory()==category){
+//				ecMap.put(0-ec.getCode(), ec);
+//			}
+//		}
+//		return ecMap;
+//	}
 
 	@Override
 	public String getAppName() {

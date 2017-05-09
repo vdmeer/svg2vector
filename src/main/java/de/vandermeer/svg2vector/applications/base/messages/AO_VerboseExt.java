@@ -17,7 +17,7 @@ package de.vandermeer.svg2vector.applications.base.messages;
 
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.execs.options.Option_SimpleC;
 
 /**
  * Application option `verbose`.
@@ -26,7 +26,7 @@ import de.vandermeer.execs.options.AbstractSimpleC;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class AO_VerboseExt extends AbstractSimpleC {
+public class AO_VerboseExt extends Option_SimpleC {
 
 	/**
 	 * Returns the new option.

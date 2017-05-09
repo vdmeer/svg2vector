@@ -17,7 +17,7 @@ package de.vandermeer.svg2vector.applications.fh;
 
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.execs.options.Option_SimpleC;
 
 /**
  * Application option `no-background`.
@@ -26,14 +26,14 @@ import de.vandermeer.execs.options.AbstractSimpleC;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_NoBackground extends AbstractSimpleC {
+public class AO_NoBackground extends Option_SimpleC {
 
 	/**
 	 * Returns the new option.
 	 */
 	public AO_NoBackground(){
 		super(
-				"No Background", 'v', "no-background", false,
+				"No Background", 'b', "no-background", false,
 				"switch off background property",
 				LONG_DESCRIPTION()
 		);

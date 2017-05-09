@@ -17,7 +17,7 @@ package de.vandermeer.svg2vector.applications.base.conversion;
 
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
+import de.vandermeer.execs.options.Option_SimpleC;
 
 /**
  * Application option `text-as-shape`.
@@ -26,7 +26,7 @@ import de.vandermeer.execs.options.AbstractSimpleC;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v1.1.0
  */
-public class AO_TextAsShape extends AbstractSimpleC {
+public class AO_TextAsShape extends Option_SimpleC {
 
 	/**
 	 * Returns the new option.

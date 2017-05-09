@@ -17,7 +17,7 @@ package de.vandermeer.svg2vector.applications.base.layers;
 
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractTypedC_String;
+import de.vandermeer.execs.options.Option_TypedC_String;
 
 /**
  * Application option `use-basename`.
@@ -26,7 +26,7 @@ import de.vandermeer.execs.options.AbstractTypedC_String;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_UseBaseName extends AbstractTypedC_String {
+public class AO_UseBaseName extends Option_TypedC_String {
 
 	/**
 	 * Returns the new option.

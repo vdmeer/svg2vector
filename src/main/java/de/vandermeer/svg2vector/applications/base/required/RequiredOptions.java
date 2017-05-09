@@ -21,8 +21,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
@@ -67,19 +67,19 @@ public final class RequiredOptions extends CliOptionPackage {
 		Validate.notNull(loader);
 
 		if(StringUtils.isBlank(this.aoFileIn.getCliValue())){
-			throw new ApplicationException(ErrorCodes.NO_FIN__0);
+			throw new ApplicationException(Templates_InputFile.FN_BLANK, this.getClass().getSimpleName(), "input");
 		}
 
 		String fileName = this.aoFileIn.getValue();
 		File testFD = new File(fileName);
 		if(!testFD.exists()){
-			throw new ApplicationException(ErrorCodes.FIN_DOES_NOT_EXIST__1, fileName);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTEXIST, this.getClass().getSimpleName(), "input", fileName);
 		}
 		if(!testFD.isFile()){
-			throw new ApplicationException(ErrorCodes.FIN_NOT_A_FILE__1, fileName);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTFILE, this.getClass().getSimpleName(), "input", fileName);
 		}
 		if(!testFD.canRead()){
-			throw new ApplicationException(ErrorCodes.CANNOT_READ_FIN__1, fileName);
+			throw new ApplicationException(Templates_InputFile.FILE_CANT_READ, this.getClass().getSimpleName(), "input", fileName);
 		}
 		this.fileName = fileName;
 		loader.load(fileName);

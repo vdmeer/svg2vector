@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**
@@ -63,12 +63,11 @@ public class IsLoader extends SV_DocumentLoader {
 				this.isLoaded = true;
 			}
 			catch(ZipException exZip){
-				@SuppressWarnings("unused")
-				ApplicationException ex = new ApplicationException(ErrorCodes.LOADER_ZIP__3, this.getClass().getSimpleName(), fn, exZip.getMessage());
+				new ApplicationException(Templates_InputFile.ZIP_EXCEPTION_READING, this.getClass().getSimpleName(), "input", fn, exZip.getMessage());
 			}
 			catch(IOException exIO){
 				this.lines = null;
-				throw new ApplicationException(ErrorCodes.LOADER_IO_GZIP__3, this.getClass().getSimpleName(), fn, exIO.getMessage());
+				throw new ApplicationException(Templates_InputFile.IO_EXCEPTION_READING, this.getClass().getSimpleName(), "input", fn, exIO.getMessage());
 			}
 		}
 
@@ -85,11 +84,11 @@ public class IsLoader extends SV_DocumentLoader {
 			}
 			catch(FileNotFoundException e){
 				this.lines = null;
-				throw new ApplicationException(ErrorCodes.LOADER_FILE_NOT_FOUND_PLAIN_SVG__3, this.getClass().getSimpleName(), fn, e.getMessage());
+				throw new ApplicationException(Templates_InputFile.FILE_NOT_FOUND, this.getClass().getSimpleName(), "plain SVG input", fn, e.getMessage());
 			}
 			catch(IOException e){
 				this.lines = null;
-				throw new ApplicationException(ErrorCodes.LOADER_IO_PLAIN__3, this.getClass().getSimpleName(), fn, e.getMessage());
+				throw new ApplicationException(Templates_InputFile.IO_EXCEPTION_READING, this.getClass().getSimpleName(), "plain SVG input", fn, e.getMessage());
 			}
 		}
 

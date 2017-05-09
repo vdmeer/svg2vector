@@ -18,11 +18,11 @@ package de.vandermeer.svg2vector.applications.base.layers;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.vandermeer.execs.options.AbstractSimpleC;
-import de.vandermeer.execs.options.AbstractTypedC;
+import de.vandermeer.execs.options.Abstract_TypedC;
+import de.vandermeer.execs.options.Option_SimpleC;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Source;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 
 /**
  * Application options for processing Inkscape layers.
@@ -87,7 +87,10 @@ public final class LayerOptions extends CliOptionPackage {
 	public void setOptions(boolean docHasLayers) throws ApplicationException{
 		if(this.aoLayers.inCli()){
 			if(!docHasLayers){
-				throw new ApplicationException(ErrorCodes.LAYERS_REQUESTED_DOC_WITHOUT_LAYERS__0);
+				throw new ApplicationException(
+						Templates_Source.NO_LAYERS,
+						this.getClass().getSimpleName()
+				);
 			}
 			else{
 				this.doLayers = true;
@@ -105,31 +108,31 @@ public final class LayerOptions extends CliOptionPackage {
 	public List<String> getWarnings(){
 		List<String> ret = new ArrayList<>();
 		if(this.doLayers){
-			AbstractSimpleC[] options = new AbstractSimpleC[]{
+			Option_SimpleC[] options = new Option_SimpleC[]{
 				this.aoSwitchOnLayers
 			};
-			for(AbstractSimpleC ao : options){
+			for(Option_SimpleC ao : options){
 				if(ao.inCli()){
 					ret.add("layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 				}
 			}
 		}
 		else{
-			AbstractSimpleC[] simpleOptions = new AbstractSimpleC[]{
+			Option_SimpleC[] simpleOptions = new Option_SimpleC[]{
 				this.aoFoutIndex,
 				this.aoFoutIsIndex,
 				this.aoFoutIsLabel,
 				this.aoFoutNoBasename,
 			};
-			for(AbstractSimpleC ao : simpleOptions){
+			for(Option_SimpleC ao : simpleOptions){
 				if(ao.inCli()){
 					ret.add("no layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 				}
 			}
-			AbstractTypedC<?>[] typedOptions = new AbstractTypedC<?>[]{
+			Abstract_TypedC<?>[] typedOptions = new Abstract_TypedC<?>[]{
 					this.aoUseBaseName
 				};
-				for(AbstractTypedC<?> ao : typedOptions){
+				for(Abstract_TypedC<?> ao : typedOptions){
 					if(ao.inCli()){
 						ret.add("no layers processed but CLI option <" + ao.getCliLong() + "> used, will be ignored");
 					}

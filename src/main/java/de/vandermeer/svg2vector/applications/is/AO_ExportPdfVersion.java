@@ -18,7 +18,7 @@ package de.vandermeer.svg2vector.applications.is;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
-import de.vandermeer.execs.options.AbstractTypedC_String;
+import de.vandermeer.execs.options.Option_TypedC_String;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -28,7 +28,7 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public class AO_ExportPdfVersion extends AbstractTypedC_String implements IsTargetOption {
+public class AO_ExportPdfVersion extends Option_TypedC_String implements IsTargetOption {
 
 	/**
 	 * Returns the new option as not required and without a short option.

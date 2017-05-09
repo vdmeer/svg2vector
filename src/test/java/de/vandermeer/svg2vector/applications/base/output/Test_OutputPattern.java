@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputFile;
 
 /**
  * Tests for {@link OutputPattern} - constructors and remove options.
@@ -61,8 +61,7 @@ public class Test_OutputPattern {
 		OutputPattern op = new OutputPattern();
 
 		thrown.expect(ApplicationException.class);
-		thrown.expectMessage("output pattern <.pdf> only contains file extension, check options for generating fnout");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_FEXT__1.getCode())));
+		thrown.expect(hasProperty("errorCode", is(Templates_OutputFile.FN_PATTERN_ONLY_EXT.getCode())));
 		op.generateName(null, null, "pdf", -1, null);
 	}
 
@@ -71,8 +70,7 @@ public class Test_OutputPattern {
 		OutputPattern op = new OutputPattern();
 
 		thrown.expect(ApplicationException.class);
-		thrown.expectMessage("output pattern <target" + File.separator + ".pdf> only contains directory and file extension, check options for generating fnout");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1.getCode())));
+		thrown.expect(hasProperty("errorCode", is(Templates_OutputFile.FN_PATTERN_ONLY_DIREXT.getCode())));
 		op.generateName(FileSystems.getDefault().getPath("target"), null, "pdf", -1, null);
 	}
 
@@ -81,8 +79,7 @@ public class Test_OutputPattern {
 		OutputPattern op = new OutputPattern();
 
 		thrown.expect(ApplicationException.class);
-		thrown.expectMessage("output pattern <target" + File.separator + "foo" + File.separator + ".pdf> only contains directory and file extension, check options for generating fnout");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.PATTERN_GEN_ONLY_DIR_AND_FEXT__1.getCode())));
+		thrown.expect(hasProperty("errorCode", is(Templates_OutputFile.FN_PATTERN_ONLY_DIREXT.getCode())));
 		op.generateName(FileSystems.getDefault().getPath("target/foo"), null, "pdf", -1, null);
 	}
 

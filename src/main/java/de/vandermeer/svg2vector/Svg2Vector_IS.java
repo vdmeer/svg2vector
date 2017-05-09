@@ -25,8 +25,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
 import de.vandermeer.svg2vector.applications.base.AppBase;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.AO_ExportDpi;
 import de.vandermeer.svg2vector.applications.is.AO_ExportPdfVersion;
@@ -84,7 +84,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 	 * Returns a new application.
 	 */
 	public Svg2Vector_IS(){
-		super(SvgTargets.values(), new IsLoader());
+		super(APP_NAME, SvgTargets.values(), new IsLoader());
 
 		this.addOption(this.optionExpDpi);
 		this.addOption(this.optionExpPdfver);
@@ -97,10 +97,10 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 	}
 
 	@Override
-	public int executeApplication(final String[] args) {
-		final int ret = super.executeApplication(args);
-		if(ret!=0){
-			return ret;
+	public void executeApplication(final String[] args) {
+		super.executeApplication(args);
+		if(this.errNo!=0){
+			return;
 		}
 
 		TmpArtefacts tmpArtifacts = null;
@@ -224,15 +224,15 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 		}
 		catch(ApplicationException s2vEx){
 			this.printErrorMessage(s2vEx);
-			return s2vEx.getErrorCode();
+			this.errNo = s2vEx.getErrorCode();
 		}
 		catch(NullPointerException npEx){
 			this.printErrorMessage(npEx);
-			return ErrorCodes.GENERAL_NULL_POINTER__0.getCode();
+			this.errNo = Templates_ExceptionRuntimeUnexpected.U_NULL_POINTER.getCode();//TODO
 		}
 		catch(IOException ioEx){
 			this.printErrorMessage(ioEx);
-			return ErrorCodes.GENERAL_IO__0.getCode();
+			this.errNo = Templates_ExceptionRuntimeUnexpected.U_IO.getCode();//TODO
 		}
 		finally{
 			// remove temp artifacts if object exists and we can delete them
@@ -244,7 +244,6 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 		}
 
 		this.printProgressMessage("finished successfully");
-		return 0;
 	}
 
 	@Override

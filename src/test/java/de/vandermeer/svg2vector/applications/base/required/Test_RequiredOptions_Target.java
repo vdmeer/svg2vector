@@ -15,8 +15,7 @@
 
 package de.vandermeer.svg2vector.applications.base.required;
 
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
@@ -24,9 +23,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.execs.DefaultCliParser;
-import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.application.CliParseException;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_CliGeneral;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -42,20 +40,19 @@ public class Test_RequiredOptions_Target {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void test_NoneSet() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_NoneSet() {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{});
 		cli.addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{};
-		thrown.expect(IllegalStateException.class);
-		thrown.expectMessage("Missing required options: ");
 		cli.parse(args);
+		assertEquals(Templates_CliGeneral.MISSING_OPTION.getCode(), cli.getErrNo());
 	}
 
 	@Test
-	public void test_Unknown() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_Unknown() {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.addAllOptions(ro.getAllOptions());
 
@@ -64,15 +61,13 @@ public class Test_RequiredOptions_Target {
 				"-f", "foo"
 		};
 
-		thrown.expect(CliParseException.class);
-		thrown.expectMessage("given target <bla> is unknown. Use one of the supported targets: pdf, emf");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.TARGET_UNKNOWN__2.getCode())));
 		cli.parse(args);
+		assertEquals(Templates_Target.NOT_UNKNOWN.getCode(), cli.getErrNo());
 	}
 
 	@Test
-	public void test_NotSupported() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_NotSupported() {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.addAllOptions(ro.getAllOptions());
 
@@ -81,15 +76,13 @@ public class Test_RequiredOptions_Target {
 				"-f", "foo"
 		};
 
-		thrown.expect(CliParseException.class);
-		thrown.expectMessage("given target <eps> not supported. Use one of the supported targets: pdf, emf");
-		thrown.expect(hasProperty("errorCode", is(ErrorCodes.TARGET_NOT_SUPPORTED__2.getCode())));
 		cli.parse(args);
+		assertEquals(Templates_Target.NOT_UNKNOWN.getCode(), cli.getErrNo());
 	}
 
 	@Test
-	public void test_ValidTarget() throws ApplicationException, IllegalStateException, CliParseException{
-		DefaultCliParser cli = new DefaultCliParser();
+	public void test_ValidTarget() {
+		DefaultCliParser cli = new DefaultCliParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.addAllOptions(ro.getAllOptions());
 

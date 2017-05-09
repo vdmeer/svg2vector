@@ -26,8 +26,9 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
-import de.vandermeer.svg2vector.applications.core.ErrorCodes;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -71,17 +72,17 @@ public class IsExecutor {
 	 */
 	public IsExecutor(String isExec, final boolean simulate) throws ApplicationException {
 		if(StringUtils.isBlank(isExec)){
-			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_BLANK__1, isExec);
+			throw new ApplicationException(Templates_InputFile.FN_BLANK, this.getClass().getSimpleName(), "Inkscape executable"); 
 		}
 		File testFD = new File(isExec);
 		if(!testFD.exists()){
-			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_NOTEXIST__1, isExec);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTEXIST, this.getClass().getSimpleName(), "Inkscape executable", isExec);
 		}
 		if(!testFD.isFile()){
-			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_NOT_FILE__1, isExec);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTFILE, this.getClass().getSimpleName(), "Inkscape executable", isExec);
 		}
 		if(!testFD.canExecute()){
-			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_FN_CANNOT_EXECUTE__1, isExec);
+			throw new ApplicationException(Templates_InputFile.FILE_CANT_EXECUTE, this.getClass().getSimpleName(), "Inkscape executable", isExec);
 		}
 
 		this.cmd = new StrBuilder();
@@ -177,10 +178,16 @@ public class IsExecutor {
 			p.waitFor();
 		}
 		catch (IOException e) {
-			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_IO__1, e.getMessage());
+			throw new ApplicationException(
+					Templates_ExceptionRuntimeUnexpected.U_IO, this.getClass().getSimpleName(),
+					"exec", "executing Inkscape", e.getMessage()
+			);
 		}
 		catch (InterruptedException e) {
-			throw new ApplicationException(ErrorCodes.INKSCAPE_EXEC_INTERRUPTED__1, e.getMessage());
+			throw new ApplicationException(
+					Templates_ExceptionRuntimeUnexpected.U_INTERRUPTED, this.getClass().getSimpleName(),
+					"exec", "executing Inkscape", e.getMessage()
+			);
 		}
 	}
 

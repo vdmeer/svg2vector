@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.vandermeer.skb.interfaces.messagesets.errors.Templates_CliGeneral;
 import de.vandermeer.svg2vector.Svg2Vector_FH;
 
 /**
@@ -51,7 +52,8 @@ public class Test_Svg2Vector_FH {
 		String[] args = new String[]{
 				""
 		};
-		assertEquals(-1, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(Templates_CliGeneral.MISSING_OPTION.getCode(), app.getErrNo());
 	}
 
 	@Test
@@ -60,7 +62,8 @@ public class Test_Svg2Vector_FH {
 		String[] args = new String[]{
 				"--help"
 		};
-		assertEquals(1, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(1, app.getErrNo());
 	}
 
 	@Test
@@ -69,7 +72,8 @@ public class Test_Svg2Vector_FH {
 		String[] args = new String[]{
 				"--version"
 		};
-		assertEquals(1, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(1, app.getErrNo());
 	}
 
 	@Test
@@ -79,6 +83,7 @@ public class Test_Svg2Vector_FH {
 				"--help",
 				"target"
 		};
-		assertEquals(1, app.executeApplication(args));
+		app.executeApplication(args);
+		assertEquals(1, app.getErrNo());
 	}
 }
