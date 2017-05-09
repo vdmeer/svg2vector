@@ -97,6 +97,26 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 	}
 
 	@Override
+	public String getAppDescription() {
+		return "Converts SVG graphics into other vector formats using Inkscape, with options for handling layers";
+	}
+
+	@Override
+	public String getAppDisplayName(){
+		return APP_DISPLAY_NAME;
+	}
+
+	@Override
+	public String getAppName() {
+		return APP_NAME;
+	}
+
+	@Override
+	public String getAppVersion() {
+		return APP_VERSION;
+	}
+
+	@Override
 	public void runApplication() {
 		if(this.errNo!=0){
 			return;
@@ -243,26 +263,6 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 		}
 
 		this.printProgressMessage("finished successfully");
-	}
-
-	@Override
-	public String getAppDescription() {
-		return "Converts SVG graphics into other vector formats using Inkscape, with options for handling layers";
-	}
-
-	@Override
-	public String getAppDisplayName(){
-		return APP_DISPLAY_NAME;
-	}
-
-	@Override
-	public String getAppName() {
-		return APP_NAME;
-	}
-
-	@Override
-	public String getAppVersion() {
-		return APP_VERSION;
 	}
 
 	/**
