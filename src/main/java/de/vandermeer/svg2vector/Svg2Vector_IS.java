@@ -97,8 +97,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 	}
 
 	@Override
-	public void executeApplication(final String[] args) {
-		super.executeApplication(args);
+	public void runApplication() {
 		if(this.errNo!=0){
 			return;
 		}

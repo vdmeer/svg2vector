@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
 
 /**
@@ -35,9 +35,9 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_BN() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"--fout-no-basename",
@@ -52,9 +52,9 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_UseBN() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"--use-basename", "bn"
@@ -69,9 +69,9 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_Index() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-i"
@@ -86,9 +86,9 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_IsIndex() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-I"
@@ -103,9 +103,9 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_IsLabel() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-B"
@@ -120,9 +120,9 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_Layers_SwitchOn() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-l", "--all-layers", "--fout-index"

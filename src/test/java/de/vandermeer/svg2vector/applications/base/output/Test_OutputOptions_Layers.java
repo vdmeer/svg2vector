@@ -29,7 +29,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputDirectory;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
@@ -60,9 +60,9 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Error_DoutNotDir() throws ApplicationException, IOException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/test"
@@ -82,9 +82,9 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Error_NoDoutNoCreate() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/test/file"
@@ -99,9 +99,9 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_DoesLayers() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/",
@@ -118,9 +118,9 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Warning_Fout() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target",

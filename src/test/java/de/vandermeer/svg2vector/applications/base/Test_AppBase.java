@@ -63,9 +63,10 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
-		assertEquals(18, testApp.getCliParser().getSimpleOptions().size());
-		assertEquals(5, testApp.getCliParser().getTypedOptions().size());
+		assertEquals(18, testApp.getCliParser().getOptions().getSimpleSet().size());
+		assertEquals(5, testApp.getCliParser().getOptions().getTypedSet().size());
 		assertEquals(1, testApp.getEnvironmentParser().getOptions().size());
 		assertEquals(0, testApp.getPropertyParser().getOptions().size());
 	}
@@ -75,6 +76,7 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
 				"--help"
@@ -88,6 +90,7 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
 				"--version"
@@ -101,6 +104,7 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", new SvgTargets[]{SvgTargets.pdf}, new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
 				"-t", "eps",
@@ -116,6 +120,7 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -136,6 +141,7 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
 				"-t", "pdf",
@@ -156,6 +162,7 @@ public class Test_AppBase {
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
 			@Override public String getAppDescription() {return "app for testing";}
 			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
 				"-t", "pdf",

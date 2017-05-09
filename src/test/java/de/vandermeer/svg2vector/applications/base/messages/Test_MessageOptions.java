@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 
 /**
  * Tests for {@link MessageOptions} - message options.
@@ -39,9 +39,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_DefaultMsgOptions() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{};
 		cli.parse(args);
@@ -52,9 +52,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_WarningMsgOptions() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-w"
@@ -67,9 +67,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_ProgressMsgOptions() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-p"
@@ -82,9 +82,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_DetailsMsgOptions() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-e"
@@ -97,9 +97,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_NoErrors() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"--no-errors"
@@ -112,9 +112,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_VerboseMsgOptions() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-v"
@@ -127,9 +127,9 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_QuietMsgOptions() throws IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		MessageOptions mo = new MessageOptions();
-		cli.addAllOptions(mo.getAllOptions());
+		cli.getOptions().addAllOptions(mo.getAllOptions());
 
 		String[] args = new String[]{
 				"-q"

@@ -24,8 +24,8 @@ import org.apache.commons.lang3.Validate;
 import de.vandermeer.execs.AbstractAppliction;
 import de.vandermeer.execs.options.simple.AO_Version;
 import de.vandermeer.execs.options.typed.AO_HelpTyped;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.application.IsApplication;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
 import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
 import de.vandermeer.svg2vector.applications.base.messages.MessageOptions;
@@ -42,7 +42,7 @@ import de.vandermeer.svg2vector.applications.core.SvgTargets;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.0.0
  */
-public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppliction implements IsApplication {
+public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppliction {
 
 	/** The SVG document loader. */
 	final private L loader;
@@ -72,7 +72,7 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 * @param loader the SVG document loader, must not be null
 	 */
 	protected AppBase(String appName, SvgTargets[] supportedTargets, L loader){
-		super(appName, null, new AO_HelpTyped('h', null), new AO_Version(null, null));
+		super(appName, ApoCliParser.defaultParser(appName), null, new AO_HelpTyped('h', null), new AO_Version(null, null));
 
 		Validate.notNull(loader);
 		this.loader = loader;
@@ -102,11 +102,6 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 */
 	public boolean doesLayers(){
 		return this.layerOptions.doLayers() && this.outputOptions.doLayers();
-	}
-
-	@Override
-	public void executeApplication(String[] args){
-		IsApplication.super.executeApplication(args);
 	}
 
 	/**

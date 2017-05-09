@@ -22,7 +22,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.messagesets.errors.Templates_CliGeneral;
 import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -41,9 +41,9 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_NoneSet() {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{});
-		cli.addAllOptions(ro.getAllOptions());
+		cli.getOptions().addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{};
 		cli.parse(args);
@@ -52,9 +52,9 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_Unknown() {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
-		cli.addAllOptions(ro.getAllOptions());
+		cli.getOptions().addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "bla",
@@ -67,9 +67,9 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_NotSupported() {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
-		cli.addAllOptions(ro.getAllOptions());
+		cli.getOptions().addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "eps",
@@ -82,9 +82,9 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_ValidTarget() {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
-		cli.addAllOptions(ro.getAllOptions());
+		cli.getOptions().addAllOptions(ro.getAllOptions());
 
 		String[] args = new String[]{
 				"-t", "pdf",

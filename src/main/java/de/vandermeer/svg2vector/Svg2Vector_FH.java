@@ -81,8 +81,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 	}
 
 	@Override
-	public void executeApplication(String[] args) {
-		super.executeApplication(args);
+	public void runApplication() {
 		if(this.errNo!=0){
 			return;
 		}

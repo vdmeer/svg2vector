@@ -29,7 +29,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputDirectory;
 import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputFile;
@@ -61,9 +61,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_FoutBlank() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", ""
@@ -86,9 +86,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_SameAsTarget_FNDir() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/bla/foo"
@@ -107,9 +107,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_Fout_Isdir() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/fout-exists"
@@ -127,9 +127,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_FoutExistsNoOverwrite() throws ApplicationException, IOException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/fout-exists"
@@ -149,9 +149,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_FoutExistsCantWrite() throws ApplicationException, IOException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"--overwrite-existing",
@@ -174,9 +174,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_ParrentNoDir() throws ApplicationException, IOException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file"
@@ -197,9 +197,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Error_NoParrentNoCreate() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file"
@@ -214,9 +214,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_DoesNoLayers() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-o", "target/output-tests/app-props/test/file",
@@ -230,9 +230,9 @@ public class Test_OutputOptions_NoLayers {
 
 	@Test
 	public void test_Opt1() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		OutputOptions oo = new OutputOptions();
-		cli.addAllOptions(oo.getAllOptions());
+		cli.getOptions().addAllOptions(oo.getAllOptions());
 
 		String[] args = new String[]{
 				"-d", "target/output-tests/app-props/pdf",

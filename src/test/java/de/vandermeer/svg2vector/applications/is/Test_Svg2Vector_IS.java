@@ -63,8 +63,8 @@ public class Test_Svg2Vector_IS {
 	@Test
 	public void test_AddedOptions(){
 		Svg2Vector_IS app = new Svg2Vector_IS();
-		assertEquals(21, app.getCliParser().getSimpleOptions().size());
-		assertEquals(9, app.getCliParser().getTypedOptions().size());
+		assertEquals(21, app.getCliParser().getOptions().getSimpleSet().size());
+		assertEquals(9, app.getCliParser().getOptions().getTypedSet().size());
 	}
 
 	@Test

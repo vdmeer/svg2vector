@@ -18,7 +18,7 @@ package de.vandermeer.svg2vector;
 import de.vandermeer.execs.AbstractAppliction;
 import de.vandermeer.execs.options.simple.AO_HelpSimple;
 import de.vandermeer.execs.options.simple.AO_Version;
-import de.vandermeer.skb.interfaces.application.IsApplication;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 
 /**
  * Simple application that prints all S2V application error codes.
@@ -27,7 +27,7 @@ import de.vandermeer.skb.interfaces.application.IsApplication;
  * @version    v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8
  * @since      v2.1.0
  */
-public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
+public class S2VErrorCodes extends AbstractAppliction {
 
 	/** Application name. */
 	public final static String APP_NAME = "s2v-aec";
@@ -39,12 +39,11 @@ public class S2VErrorCodes extends AbstractAppliction implements IsApplication {
 	public final static String APP_VERSION = "v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8";
 
 	public S2VErrorCodes(){
-		super(APP_NAME, new AO_HelpSimple('h', null), null, new AO_Version(null, null));
+		super(APP_NAME, ApoCliParser.defaultParser(APP_NAME), new AO_HelpSimple('h', null), null, new AO_Version(null, null));
 	}
 
 	@Override
-	public void executeApplication(String[] args){
-		super.executeApplication(args);
+	public void runApplication() {
 		if(this.errNo==0){
 			this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
 		}

@@ -25,7 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import de.vandermeer.execs.DefaultCliParser;
+import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Source;
 
@@ -63,9 +63,9 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_LayerTrue() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-l", "-i"
@@ -78,9 +78,9 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_Error_LayerFalse() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-l"
@@ -94,9 +94,9 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_IfexistsTrue() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-L", "-i"
@@ -109,9 +109,9 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_IfexistsFalse() throws ApplicationException, IllegalStateException {
-		DefaultCliParser cli = new DefaultCliParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
 		LayerOptions lo = new LayerOptions();
-		cli.addAllOptions(lo.getAllOptions());
+		cli.getOptions().addAllOptions(lo.getAllOptions());
 
 		String[] args = new String[]{
 				"-L",

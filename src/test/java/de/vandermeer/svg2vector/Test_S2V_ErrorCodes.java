@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.vandermeer.skb.interfaces.application.ApoCliOptionSet;
+
 /**
  * Simple tests for {@link S2VErrorCodes}.
  *
@@ -31,8 +33,10 @@ public class Test_S2V_ErrorCodes {
 	@Test
 	public void test_AddedOptions(){
 		S2VErrorCodes app = new S2VErrorCodes();
-		assertEquals(0, app.getCliParser().getSimpleOptions().size());
-		assertEquals(0, app.getCliParser().getTypedOptions().size());
+		ApoCliOptionSet options = app.getCliParser().getOptions();
+
+		assertEquals(0, options.getSimpleMap().size());
+		assertEquals(0, options.getTypedMap().size());
 //		assertEquals(1, app.getEnvironmentOptions().size());
 //		assertEquals(0, app.getPropertyOptions().size());
 	}
