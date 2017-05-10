@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;

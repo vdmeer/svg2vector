@@ -27,7 +27,7 @@ import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 
@@ -45,7 +45,7 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_NoLoader() throws ApplicationException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -61,7 +61,7 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_Blank() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -79,7 +79,7 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_DoesNotexist() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -97,7 +97,7 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_NotAFile() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -115,7 +115,7 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_ValidLayers() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -134,7 +134,7 @@ public class Test_RequiredOptions_Input {
 
 	@Test
 	public void test_Fin_ValidNoLayers() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 

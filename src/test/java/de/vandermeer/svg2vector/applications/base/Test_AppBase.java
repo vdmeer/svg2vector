@@ -29,9 +29,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputDirectory;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_InputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_OutputDirectory;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 

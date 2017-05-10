@@ -23,7 +23,7 @@ import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_CliGeneral;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_CliGeneral;
 import de.vandermeer.svg2vector.Svg2Vector_IS;
 
 /**

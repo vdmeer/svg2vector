@@ -31,7 +31,7 @@ import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputDirectory;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_OutputDirectory;
 import de.vandermeer.svg2vector.applications.base.Test_Artifacts;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
@@ -60,7 +60,7 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Error_DoutNotDir() throws ApplicationException, IOException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		OutputOptions oo = new OutputOptions();
 		cli.getOptions().addAllOptions(oo.getAllOptions());
 
@@ -82,7 +82,7 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Error_NoDoutNoCreate() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		OutputOptions oo = new OutputOptions();
 		cli.getOptions().addAllOptions(oo.getAllOptions());
 
@@ -99,7 +99,7 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_DoesLayers() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		OutputOptions oo = new OutputOptions();
 		cli.getOptions().addAllOptions(oo.getAllOptions());
 
@@ -118,7 +118,7 @@ public class Test_OutputOptions_Layers {
 
 	@Test
 	public void test_Warning_Fout() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		OutputOptions oo = new OutputOptions();
 		cli.getOptions().addAllOptions(oo.getAllOptions());
 

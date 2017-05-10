@@ -28,7 +28,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_OutputFile;
 
 /**
  * Pattern for generating output file names.

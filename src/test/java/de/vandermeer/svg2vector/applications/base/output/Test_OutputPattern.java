@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_OutputFile;
 
 /**
  * Tests for {@link OutputPattern} - constructors and remove options.

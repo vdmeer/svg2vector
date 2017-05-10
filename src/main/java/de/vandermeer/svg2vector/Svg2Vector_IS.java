@@ -25,7 +25,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_ExceptionRuntimeUnexpected;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.is.AO_ExportDpi;
@@ -118,10 +118,6 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 
 	@Override
 	public void runApplication() {
-		if(this.errNo!=0){
-			return;
-		}
-
 		TmpArtefacts tmpArtifacts = null;
 		try{
 			this.init();

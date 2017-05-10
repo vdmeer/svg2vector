@@ -33,8 +33,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_InputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_ExceptionRuntimeUnexpected;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_InputFile;
 import de.vandermeer.svg2vector.applications.core.SV_DocumentLoader;
 
 /**

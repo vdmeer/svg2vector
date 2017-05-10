@@ -27,7 +27,7 @@ import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Source;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_Source;
 
 /**
  * Tests for {@link LayerOptions}.
@@ -63,7 +63,7 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_LayerTrue() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -78,7 +78,7 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_Error_LayerFalse() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -94,7 +94,7 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_IfexistsTrue() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -109,7 +109,7 @@ public class Test_LayerOptions {
 
 	@Test
 	public void test_IfexistsFalse() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 

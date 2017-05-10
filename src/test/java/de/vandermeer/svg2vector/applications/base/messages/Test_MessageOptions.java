@@ -39,7 +39,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_DefaultMsgOptions() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 
@@ -52,7 +52,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_WarningMsgOptions() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 
@@ -67,7 +67,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_ProgressMsgOptions() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 
@@ -82,7 +82,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_DetailsMsgOptions() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 
@@ -97,7 +97,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_NoErrors() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 
@@ -112,7 +112,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_VerboseMsgOptions() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 
@@ -127,7 +127,7 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_QuietMsgOptions() throws IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
 

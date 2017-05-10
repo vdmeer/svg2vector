@@ -26,6 +26,7 @@ import de.vandermeer.execs.options.simple.AO_Version;
 import de.vandermeer.execs.options.typed.AO_HelpTyped;
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.console.MessageConsole;
 import de.vandermeer.svg2vector.applications.base.conversion.ConversionOptions;
 import de.vandermeer.svg2vector.applications.base.layers.LayerOptions;
 import de.vandermeer.svg2vector.applications.base.messages.MessageOptions;
@@ -72,7 +73,7 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 	 * @param loader the SVG document loader, must not be null
 	 */
 	protected AppBase(String appName, SvgTargets[] supportedTargets, L loader){
-		super(appName, ApoCliParser.defaultParser(appName), null, new AO_HelpTyped('h', null), new AO_Version(null, null));
+		super(appName, ApoCliParser.defaultParser(), null, new AO_HelpTyped('h', null), new AO_Version(null, null));
 
 		Validate.notNull(loader);
 		this.loader = loader;
@@ -94,6 +95,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 
 		this.outputOptions = new OutputOptions();
 		this.addAllOptions(this.outputOptions.getAllOptions());
+
+		MessageConsole.activateAll();
+		MessageConsole.setApplicationName(this.appName);
 	}
 
 	/**

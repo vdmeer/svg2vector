@@ -22,8 +22,8 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.stringtemplate.v4.STGroupFile;
 
 import de.vandermeer.execs.options.Abstract_TypedC;
-import de.vandermeer.skb.interfaces.messagesets.errors.IsError;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
+import de.vandermeer.skb.interfaces.messages.errors.IsError;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**

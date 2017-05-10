@@ -35,7 +35,7 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_BN() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -52,7 +52,7 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_UseBN() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -69,7 +69,7 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_Index() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -86,7 +86,7 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_IsIndex() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -103,7 +103,7 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_NoLayers_IsLabel() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 
@@ -120,7 +120,7 @@ public class Test_LayerOptions_Warnings {
 
 	@Test
 	public void test_Warning_Layers_SwitchOn() throws ApplicationException, IllegalStateException {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		LayerOptions lo = new LayerOptions();
 		cli.getOptions().addAllOptions(lo.getAllOptions());
 

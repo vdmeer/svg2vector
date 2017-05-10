@@ -21,7 +21,7 @@ import java.util.List;
 import de.vandermeer.execs.options.Abstract_TypedC;
 import de.vandermeer.execs.options.Option_SimpleC;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Source;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_Source;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 
 /**

@@ -25,7 +25,7 @@ import java.util.Set;
 import org.freehep.graphicsbase.util.UserProperties;
 
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_ExceptionRuntimeUnexpected;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_ExceptionRuntimeUnexpected;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 import de.vandermeer.svg2vector.applications.fh.AO_BackgroundColor;
@@ -128,10 +128,6 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 
 	@Override
 	public void runApplication() {
-		if(this.errNo!=0){
-			return;
-		}
-
 		try{
 			this.init();
 

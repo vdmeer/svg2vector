@@ -27,8 +27,8 @@ import org.apache.commons.lang3.Validate;
 import de.vandermeer.execs.options.Abstract_TypedC;
 import de.vandermeer.execs.options.Option_SimpleC;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputDirectory;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_OutputFile;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_OutputDirectory;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_OutputFile;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 

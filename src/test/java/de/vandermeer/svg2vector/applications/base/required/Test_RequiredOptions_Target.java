@@ -23,8 +23,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_CliGeneral;
-import de.vandermeer.skb.interfaces.messagesets.errors.Templates_Target;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_CliGeneral;
+import de.vandermeer.skb.interfaces.messages.errors.Templates_Target;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
 
 /**
@@ -41,7 +41,7 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_NoneSet() {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -52,7 +52,7 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_Unknown() {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -67,7 +67,7 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_NotSupported() {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 
@@ -82,7 +82,7 @@ public class Test_RequiredOptions_Target {
 
 	@Test
 	public void test_ValidTarget() {
-		ApoCliParser cli = ApoCliParser.defaultParser("my-app");
+		ApoCliParser cli = ApoCliParser.defaultParser();
 		RequiredOptions ro = new RequiredOptions(new SvgTargets[]{SvgTargets.pdf, SvgTargets.emf});
 		cli.getOptions().addAllOptions(ro.getAllOptions());
 

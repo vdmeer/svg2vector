@@ -39,7 +39,7 @@ public class S2VErrorCodes extends AbstractAppliction {
 	public final static String APP_VERSION = "v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8";
 
 	public S2VErrorCodes(){
-		super(APP_NAME, ApoCliParser.defaultParser(APP_NAME), new AO_HelpSimple('h', null), null, new AO_Version(null, null));
+		super(APP_NAME, ApoCliParser.defaultParser(), new AO_HelpSimple('h', null), null, new AO_Version(null, null));
 	}
 
 	/**
@@ -192,9 +192,7 @@ public class S2VErrorCodes extends AbstractAppliction {
 
 	@Override
 	public void runApplication() {
-		if(this.errNo==0){
-			this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
-		}
+		this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
 	}
 
 }
