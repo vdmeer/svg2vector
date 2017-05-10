@@ -60,6 +60,32 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 	/** Application version, should be same as the version in the class JavaDoc. */
 	public final static String APP_VERSION = "v2.1.0-SNAPSHOT build 170420 (20-Apr-17) for Java 1.8";
 
+	/**
+	 * Returns a converter for a given target
+	 * @param target the target, can be null
+	 * @return null if target was null or no converter found, a new converter object for the target otherwise
+	 */
+	public static FhConverter TARGET_2_CONVERTER(SvgTargets target){
+		if(target==null){
+			return null;
+		}
+		switch(target){
+			case eps:
+			case png:
+			case ps:
+			case wmf:
+				break;
+
+			case pdf:
+				return new Fh_Svg2Pdf();
+			case svg:
+				return new Fh_Svg2Svg();
+			case emf:
+				return new Fh_Svg2Emf();
+		}
+		return null;
+	}
+
 	/** Application option for not-transparent mode. */
 	AO_NotTransparent optionNotTransparent = new AO_NotTransparent();
 
@@ -78,6 +104,26 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 		this.addOption(this.optionNotTransparent);
 		this.addOption(this.optionBackgroundColor);
 		this.addOption(this.optionNoBackground);
+	}
+
+	@Override
+	public String getAppDescription() {
+		return "Converts SVG graphics into other vector formats using FreeHep libraries, with options for handling layers";
+	}
+
+	@Override
+	public String getAppDisplayName(){
+		return APP_DISPLAY_NAME;
+	}
+
+	@Override
+	public String getAppName() {
+		return APP_NAME;
+	}
+
+	@Override
+	public String getAppVersion() {
+		return APP_VERSION;
 	}
 
 	@Override
@@ -153,51 +199,5 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 			this.printErrorMessage(ioEx);
 			this.errNo = Templates_ExceptionRuntimeUnexpected.U_IO.getCode();
 		}
-	}
-
-	@Override
-	public String getAppName() {
-		return APP_NAME;
-	}
-
-	@Override
-	public String getAppDisplayName(){
-		return APP_DISPLAY_NAME;
-	}
-
-	@Override
-	public String getAppDescription() {
-		return "Converts SVG graphics into other vector formats using FreeHep libraries, with options for handling layers";
-	}
-
-	@Override
-	public String getAppVersion() {
-		return APP_VERSION;
-	}
-
-	/**
-	 * Returns a converter for a given target
-	 * @param target the target, can be null
-	 * @return null if target was null or no converter found, a new converter object for the target otherwise
-	 */
-	public static FhConverter TARGET_2_CONVERTER(SvgTargets target){
-		if(target==null){
-			return null;
-		}
-		switch(target){
-			case eps:
-			case png:
-			case ps:
-			case wmf:
-				break;
-
-			case pdf:
-				return new Fh_Svg2Pdf();
-			case svg:
-				return new Fh_Svg2Svg();
-			case emf:
-				return new Fh_Svg2Emf();
-		}
-		return null;
 	}
 }

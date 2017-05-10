@@ -80,6 +80,14 @@ public final class MessageOptions extends CliOptionPackage {
 	}
 
 	/**
+	 * Returns the message mode, default if not set.
+	 * @return message mode
+	 */
+	public int getMessageMode(){
+		return this.msgMode;
+	}
+
+	/**
 	 * Sets the message mode, requires the options to be set with CLI values.
 	 */
 	public void setMessageMode(){
@@ -104,13 +112,5 @@ public final class MessageOptions extends CliOptionPackage {
 		if(this.optNoErrors.inCli()){
 			this.msgMode = this.msgMode &= ~OPTION_ERROR;
 		}
-	}
-
-	/**
-	 * Returns the message mode, default if not set.
-	 * @return message mode
-	 */
-	public int getMessageMode(){
-		return this.msgMode;
 	}
 }

@@ -29,6 +29,15 @@ import de.vandermeer.execs.options.Option_TypedC_String;
 public class AO_UseBaseName extends Option_TypedC_String {
 
 	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg");
+		return stg.getInstanceOf("longDescription");
+	}
+
+	/**
 	 * Returns the new option.
 	 */
 	public AO_UseBaseName(){
@@ -38,14 +47,5 @@ public class AO_UseBaseName extends Option_TypedC_String {
 				"a basename to be used for output files", "use the specified basename for output files",
 				LONG_DESCRIPTION()
 		);
-	}
-
-	/**
-	 * Returns the long description generated from an ST template.
-	 * @return the long description
-	 */
-	private static final Object LONG_DESCRIPTION(){
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_UseBaseName.stg");
-		return stg.getInstanceOf("longDescription");
 	}
 }

@@ -29,6 +29,15 @@ import de.vandermeer.execs.options.Option_SimpleC;
 public class AO_NoErrors extends Option_SimpleC {
 
 	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg");
+		return stg.getInstanceOf("longDescription");
+	}
+
+	/**
 	 * Returns the new option.
 	 */
 	public AO_NoErrors(){
@@ -37,14 +46,5 @@ public class AO_NoErrors extends Option_SimpleC {
 				"switch off error messages",
 				LONG_DESCRIPTION()
 		);
-	}
-
-	/**
-	 * Returns the long description generated from an ST template.
-	 * @return the long description
-	 */
-	private static final Object LONG_DESCRIPTION(){
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/messages/AO_NoErrors.stg");
-		return stg.getInstanceOf("longDescription");
 	}
 }

@@ -80,25 +80,59 @@ public final class LayerOptions extends CliOptionPackage {
 	}
 
 	/**
-	 * Sets options from CLI settings.
-	 * @param docHasLayers flag for layers detected in a loaded SVG file, true if has layers, false otherwise
-	 * @throws ApplicationException for any error
+	 * Returns the switch for all layers on (when not processing layers).
+	 * @return true if all layers should be switched on, false otherwise
 	 */
-	public void setOptions(boolean docHasLayers) throws ApplicationException{
-		if(this.aoLayers.inCli()){
-			if(!docHasLayers){
-				throw new ApplicationException(
-						Templates_Source.NO_LAYERS,
-						this.getClass().getSimpleName()
-				);
-			}
-			else{
-				this.doLayers = true;
-			}
-		}
-		if(this.aoLayersIfExists.inCli()){
-			this.doLayers = docHasLayers;
-		}
+	public boolean allLayersOn(){
+		return this.aoSwitchOnLayers.inCli();
+	}
+
+	/**
+	 * Returns the do-layers flag calculated from the options.
+	 * @return true if layers should be processed, false otherwise
+	 */
+	public boolean doLayers(){
+		return this.doLayers;
+	}
+
+	/**
+	 * Tests if continuous index for output file names is requested.
+	 * @return true if requested, false otherwise
+	 */
+	public boolean foutIndex(){
+		return this.aoFoutIndex.inCli();
+	}
+
+	/**
+	 * Tests if Inkscape index for output file names is requested.
+	 * @return true if requested, false otherwise
+	 */
+	public boolean foutIsIndex(){
+		return this.aoFoutIsIndex.inCli();
+	}
+
+	/**
+	 * Tests if Inkscape label for output file names is requested.
+	 * @return true if requested, false otherwise
+	 */
+	public boolean foutIsLabel(){
+		return this.aoFoutIsLabel.inCli();
+	}
+
+	/**
+	 * Tests if output file names should not use a base name.
+	 * @return true if no base name should be used, false otherwise
+	 */
+	public boolean foutNoBasename(){
+		return this.aoFoutNoBasename.inCli();
+	}
+
+	/**
+	 * Returns the requested base name.
+	 * @return requested base name, null if not set
+	 */
+	public String getBasename(){
+		return this.aoUseBaseName.getValue();
 	}
 
 	/**
@@ -142,58 +176,24 @@ public final class LayerOptions extends CliOptionPackage {
 	}
 
 	/**
-	 * Returns the do-layers flag calculated from the options.
-	 * @return true if layers should be processed, false otherwise
+	 * Sets options from CLI settings.
+	 * @param docHasLayers flag for layers detected in a loaded SVG file, true if has layers, false otherwise
+	 * @throws ApplicationException for any error
 	 */
-	public boolean doLayers(){
-		return this.doLayers;
-	}
-
-	/**
-	 * Returns the switch for all layers on (when not processing layers).
-	 * @return true if all layers should be switched on, false otherwise
-	 */
-	public boolean allLayersOn(){
-		return this.aoSwitchOnLayers.inCli();
-	}
-
-	/**
-	 * Tests if continuous index for output file names is requested.
-	 * @return true if requested, false otherwise
-	 */
-	public boolean foutIndex(){
-		return this.aoFoutIndex.inCli();
-	}
-
-	/**
-	 * Tests if Inkscape index for output file names is requested.
-	 * @return true if requested, false otherwise
-	 */
-	public boolean foutIsIndex(){
-		return this.aoFoutIsIndex.inCli();
-	}
-
-	/**
-	 * Tests if Inkscape label for output file names is requested.
-	 * @return true if requested, false otherwise
-	 */
-	public boolean foutIsLabel(){
-		return this.aoFoutIsLabel.inCli();
-	}
-
-	/**
-	 * Tests if output file names should not use a base name.
-	 * @return true if no base name should be used, false otherwise
-	 */
-	public boolean foutNoBasename(){
-		return this.aoFoutNoBasename.inCli();
-	}
-
-	/**
-	 * Returns the requested base name.
-	 * @return requested base name, null if not set
-	 */
-	public String getBasename(){
-		return this.aoUseBaseName.getValue();
+	public void setOptions(boolean docHasLayers) throws ApplicationException{
+		if(this.aoLayers.inCli()){
+			if(!docHasLayers){
+				throw new ApplicationException(
+						Templates_Source.NO_LAYERS,
+						this.getClass().getSimpleName()
+				);
+			}
+			else{
+				this.doLayers = true;
+			}
+		}
+		if(this.aoLayersIfExists.inCli()){
+			this.doLayers = docHasLayers;
+		}
 	}
 }

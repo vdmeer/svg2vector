@@ -29,6 +29,15 @@ import de.vandermeer.execs.options.Option_SimpleC;
 public class AO_FoutNoBasename extends Option_SimpleC {
 
 	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutNoBasename.stg");
+		return stg.getInstanceOf("longDescription");
+	}
+
+	/**
 	 * Returns the new option.
 	 */
 	public AO_FoutNoBasename(){
@@ -37,14 +46,5 @@ public class AO_FoutNoBasename extends Option_SimpleC {
 				"do not use a basename for output files (in layer mode)",
 				LONG_DESCRIPTION()
 		);
-	}
-
-	/**
-	 * Returns the long description generated from an ST template.
-	 * @return the long description
-	 */
-	private static final Object LONG_DESCRIPTION(){
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutNoBasename.stg");
-		return stg.getInstanceOf("longDescription");
 	}
 }

@@ -42,37 +42,87 @@ public class S2VErrorCodes extends AbstractAppliction {
 		super(APP_NAME, ApoCliParser.defaultParser(APP_NAME), new AO_HelpSimple('h', null), null, new AO_Version(null, null));
 	}
 
+	/**
+	 * Prints error codes in tabular form.
+	 * @param stgFilename the STG file name
+	 */
+	public void fullTable(String stgFilename){
+//		STGroupFile stg = new STGroupFile(stgFilename);
+//		ST cats = stg.getInstanceOf("fullTable");
+//
+//		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+//
+//		for(EC_Categories cat : catMap.values()){
+//			ST catST = stg.getInstanceOf("fullTableCatEntry");
+//			catST.add("title", cat.getDisplayName());//TODO title->displayname
+//			catST.add("start", cat.getStart());
+//			catST.add("end", cat.getEnd());
+//
+//			TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(cat);
+//			for(ErrorCodes ec : ecMap.values()){
+//				ST ecST = stg.getInstanceOf("fullTableEcEntry");
+//				ecST.add("code", ec.getCode());
+//				ecST.add("description", ec.getDescription());
+//				ecST.add("message", ec.getMessage());
+//
+//				String padding = "  " + ec.getCode() + " -> ";
+//				new StrBuilder().appendPadding(padding.length(), ' ');
+//				ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
+//
+//				catST.add("aecs", ecST.render());
+//			}
+//			cats.add("cats", catST.render());
+//		}
+//
+//		System.out.println(cats.render());
+	}
+
 	@Override
-	public void runApplication() {
-		if(this.errNo==0){
-			this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
-		}
+	public String getAppDescription() {
+		return "Simply prints a list of all S2V application error codes for reference";
+	}
+
+	@Override
+	public String getAppDisplayName(){
+		return APP_DISPLAY_NAME;
 	}
 
 	/**
-	 * Prints list of error codes.
-	 * @param stgFilename the STG file name
+	 * Returns a sorted map of all error codes.
+	 * @param category an optional category to select error codes for
+	 * @return sorted map, empty if no error codes found
 	 */
-	public void printEcList(String stgFilename){
-//		STGroupFile stg = new STGroupFile(stgFilename);
-//		ST ecList = stg.getInstanceOf("ecList");
-//
-//		TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(null);
-//		for(ErrorCodes ec : ecMap.values()){
-//			ST ecST = stg.getInstanceOf("ecListEntry");
-//			ecST.add("code", ec.getCode());
-//			ecST.add("description", ec.getDescription());
-//			ecST.add("message", ec.getMessage());
-//
-//			String padding = "  " + ec.getCode() + " -> ";
-//			new StrBuilder().appendPadding(padding.length(), ' ');
-//			ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
-//
-//			ecList.add("aecs", ecST.render());
+//	protected TreeMap<Integer, ErrorCodes> ecMap(EC_Categories category){
+//		TreeMap<Integer, ErrorCodes> ecMap = new TreeMap<>();
+//		for(ErrorCodes ec : ErrorCodes.values()){
+//			if(category==null || ec.getCategory()==category){
+//				ecMap.put(0-ec.getCode(), ec);
+//			}
 //		}
-//
-//		System.out.println(ecList.render());
+//		return ecMap;
+//	}
+
+	@Override
+	public String getAppName() {
+		return APP_NAME;
 	}
+
+	@Override
+	public String getAppVersion() {
+		return APP_VERSION;
+	}
+
+	/**
+	 * Returns a sorted map of all categories.
+	 * @return sorted map
+	 */
+//	protected TreeMap<Integer, EC_Categories> catMap(){
+//		TreeMap<Integer, EC_Categories> catMap = new TreeMap<>();
+//		for(EC_Categories cat : EC_Categories.values()){
+//			catMap.put(0-cat.getStart(), cat);
+//		}
+//		return catMap;
+//	}
 
 	/**
 	 * Prints a full table of error categories with all information.
@@ -116,85 +166,35 @@ public class S2VErrorCodes extends AbstractAppliction {
 	}
 
 	/**
-	 * Prints error codes in tabular form.
+	 * Prints list of error codes.
 	 * @param stgFilename the STG file name
 	 */
-	public void fullTable(String stgFilename){
+	public void printEcList(String stgFilename){
 //		STGroupFile stg = new STGroupFile(stgFilename);
-//		ST cats = stg.getInstanceOf("fullTable");
+//		ST ecList = stg.getInstanceOf("ecList");
 //
-//		TreeMap<Integer, EC_Categories> catMap = this.catMap();
+//		TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(null);
+//		for(ErrorCodes ec : ecMap.values()){
+//			ST ecST = stg.getInstanceOf("ecListEntry");
+//			ecST.add("code", ec.getCode());
+//			ecST.add("description", ec.getDescription());
+//			ecST.add("message", ec.getMessage());
 //
-//		for(EC_Categories cat : catMap.values()){
-//			ST catST = stg.getInstanceOf("fullTableCatEntry");
-//			catST.add("title", cat.getDisplayName());//TODO title->displayname
-//			catST.add("start", cat.getStart());
-//			catST.add("end", cat.getEnd());
+//			String padding = "  " + ec.getCode() + " -> ";
+//			new StrBuilder().appendPadding(padding.length(), ' ');
+//			ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
 //
-//			TreeMap<Integer, ErrorCodes> ecMap = this.ecMap(cat);
-//			for(ErrorCodes ec : ecMap.values()){
-//				ST ecST = stg.getInstanceOf("fullTableEcEntry");
-//				ecST.add("code", ec.getCode());
-//				ecST.add("description", ec.getDescription());
-//				ecST.add("message", ec.getMessage());
-//
-//				String padding = "  " + ec.getCode() + " -> ";
-//				new StrBuilder().appendPadding(padding.length(), ' ');
-//				ecST.add("padding", new StrBuilder().appendPadding(padding.length(), ' ').toString());
-//
-//				catST.add("aecs", ecST.render());
-//			}
-//			cats.add("cats", catST.render());
+//			ecList.add("aecs", ecST.render());
 //		}
 //
-//		System.out.println(cats.render());
-	}
-
-	/**
-	 * Returns a sorted map of all categories.
-	 * @return sorted map
-	 */
-//	protected TreeMap<Integer, EC_Categories> catMap(){
-//		TreeMap<Integer, EC_Categories> catMap = new TreeMap<>();
-//		for(EC_Categories cat : EC_Categories.values()){
-//			catMap.put(0-cat.getStart(), cat);
-//		}
-//		return catMap;
-//	}
-
-	/**
-	 * Returns a sorted map of all error codes.
-	 * @param category an optional category to select error codes for
-	 * @return sorted map, empty if no error codes found
-	 */
-//	protected TreeMap<Integer, ErrorCodes> ecMap(EC_Categories category){
-//		TreeMap<Integer, ErrorCodes> ecMap = new TreeMap<>();
-//		for(ErrorCodes ec : ErrorCodes.values()){
-//			if(category==null || ec.getCategory()==category){
-//				ecMap.put(0-ec.getCode(), ec);
-//			}
-//		}
-//		return ecMap;
-//	}
-
-	@Override
-	public String getAppName() {
-		return APP_NAME;
+//		System.out.println(ecList.render());
 	}
 
 	@Override
-	public String getAppDisplayName(){
-		return APP_DISPLAY_NAME;
-	}
-
-	@Override
-	public String getAppDescription() {
-		return "Simply prints a list of all S2V application error codes for reference";
-	}
-
-	@Override
-	public String getAppVersion() {
-		return APP_VERSION;
+	public void runApplication() {
+		if(this.errNo==0){
+			this.fullTable("de/vandermeer/svg2vector/applications/aec/console.stg");
+		}
 	}
 
 }

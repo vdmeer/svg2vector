@@ -29,6 +29,15 @@ import de.vandermeer.execs.options.Option_SimpleC;
 public class AO_FoutIsIndex extends Option_SimpleC {
 
 	/**
+	 * Returns the long description generated from an ST template.
+	 * @return the long description
+	 */
+	private static final Object LONG_DESCRIPTION(){
+		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg");
+		return stg.getInstanceOf("longDescription");
+	}
+
+	/**
 	 * Returns the new option.
 	 */
 	public AO_FoutIsIndex(){
@@ -37,14 +46,5 @@ public class AO_FoutIsIndex extends Option_SimpleC {
 				"use the Inkscape layer index in output file name",
 				LONG_DESCRIPTION()
 		);
-	}
-
-	/**
-	 * Returns the long description generated from an ST template.
-	 * @return the long description
-	 */
-	private static final Object LONG_DESCRIPTION(){
-		STGroupFile stg = new STGroupFile("de/vandermeer/svg2vector/applications/base/layers/AO_FoutIsIndex.stg");
-		return stg.getInstanceOf("longDescription");
 	}
 }

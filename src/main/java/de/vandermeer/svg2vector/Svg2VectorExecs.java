@@ -27,6 +27,16 @@ import de.vandermeer.execs.ExecS;
 public class Svg2VectorExecs extends ExecS {
 
 	/**
+	 * Public main to start the tool.
+	 * @param args command line arguments
+	 */
+	public static void main(String[] args) {
+		Svg2VectorExecs execs = new Svg2VectorExecs();
+		int ret = execs.execute(args);
+		System.exit(ret);
+	}
+
+	/**
 	 * Creates a new ExecS object.
 	 */
 	public Svg2VectorExecs(){
@@ -35,15 +45,5 @@ public class Svg2VectorExecs extends ExecS {
 		this.addApplication(Svg2Vector_FH.APP_NAME,		Svg2Vector_FH.class);
 		this.addApplication(Svg2Vector_IS.APP_NAME,		Svg2Vector_IS.class);
 		this.addApplication(S2VErrorCodes.APP_NAME,		S2VErrorCodes.class);
-	}
-
-	/**
-	 * Public main to start the tool.
-	 * @param args command line arguments
-	 */
-	public static void main(String[] args) {
-		Svg2VectorExecs execs = new Svg2VectorExecs();
-		int ret = execs.execute(args);
-		System.exit(ret);
 	}
 }
