@@ -16,7 +16,6 @@
 package de.vandermeer.svg2vector.applications.base;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.Validate;
@@ -24,6 +23,7 @@ import org.apache.commons.lang3.Validate;
 import de.vandermeer.execs.AbstractAppliction;
 import de.vandermeer.execs.options.simple.AO_Version;
 import de.vandermeer.execs.options.typed.AO_HelpTyped;
+import de.vandermeer.skb.interfaces.MessageType;
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
 import de.vandermeer.skb.interfaces.console.MessageConsole;
@@ -96,7 +96,8 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 		this.outputOptions = new OutputOptions();
 		this.addAllOptions(this.outputOptions.getAllOptions());
 
-		MessageConsole.activateAll();
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
 		MessageConsole.setApplicationName(this.appName);
 	}
 
@@ -221,7 +222,9 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 		this.messageOptions.setMessageMode();
 		this.requiredOptions.setInput(this.loader);
 		this.layerOptions.setOptions(this.loader.hasInkscapeLayers());
-		this.printWarnings(this.layerOptions.getWarnings());
+		for(String warning : this.layerOptions.getWarnings()){
+			MessageConsole.con(MessageType.WARNING, warning);
+		}
 
 		this.outputOptions.setOptions(
 				this.layerOptions.doLayers(),
@@ -230,7 +233,7 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 		);
 
 		if(outputOptions.doLayers()){
-			this.printProgressMessage("processing multi layer, multi file output");
+			MessageConsole.con(MessageType.TRACE, "processing multi layer, multi file output");
 			this.outputOptions.removePatternOptions(
 					this.layerOptions.foutNoBasename(),
 					this.layerOptions.foutIndex(),
@@ -240,25 +243,25 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 			this.outputOptions.setPatternBasename(this.layerOptions.getBasename());
 		}
 		else{
-			this.printProgressMessage("processing single output, no layers");
+			MessageConsole.con(MessageType.TRACE, "processing single output, no layers");
 			this.outputOptions.removePatternOptions(false, true, true, true);
 		}
-		this.printDetailMessage("target:           " + this.requiredOptions.getTarget().name());
-		this.printDetailMessage("input file:       " + this.requiredOptions.getInputFilename());
-		this.printDetailMessage("output pattern:   " + this.outputOptions.getPatternString());
-		this.printDetailMessage("output directory: " + this.outputOptions.getDirectory());
+		MessageConsole.con(MessageType.DEBUG, "target:           " + this.requiredOptions.getTarget().name());
+		MessageConsole.con(MessageType.DEBUG, "input file:       " + this.requiredOptions.getInputFilename());
+		MessageConsole.con(MessageType.DEBUG, "output pattern:   " + this.outputOptions.getPatternString());
+		MessageConsole.con(MessageType.DEBUG, "output directory: " + this.outputOptions.getDirectory());
 		if(this.outputOptions.getFile()!=null){
-			this.printDetailMessage("output file name: " + this.outputOptions.getFile());
-			this.printDetailMessage("output extension: " + this.outputOptions.getFileExtension());
+			MessageConsole.con(MessageType.DEBUG, "output file name: " + this.outputOptions.getFile());
+			MessageConsole.con(MessageType.DEBUG, "output extension: " + this.outputOptions.getFileExtension());
 		}
 
 		if(this.outputOptions.createDirs()){
-			this.printProgressMessage("creating directories for output");
+			MessageConsole.con(MessageType.TRACE, "creating directories for output");
 			if(this.outputOptions.doLayers()){
 				if(!this.miscOptions.doesSimulate()){
 					this.outputOptions.getDirectory().toFile().mkdirs();
 				}
-				this.printDetailMessage("create directories (dout): " + this.outputOptions.getDirectory());
+				MessageConsole.con(MessageType.DEBUG, "create directories (dout): " + this.outputOptions.getDirectory());
 			}
 			else{
 				Path dir = this.outputOptions.getDirectory();
@@ -266,106 +269,8 @@ public abstract class AppBase <L extends SV_DocumentLoader> extends AbstractAppl
 					if(!this.miscOptions.doesSimulate()){
 						dir.toFile().mkdirs();
 					}
-					this.printDetailMessage("create directories (fout): " + dir);
+					MessageConsole.con(MessageType.DEBUG, "create directories (fout): " + dir);
 				}
-			}
-		}
-	}
-
-	/**
-	 * Prints a detail message if activated in mode
-	 * @param msg the detail message, not printed if null
-	 */
-	public void printDetailMessage(String msg){
-		this.printMessage(msg, MessageOptions.OPTION_DEAILS);
-	}
-
-	/**
-	 * Prints a error message generated from message, cause, and stack trace of an exception if activated in mode
-	 * @param ex the exception, not printed if null
-	 */
-	public void printErrorMessage(Exception ex){
-		if(ex==null){
-			return;
-		}
-		this.printErrorMessage("catched " + ex.getClass().getSimpleName() + " exception");
-		this.printErrorMessage(" - message: " + ex.getMessage());
-		if(ex.getCause()!=null){
-			this.printErrorMessage(" - cause: " + ex.getCause().getLocalizedMessage());
-		}
-		if(this.miscOptions.printStackTrace()){
-			if(ex.getStackTrace()!=null){
-				this.printErrorMessage(" - stack trace (interal classes): ");
-				for(StackTraceElement trace : ex.getStackTrace()){
-					if(trace.toString().contains("vandermeer") || trace.toString().contains("apache")){
-						this.printErrorMessage(" ----> " + trace);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Prints a error message if activated in mode
-	 * @param err the error message, not printed if null
-	 */
-	public void printErrorMessage(String err){
-		this.printMessage(err, MessageOptions.OPTION_ERROR);
-	}
-
-	/**
-	 * Prints a message of give type.
-	 * @param msg the message, not printed if null
-	 * @param type the message type, nothing printed if not set in message mode
-	 */
-	private void printMessage(String msg, int type){
-		if(msg==null){
-			return;
-		}
-
-		if((this.messageOptions.getMessageMode() & type) == type){
-			if(type==MessageOptions.OPTION_ERROR){
-				System.err.println(this.getAppName() + " error: " + msg);
-			}
-			else if(type==MessageOptions.OPTION_WARNING){
-				System.out.println(this.getAppName() + " warning: " + msg);
-			}
-			else if(type==MessageOptions.OPTION_PROGRESS){
-				System.out.println(this.getAppName() + ": --- " + msg);
-			}
-			else if(type==MessageOptions.OPTION_DEAILS){
-				System.out.println(this.getAppName() + ": === " + msg);
-			}
-			else{
-				throw new IllegalArgumentException("messaging: unknown type: " + type);
-			}
-		}
-	}
-
-	/**
-	 * Prints a progress message if activated in mode
-	 * @param msg the progress message, not printed if null
-	 */
-	public void printProgressMessage(String msg){
-		this.printMessage(msg, MessageOptions.OPTION_PROGRESS);
-	}
-
-	/**
-	 * Prints a warning message if activated in mode
-	 * @param msg the warning message, not printed if null
-	 */
-	public void printWarningMessage(String msg){
-		this.printMessage(msg, MessageOptions.OPTION_WARNING);
-	}
-
-	/**
-	 * Prints all warnings from a given list
-	 * @param warnings list of warnings, can be null
-	 */
-	public void printWarnings(List<String> warnings){
-		if(warnings!=null){
-			for(String msg : warnings){
-				this.printWarningMessage(msg);
 			}
 		}
 	}

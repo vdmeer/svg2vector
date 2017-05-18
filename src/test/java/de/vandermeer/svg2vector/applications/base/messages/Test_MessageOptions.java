@@ -19,7 +19,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import de.vandermeer.skb.interfaces.MessageType;
 import de.vandermeer.skb.interfaces.application.ApoCliParser;
+import de.vandermeer.skb.interfaces.console.MessageConsole;
 
 /**
  * Tests for {@link MessageOptions} - message options.
@@ -32,13 +34,19 @@ public class Test_MessageOptions {
 
 	@Test
 	public void test_Constructor_Values(){
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		MessageOptions mo = new MessageOptions();
 		assertEquals(6, mo.getSimpleOptions().size());
-		assertEquals(MessageOptions.OPTION_ERROR, mo.getMessageMode());
+		assertEquals(MessageType.ERROR.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_DefaultMsgOptions() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -47,11 +55,14 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(MessageOptions.OPTION_ERROR, mo.getMessageMode());
+		assertEquals(MessageType.ERROR.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_WarningMsgOptions() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -62,11 +73,14 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(MessageOptions.OPTION_ERROR | MessageOptions.OPTION_WARNING, mo.getMessageMode());
+		assertEquals(MessageType.ERROR.getFlag() | MessageType.WARNING.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_ProgressMsgOptions() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -77,11 +91,14 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(MessageOptions.OPTION_ERROR | MessageOptions.OPTION_PROGRESS, mo.getMessageMode());
+		assertEquals(MessageType.ERROR.getFlag() | MessageType.TRACE.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_DetailsMsgOptions() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -92,11 +109,14 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(MessageOptions.OPTION_ERROR | MessageOptions.OPTION_DEAILS, mo.getMessageMode());
+		assertEquals(MessageType.ERROR.getFlag() | MessageType.DEBUG.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_NoErrors() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -107,11 +127,14 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(0, mo.getMessageMode());
+		assertEquals(MessageType.NONE.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_VerboseMsgOptions() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -122,11 +145,14 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(MessageOptions.OPTION_VERBOSE, mo.getMessageMode());
+		assertEquals(MessageType.ALL.getFlag(), MessageConsole.getMessageFlag());
 	}
 
 	@Test
 	public void test_QuietMsgOptions() throws IllegalStateException {
+		MessageConsole.deActivateAll();
+		MessageConsole.activate(MessageType.ERROR);
+
 		ApoCliParser cli = ApoCliParser.defaultParser();
 		MessageOptions mo = new MessageOptions();
 		cli.getOptions().addAllOptions(mo.getAllOptions());
@@ -137,6 +163,6 @@ public class Test_MessageOptions {
 		cli.parse(args);
 
 		mo.setMessageMode();
-		assertEquals(0, mo.getMessageMode());
+		assertEquals(MessageType.NONE.getFlag(), MessageConsole.getMessageFlag());
 	}
 }

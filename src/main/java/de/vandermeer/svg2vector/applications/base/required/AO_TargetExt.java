@@ -84,18 +84,23 @@ public class AO_TargetExt extends Abstract_TypedC<SvgTargets> {
 		String str = value.toString();
 
 		if(StringUtils.isBlank(str)){
-			return Templates_Target.TARGET_BLANK.getError(this.getClass().getSimpleName());
+			return Templates_Target.TARGET_BLANK.getError();
 		}
 		try{
 			this.cliValue = SvgTargets.valueOf(str);
 		}
 		catch(IllegalArgumentException iaEx){
-			return Templates_Target.NOT_UNKNOWN.getError(this.getClass().getSimpleName(), str, new StrBuilder().appendWithSeparators(supportedTargets, ", "));
+			return Templates_Target.NOT_UNKNOWN.getError(str, new StrBuilder().appendWithSeparators(supportedTargets, ", "));
 		}
 		if(!ArrayUtils.contains(this.getSupportedTargets(), this.cliValue)){
-			return Templates_Target.NOT_UNKNOWN.getError(this.getClass().getSimpleName(), str, new StrBuilder().appendWithSeparators(supportedTargets, ", "));
+			return Templates_Target.NOT_UNKNOWN.getError(str, new StrBuilder().appendWithSeparators(supportedTargets, ", "));
 		}
 		return null;
+	}
+
+	@Override
+	public String valueType() {
+		return "SvgTargets";
 	}
 
 }

@@ -238,7 +238,7 @@ public final class OutputOptions extends CliOptionPackage {
 			if(this.aoFileOut.inCli()){
 				// first check the output file name
 				if(StringUtils.isBlank(this.aoFileOut.getCliValue())){
-					throw new ApplicationException(Templates_OutputFile.FN_BLANK, this.getClass().getSimpleName(), "output");
+					throw new ApplicationException(Templates_OutputFile.FN_BLANK, "output");
 				}
 				file = FileSystems.getDefault().getPath(
 						StringUtils.substringBeforeLast(this.aoFileOut.getCliValue(), "." + target.name())
@@ -312,7 +312,6 @@ public final class OutputOptions extends CliOptionPackage {
 				if(file.getName().contains("." + target.name()) && !this.createDirs()){
 					throw new ApplicationException(
 							Templates_OutputDirectory.DIR_EXIST_NOOVERWRITE,
-							this.getClass().getSimpleName(),
 							"output",
 							directory.toString(),
 							target.name(),
@@ -338,7 +337,6 @@ public final class OutputOptions extends CliOptionPackage {
 		if(StringUtils.compare(pIn.toString(), out.toString())==0){
 			throw new ApplicationException(
 					Templates_OutputFile.FN_SAMEAS_INFN,
-					this.getClass().getSimpleName(),
 					"output",
 					pIn.toFile(),
 					"input",
@@ -371,15 +369,15 @@ public final class OutputOptions extends CliOptionPackage {
 			File dirFile = testDir.toFile();
 			if(dirFile.exists()){
 				if(!dirFile.isDirectory()){
-					throw new ApplicationException(Templates_OutputDirectory.DIR_NOTDIR, this.getClass().getSimpleName(), "output", testDir.toString());
+					throw new ApplicationException(Templates_OutputDirectory.DIR_NOTDIR, "output", testDir.toString());
 				}
 				else if(!dirFile.canWrite()){
-					throw new ApplicationException(Templates_OutputDirectory.DIR_CANT_WRITE, this.getClass().getSimpleName(), "output", testDir.toString());
+					throw new ApplicationException(Templates_OutputDirectory.DIR_CANT_WRITE, "output", testDir.toString());
 				}
 			}
 			else{
 				if(!this.aoCreateDirs.inCli()){
-					throw new ApplicationException(Templates_OutputDirectory.DIR_EXIST_NOOVERWRITE, this.getClass().getSimpleName(), "output", testDir.toString(), this.aoCreateDirs.getCliLong());
+					throw new ApplicationException(Templates_OutputDirectory.DIR_EXIST_NOOVERWRITE, "output", testDir.toString(), this.aoCreateDirs.getCliLong());
 				}
 			}
 		}
@@ -388,12 +386,11 @@ public final class OutputOptions extends CliOptionPackage {
 			File fileFile = testFile.toFile();
 			if(fileFile.exists()){
 				if(fileFile.isDirectory()){
-					throw new ApplicationException(Templates_OutputFile.FILE_IS_DIRECTORY, this.getClass().getSimpleName(), "output", fileFile.toString());
+					throw new ApplicationException(Templates_OutputFile.FILE_IS_DIRECTORY, "output", fileFile.toString());
 				}
 				else if(!this.aoOverwriteExisting.inCli()){
 					throw new ApplicationException(
 							Templates_OutputFile.FILE_EXIST_NOOVERWRITE,
-							this.getClass().getSimpleName(),
 							"output",
 							fileFile.toString(),
 							this.aoOverwriteExisting.getCliLong()
@@ -402,7 +399,6 @@ public final class OutputOptions extends CliOptionPackage {
 				else if(!fileFile.canWrite()){
 					throw new ApplicationException(
 							Templates_OutputFile.FILE_CANT_WRITE,
-							this.getClass().getSimpleName(),
 							"output",
 							fileFile.toString()
 					);

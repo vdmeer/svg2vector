@@ -78,20 +78,20 @@ public class S2VErrorCodes extends AbstractAppliction {
 	}
 
 	@Override
-	public String getAppDescription() {
+	public String getDescription() {
 		return "Simply prints a list of all S2V application error codes for reference";
 	}
 
 	@Override
-	public String getAppDisplayName(){
+	public String getDisplayName(){
 		return APP_DISPLAY_NAME;
 	}
 
-	/**
-	 * Returns a sorted map of all error codes.
-	 * @param category an optional category to select error codes for
-	 * @return sorted map, empty if no error codes found
-	 */
+//	/**
+//	 * Returns a sorted map of all error codes.
+//	 * @param category an optional category to select error codes for
+//	 * @return sorted map, empty if no error codes found
+//	 */
 //	protected TreeMap<Integer, ErrorCodes> ecMap(EC_Categories category){
 //		TreeMap<Integer, ErrorCodes> ecMap = new TreeMap<>();
 //		for(ErrorCodes ec : ErrorCodes.values()){
@@ -103,19 +103,19 @@ public class S2VErrorCodes extends AbstractAppliction {
 //	}
 
 	@Override
-	public String getAppName() {
+	public String getName() {
 		return APP_NAME;
 	}
 
 	@Override
-	public String getAppVersion() {
+	public String getVersion() {
 		return APP_VERSION;
 	}
 
-	/**
-	 * Returns a sorted map of all categories.
-	 * @return sorted map
-	 */
+//	/**
+//	 * Returns a sorted map of all categories.
+//	 * @return sorted map
+//	 */
 //	protected TreeMap<Integer, EC_Categories> catMap(){
 //		TreeMap<Integer, EC_Categories> catMap = new TreeMap<>();
 //		for(EC_Categories cat : EC_Categories.values()){

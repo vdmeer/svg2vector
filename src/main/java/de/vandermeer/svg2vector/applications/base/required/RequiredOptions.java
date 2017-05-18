@@ -67,19 +67,19 @@ public final class RequiredOptions extends CliOptionPackage {
 		Validate.notNull(loader);
 
 		if(StringUtils.isBlank(this.aoFileIn.getCliValue())){
-			throw new ApplicationException(Templates_InputFile.FN_BLANK, this.getClass().getSimpleName(), "input");
+			throw new ApplicationException(Templates_InputFile.FN_BLANK, "input");
 		}
 
 		String fileName = this.aoFileIn.getValue();
 		File testFD = new File(fileName);
 		if(!testFD.exists()){
-			throw new ApplicationException(Templates_InputFile.FILE_NOTEXIST, this.getClass().getSimpleName(), "input", fileName);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTEXIST, "input", fileName);
 		}
 		if(!testFD.isFile()){
-			throw new ApplicationException(Templates_InputFile.FILE_NOTFILE, this.getClass().getSimpleName(), "input", fileName);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTFILE, "input", fileName);
 		}
 		if(!testFD.canRead()){
-			throw new ApplicationException(Templates_InputFile.FILE_CANT_READ, this.getClass().getSimpleName(), "input", fileName);
+			throw new ApplicationException(Templates_InputFile.FILE_CANT_READ, "input", fileName);
 		}
 		this.fileName = fileName;
 		loader.load(fileName);

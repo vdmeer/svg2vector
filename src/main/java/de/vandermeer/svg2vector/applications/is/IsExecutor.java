@@ -72,17 +72,17 @@ public class IsExecutor {
 	 */
 	public IsExecutor(String isExec, final boolean simulate) throws ApplicationException {
 		if(StringUtils.isBlank(isExec)){
-			throw new ApplicationException(Templates_InputFile.FN_BLANK, this.getClass().getSimpleName(), "Inkscape executable"); 
+			throw new ApplicationException(Templates_InputFile.FN_BLANK, "Inkscape executable"); 
 		}
 		File testFD = new File(isExec);
 		if(!testFD.exists()){
-			throw new ApplicationException(Templates_InputFile.FILE_NOTEXIST, this.getClass().getSimpleName(), "Inkscape executable", isExec);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTEXIST, "Inkscape executable", isExec);
 		}
 		if(!testFD.isFile()){
-			throw new ApplicationException(Templates_InputFile.FILE_NOTFILE, this.getClass().getSimpleName(), "Inkscape executable", isExec);
+			throw new ApplicationException(Templates_InputFile.FILE_NOTFILE, "Inkscape executable", isExec);
 		}
 		if(!testFD.canExecute()){
-			throw new ApplicationException(Templates_InputFile.FILE_CANT_EXECUTE, this.getClass().getSimpleName(), "Inkscape executable", isExec);
+			throw new ApplicationException(Templates_InputFile.FILE_CANT_EXECUTE, "Inkscape executable", isExec);
 		}
 
 		this.cmd = new StrBuilder();
@@ -179,13 +179,13 @@ public class IsExecutor {
 		}
 		catch (IOException e) {
 			throw new ApplicationException(
-					Templates_ExceptionRuntimeUnexpected.U_IO, this.getClass().getSimpleName(),
+					Templates_ExceptionRuntimeUnexpected.U_IO,
 					"exec", "executing Inkscape", e.getMessage()
 			);
 		}
 		catch (InterruptedException e) {
 			throw new ApplicationException(
-					Templates_ExceptionRuntimeUnexpected.U_INTERRUPTED, this.getClass().getSimpleName(),
+					Templates_ExceptionRuntimeUnexpected.U_INTERRUPTED,
 					"exec", "executing Inkscape", e.getMessage()
 			);
 		}

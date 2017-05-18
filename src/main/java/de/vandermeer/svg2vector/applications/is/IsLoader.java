@@ -63,11 +63,11 @@ public class IsLoader extends SV_DocumentLoader {
 				this.isLoaded = true;
 			}
 			catch(ZipException exZip){
-				new ApplicationException(Templates_InputFile.ZIP_EXCEPTION_READING, this.getClass().getSimpleName(), "input", fn, exZip.getMessage());
+				new ApplicationException(Templates_InputFile.ZIP_EXCEPTION_READING, "input", fn, exZip.getMessage());
 			}
 			catch(IOException exIO){
 				this.lines = null;
-				throw new ApplicationException(Templates_InputFile.IO_EXCEPTION_READING, this.getClass().getSimpleName(), "input", fn, exIO.getMessage());
+				throw new ApplicationException(Templates_InputFile.IO_EXCEPTION_READING, "input", fn, exIO.getMessage());
 			}
 		}
 
@@ -84,11 +84,11 @@ public class IsLoader extends SV_DocumentLoader {
 			}
 			catch(FileNotFoundException e){
 				this.lines = null;
-				throw new ApplicationException(Templates_InputFile.FILE_NOT_FOUND, this.getClass().getSimpleName(), "plain SVG input", fn, e.getMessage());
+				throw new ApplicationException(Templates_InputFile.FILE_NOT_FOUND, "plain SVG input", fn, e.getMessage());
 			}
 			catch(IOException e){
 				this.lines = null;
-				throw new ApplicationException(Templates_InputFile.IO_EXCEPTION_READING, this.getClass().getSimpleName(), "plain SVG input", fn, e.getMessage());
+				throw new ApplicationException(Templates_InputFile.IO_EXCEPTION_READING, "plain SVG input", fn, e.getMessage());
 			}
 		}
 

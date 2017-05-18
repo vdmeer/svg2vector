@@ -61,8 +61,9 @@ public class Test_AppBase {
 	@Test
 	public void test_AddedOptions(){
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		assertEquals(18, testApp.getCliParser().getOptions().getSimpleSet().size());
@@ -74,8 +75,9 @@ public class Test_AppBase {
 	@Test
 	public void test_Usage(){
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
@@ -88,8 +90,9 @@ public class Test_AppBase {
 	@Test
 	public void test_Version(){
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
@@ -102,8 +105,9 @@ public class Test_AppBase {
 	@Test
 	public void test_Init_Error_Target() throws ApplicationException{
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", new SvgTargets[]{SvgTargets.pdf}, new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
@@ -118,8 +122,9 @@ public class Test_AppBase {
 	@Test
 	public void test_Init_Error_Input() throws ApplicationException{
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
@@ -139,8 +144,9 @@ public class Test_AppBase {
 	@Test
 	public void test_Init_Error_Output() throws ApplicationException{
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{
@@ -160,8 +166,9 @@ public class Test_AppBase {
 	@Test
 	public void test_Init_Good() throws ApplicationException{
 		AppBase<IsLoader> testApp = new AppBase<IsLoader>("test-app", SvgTargets.values(), new IsLoader()) {
-			@Override public String getAppDescription() {return "app for testing";}
-			@Override public String getAppVersion() {return "0.0.0";}
+			@Override public String getDescription() {return "app for testing";}
+			@Override public String getVersion() {return "0.0.0";}
+			@Override public String getDisplayName() {return "Test App";}
 			@Override public void runApplication(){}
 		};
 		String[] args = new String[]{

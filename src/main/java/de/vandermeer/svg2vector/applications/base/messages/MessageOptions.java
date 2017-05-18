@@ -15,6 +15,8 @@
 
 package de.vandermeer.svg2vector.applications.base.messages;
 
+import de.vandermeer.skb.interfaces.MessageType;
+import de.vandermeer.skb.interfaces.console.MessageConsole;
 import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
 
 /**
@@ -25,24 +27,6 @@ import de.vandermeer.svg2vector.applications.core.CliOptionPackage;
  * @since      v2.1.0
  */
 public final class MessageOptions extends CliOptionPackage {
-
-	/** Print option quiet. */
-	public final static int OPTION_QUIET = 0b000;
-
-	/** Print option error. */
-	public final static int OPTION_ERROR = 0b0001;
-
-	/** Print option warning. */
-	public final static int OPTION_WARNING = 0b0010;
-
-	/** Print option progress. */
-	public final static int OPTION_PROGRESS = 0b0100;
-
-	/** Print option details. */
-	public final static int OPTION_DEAILS = 0b1000;
-
-	/** Print option verbose. */
-	public final static int OPTION_VERBOSE = OPTION_ERROR | OPTION_WARNING | OPTION_PROGRESS | OPTION_DEAILS;
 
 	/** Application option for verbose mode. */
 	private final AO_VerboseExt optVerbose = new AO_VerboseExt();
@@ -62,9 +46,6 @@ public final class MessageOptions extends CliOptionPackage {
 	/** Application option to switch off error messages. */
 	private final AO_NoErrors optNoErrors = new AO_NoErrors();
 
-	/** Message mode for the application, 0 is quiet, all other values are generated using message type bit masks. */
-	private int msgMode = OPTION_ERROR;
-
 	/**
 	 * Creates a new message options object with application options loaded.
 	 */
@@ -80,37 +61,29 @@ public final class MessageOptions extends CliOptionPackage {
 	}
 
 	/**
-	 * Returns the message mode, default if not set.
-	 * @return message mode
-	 */
-	public int getMessageMode(){
-		return this.msgMode;
-	}
-
-	/**
 	 * Sets the message mode, requires the options to be set with CLI values.
 	 */
 	public void setMessageMode(){
 		if(this.optQuiet.inCli()){
-			this.msgMode = OPTION_QUIET;
+			MessageConsole.deActivateAll();
 			return;
 		}
 		if(this.optVerbose.inCli()){
-			this.msgMode = OPTION_VERBOSE;
+			MessageConsole.activateAll();
 			return;
 		}
 
 		if(this.optMsgProgress.inCli()){
-			this.msgMode = this.msgMode | OPTION_PROGRESS;
+			MessageConsole.activate(MessageType.TRACE);
 		}
 		if(this.optMsgWarning.inCli()){
-			this.msgMode = this.msgMode | OPTION_WARNING;
+			MessageConsole.activate(MessageType.WARNING);
 		}
 		if(this.optMsgDetail.inCli()){
-			this.msgMode = this.msgMode | OPTION_DEAILS;
+			MessageConsole.activate(MessageType.DEBUG);
 		}
 		if(this.optNoErrors.inCli()){
-			this.msgMode = this.msgMode &= ~OPTION_ERROR;
+			MessageConsole.deActivate(MessageType.ERROR);
 		}
 	}
 }

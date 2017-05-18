@@ -24,7 +24,9 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.StrBuilder;
 
+import de.vandermeer.skb.interfaces.MessageType;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.console.MessageConsole;
 import de.vandermeer.skb.interfaces.messages.errors.Templates_ExceptionRuntimeUnexpected;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -97,22 +99,22 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 	}
 
 	@Override
-	public String getAppDescription() {
+	public String getDescription() {
 		return "Converts SVG graphics into other vector formats using Inkscape, with options for handling layers";
 	}
 
 	@Override
-	public String getAppDisplayName(){
+	public String getDisplayName(){
 		return APP_DISPLAY_NAME;
 	}
 
 	@Override
-	public String getAppName() {
+	public String getName() {
 		return APP_NAME;
 	}
 
 	@Override
-	public String getAppVersion() {
+	public String getVersion() {
 		return APP_VERSION;
 	}
 
@@ -128,7 +130,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 
 			final String isFn = this.optionInkscapeExec.getValue();
 			final IsExecutor isCmd = new IsExecutor(isFn, this.getMiscOptions().doesSimulate());
-			this.printDetailMessage("Inkscape exec:    " + isFn);
+			MessageConsole.con(MessageType.DEBUG, "Inkscape exec:    " + isFn);
 
 			isCmd.appendCmd(this.getConversionOptions());
 			isCmd.appendCmd(target);
@@ -141,14 +143,14 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 			final IsLoader loader = this.getLoader();
 
 			if(this.optionSvgFirst.inCli()){
-				this.printProgressMessage("converting to temporary SVG first");
+				MessageConsole.con(MessageType.TRACE, "converting to temporary SVG first");
 
 				final IsExecutor isTmpCmd = new IsExecutor(isFn, this.getMiscOptions().doesSimulate());
 				isCmd.appendCmd(this.getConversionOptions());
 				isTmpCmd.appendCmd(SvgTargets.svg);
 				if(this.doesLayers()){
 					if(this.optionManualLayers.inCli()){
-						this.printDetailMessage("creating <" + loader.getLayers().size() + "> temporary SVGfiles (manual layer handling)");
+						MessageConsole.con(MessageType.DEBUG, "creating <" + loader.getLayers().size() + "> temporary SVGfiles (manual layer handling)");
 						int index = 1;
 						for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 							loader.switchOffAllLayers();
@@ -158,77 +160,77 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 						}
 					}
 					else{
-						this.printDetailMessage("creating <" + loader.getLayers().size() + "> temporary SVGfiles (Inkscape layer handling)");
+						MessageConsole.con(MessageType.DEBUG, "creating <" + loader.getLayers().size() + "> temporary SVGfiles (Inkscape layer handling)");
 						int index = 1;
 						for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 							fnOut = this.fopFileOnly(index, entry);
 							String nodeId = "layer" + entry.getValue().toString();
 							IsExecutor nodeCmd = new IsExecutor(isTmpCmd);
 							nodeCmd.appendSelectedNode(nodeId);
-							this.printDetailMessage(" -- using cmd: " + nodeCmd);
+							MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + nodeCmd);
 							tmpArtifacts.createTempFile(nodeCmd, fnIn, fnOut);
 							index++;
 						}
 					}
 				}
 				else{
-					this.printProgressMessage("single temporary file");
-					this.printDetailMessage(" -- using cmd: " + isTmpCmd);
+					MessageConsole.con(MessageType.TRACE, "single temporary file");
+					MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + isTmpCmd);
 					tmpArtifacts.createTempFile(isTmpCmd, fnIn, "999");//TODO fout name
 				}
 			}
 			if(tmpArtifacts.sizeSimulated()>0){
-				this.printDetailMessage(" created <" + tmpArtifacts.sizeSimulated() + "> temporary file(s): \n      -- " + new StrBuilder().appendWithSeparators(tmpArtifacts.getSimulatedTmpFileList(), "\n      -- "));
-				this.printDetailMessage("");
+				MessageConsole.con(MessageType.DEBUG, " created <" + tmpArtifacts.sizeSimulated() + "> temporary file(s): \n      -- " + new StrBuilder().appendWithSeparators(tmpArtifacts.getSimulatedTmpFileList(), "\n      -- "));
+				MessageConsole.con(MessageType.DEBUG, "");
 			}
 			else if(tmpArtifacts.size()>0){
-				this.printDetailMessage(" created <" + tmpArtifacts.size() + "> temporary file(s): \n      -- " + new StrBuilder().appendWithSeparators(tmpArtifacts.getTmpFileList(), "\n      -- "));
-				this.printDetailMessage("");
+				MessageConsole.con(MessageType.DEBUG, " created <" + tmpArtifacts.size() + "> temporary file(s): \n      -- " + new StrBuilder().appendWithSeparators(tmpArtifacts.getTmpFileList(), "\n      -- "));
+				MessageConsole.con(MessageType.DEBUG, "");
 			}
 
 			if(tmpArtifacts.size()>=2){
 				// multiple temporary files, means layers
-				this.printProgressMessage("converting multiple temporary SVG files to target");
-				this.printDetailMessage(" -- using cmd: " + isCmd);
+				MessageConsole.con(MessageType.TRACE, "converting multiple temporary SVG files to target");
+				MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + isCmd);
 				for(Path path : tmpArtifacts.getTmpFileList()){
 					fnOut = this.fopOO(path.getFileName());
-					this.printDetailMessage(" ---- input:  " + path);
-					this.printDetailMessage(" ---- output: " + fnOut);
+					MessageConsole.con(MessageType.DEBUG, " ---- input:  " + path);
+					MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
 					isCmd.executeInkscape(path.toString(), fnOut);
 				}
 			}
 			else if(tmpArtifacts.size()==1){
 				// single temporary file, means single SVG file
 				fnOut = this.fopOO();
-				this.printProgressMessage("converting single temporary SVG file to target");
-				this.printDetailMessage(" -- using cmd: " + isCmd);
-				this.printDetailMessage(" ---- input:  " + tmpArtifacts.getTmpFileList().get(0));
-				this.printDetailMessage(" ---- output: " + fnOut);
+				MessageConsole.con(MessageType.TRACE, "converting single temporary SVG file to target");
+				MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + isCmd);
+				MessageConsole.con(MessageType.DEBUG, " ---- input:  " + tmpArtifacts.getTmpFileList().get(0));
+				MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
 				isCmd.executeInkscape(tmpArtifacts.getTmpFileList().get(0).toString(), fnOut);
 			}
 			else{
 				// no temporary files, means direct conversion
 				if(this.doesLayers()){
-					this.printProgressMessage("converting <" + loader.getLayers().size() + "> layers directly to target");
+					MessageConsole.con(MessageType.TRACE, "converting <" + loader.getLayers().size() + "> layers directly to target");
 					int index = 1;
 					for(final Entry<String, Integer> entry : loader.getLayers().entrySet()){
 						fnOut = this.fopOO(index, entry);
 						String nodeId = "layer" + entry.getValue().toString();
 						IsExecutor nodeCmd = new IsExecutor(isCmd);
 						nodeCmd.appendSelectedNode(nodeId);
-						this.printDetailMessage(" -- using cmd: " + nodeCmd);
-						this.printDetailMessage(" ---- input:  " + fnIn);
-						this.printDetailMessage(" ---- output: " + fnOut);
+						MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + nodeCmd);
+						MessageConsole.con(MessageType.DEBUG, " ---- input:  " + fnIn);
+						MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
 						nodeCmd.executeInkscape(fnIn, fnOut);
 						index++;
 					}
 				}
 				else{
 					fnOut = this.fopOO();
-					this.printProgressMessage("converting single file directly to target");
-					this.printDetailMessage(" -- using cmd: " + isCmd);
-					this.printDetailMessage(" ---- input:  " + fnIn);
-					this.printDetailMessage(" ---- output: " + fnOut);
+					MessageConsole.con(MessageType.TRACE, "converting single file directly to target");
+					MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + isCmd);
+					MessageConsole.con(MessageType.DEBUG, " ---- input:  " + fnIn);
+					MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
 					isCmd.executeInkscape(fnIn, fnOut);
 				}
 			}
@@ -238,16 +240,18 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 			}
 		}
 		catch(ApplicationException s2vEx){
-			this.printErrorMessage(s2vEx);
-			this.errNo = s2vEx.getErrorCode();
+			MessageConsole.con(s2vEx);
+			this.getMsgManager().setErrNo(s2vEx.getErrorCode());
 		}
 		catch(NullPointerException npEx){
-			this.printErrorMessage(npEx);
-			this.errNo = Templates_ExceptionRuntimeUnexpected.U_NULL_POINTER.getCode();//TODO
+			MessageConsole.con(npEx);
+			//TODO
+			this.getMsgManager().setErrNo(Templates_ExceptionRuntimeUnexpected.U_NULL_POINTER.getCode());
 		}
 		catch(IOException ioEx){
-			this.printErrorMessage(ioEx);
-			this.errNo = Templates_ExceptionRuntimeUnexpected.U_IO.getCode();//TODO
+			MessageConsole.con(ioEx);
+			//TODO
+			this.getMsgManager().setErrNo(Templates_ExceptionRuntimeUnexpected.U_IO.getCode());
 		}
 		finally{
 			// remove temp artifacts if object exists and we can delete them
@@ -258,7 +262,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 			}
 		}
 
-		this.printProgressMessage("finished successfully");
+		MessageConsole.con(MessageType.TRACE, "finished successfully");//TODO
 	}
 
 	/**
@@ -293,7 +297,10 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 				warnings.add("no layers processed but CLI option <" + this.optionManualLayers.getCliLong() + ignored);
 			}
 		}
-		this.printWarnings(warnings);
+
+		for(String warning : warnings){
+			MessageConsole.con(MessageType.WARNING, warning);
+		}
 	}
 
 }

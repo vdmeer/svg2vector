@@ -120,7 +120,6 @@ public class BatikLoader extends SV_DocumentLoader {
 				this.svgDocument = null;
 				throw new ApplicationException(
 						Templates_InputFile.EXCEPTION_LOADING,
-						this.getClass().getSimpleName(),
 						"SVG",
 						fn,
 						ex.getMessage());
@@ -138,7 +137,6 @@ public class BatikLoader extends SV_DocumentLoader {
 				this.size = null;
 				throw new ApplicationException(
 						Templates_ExceptionRuntimeUnexpected.U_EXCEPTION,
-						this.getClass().getSimpleName(),
 						"load",
 						"loading SVG document",
 						ex.getMessage()

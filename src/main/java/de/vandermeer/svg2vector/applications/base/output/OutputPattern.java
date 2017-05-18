@@ -170,14 +170,12 @@ public final class OutputPattern {
 		if(test.startsWith(".")){
 			throw new ApplicationException(
 					Templates_OutputFile.FN_PATTERN_ONLY_EXT,
-					this.getClass().getSimpleName(),
 					test
 			);
 		}
 		if(test.contains(File.separator + ".")){
 			throw new ApplicationException(
 					Templates_OutputFile.FN_PATTERN_ONLY_DIREXT,
-					this.getClass().getSimpleName(),
 					test
 			);
 		}

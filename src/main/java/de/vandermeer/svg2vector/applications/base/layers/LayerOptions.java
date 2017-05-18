@@ -183,10 +183,7 @@ public final class LayerOptions extends CliOptionPackage {
 	public void setOptions(boolean docHasLayers) throws ApplicationException{
 		if(this.aoLayers.inCli()){
 			if(!docHasLayers){
-				throw new ApplicationException(
-						Templates_Source.NO_LAYERS,
-						this.getClass().getSimpleName()
-				);
+				throw new ApplicationException(Templates_Source.NO_LAYERS);
 			}
 			else{
 				this.doLayers = true;

@@ -24,7 +24,9 @@ import java.util.Set;
 
 import org.freehep.graphicsbase.util.UserProperties;
 
+import de.vandermeer.skb.interfaces.MessageType;
 import de.vandermeer.skb.interfaces.application.ApplicationException;
+import de.vandermeer.skb.interfaces.console.MessageConsole;
 import de.vandermeer.skb.interfaces.messages.errors.Templates_ExceptionRuntimeUnexpected;
 import de.vandermeer.svg2vector.applications.base.AppBase;
 import de.vandermeer.svg2vector.applications.core.SvgTargets;
@@ -107,22 +109,22 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 	}
 
 	@Override
-	public String getAppDescription() {
+	public String getDescription() {
 		return "Converts SVG graphics into other vector formats using FreeHep libraries, with options for handling layers";
 	}
 
 	@Override
-	public String getAppDisplayName(){
+	public String getDisplayName(){
 		return APP_DISPLAY_NAME;
 	}
 
 	@Override
-	public String getAppName() {
+	public String getName() {
 		return APP_NAME;
 	}
 
 	@Override
-	public String getAppVersion() {
+	public String getVersion() {
 		return APP_VERSION;
 	}
 
@@ -135,8 +137,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 
 			FhConverter converter = TARGET_2_CONVERTER(target);
 			if(converter==null){
-				this.printErrorMessage("no converter found for target <" + target.name() + ">");
-				this.errNo = -20;//TODO
+				MessageConsole.con(MessageType.ERROR, "no converter found for target <" + target.name() + ">");//TODO ISERROR
 			}
 
 			converter.setPropertyTransparent(!this.optionNotTransparent.inCli());
@@ -154,7 +155,7 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 				String key = it.next().toString();
 				String val = up.getProperty(key);
 				key=key.substring(key.lastIndexOf('.')+1, key.length());
-				this.printDetailMessage("using SVG property " + key + "=" + val);
+				MessageConsole.con(MessageType.DEBUG, "using SVG property " + key + "=" + val);
 			}
 
 			BatikLoader loader = this.getLoader();
@@ -163,9 +164,9 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 				for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 					loader.switchOffAllLayers();
 					loader.switchOnLayer(entry.getKey());
-					this.printProgressMessage("processing layer " + entry.getKey());
+					MessageConsole.con(MessageType.TRACE, "processing layer " + entry.getKey());
 					String fout = this.fopOO(index, entry);
-					this.printDetailMessage("writing to file " + fout);
+					MessageConsole.con(MessageType.DEBUG, "writing to file " + fout);
 					if(!this.getMiscOptions().doesSimulate()){
 						converter.convertDocument(loader, new File(fout));
 					}
@@ -173,27 +174,28 @@ public class Svg2Vector_FH extends AppBase<BatikLoader> {
 				}
 			}
 			else{
-				this.printProgressMessage("converting input");
+				MessageConsole.con(MessageType.TRACE, "converting input");
 				String fout = this.fopOO();
-				this.printDetailMessage("writing to file " + fout);
+				MessageConsole.con(MessageType.DEBUG, "writing to file " + fout);
 				if(!this.getMiscOptions().doesSimulate()){
 					converter.convertDocument(loader, new File(fout));
 				}
 			}
 
-			this.printProgressMessage("finished successfully");
+			MessageConsole.con(MessageType.TRACE, "finished successfully");
 		}
 		catch(ApplicationException s2vEx){
-			this.printErrorMessage(s2vEx);
-			this.errNo = s2vEx.getErrorCode();
+			MessageConsole.con(s2vEx);
+			this.getMsgManager().setErrNo(s2vEx.getErrorCode());
 		}
 		catch(NullPointerException npEx){
-			this.printErrorMessage(npEx);
-			this.errNo = Templates_ExceptionRuntimeUnexpected.U_NULL_POINTER.getCode();
+			MessageConsole.con(npEx);
+			//TODO
+			this.getMsgManager().setErrNo(Templates_ExceptionRuntimeUnexpected.U_NULL_POINTER.getCode());
 		}
 		catch(IOException ioEx){
-			this.printErrorMessage(ioEx);
-			this.errNo = Templates_ExceptionRuntimeUnexpected.U_IO.getCode();
+			MessageConsole.con(ioEx);
+			this.getMsgManager().setErrNo(Templates_ExceptionRuntimeUnexpected.U_IO.getCode());
 		}
 	}
 }
