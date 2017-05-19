@@ -43,9 +43,9 @@ public class Test_Svg2Vector_IS {
 
 	/** Standard CLI options for tests. */
 	public static String[] STD_OPTIONS = new String[]{
-			"--create-directories", "--overwrite-existing", "--all-layers", "-q",
+			"--create-directories", "--overwrite-existing", "--all-layers", "-v",
 			"-x", FAKE_EXEC,
-//			"-x", "C:/Program Files/Inkscape/inkscape.exe",
+//			"-x", "C:\\Program Files\\Inkscape\\inkscape.exe",
 			"--simulate"
 	};
 

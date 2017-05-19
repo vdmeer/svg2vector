@@ -37,7 +37,7 @@ import de.vandermeer.svg2vector.applications.is.AO_InkscapeExecutable;
 import de.vandermeer.svg2vector.applications.is.AO_KeepTmpArtifacts;
 import de.vandermeer.svg2vector.applications.is.AO_ManualLayers;
 import de.vandermeer.svg2vector.applications.is.AO_SvgFirst;
-import de.vandermeer.svg2vector.applications.is.IsExecutor;
+import de.vandermeer.svg2vector.applications.is.InkscapeExecutor;
 import de.vandermeer.svg2vector.applications.is.IsLoader;
 import de.vandermeer.svg2vector.applications.is.TmpArtefacts;
 
@@ -129,7 +129,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 			this.setWarnings(target);
 
 			final String isFn = this.optionInkscapeExec.getValue();
-			final IsExecutor isCmd = new IsExecutor(isFn, this.getMiscOptions().doesSimulate());
+			final InkscapeExecutor isCmd = new InkscapeExecutor(isFn, this.getMiscOptions().doesSimulate());
 			MessageConsole.con(MessageType.DEBUG, "Inkscape exec:    " + isFn);
 
 			isCmd.appendCmd(this.getConversionOptions());
@@ -145,7 +145,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 			if(this.optionSvgFirst.inCli()){
 				MessageConsole.con(MessageType.TRACE, "converting to temporary SVG first");
 
-				final IsExecutor isTmpCmd = new IsExecutor(isFn, this.getMiscOptions().doesSimulate());
+				final InkscapeExecutor isTmpCmd = new InkscapeExecutor(isFn, this.getMiscOptions().doesSimulate());
 				isCmd.appendCmd(this.getConversionOptions());
 				isTmpCmd.appendCmd(SvgTargets.svg);
 				if(this.doesLayers()){
@@ -165,7 +165,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 						for(Entry<String, Integer> entry : loader.getLayers().entrySet()){
 							fnOut = this.fopFileOnly(index, entry);
 							String nodeId = "layer" + entry.getValue().toString();
-							IsExecutor nodeCmd = new IsExecutor(isTmpCmd);
+							InkscapeExecutor nodeCmd = new InkscapeExecutor(isTmpCmd);
 							nodeCmd.appendSelectedNode(nodeId);
 							MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + nodeCmd);
 							tmpArtifacts.createTempFile(nodeCmd, fnIn, fnOut);
@@ -196,7 +196,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 					fnOut = this.fopOO(path.getFileName());
 					MessageConsole.con(MessageType.DEBUG, " ---- input:  " + path);
 					MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
-					isCmd.executeInkscape(path.toString(), fnOut);
+					isCmd.runCommand(path.toString(), fnOut);
 				}
 			}
 			else if(tmpArtifacts.size()==1){
@@ -206,7 +206,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 				MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + isCmd);
 				MessageConsole.con(MessageType.DEBUG, " ---- input:  " + tmpArtifacts.getTmpFileList().get(0));
 				MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
-				isCmd.executeInkscape(tmpArtifacts.getTmpFileList().get(0).toString(), fnOut);
+				isCmd.runCommand(tmpArtifacts.getTmpFileList().get(0).toString(), fnOut);
 			}
 			else{
 				// no temporary files, means direct conversion
@@ -216,12 +216,12 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 					for(final Entry<String, Integer> entry : loader.getLayers().entrySet()){
 						fnOut = this.fopOO(index, entry);
 						String nodeId = "layer" + entry.getValue().toString();
-						IsExecutor nodeCmd = new IsExecutor(isCmd);
+						InkscapeExecutor nodeCmd = new InkscapeExecutor(isCmd);
 						nodeCmd.appendSelectedNode(nodeId);
 						MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + nodeCmd);
 						MessageConsole.con(MessageType.DEBUG, " ---- input:  " + fnIn);
 						MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
-						nodeCmd.executeInkscape(fnIn, fnOut);
+						nodeCmd.runCommand(fnIn, fnOut);
 						index++;
 					}
 				}
@@ -231,7 +231,7 @@ public class Svg2Vector_IS extends AppBase<IsLoader> {
 					MessageConsole.con(MessageType.DEBUG, " -- using cmd: " + isCmd);
 					MessageConsole.con(MessageType.DEBUG, " ---- input:  " + fnIn);
 					MessageConsole.con(MessageType.DEBUG, " ---- output: " + fnOut);
-					isCmd.executeInkscape(fnIn, fnOut);
+					isCmd.runCommand(fnIn, fnOut);
 				}
 			}
 

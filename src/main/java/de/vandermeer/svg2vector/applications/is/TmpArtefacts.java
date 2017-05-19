@@ -112,7 +112,7 @@ public class TmpArtefacts {
 	 * @throws IOException if the temporary file could not be created
 	 * @throws ApplicationException if Inkscape execution failed
 	 */
-	public void createTempFile(IsExecutor cmd, final String fin, String fout) throws IOException, ApplicationException {
+	public void createTempFile(InkscapeExecutor cmd, final String fin, String fout) throws IOException, ApplicationException {
 		Validate.notNull(this.tmpDir);
 		Validate.notNull(cmd);
 		Validate.notBlank(fin);
@@ -122,7 +122,7 @@ public class TmpArtefacts {
 		if(!this.simulate){
 			path = Files.createFile(path);
 			this.tmpFiles.add(path);
-			cmd.executeInkscape(fin, path.toString());
+			cmd.runCommand(fin, path.toString());
 		}
 		else{
 			this.tmpFilesSimulated.add(path);
