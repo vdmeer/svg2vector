@@ -124,8 +124,8 @@ public class BatikLoader extends SV_DocumentLoader {
 			String width_str;
 			String height_str;
 			try{
-				width_str = elem.getAttribute("width").replaceAll("pt$", "");
-				height_str = elem.getAttribute("height").replaceAll("pt$", "");
+				width_str = elem.getAttribute("width").replaceAll("[A-Za-z]$", "");
+				height_str = elem.getAttribute("height").replaceAll("[A-Za-z]$", "");
 				this.size.setSize(Double.valueOf(width_str), Double.valueOf(height_str));
 				elem.setAttribute("width", width_str);
 				elem.setAttribute("height", height_str);
