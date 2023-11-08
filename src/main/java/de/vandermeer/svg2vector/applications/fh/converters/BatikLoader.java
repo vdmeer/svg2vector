@@ -121,8 +121,14 @@ public class BatikLoader extends SV_DocumentLoader {
 
 			Element elem = this.svgDocument.getDocumentElement();
 			this.size = new Dimension();
+			String width_str;
+			String height_str;
 			try{
-				this.size.setSize(Double.valueOf(elem.getAttribute("width")), Double.valueOf(elem.getAttribute("height")));
+				width_str = elem.getAttribute("width").replaceAll("[A-Za-z]$", "");
+				height_str = elem.getAttribute("height").replaceAll("[A-Za-z]$", "");
+				this.size.setSize(Double.valueOf(width_str), Double.valueOf(height_str));
+				elem.setAttribute("width", width_str);
+				elem.setAttribute("height", height_str);
 			}
 			catch(Exception ex){
 				this.bridgeContext = null;
